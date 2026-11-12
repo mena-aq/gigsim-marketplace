@@ -7,17 +7,36 @@ dependencies = [
   "fastapi",
   "uvicorn[standard]",
   "pydantic",
+  "pydantic-settings",
   "pyyaml",
+  "sqlalchemy>=2.0",
+  "asyncpg",
+  "aiosqlite",
   "langgraph",
   "langchain",
   "langchain-mcp-adapters",
   "mcp",
   "httpx",
   "python-dotenv",
+  "pandas",
+  "kaggle",
+  "six",
+  "groq",
 ]
 
 [project.optional-dependencies]
 dev = ["pytest", "pytest-asyncio", "ruff", "mypy"]
 
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests", "gigsim/tests"]
+
+[tool.setuptools.packages.find]
+include = ["gigsim*"]
+
 [tool.ruff]
 line-length = 100
+
+[tool.ruff.lint]
+# B008: FastAPI's `Depends(...)` in defaults is the framework's intended pattern.
+ignore = ["B008"]
