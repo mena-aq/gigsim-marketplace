@@ -13,5 +13,7 @@ build/
 data/raw/
 data/processed/
 data/personas/
-evals/results/*
-!evals/results/.gitkeep
+
+AGENT.md
+GigBid_Assignment.md
+*.tsbuildinfo

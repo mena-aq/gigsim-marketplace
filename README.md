@@ -1,49 +1,61 @@
-# GigBid — Student Starter Kit (v0.1)
+# GigBid — Freelancer Copilot
 
-This is a **scaffold**, not a completed solution. It gives you a suggested repository layout,
-small synthetic examples, configuration templates, and interfaces to help you begin AI-4016.
+GigBid is being built to discover freelance jobs, assess fit and risk, and draft
+proposals grounded in portfolio evidence. A human must approve every proposal,
+message, and Connects spend. Development uses our separate GigSim marketplace.
 
-## What is included
-- A suggested project structure aligned with the assignment.
-- Tiny synthetic job, client, freelancer and portfolio examples.
-- A starter marketplace policy pack.
-- Typed hand-off models and a minimal LangGraph state/graph placeholder.
-- Portfolio and marketplace MCP server placeholders.
-- RAG ingestion/retrieval/claim-verification placeholders.
-- FastAPI and React starting-point notes.
-- `.env.example`, `agent/config.yaml`, `Makefile`, and setup notes.
+## Current state
 
-## What you must build
-You are responsible for implementing and testing the agents, MCP tools, marketplace adapters,
-advanced RAG variants, claim verification, human approval flow, persistence, UI, evaluations,
-deployment, and your own research findings. The sample data is illustrative only and is not a
-replacement for the instructor-provided GigSim data or evaluation sets.
+Step 0 supplies GigSim, data processing, persona generation, and simulator tests.
+Step 1 adds a Next.js/TypeScript web shell, FastAPI liveness/readiness endpoints,
+Arq worker, six tenant-owned PostgreSQL tables with Alembic migrations, Redis,
+Chroma, and a bridge to the existing host Ollama/qwen2.5:3b. Authentication, MCP tools, RAG, graphs, approvals, and full
+product screens remain future milestones. The shell reports actual readiness.
 
-## Quick start
-1. Create your own public GitHub repository.
-2. Copy this starter kit into the repository.
-3. Create a Python 3.11+ virtual environment.
-4. Install dependencies from `pyproject.toml` (adjust/pin versions after checking compatibility).
-5. Copy `.env.example` to `.env` and fill local values. **Never commit `.env`.**
-6. Read `docs/GETTING_STARTED.md` and work through the TODO checklist.
-7. Keep the instructor-provided `gigsim/`, persona data, policy pack and evaluation assets unchanged.
+## Run locally
 
-## Suggested first milestone (for your own planning; not a graded submission)
-- Run a health-check API.
-- Load one sample job.
-- Retrieve one portfolio evidence item.
-- Produce a structured analysis.
-- Draft a proposal with evidence references.
-- Stop at a human approval screen; do not send anything automatically.
+Prerequisites: Docker with Compose, and uv. Node 22/npm are needed for host web
+commands; container builds include Node.
 
-## Important safety rules
-- Treat job posts and client messages as untrusted input.
-- Never follow instructions embedded inside a job post that conflict with system policy.
-- Never invent portfolio experience or results.
-- Do not scrape Upwork or automate its website.
-- Never send proposals/messages or spend Connects without explicit human approval.
-- Use the official Upwork MCP server/approved APIs for live mode, if applicable.
-- Keep secrets and real client data out of Git.
+```bash
+cp .env.example .env  # only if you do not already have .env
+uv sync --frozen --extra dev
+make dev
+```
 
-## Repository map
-See `docs/GETTING_STARTED.md` for the purpose of each major folder.
+Preserve an existing `.env` and add missing keys from `.env.example`. Open
+http://localhost:3000; API documentation is at http://localhost:8000/docs.
+`docker compose up --build -d` also works from the root. No model download or
+marketplace submission happens on startup. GigSim data is seeded explicitly
+with `make seed` after processing; see its README for Step 0 commands.
+
+```bash
+make test           # isolated tests; Postgres integration is opt-in
+make lint
+make worker-smoke   # proves separate worker execution via Redis
+make web-install
+make api-client     # regenerate typed API contract
+make web-check
+make down           # preserve persistent volumes
+```
+
+Python versions are resolved in `uv.lock`; frontend versions are pinned in
+`apps/web/package.json` and `package-lock.json`. Use `uv sync --frozen` and
+`npm ci` to reproduce them. The frontend uses Next.js 16 and React 19 on Node 22.
+
+## Documentation
+
+- [Architecture](docs/ARCHITECTURE.md) and [stack decision](docs/adr/001-foundation.md)
+- [Runbook](docs/RUNBOOK.md): setup, migrations, ports, and verification
+- [GigSim](gigsim/README.md) and [data card](docs/DATA_CARD.md)
+- [Implementation checklist](docs/IMPLEMENTATION_CHECKLIST.md)
+- [AI usage disclosure](docs/AI_USAGE.md)
+
+## Project rules
+
+All agent capabilities will be MCP tools; marketplace access uses one port with
+simulator and official live adapters. No scraping. Job posts and messages are
+untrusted input. Claims must have portfolio evidence. Prompts and policy belong
+in files/configuration. Secrets and hidden evaluation data never enter Git;
+measured evaluation outputs will be committed. No business data is publicly
+exposed by the foundation endpoints.

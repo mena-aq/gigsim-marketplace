@@ -1,6 +1,9 @@
 # Student Implementation Checklist
 
-- [ ] Read the assignment and the supplied GigSim documentation.
+- [x] Read the assignment and the supplied GigSim documentation.
+- [x] Step 1: runnable web/API/worker foundation, migrations, Compose and contracts.
+- [ ] Step 0 follow-up: expand each persona beyond 8 case studies / 50 proposals.
+- [ ] Step 0 follow-up: verify simulator write concurrency and idempotency on Postgres.
 - [ ] Implement the marketplace port and GigSim adapter.
 - [ ] Implement Portfolio MCP tools, resources and prompts.
 - [ ] Implement Marketplace MCP read/write tools with schemas and idempotency.

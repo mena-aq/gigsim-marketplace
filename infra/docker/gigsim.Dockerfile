@@ -9,7 +9,7 @@ WORKDIR /app
 RUN pip install --no-cache-dir \
     "fastapi>=0.110" \
     "uvicorn[standard]" \
-    "sqlalchemy>=2.0" \
+    "sqlalchemy[asyncio]>=2.0" \
     asyncpg \
     pydantic-settings
 

@@ -11,6 +11,26 @@ course. We build GigSim first, generate the data, then build GigBid on top of it
 
 ---
 
+## Coding Style
+
+### Standards
+- Follow **PEP 8**. Format with `ruff format` (or `black`) and lint with `ruff check`; `make lint` runs both.
+- Use type hints on function signatures and Pydantic models for anything passed between agents or across an API boundary.
+- Use standard naming: `snake_case` for functions and variables, `PascalCase` for classes, `UPPER_CASE` for constants.
+- Keep lines to 88 characters (the formatter default).
+- Write a short docstring for public functions and classes. Skip it when the name already says everything.
+
+### Keep it simple
+- Pick the straightforward solution. Don't add abstractions, config options or layers until something actually needs them.
+- Prefer plain functions over classes unless there is state to hold.
+- Prefer the standard library and the libraries already in `pyproject.toml` before adding a new dependency.
+- Avoid clever one-liners. Code should read top to bottom without needing a comment to decode it.
+
+### Real code, not stubs
+- Don't merge placeholder functions (`pass`, `TODO`, `return {}`) as if they were finished. If something isn't built yet, it is tracked as an open task, not hidden behind a fake implementation.
+- Simple does not mean incomplete: every function does its real job, handles the obvious error cases and has a test.
+- Don't overthink edge cases that can't happen. Handle the ones that can (timeouts, empty results, rate limits, bad input).
+
 ## Hard Rules
 
 - **Nothing reaches a client without a human approving it in the UI.** Use LangGraph
@@ -357,11 +377,30 @@ def simulate_reply(client: Client, proposal: Proposal) -> str:
 ---
 
 ### 1 — Scaffold
-- Create the directory structure above.
-- Write `docker-compose.yml`: `web`, `api`, `worker`, `postgres`, `redis`, `vector-store`,
-  `ollama`, `gigsim`.
-- Create `.env.example` with all variables.
-- Postgres schema: users, jobs, proposals, messages, pipeline_cards, audit_log.
+
+Agreed foundation: Next.js App Router + TypeScript, FastAPI, Arq on Redis,
+async SQLAlchemy + asyncpg and Alembic on Postgres, Chroma, and Ollama.
+Use uv and npm lockfiles. Preserve existing GigSim code and its separate DB.
+Reuse the existing host Ollama/qwen2.5:3b through the Linux Docker host-gateway
+bridge; do not download another model or duplicate model runtime.
+
+Deliver a runnable web shell, typed liveness/readiness API, six tenant-owned
+application tables, reviewed migration, separate worker smoke task, and Compose
+health checks/persistent volumes. Full auth, business screens, graphs, and tools
+remain later milestones. Do not expose business records before authentication.
+
+Assignment requirements take precedence over abbreviated examples here:
+- Step 2 must add independently running Portfolio, Marketplace, Workspace MCP services.
+- Live Upwork integration requires encrypted per-user OAuth tokens; a stub alone is insufficient.
+- Add a third-party MCP server (GitHub), and enforce tenant isolation on all business queries.
+- Generate the TypeScript contract from FastAPI OpenAPI.
+- Approvals must resume durable interrupts; validate resume semantics against the
+  installed LangGraph version rather than copying the illustrative snippet below.
+- Commit reproducible evaluation results; do not commit secrets or hidden sets.
+
+Track Step 0 follow-ups separately: current personas have 8 case studies and
+50 proposals each, below the generation targets; PostgreSQL simulator concurrency
+and write idempotency need verification beyond the SQLite suite.
 
 ### 2 — MCP Servers
 

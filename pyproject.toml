@@ -9,8 +9,10 @@ dependencies = [
   "pydantic",
   "pydantic-settings",
   "pyyaml",
-  "sqlalchemy>=2.0",
+  "sqlalchemy[asyncio]>=2.0",
   "asyncpg",
+  "alembic",
+  "arq",
   "aiosqlite",
   "langgraph",
   "langchain",
@@ -29,10 +31,11 @@ dev = ["pytest", "pytest-asyncio", "ruff", "mypy"]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
 testpaths = ["tests", "gigsim/tests"]
 
 [tool.setuptools.packages.find]
-include = ["gigsim*"]
+include = ["gigsim*", "apps", "apps.api*", "worker*", "agent*", "rag*", "mcp_servers*", "evals*"]
 
 [tool.ruff]
 line-length = 100
@@ -40,3 +43,7 @@ line-length = 100
 [tool.ruff.lint]
 # B008: FastAPI's `Depends(...)` in defaults is the framework's intended pattern.
 ignore = ["B008"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"

@@ -1,46 +1,77 @@
 .PHONY: install api test lint eval gigsim seed seed-reset download process personas personas-groq persona-prompts persona-import smoke
 
 install:
-	python -m pip install -e ".[dev]"
+	uv sync --extra dev
 
 api:
-	uvicorn apps.api.main:app --reload --port 8000
+	uv run uvicorn apps.api.main:app --reload --port 8000
 
 gigsim:
-	uvicorn gigsim.main:app --reload --port 8081
+	uv run uvicorn gigsim.main:app --reload --port 8081
 
 seed:
-	python -m gigsim.seed
+	uv run python -m gigsim.seed
 
 seed-reset:
-	python -m gigsim.seed --reset
+	uv run python -m gigsim.seed --reset
 
 download:
-	python data/scripts/download.py
+	uv run python data/scripts/download.py
 
 process:
-	python data/scripts/process.py
+	uv run python data/scripts/process.py
 
 personas:
-	python data/scripts/generate_personas.py
+	uv run python data/scripts/generate_personas.py
 
 personas-groq:
-	python data/scripts/generate_personas.py --provider groq
+	uv run python data/scripts/generate_personas.py --provider groq
 
 persona-prompts:
-	python data/scripts/generate_personas.py --emit-prompts
+	uv run python data/scripts/generate_personas.py --emit-prompts
 
 persona-import:
-	python data/scripts/generate_personas.py --import-inbox
+	uv run python data/scripts/generate_personas.py --import-inbox
 
 test:
-	pytest -q
+	uv run pytest -q
 
 lint:
-	ruff check .
+	uv run ruff check .
+	uv run ruff format --check --line-length 88 infra/ollama_bridge.py apps/api worker scripts/export_openapi.py tests/unit/test_api_health.py tests/integration/test_foundation_postgres.py
 
 eval:
-	python -m evals.runners.run_demo_eval
+	uv run python -m evals.runners.run_demo_eval
 
 smoke:
 	./scripts/smoke_gigsim.sh
+
+# Compose interpolation uses the root environment file explicitly.
+COMPOSE = docker compose --env-file .env -f infra/docker-compose.yml
+
+.PHONY: dev down migrate worker worker-smoke web-install web-check api-client
+
+dev:
+	$(COMPOSE) up --build -d
+
+down:
+	$(COMPOSE) down
+
+migrate:
+	uv run alembic upgrade head
+
+worker:
+	uv run arq worker.settings.WorkerSettings
+
+worker-smoke:
+	$(COMPOSE) exec api python -m worker.smoke
+
+web-install:
+	cd apps/web && npm ci
+
+web-check:
+	cd apps/web && npm run typecheck && npm run build
+
+api-client:
+	uv run python -m scripts.export_openapi
+	cd apps/web && npm run api:generate
