@@ -1,16 +1,22 @@
-"""Read-only persona corpus access with stable IDs and interim lexical ranking."""
+"""Read-only assigned portfolio resources and configurable RAG retrieval."""
 
-import re
 from pathlib import Path
-
-import yaml
 
 from mcp_servers.common.security import ToolFailure
 
 
 class PortfolioService:
-    def __init__(self, root: Path):
+    def __init__(self, root: Path, *, pipeline_factory=None):
         self.root = root.resolve()
+        self.pipeline_factory = pipeline_factory
+
+    def pipeline(self, who):
+        if self.pipeline_factory is not None:
+            return self.pipeline_factory(who)
+        from rag.config import load_config
+        from rag.retriever import Pipeline
+
+        return Pipeline(load_config(), self.root, who.user_id, who.persona)
 
     def directory(self, who):
         path = (self.root / who.persona).resolve()
@@ -22,74 +28,33 @@ class PortfolioService:
         return path
 
     def items(self, who):
-        directory = self.directory(who)
-        paths = [directory / "cv.md", directory / "reviews.md"]
-        paths += sorted((directory / "case_studies").glob("*.md"))
-        paths += sorted((directory / "proposals").glob("*.md"))
-        items = []
-        for path in paths:
-            resolved = path.resolve()
-            if (
-                not resolved.is_relative_to(directory)
-                or not path.is_file()
-                or path.stat().st_size > 262144
-            ):
-                continue
-            text = path.read_text(encoding="utf-8")
-            meta = {}
-            if text.startswith("---\n"):
-                parts = text.split("---", 2)
-                if len(parts) == 3:
-                    try:
-                        meta = yaml.safe_load(parts[1]) or {}
-                    except yaml.YAMLError:
-                        raise ToolFailure(
-                            "invalid_corpus", "A portfolio item has invalid metadata"
-                        ) from None
-                    text = parts[2].strip()
-            if not isinstance(meta, dict):
-                raise ToolFailure(
-                    "invalid_corpus", "Portfolio metadata must be a mapping"
-                )
-            kind = {"case_studies": "case_study", "proposals": "proposal"}.get(
-                path.parent.name, "cv" if path.name == "cv.md" else "review"
-            )
-            relative = path.relative_to(directory).as_posix()
-            items.append(
-                {
-                    "id": f"{who.persona}:{relative}",
-                    "persona": who.persona,
-                    "type": kind,
-                    "source": relative,
-                    "text": text,
-                    "date": str(meta["date"]) if meta.get("date") else None,
-                    "outcome": meta.get("outcome"),
-                    "project": path.stem if kind == "case_study" else None,
-                    "skills": meta.get("skills", []),
-                }
-            )
-        return items
+        from rag.ingest.loaders import load_documents
+
+        return [
+            document.model_dump(exclude={"source_hash"})
+            for document in load_documents(self.root, who.persona)
+        ]
 
     async def search(self, who, request):
-        terms = set(re.findall(r"[\w+#.-]+", request.requirement.lower()))
-        scored = []
-        for item in self.items(who):
-            if any(
-                value is not None and item[key] != value
-                for key, value in request.filters.model_dump().items()
-            ):
-                continue
-            words = set(re.findall(r"[\w+#.-]+", item["text"].lower()))
-            score = len(terms & words)
-            if score:
-                scored.append((score, item))
-        scored.sort(key=lambda pair: (-pair[0], pair[1]["id"]))
+        result = await self.pipeline(who).retrieve(
+            request.requirement, request.k, request.filters.model_dump()
+        )
         return {
             "items": [
-                {**item, "text": item["text"][:1200]} for _, item in scored[: request.k]
+                {**hit.chunk.model_dump(exclude={"source_hash"}), "score": hit.score}
+                for hit in result.hits
             ],
-            "backend": "lexical",
+            "backend": result.variant,
+            "retrieval_status": result.status,
+            "diagnostics": result.diagnostics,
         }
+
+    async def verify(self, who, request):
+        from rag.verify import verify_claims
+
+        pipeline = self.pipeline(who)
+        evidence = await pipeline.evidence(request.chunk_ids)
+        return (await verify_claims(request.draft, evidence, pipeline.llm)).model_dump()
 
     async def get(self, who, item_id, kind):
         if (

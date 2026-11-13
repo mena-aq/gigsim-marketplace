@@ -71,3 +71,24 @@ Upwork is intentionally excluded; GitHub is deferred. Workspace is local-only.
 Lexical portfolio search precedes evaluated RAG. MCP tools cannot issue approvals;
 proposal/message sends remain blocked until the later UI/graph issues grants.
 Audit rows are append-only in Postgres; simulator write receipts are in its own DB.
+
+## Step 3 retrieval boundary
+
+Portfolio MCP reads only the authenticated user's index manifest and assigned
+corpus. Dense vectors live in Chroma; full typed chunk metadata/offsets and BM25
+text come from the same published manifest. Ingestion is an explicit operator
+command, not an agent filesystem capability. Unchanged chunks reuse embeddings;
+changed/deleted sources invalidate reads until re-ingestion.
+
+Ollama all-minilm:22m provides normalized 384-dimensional embeddings through the
+existing host bridge. The MiniLM cross-encoder runs in-process via CPU ONNX.
+Qwen2.5:3b handles structured decomposition, grading and claim verification; no
+paid provider fallback is used. Model revisions, chunks, candidates and budgets
+are configured in agent/config.yaml; prompts are file-backed and input is JSON data.
+
+V0/V1/V2/V3/V8 are independent factory choices. V8 is a bounded LangGraph, not the
+future bidding graph. Search exposes source and chunk references. The read-only
+verification tool accepts owned chunk references, removes unsupported experience,
+and reports failures without manufacturing replacement text. The later graph
+must respect needs_attention as well as the human approval gate. No variant is
+automatically selected from provisional development labels.

@@ -77,8 +77,8 @@ profiles:
     analyst: qwen3:8b
     writer: qwen3:27b
     critic: qwen3:27b
-    embeddings: nomic-embed-text
-    reranker: bge-reranker-v2-m3
+    embeddings: all-minilm:22m
+    reranker: cross-encoder/ms-marco-MiniLM-L6-v2
   paid:
     writer: gpt-4o
     critic: gpt-4o
@@ -434,25 +434,35 @@ requeueing, and the product degraded-mode banner to their dependent milestones.
 
 ### 3 — RAG Pipeline
 
-1. **Ingest** (`rag/ingest/`): loaders for PDF, Markdown, code. Metadata on every chunk:
-   `{persona, type, project, skills, date, outcome}`. Store in the vector store.
+Agreed scope: exactly V0, V1, V2, V3, V8, plus local ingestion/indexing, Portfolio
+MCP integration, claim verification, and provisional development evaluation.
+Upwork is excluded; GitHub integration and OCR remain deferred.
 
-2. **V0 baseline** (`rag/variants/v0_naive.py`): fixed-size chunks, top-k cosine on the full
-   job post.
-
-3. **Additional variants** — implement at least these four:
-   - `v1_decomposed.py` — one retrieval per extracted requirement, merge results
-   - `v2_hybrid.py` — BM25 + dense with reciprocal rank fusion
-   - `v3_reranked.py` — cross-encoder reranker on top of V2
-   - `v8_corrective.py` — grade retrieved evidence in a LangGraph node, re-query once if weak
-
-4. **Retriever factory** (`rag/retriever.py`): `get_retriever(variant)` returns the right one.
-   Variant set in `agent/config.yaml`.
-
-5. **Claim verifier** (`rag/verify.py`):
-   - Split proposal into sentences
-   - For each: check if `supported` / `partly_supported` / `unsupported` against evidence
-   - Remove unsupported claims before Critic sees the draft
+- Embeddings: existing host Ollama with all-minilm:22m; reuse qwen2.5:3b for
+  requirement extraction, evidence grading, and verification. Cross-encoder:
+  cross-encoder/ms-marco-MiniLM-L6-v2 on CPU ONNX Runtime. No PyTorch/CUDA download.
+- All model names/revisions, retrieval parameters, and budgets live in
+  agent/config.yaml. Prompts live in agent/prompts/rag_*.md. Setup is explicit.
+- Ingest Markdown, text PDF, README/code, CVs, reviews, and labelled proposals.
+  Use 200-token chunks / 40 overlap, content hashes, normalized-text offsets,
+  stable item/chunk IDs, preserved metadata, and mandatory user namespaces.
+- Persist cosine vectors in Chroma and full chunk metadata in per-user manifests.
+  Incremental ingestion reuses unchanged embeddings and removes stale records.
+  Missing/incompatible/stale indexes fail clearly; never disguise a lexical fallback.
+- V0: whole-query dense cosine; V1: source-anchored requirement decomposition +
+  fused dense searches; V2: BM25 + dense RRF; V3: cross-encoder reranking of 20
+  candidates; V8: a real LangGraph grading loop with at most one corrective search.
+  Grade five unique candidates for the CPU budget and report partial/empty support.
+- Expose read-only verify_claims through Portfolio MCP. Verify source-quoted
+  atomic claims against owned chunks; exclude sentences with unsupported,
+  partly supported, or unverified experience. A conservative number check also
+  rejects details absent from cited text. No invented citations or replacement claims.
+- Prepare 30 agent-authored retrieval queries and 12 claim examples, explicitly
+  pending human label review. Record real-model per-query results, aggregate
+  metrics, model/index/config/code fingerprints, and failures. No fabricated
+  outcome rates, paid-cost estimates, or human calibration claims.
+- Compare all five. The user will choose the shipped variant; keep V0 as the
+  development baseline and do not auto-select a winner from provisional labels.
 
 ### 4 — Agent Graphs
 

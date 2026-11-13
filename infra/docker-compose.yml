@@ -161,6 +161,8 @@ services:
     environment:
       <<: *gigbid_env
       MCP_BASE_URL: http://localhost:8101
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     command: ["uvicorn", "mcp_servers.portfolio.server:create_app", "--factory", "--host", "0.0.0.0", "--port", "8000", "--no-access-log"]
     ports:
       - "127.0.0.1:8101:8000"
@@ -176,6 +178,7 @@ services:
       retries: 6
     volumes:
       - ../data/personas:/app/data/personas:ro
+      - ../data/processed/rag:/app/data/processed/rag:ro
 
   marketplace-mcp:
     image: gigbid-python:local

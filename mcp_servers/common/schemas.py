@@ -140,12 +140,15 @@ class WriteResult(BaseModel):
 
 
 class EvidenceFilters(StrictModel):
-    type: Literal["cv", "case_study", "proposal", "review"] | None = None
+    type: (
+        Literal["cv", "case_study", "proposal", "review", "readme", "code", "document"]
+        | None
+    ) = None
     outcome: Literal["won", "replied", "ignored"] | None = None
 
 
 class EvidenceQuery(StrictModel):
-    requirement: str = Field(min_length=1, max_length=2000)
+    requirement: str = Field(min_length=1, max_length=20000)
     k: int = Field(default=5, ge=1, le=20)
     filters: EvidenceFilters = Field(default_factory=EvidenceFilters)
 
@@ -160,11 +163,23 @@ class Evidence(BaseModel):
     outcome: str | None = None
     project: str | None = None
     skills: list[str] = Field(default_factory=list)
+    industry: str | None = None
+    chunk_id: str | None = None
+    score: float | None = None
+    start: int | None = None
+    end: int | None = None
 
 
 class EvidencePage(BaseModel):
     items: list[Evidence]
-    backend: Literal["lexical"] = "lexical"
+    backend: Literal["v0", "v1", "v2", "v3", "v8"]
+    retrieval_status: Literal["complete", "partial", "empty"] = "complete"
+    diagnostics: dict = Field(default_factory=dict)
+
+
+class VerificationRequest(StrictModel):
+    draft: str = Field(min_length=1, max_length=20000)
+    chunk_ids: list[str] = Field(default_factory=list, max_length=20)
 
 
 class SkillList(BaseModel):

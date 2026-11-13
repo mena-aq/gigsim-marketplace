@@ -7,7 +7,8 @@ Identity and assigned persona come from the token, never caller-supplied user ID
 
 | Tool | Server | Access | readOnly / destructive / idempotent / openWorld | Backend |
 | --- | --- | --- | --- | --- |
-| search_evidence | Portfolio | read | true / false / true / false | Assigned persona files |
+| search_evidence | Portfolio | read | true / false / true / false | Configured user-scoped RAG index |
+| verify_claims | Portfolio | read | true / false / true / false | Owned chunk references + structured local verification |
 | get_case_study | Portfolio | read | true / false / true / false | Assigned persona files |
 | list_skills | Portfolio | read | true / false / true / false | Assigned persona skills |
 | search_jobs | Marketplace | read | true / false / true / true | GigSim jobs |
@@ -32,15 +33,31 @@ and `dry_run`; most read arguments are direct, while search tools take `request`
 
 ## Portfolio
 
-`search_evidence` accepts requirement, k (1–20), and type/outcome filters. The
-interim backend is deterministic lexical term overlap; zero matches returns no
-evidence. It is not the Step 3 dense baseline and has no claimed retrieval scores.
-Case studies, proposals, CV, and reviews have stable persona-relative IDs. Unknown
-dates/outcomes are null; no metadata is fabricated. Corpora are mounted read-only.
-Missing corpora produce `corpus_unavailable`; paths and symlinks cannot escape the
-assigned persona directory. Resource URIs URL-encode the full evidence ID:
-`portfolio://case/{id}` and `portfolio://proposal/{id}`. The screening-question
-prompt is loaded from `agent/prompts/portfolio_screening.md`.
+`search_evidence` accepts requirement, k (1–20), and type/outcome filters. It uses
+the configured v0/v1/v2/v3/v8 retriever. V0 may return nearest neighbours even when
+they are unrelated; retrieval completion is not a grounding guarantee. V8 adds
+explicit evidence grading and bounded correction. No other variants are implemented.
+
+Results retain stable portfolio item IDs and include the exact supporting chunk
+ID, score, normalized-text offsets, retrieval status, and diagnostics. Scores have
+variant-specific meanings and must not be compared as probabilities. Full source
+resources remain `portfolio://case/{id}` and `portfolio://proposal/{id}`; URL-encode
+the complete ID. Metadata absent from the source remains unknown.
+
+`verify_claims` accepts a draft and up to 20 owned chunk IDs. It returns atomic
+claim judgments, evidence references, sentence offsets, a cleaned draft, and
+verified/needs_attention status. Sentences with partially/unsupported experience
+are excluded. Missing/stale/cross-user chunk references fail before inference;
+invalid model judgments exclude affected text. The literal-number guard is
+conservative and may require review of equivalent number formats. Later graphs
+must block sends when verification needs attention. No tool issues approval grants.
+
+The Portfolio server alone reads local sources/index manifests and calls local
+Ollama/ONNX inference. Agents access search and verification only through MCP;
+the verifier and critic role allowlists explicitly include the verification tool.
+Qwen calls have structured output, file-backed prompts, bounded attempts and a
+240-second total inference budget per request. The client permits longer read
+calls via MCP_CALL_TIMEOUT_SECONDS (default 600) for CPU workloads.
 
 ## Approval and idempotency
 

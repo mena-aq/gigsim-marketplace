@@ -34,3 +34,19 @@ One caught error: the first resource reader treated a URI-encoded evidence ID as
 its literal file ID, so the protocol test returned not_found. Resource handlers
 now decode template arguments before the persona/path checks, and the regression
 reads the resource through the actual in-memory MCP client.
+
+## Step 3 RAG pipeline
+
+OpenAI Codex implemented ingestion/chunking, Chroma manifests, the five retrieval
+variants, Ollama/CPU ONNX adapters, structured claim verification, MCP integration,
+provisional datasets/evaluation runners, tests, and documentation. No variant was
+automatically selected. Corpus generation, Upwork and GitHub were not added.
+
+Caught issues included an older lexical-search test expecting no dense neighbours,
+a sentence-ending punctuation mismatch in BM25 tokenization, and unanchored
+missing-requirement text returned by the local grader. Tests/handling were updated:
+dense baseline behavior is explicit, lexical punctuation is normalized, and
+invented correction terms are discarded. Early diagnostic runs were interrupted
+for correctness/resource changes; only the final fixed-fingerprint run feeds the
+published comparison. Numeric-claim checks supplement, rather than replace, the
+small model's provisional semantic judgments.

@@ -13,8 +13,8 @@ models:
     writer: configure-your-model
     critic: configure-your-model
     client_liaison: configure-your-model
-  embeddings: nomic-embed-text
-  reranker: bge-reranker-v2-m3
+  embeddings: all-minilm:22m
+  reranker: cross-encoder/ms-marco-MiniLM-L6-v2
 
 budgets:
   max_graph_steps: 30
@@ -24,3 +24,24 @@ budgets:
 thresholds:
   minimum_fit_score: 0.60
   maximum_risk_score: 0.70
+
+rag:
+  active_variant: v0
+  chunk_tokens: 200
+  overlap_tokens: 40
+  candidate_k: 20
+  rrf_constant: 60
+  embedding_dimensions: 384
+  embedding_context_tokens: 512
+  tokenizer_model: sentence-transformers/all-MiniLM-L6-v2
+  tokenizer_revision: 1110a243fdf4706b3f48f1d95db1a4f5529b4d41
+  reranker_revision: 233902d25c440f23af6f7d6e94d2946bac0bee0a
+  reranker_file: onnx/model.onnx
+  llm_model: qwen2.5:3b
+  llm_context_tokens: 8192
+  llm_output_tokens: 768
+  llm_timeout_seconds: 180
+  llm_budget_seconds: 240
+  max_requirements: 6
+  grade_candidates: 5
+  cpu_threads: 6

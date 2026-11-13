@@ -125,3 +125,77 @@ UI. Real proposal/message tools intentionally return `approval_required` without
 a matching trusted database grant. There is no operator bypass command. Deferred
 work: graph requeueing/degraded UI, retrieval experiments, the tool-design study,
 and a grounded-agent demo. See `docs/TOOLS.md` and the Portfolio server README.
+
+## Step 3: local RAG
+
+Existing host Ollama is reused. The embedding model all-minilm:22m is added through
+its API; Qwen stays qwen2.5:3b. The reranker uses CPU ONNX Runtime, not another
+Ollama runtime or CUDA/PyTorch. Only selected pinned tokenizer/reranker files are
+downloaded; setup checks free disk space. The existing compatible tokenizer cache
+is reused when available. The model cache is about the size of the selected model
+files, not an entire Hugging Face repository.
+
+```bash
+make rag-models
+make rag-ingest
+make dev
+make mcp-smoke
+make rag-eval
+make rag-table
+```
+
+Model names/revisions and active variant are in agent/config.yaml. V0 remains the
+development baseline until the user chooses after comparing all five. Switching
+only active_variant needs no re-indexing; host tools read config directly, while
+Compose needs `make dev` to rebuild the copied config. Never label an unmeasured
+variant as the winner. No model downloads occur during service startup/tool calls.
+
+`make rag-ingest` resolves provisioned users, indexes each assigned persona, and
+prints embedded/reused/deleted counts. An unchanged second run should embed zero
+chunks. Re-ingest after source edits/deletions. Missing models, missing/incompatible
+indexes, or stale sources produce explicit tool errors; they do not trigger lexical
+fallback. Rerun model setup after model/tokenizer revisions change, then re-ingest
+if embeddings or chunk settings changed.
+
+Portfolio containers mount data/personas and data/processed/rag read-only. Models,
+Chroma data, and index manifests persist across container rebuilds. Host tools use
+localhost:11434 / localhost:8001; Portfolio uses the existing host-gateway Ollama
+bridge and internal Chroma service. Keep RAG_DATA_DIR consistent with the mounted
+path when overriding it. Other MCP services need no RAG model/index access.
+
+The read-only verify_claims tool expects chunk IDs returned by search, not full-item
+IDs. It can exclude supported-looking sentences when numerical formats differ;
+review the per-claim reason. A needs_attention report must not be treated as passed
+verification. Approval grants/UI enforcement remains separate and unchanged.
+
+## Reading and reproducing the RAG comparison
+
+The checked-in development labels are agent-authored and await human review:
+`evals/datasets/rag_dev.json` and `claim_dev.json`. They are not an instructor gold
+set, hidden test set, or human judge calibration. Review/relabel them before making
+strong quality claims. See docs/RAG_EXPERIMENT.md for the comparison protocol.
+
+`make rag-eval` runs real local models sequentially, flushing each observation to a
+new timestamped JSONL file. It writes rag_comparison.json plus generated CSV and
+Markdown only after the complete run. To resume an interrupted matching run:
+
+```bash
+uv run python -m evals.runners.rag_eval --resume evals/results/<run>.jsonl
+```
+
+Resume refuses changed retrieval/prompt code, configuration, indexes, datasets,
+and recorded model/runtime versions. Derived quality metrics are recomputed from
+the stored rankings; completed model calls are not repeated. Quality aggregates
+count retrieval failures as failures, not successful no-evidence refusals. The
+comparison includes positive-query Recall@5, MRR, nDCG@10, negative-query correct
+abstention, per-persona/query-type breakdowns, p50/p95 latency, and reported model
+usage. V8 grades five candidates and may return fewer than ten supported items.
+Each run also has an environment sidecar recording actual Ollama model digests,
+server/library versions, and the dependency-lock hash. Verification metrics use
+one-sentence examples with supplied evidence; they do not measure full proposal
+claim accuracy. Local hardware cost is unknown; no paid API is called. Proposal outcomes and
+calibrated-judge metrics remain deferred. The user selects the variant explicitly.
+
+CI correctness tests use declared deterministic model substitutes and isolated
+indexes; they do not download weights or publish fake benchmark scores. Actual
+model smoke checks and comparisons are separate from the test suite.

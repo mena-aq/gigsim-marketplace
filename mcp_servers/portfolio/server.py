@@ -15,9 +15,11 @@ from mcp_servers.common.schemas import (
     EvidenceQuery,
     Result,
     SkillList,
+    VerificationRequest,
 )
 from mcp_servers.common.server import http_app, make_server
 from mcp_servers.portfolio.service import PortfolioService
+from rag.types import VerificationReport
 
 READ = ToolAnnotations(
     readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False
@@ -26,15 +28,27 @@ READ = ToolAnnotations(
 
 def create_server(runtime: Runtime):
     server = make_server("GigBid Portfolio", runtime)
-    service = PortfolioService(runtime.settings.mcp_persona_dir)
+    service = PortfolioService(
+        runtime.settings.mcp_persona_dir,
+        pipeline_factory=getattr(runtime, "rag_factory", None),
+    )
 
     @server.tool(annotations=READ)
     async def search_evidence(request: EvidenceQuery) -> Result[EvidencePage]:
-        """Find assigned-portfolio evidence by requirement, k, and type/outcome filters. Interim lexical retrieval; zero matches means no evidence."""
+        """Retrieve owned portfolio evidence using the configured RAG variant; use returned chunk IDs for claim verification."""
         return await runtime.run(
             "search_evidence",
             request.model_dump(),
             lambda who: service.search(who, request),
+        )
+
+    @server.tool(annotations=READ)
+    async def verify_claims(request: VerificationRequest) -> Result[VerificationReport]:
+        """Check draft claims against owned retrieved chunks and exclude unsupported or unverified experience sentences. Never sends anything."""
+        return await runtime.run(
+            "verify_claims",
+            request.model_dump(),
+            lambda who: service.verify(who, request),
         )
 
     @server.tool(annotations=READ)

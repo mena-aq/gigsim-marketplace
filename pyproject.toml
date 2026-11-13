@@ -24,6 +24,10 @@ dependencies = [
   "kaggle",
   "six",
   "groq",
+  "numpy",
+  "onnxruntime",
+  "tokenizers",
+  "pypdf",
 ]
 
 [project.optional-dependencies]

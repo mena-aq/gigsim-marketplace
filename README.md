@@ -11,7 +11,7 @@ Step 1 adds a Next.js/TypeScript web shell, FastAPI liveness/readiness endpoints
 Arq worker, six tenant-owned PostgreSQL tables with Alembic migrations, Redis,
 Chroma, and a bridge to the existing host Ollama/qwen2.5:3b. Step 2 adds authenticated Portfolio/Marketplace/Workspace MCP services, durable
 write receipts, approval enforcement, and a persistent local Workspace mock.
-RAG, graphs, the human approval UI, and full product screens remain future milestones. The shell reports actual readiness.
+Graphs, the human approval UI, and full product screens remain future milestones. The shell reports actual readiness.
 
 ## Run locally
 
@@ -68,3 +68,17 @@ Provision distinct MCP tokens in `.env`, run `make migrate`, `make mcp-bootstrap
 then `make dev` and `make mcp-smoke`. Only previews/local drafts are available
 until the human approval UI exists. Marketplace integration is GigSim-only;
 Upwork is excluded and GitHub is deferred by project choice.
+
+## RAG pipeline
+
+Step 3 implements exactly V0 (dense), V1 (decomposed), V2 (hybrid), V3 (reranked),
+and V8 (bounded corrective retrieval), plus incremental local ingestion and
+read-only claim verification through Portfolio MCP. Existing host Ollama runs
+all-minilm embeddings and Qwen; the reranker uses CPU ONNX.
+
+Run `make rag-models`, `make rag-ingest`, then `make rag-eval`. The provisional
+[comparison table](evals/results/rag_comparison.md) is regenerated from
+[measured results](evals/results/rag_comparison.json), with raw per-query evidence.
+Labels await user review; no winning variant has been selected. V0 remains the
+development baseline. See [the experiment protocol](docs/RAG_EXPERIMENT.md) and
+[the runbook](docs/RUNBOOK.md). Proposal outcome metrics remain future work.

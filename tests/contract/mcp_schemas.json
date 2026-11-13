@@ -1656,7 +1656,7 @@
         "openWorldHint": false,
         "readOnlyHint": true
       },
-      "description": "Find assigned-portfolio evidence by requirement, k, and type/outcome filters. Interim lexical retrieval; zero matches means no evidence.",
+      "description": "Retrieve owned portfolio evidence using the configured RAG variant; use returned chunk IDs for claim verification.",
       "inputSchema": {
         "$defs": {
           "EvidenceFilters": {
@@ -1686,7 +1686,10 @@
                       "cv",
                       "case_study",
                       "proposal",
-                      "review"
+                      "review",
+                      "readme",
+                      "code",
+                      "document"
                     ],
                     "type": "string"
                   },
@@ -1715,7 +1718,7 @@
                 "type": "integer"
               },
               "requirement": {
-                "maxLength": 2000,
+                "maxLength": 20000,
                 "minLength": 1,
                 "title": "Requirement",
                 "type": "string"
@@ -1744,6 +1747,18 @@
         "$defs": {
           "Evidence": {
             "properties": {
+              "chunk_id": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Chunk Id"
+              },
               "date": {
                 "anyOf": [
                   {
@@ -1756,9 +1771,33 @@
                 "default": null,
                 "title": "Date"
               },
+              "end": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "End"
+              },
               "id": {
                 "title": "Id",
                 "type": "string"
+              },
+              "industry": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Industry"
               },
               "outcome": {
                 "anyOf": [
@@ -1788,6 +1827,18 @@
                 "default": null,
                 "title": "Project"
               },
+              "score": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Score"
+              },
               "skills": {
                 "items": {
                   "type": "string"
@@ -1798,6 +1849,18 @@
               "source": {
                 "title": "Source",
                 "type": "string"
+              },
+              "start": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Start"
               },
               "text": {
                 "title": "Text",
@@ -1821,10 +1884,20 @@
           "EvidencePage": {
             "properties": {
               "backend": {
-                "const": "lexical",
-                "default": "lexical",
+                "enum": [
+                  "v0",
+                  "v1",
+                  "v2",
+                  "v3",
+                  "v8"
+                ],
                 "title": "Backend",
                 "type": "string"
+              },
+              "diagnostics": {
+                "additionalProperties": true,
+                "title": "Diagnostics",
+                "type": "object"
               },
               "items": {
                 "items": {
@@ -1832,10 +1905,21 @@
                 },
                 "title": "Items",
                 "type": "array"
+              },
+              "retrieval_status": {
+                "default": "complete",
+                "enum": [
+                  "complete",
+                  "partial",
+                  "empty"
+                ],
+                "title": "Retrieval Status",
+                "type": "string"
               }
             },
             "required": [
-              "items"
+              "items",
+              "backend"
             ],
             "title": "EvidencePage",
             "type": "object"
@@ -1923,6 +2007,253 @@
         "openWorldHint": false,
         "readOnlyHint": true
       },
+      "description": "Check draft claims against owned retrieved chunks and exclude unsupported or unverified experience sentences. Never sends anything.",
+      "inputSchema": {
+        "$defs": {
+          "VerificationRequest": {
+            "additionalProperties": false,
+            "properties": {
+              "chunk_ids": {
+                "items": {
+                  "type": "string"
+                },
+                "maxItems": 20,
+                "title": "Chunk Ids",
+                "type": "array"
+              },
+              "draft": {
+                "maxLength": 20000,
+                "minLength": 1,
+                "title": "Draft",
+                "type": "string"
+              }
+            },
+            "required": [
+              "draft"
+            ],
+            "title": "VerificationRequest",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "request": {
+            "$ref": "#/$defs/VerificationRequest"
+          }
+        },
+        "required": [
+          "request"
+        ],
+        "title": "verify_claimsArguments",
+        "type": "object"
+      },
+      "name": "verify_claims",
+      "outputSchema": {
+        "$defs": {
+          "AtomicClaim": {
+            "properties": {
+              "evidence_ids": {
+                "items": {
+                  "type": "string"
+                },
+                "title": "Evidence Ids",
+                "type": "array"
+              },
+              "kind": {
+                "enum": [
+                  "experience",
+                  "intent",
+                  "nonfactual"
+                ],
+                "title": "Kind",
+                "type": "string"
+              },
+              "reason": {
+                "title": "Reason",
+                "type": "string"
+              },
+              "status": {
+                "enum": [
+                  "supported",
+                  "partly_supported",
+                  "unsupported"
+                ],
+                "title": "Status",
+                "type": "string"
+              },
+              "text": {
+                "title": "Text",
+                "type": "string"
+              }
+            },
+            "required": [
+              "text",
+              "kind",
+              "status",
+              "evidence_ids",
+              "reason"
+            ],
+            "title": "AtomicClaim",
+            "type": "object"
+          },
+          "Failure": {
+            "properties": {
+              "code": {
+                "title": "Code",
+                "type": "string"
+              },
+              "message": {
+                "title": "Message",
+                "type": "string"
+              },
+              "retry_after": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Retry After"
+              },
+              "retryable": {
+                "default": false,
+                "title": "Retryable",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "title": "Failure",
+            "type": "object"
+          },
+          "VerificationReport": {
+            "properties": {
+              "cleaned_draft": {
+                "title": "Cleaned Draft",
+                "type": "string"
+              },
+              "diagnostics": {
+                "additionalProperties": true,
+                "title": "Diagnostics",
+                "type": "object"
+              },
+              "sentences": {
+                "items": {
+                  "$ref": "#/$defs/VerifiedSentence"
+                },
+                "title": "Sentences",
+                "type": "array"
+              },
+              "status": {
+                "enum": [
+                  "verified",
+                  "needs_attention"
+                ],
+                "title": "Status",
+                "type": "string"
+              }
+            },
+            "required": [
+              "cleaned_draft",
+              "sentences",
+              "status"
+            ],
+            "title": "VerificationReport",
+            "type": "object"
+          },
+          "VerifiedSentence": {
+            "properties": {
+              "claims": {
+                "items": {
+                  "$ref": "#/$defs/AtomicClaim"
+                },
+                "title": "Claims",
+                "type": "array"
+              },
+              "end": {
+                "title": "End",
+                "type": "integer"
+              },
+              "kept": {
+                "title": "Kept",
+                "type": "boolean"
+              },
+              "start": {
+                "title": "Start",
+                "type": "integer"
+              },
+              "text": {
+                "title": "Text",
+                "type": "string"
+              },
+              "verified": {
+                "default": true,
+                "title": "Verified",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "text",
+              "start",
+              "end",
+              "claims",
+              "kept"
+            ],
+            "title": "VerifiedSentence",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/VerificationReport"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/Failure"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "ok": {
+            "title": "Ok",
+            "type": "boolean"
+          },
+          "trace_id": {
+            "title": "Trace Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ok",
+          "trace_id"
+        ],
+        "title": "Result[VerificationReport]",
+        "type": "object"
+      }
+    },
+    {
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true
+      },
       "description": "Load a full case study by an evidence ID returned by search_evidence.",
       "inputSchema": {
         "properties": {
@@ -1944,6 +2275,18 @@
         "$defs": {
           "Evidence": {
             "properties": {
+              "chunk_id": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Chunk Id"
+              },
               "date": {
                 "anyOf": [
                   {
@@ -1956,9 +2299,33 @@
                 "default": null,
                 "title": "Date"
               },
+              "end": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "End"
+              },
               "id": {
                 "title": "Id",
                 "type": "string"
+              },
+              "industry": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Industry"
               },
               "outcome": {
                 "anyOf": [
@@ -1988,6 +2355,18 @@
                 "default": null,
                 "title": "Project"
               },
+              "score": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Score"
+              },
               "skills": {
                 "items": {
                   "type": "string"
@@ -1998,6 +2377,18 @@
               "source": {
                 "title": "Source",
                 "type": "string"
+              },
+              "start": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Start"
               },
               "text": {
                 "title": "Text",

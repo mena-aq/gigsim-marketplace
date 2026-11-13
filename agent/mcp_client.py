@@ -17,7 +17,8 @@ AGENT_TOOLS = {
     "matcher": {"search_evidence", "get_case_study", "list_skills"},
     "pricing": {"get_connects_balance", "get_client_history"},
     "writer": {"search_evidence", "get_case_study"},
-    "critic": {"search_evidence", "get_case_study"},
+    "critic": {"search_evidence", "get_case_study", "verify_claims"},
+    "verifier": {"verify_claims"},
     "compliance": set(),
     "liaison": {
         "list_messages",
@@ -29,7 +30,7 @@ AGENT_TOOLS = {
     "approval_executor": {"submit_proposal", "send_message", "create_proposal_draft"},
 }
 SERVER_TOOLS = {
-    "portfolio": {"search_evidence", "get_case_study", "list_skills"},
+    "portfolio": {"search_evidence", "get_case_study", "list_skills", "verify_claims"},
     "marketplace": {
         "search_jobs",
         "get_job",
@@ -74,7 +75,7 @@ class MCPGateway:
                         "Authorization": f"Bearer {token}",
                         "X-Trace-ID": trace_id,
                     },
-                    "timeout": 30,
+                    "timeout": float(os.environ.get("MCP_CALL_TIMEOUT_SECONDS", "600")),
                 }
                 for name, url in urls.items()
             }

@@ -94,6 +94,32 @@ async def runtime(tmp_path):
             MCPCredential(user_id="alice", token_hash=token_hash("alice-secret"))
         )
         await session.commit()
+    from rag.ingest.pipeline import ingest
+    from rag.retriever import Pipeline
+    from tests.unit.rag_fakes import (
+        FakeEmbeddings,
+        FakeLLM,
+        FakeReranker,
+        MemoryChroma,
+        test_config,
+    )
+
+    config = test_config(tmp_path)
+    embeddings, chroma = FakeEmbeddings(), MemoryChroma()
+    for user_id, persona in (("alice", "ml_engineer"), ("bob", "fullstack_dev")):
+        await ingest(
+            config, root, user_id, persona, embeddings=embeddings, chroma=chroma
+        )
+    instance.rag_factory = lambda who: Pipeline(
+        config,
+        root,
+        who.user_id,
+        who.persona,
+        embeddings=embeddings,
+        chroma=chroma,
+        llm=FakeLLM(),
+        reranker=FakeReranker(),
+    )
     token = auth_context_var.set(
         AuthenticatedUser(
             AccessToken(
@@ -172,11 +198,11 @@ async def test_portfolio_resources_prompts_and_tenant_isolation(runtime):
             {"request": {"requirement": "python", "filters": {"outcome": "won"}}},
         )
         assert proposals["data"]["items"][0]["outcome"] == "won"
-        assert (
-            await call(
-                client, "search_evidence", {"request": {"requirement": "nonexistent"}}
-            )
-        )["data"]["items"] == []
+        unrelated = await call(
+            client, "search_evidence", {"request": {"requirement": "nonexistent"}}
+        )
+        assert unrelated["data"]["backend"] == "v0"
+        assert unrelated["data"]["items"]  # Dense V0 has no relevance refusal gate.
         assert (await call(client, "list_skills"))["data"]["skills"] == [
             "python",
             "pandas",
@@ -431,3 +457,35 @@ def test_log_redaction():
     assert RedactLogs().filter(record)
     assert "private-token" not in record.getMessage()
     assert "alice@example.com" not in record.getMessage()
+
+
+async def test_portfolio_verifier_is_mcp_read_only_and_scoped(runtime):
+    async with create_connected_server_and_client_session(portfolio(runtime)) as client:
+        result = await call(
+            client,
+            "search_evidence",
+            {
+                "request": {
+                    "requirement": "forecasting",
+                    "filters": {"type": "case_study"},
+                }
+            },
+        )
+        chunk_id = result["data"]["items"][0]["chunk_id"]
+        report = await call(
+            client,
+            "verify_claims",
+            {
+                "request": {
+                    "draft": "I built Python forecasting.",
+                    "chunk_ids": [chunk_id],
+                }
+            },
+        )
+        assert report["data"]["cleaned_draft"] == "I built Python forecasting."
+        denied = await call(
+            client,
+            "verify_claims",
+            {"request": {"draft": "I built Python.", "chunk_ids": ["foreign-chunk"]}},
+        )
+        assert denied["error"]["code"] == "evidence_unavailable"

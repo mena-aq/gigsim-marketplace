@@ -147,3 +147,26 @@ Two ways to generate the corpora:
 - Processed JSON is re-generable; do not hand-edit — change the script instead.
 - `llm_cache.json` exists so re-runs do not re-bill Groq; delete it to force
   regeneration of dislikes.
+
+## Step 3 ingestion and development labels
+
+The existing synthetic corpus is ingested without regeneration. Supported sources
+are local Markdown/frontmatter, text PDFs, README/text/code, reviews and historical
+proposals. GitHub ingestion and OCR remain deferred. Every normalized chunk keeps
+its source hash/identity, persona, type, project, skills, date, industry and outcome;
+unknown metadata is not invented. Source offsets refer to normalized extracted
+text. Vector filtering and manifests are user-scoped even for assigned personas.
+
+The retrieval development set has 30 agent-authored queries, ten per persona;
+the verification set has 12 agent-authored examples. Both explicitly await human
+review. Positive retrieval labels focus on known case studies and are not exhaustive
+across CVs/reviews/proposals; unjudged documents count as nonrelevant. Scores may
+therefore understate useful retrieval. These are provisional development fixtures,
+not instructor gold labels or a hidden-test substitute. Synthetic portfolio facts
+are used as simulator evidence and are not claims about the user's real experience.
+
+### Generating Results
+
+```
+make rag-eval
+```

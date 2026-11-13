@@ -1,0 +1,114 @@
+{
+  "provenance": "Agent-authored development examples; pending human review, not judge calibration.",
+  "reviewed_by_user": false,
+  "examples": [
+    {
+      "id": "verify-ml_engineer-1",
+      "persona": "ml_engineer",
+      "draft": "I achieved an AUC-ROC of 0.97.",
+      "source_id": "ml_engineer:case_studies/001_fraud_detection_pipeline_for_a_payments_startup.md",
+      "evidence_quote": "AUC\u2011ROC of 0.97",
+      "expected_keep": true,
+      "type": "supported"
+    },
+    {
+      "id": "verify-ml_engineer-2",
+      "persona": "ml_engineer",
+      "draft": "I achieved an AUC-ROC of 1.0.",
+      "source_id": "ml_engineer:case_studies/001_fraud_detection_pipeline_for_a_payments_startup.md",
+      "evidence_quote": "AUC\u2011ROC of 0.97",
+      "expected_keep": false,
+      "type": "contradicted_number"
+    },
+    {
+      "id": "verify-ml_engineer-3",
+      "persona": "ml_engineer",
+      "draft": "I built a fraud detection model and deployed it to IBM Watson.",
+      "source_id": "ml_engineer:case_studies/001_fraud_detection_pipeline_for_a_payments_startup.md",
+      "evidence_quote": "Feature store built with Pandas",
+      "expected_keep": false,
+      "type": "partly_supported"
+    },
+    {
+      "id": "verify-ml_engineer-4",
+      "persona": "ml_engineer",
+      "draft": "I designed radiation-hardened FPGA flight controllers.",
+      "source_id": null,
+      "evidence_quote": "",
+      "expected_keep": false,
+      "type": "no_evidence"
+    },
+    {
+      "id": "verify-fullstack_dev-1",
+      "persona": "fullstack_dev",
+      "draft": "I delivered a clinic platform using React, TypeScript, and PostgreSQL.",
+      "source_id": "fullstack_dev:case_studies/001_saas_booking_platform_for_a_clinic_chain.md",
+      "evidence_quote": "multi\u2011tenant SaaS platform using",
+      "expected_keep": true,
+      "type": "supported"
+    },
+    {
+      "id": "verify-fullstack_dev-2",
+      "persona": "fullstack_dev",
+      "draft": "The clinic platform achieved 100% uptime.",
+      "source_id": "fullstack_dev:case_studies/001_saas_booking_platform_for_a_clinic_chain.md",
+      "evidence_quote": "99.95%",
+      "expected_keep": false,
+      "type": "contradicted_number"
+    },
+    {
+      "id": "verify-fullstack_dev-3",
+      "persona": "fullstack_dev",
+      "draft": "I built a React clinic booking platform with a Rust backend.",
+      "source_id": "fullstack_dev:case_studies/001_saas_booking_platform_for_a_clinic_chain.md",
+      "evidence_quote": "REST API powered by Node.js",
+      "expected_keep": false,
+      "type": "partly_supported"
+    },
+    {
+      "id": "verify-fullstack_dev-4",
+      "persona": "fullstack_dev",
+      "draft": "I built a COBOL mainframe payroll system.",
+      "source_id": null,
+      "evidence_quote": "",
+      "expected_keep": false,
+      "type": "no_evidence"
+    },
+    {
+      "id": "verify-data_analyst-1",
+      "persona": "data_analyst",
+      "draft": "I reduced reporting time from 48 hours to under 15 minutes.",
+      "source_id": "data_analyst:case_studies/001_sales_dashboard_in_power_bi_for_a_distributor.md",
+      "evidence_quote": "reduced reporting time from 48",
+      "expected_keep": true,
+      "type": "supported"
+    },
+    {
+      "id": "verify-data_analyst-2",
+      "persona": "data_analyst",
+      "draft": "I reduced reporting time from 48 hours to two seconds.",
+      "source_id": "data_analyst:case_studies/001_sales_dashboard_in_power_bi_for_a_distributor.md",
+      "evidence_quote": "reduced reporting time from 48",
+      "expected_keep": false,
+      "type": "contradicted_number"
+    },
+    {
+      "id": "verify-data_analyst-3",
+      "persona": "data_analyst",
+      "draft": "I built a Power BI dashboard and deployed it in SAP HANA.",
+      "source_id": "data_analyst:case_studies/001_sales_dashboard_in_power_bi_for_a_distributor.md",
+      "evidence_quote": "Azure SQL Database",
+      "expected_keep": false,
+      "type": "partly_supported"
+    },
+    {
+      "id": "verify-data_analyst-4",
+      "persona": "data_analyst",
+      "draft": "I reconstructed protein structures with RELION.",
+      "source_id": null,
+      "evidence_quote": "",
+      "expected_keep": false,
+      "type": "no_evidence"
+    }
+  ]
+}
