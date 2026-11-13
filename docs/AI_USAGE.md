@@ -50,3 +50,15 @@ invented correction terms are discarded. Early diagnostic runs were interrupted
 for correctness/resource changes; only the final fixed-fingerprint run feeds the
 published comparison. Numeric-claim checks supplement, rather than replace, the
 small model's provisional semantic judgments.
+
+## Quick R&D B study scripts
+
+OpenAI Codex added the offline V3-versus-V2 paired hypothesis analysis, the fresh
+three-arm V3 ablation, input validation, fixed-seed paired bootstrap intervals,
+automatic JSON/CSV/Markdown reports, and synthetic correctness tests. The user runs
+the actual studies; the assistant did not execute either on real development data.
+
+One implementation concern checked explicitly: removing BM25 must pass the raw
+dense chunk pool to the reranker. Reusing V0's final deduplicated documents would
+change two pipeline stages and invalidate the one-component ablation. A toy
+candidate-pool test verifies the full and ablated paths and matching pool limits.

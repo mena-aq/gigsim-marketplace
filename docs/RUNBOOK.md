@@ -199,3 +199,23 @@ calibrated-judge metrics remain deferred. The user selects the variant explicitl
 CI correctness tests use declared deterministic model substitutes and isolated
 indexes; they do not download weights or publish fake benchmark scores. Actual
 model smoke checks and comparisons are separate from the test suite.
+
+## Quick R&D B commands (run manually)
+
+Analyze a completed comparison without model/service calls:
+
+```bash
+uv run python -m evals.runners.rag_rd_b --run evals/results/rag_20261113_155449.jsonl
+```
+
+Then run the fresh three-configuration ablation (embeddings and CPU reranking only):
+
+```bash
+uv run python -m evals.runners.rag_ablation
+```
+
+The ablation needs the existing Postgres user mappings, Chroma/indexes, Ollama
+embeddings, and installed reranker. It makes no generative Qwen calls. Both commands
+write their JSON, CSV, Markdown, and supporting evidence into evals/results and do
+not select a production variant. See docs/RAG_EXPERIMENT.md for the hypothesis,
+confidence-interval interpretation, input checks, and output-file names.

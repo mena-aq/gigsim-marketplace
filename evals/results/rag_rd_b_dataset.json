@@ -1,0 +1,279 @@
+{
+  "provenance": "Agent-authored against the current synthetic case studies; positive labels are not exhaustive. Unjudged documents count as nonrelevant.",
+  "reviewed_by_user": false,
+  "queries": [
+    {
+      "id": "ml_engineer-01",
+      "persona": "ml_engineer",
+      "type": "direct",
+      "query": "Build a real-time fraud detection pipeline for payment transactions.",
+      "qrels": {
+        "ml_engineer:case_studies/001_fraud_detection_pipeline_for_a_payments_startup.md": 2
+      }
+    },
+    {
+      "id": "ml_engineer-02",
+      "persona": "ml_engineer",
+      "type": "direct",
+      "query": "Predict subscription customer churn and identify users likely to cancel.",
+      "qrels": {
+        "ml_engineer:case_studies/002_customer_churn_model_for_a_subscription_app.md": 2
+      }
+    },
+    {
+      "id": "ml_engineer-03",
+      "persona": "ml_engineer",
+      "type": "direct",
+      "query": "Classify legal documents for a law firm using machine learning.",
+      "qrels": {
+        "ml_engineer:case_studies/004_document_classification_service_for_a_law_firm.md": 2
+      }
+    },
+    {
+      "id": "ml_engineer-04",
+      "persona": "ml_engineer",
+      "type": "direct",
+      "query": "Forecast weekly demand across retail stores and product SKUs.",
+      "qrels": {
+        "ml_engineer:case_studies/005_demand_forecasting_for_a_retail_chain.md": 2
+      }
+    },
+    {
+      "id": "ml_engineer-05",
+      "persona": "ml_engineer",
+      "type": "multi",
+      "query": "We need fraud detection for payments and a separate subscription customer churn model.",
+      "qrels": {
+        "ml_engineer:case_studies/001_fraud_detection_pipeline_for_a_payments_startup.md": 2,
+        "ml_engineer:case_studies/002_customer_churn_model_for_a_subscription_app.md": 2
+      }
+    },
+    {
+      "id": "ml_engineer-06",
+      "persona": "ml_engineer",
+      "type": "multi",
+      "query": "Build an e-commerce product recommendation engine and an image classification service for inventory photos.",
+      "qrels": {
+        "ml_engineer:case_studies/003_product_recommendation_engine_for_e_commerce.md": 2,
+        "ml_engineer:case_studies/007_image_classification_service_for_inventory_photos.md": 2
+      }
+    },
+    {
+      "id": "ml_engineer-07",
+      "persona": "ml_engineer",
+      "type": "multi",
+      "query": "Analyze sentiment in support tickets and detect anomalies in platform logs.",
+      "qrels": {
+        "ml_engineer:case_studies/006_sentiment_analysis_dashboard_for_support_tickets.md": 2,
+        "ml_engineer:case_studies/008_anomaly_detection_on_platform_logs.md": 2
+      }
+    },
+    {
+      "id": "ml_engineer-08",
+      "persona": "ml_engineer",
+      "type": "paraphrase",
+      "query": "Personalize the products shoppers see based on their previous interactions.",
+      "qrels": {
+        "ml_engineer:case_studies/003_product_recommendation_engine_for_e_commerce.md": 2
+      }
+    },
+    {
+      "id": "ml_engineer-09",
+      "persona": "ml_engineer",
+      "type": "paraphrase",
+      "query": "Automatically tag and sort product photographs uploaded by vendors.",
+      "qrels": {
+        "ml_engineer:case_studies/007_image_classification_service_for_inventory_photos.md": 2
+      }
+    },
+    {
+      "id": "ml_engineer-10",
+      "persona": "ml_engineer",
+      "type": "none",
+      "query": "Prove experience designing radiation-hardened FPGA flight controllers for lunar landers.",
+      "qrels": {}
+    },
+    {
+      "id": "fullstack_dev-01",
+      "persona": "fullstack_dev",
+      "type": "direct",
+      "query": "Build a multi-tenant clinic appointment booking platform.",
+      "qrels": {
+        "fullstack_dev:case_studies/001_saas_booking_platform_for_a_clinic_chain.md": 2
+      }
+    },
+    {
+      "id": "fullstack_dev-02",
+      "persona": "fullstack_dev",
+      "type": "direct",
+      "query": "Create an e-commerce storefront with Stripe checkout and secure payments.",
+      "qrels": {
+        "fullstack_dev:case_studies/002_e_commerce_storefront_with_stripe_checkout.md": 2
+      }
+    },
+    {
+      "id": "fullstack_dev-03",
+      "persona": "fullstack_dev",
+      "type": "direct",
+      "query": "Develop a real-estate listings portal with interactive map search.",
+      "qrels": {
+        "fullstack_dev:case_studies/003_real_estate_listing_portal_with_map_search.md": 2
+      }
+    },
+    {
+      "id": "fullstack_dev-04",
+      "persona": "fullstack_dev",
+      "type": "direct",
+      "query": "Build a real-time logistics dashboard for shipments and fleet status.",
+      "qrels": {
+        "fullstack_dev:case_studies/004_internal_admin_dashboard_for_logistics.md": 2
+      }
+    },
+    {
+      "id": "fullstack_dev-05",
+      "persona": "fullstack_dev",
+      "type": "multi",
+      "query": "Create a restaurant ordering PWA and integrate Stripe checkout.",
+      "qrels": {
+        "fullstack_dev:case_studies/005_restaurant_ordering_pwa.md": 2,
+        "fullstack_dev:case_studies/002_e_commerce_storefront_with_stripe_checkout.md": 2
+      }
+    },
+    {
+      "id": "fullstack_dev-06",
+      "persona": "fullstack_dev",
+      "type": "multi",
+      "query": "Build fitness workout tracking and a job board with employer accounts.",
+      "qrels": {
+        "fullstack_dev:case_studies/006_fitness_tracking_web_app.md": 2,
+        "fullstack_dev:case_studies/007_job_board_platform_with_employer_accounts.md": 2
+      }
+    },
+    {
+      "id": "fullstack_dev-07",
+      "persona": "fullstack_dev",
+      "type": "multi",
+      "query": "Integrate invoice payments and an e-commerce Stripe checkout.",
+      "qrels": {
+        "fullstack_dev:case_studies/008_payment_portal_integration_for_invoicing.md": 2,
+        "fullstack_dev:case_studies/002_e_commerce_storefront_with_stripe_checkout.md": 2
+      }
+    },
+    {
+      "id": "fullstack_dev-08",
+      "persona": "fullstack_dev",
+      "type": "paraphrase",
+      "query": "Let diners place pickup and delivery orders from their phones without installing an app.",
+      "qrels": {
+        "fullstack_dev:case_studies/005_restaurant_ordering_pwa.md": 2
+      }
+    },
+    {
+      "id": "fullstack_dev-09",
+      "persona": "fullstack_dev",
+      "type": "paraphrase",
+      "query": "Help recruiters publish vacancies and manage applications from one dashboard.",
+      "qrels": {
+        "fullstack_dev:case_studies/007_job_board_platform_with_employer_accounts.md": 2
+      }
+    },
+    {
+      "id": "fullstack_dev-10",
+      "persona": "fullstack_dev",
+      "type": "none",
+      "query": "Prove experience implementing COBOL payroll on a mainframe using CICS and DB2 z/OS.",
+      "qrels": {}
+    },
+    {
+      "id": "data_analyst-01",
+      "persona": "data_analyst",
+      "type": "direct",
+      "query": "Create a Power BI sales dashboard combining ERP, CSV, and Excel data.",
+      "qrels": {
+        "data_analyst:case_studies/001_sales_dashboard_in_power_bi_for_a_distributor.md": 2
+      }
+    },
+    {
+      "id": "data_analyst-02",
+      "persona": "data_analyst",
+      "type": "direct",
+      "query": "Build a multi-touch marketing attribution model for an agency.",
+      "qrels": {
+        "data_analyst:case_studies/002_marketing_attribution_model_for_an_agency.md": 2
+      }
+    },
+    {
+      "id": "data_analyst-03",
+      "persona": "data_analyst",
+      "type": "direct",
+      "query": "Analyze SaaS churn by customer cohort and identify cancellation patterns.",
+      "qrels": {
+        "data_analyst:case_studies/003_churn_cohort_analysis_for_a_saas.md": 2
+      }
+    },
+    {
+      "id": "data_analyst-04",
+      "persona": "data_analyst",
+      "type": "direct",
+      "query": "Clean a Snowflake data warehouse using dbt.",
+      "qrels": {
+        "data_analyst:case_studies/004_warehouse_data_cleanup_with_dbt.md": 2
+      }
+    },
+    {
+      "id": "data_analyst-05",
+      "persona": "data_analyst",
+      "type": "multi",
+      "query": "Migrate finance Excel workbooks to SQL and automate a financial KPI reporting pack.",
+      "qrels": {
+        "data_analyst:case_studies/005_excel_to_sql_migration_for_finance_team.md": 2,
+        "data_analyst:case_studies/008_financial_kpi_reporting_pack.md": 2
+      }
+    },
+    {
+      "id": "data_analyst-06",
+      "persona": "data_analyst",
+      "type": "multi",
+      "query": "Segment retail customers and build a sales dashboard in Power BI.",
+      "qrels": {
+        "data_analyst:case_studies/006_customer_segmentation_study_for_retail.md": 2,
+        "data_analyst:case_studies/001_sales_dashboard_in_power_bi_for_a_distributor.md": 2
+      }
+    },
+    {
+      "id": "data_analyst-07",
+      "persona": "data_analyst",
+      "type": "multi",
+      "query": "Analyze an A/B product experiment and investigate churn cohorts.",
+      "qrels": {
+        "data_analyst:case_studies/007_a_b_test_analysis_report_for_product.md": 2,
+        "data_analyst:case_studies/003_churn_cohort_analysis_for_a_saas.md": 2
+      }
+    },
+    {
+      "id": "data_analyst-08",
+      "persona": "data_analyst",
+      "type": "paraphrase",
+      "query": "Estimate whether a feature rollout improved engagement and paid conversion.",
+      "qrels": {
+        "data_analyst:case_studies/007_a_b_test_analysis_report_for_product.md": 2
+      }
+    },
+    {
+      "id": "data_analyst-09",
+      "persona": "data_analyst",
+      "type": "paraphrase",
+      "query": "Give finance leaders a single automated monthly view of performance against budget.",
+      "qrels": {
+        "data_analyst:case_studies/008_financial_kpi_reporting_pack.md": 2
+      }
+    },
+    {
+      "id": "data_analyst-10",
+      "persona": "data_analyst",
+      "type": "none",
+      "query": "Prove experience reconstructing protein structures from cryo-electron microscopy using RELION.",
+      "qrels": {}
+    }
+  ]
+}

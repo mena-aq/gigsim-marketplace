@@ -38,7 +38,7 @@ test:
 
 lint:
 	uv run ruff check .
-	uv run ruff format --check --line-length 88 rag tests/unit/test_rag.py tests/unit/rag_fakes.py evals/runners/rag_eval.py evals/runners/rag_table.py evals/runners/rag_environment.py mcp_servers agent/mcp_client.py agent/marketplace_port.py tests/unit/test_mcp_layer.py tests/contract/test_mcp_schemas.py tests/integration/test_mcp_postgres.py scripts/mcp_smoke.py scripts/mcp_snapshot.py infra/ollama_bridge.py apps/api worker scripts/export_openapi.py tests/unit/test_api_health.py tests/integration/test_foundation_postgres.py
+	uv run ruff format --check --line-length 88 rag tests/unit/test_rag.py tests/unit/rag_fakes.py evals/runners/rag_eval.py evals/runners/rag_table.py evals/runners/rag_environment.py evals/runners/rag_study.py evals/runners/rag_rd_b.py evals/runners/rag_ablation.py tests/unit/test_rag_studies.py mcp_servers agent/mcp_client.py agent/marketplace_port.py tests/unit/test_mcp_layer.py tests/contract/test_mcp_schemas.py tests/integration/test_mcp_postgres.py scripts/mcp_smoke.py scripts/mcp_snapshot.py infra/ollama_bridge.py apps/api worker scripts/export_openapi.py tests/unit/test_api_health.py tests/integration/test_foundation_postgres.py
 
 eval:
 	uv run python -m evals.runners.run_demo_eval
