@@ -100,3 +100,15 @@ class AuditLog(Base):
     action: Mapped[str] = mapped_column(String(64))
     payload: Mapped[dict] = mapped_column(JSONType, default=dict)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
+
+
+class WriteReceipt(Base):
+    """Additive table: existing simulator databases need no column alterations."""
+    __tablename__ = "write_receipts"
+    __table_args__ = (UniqueConstraint("freelancer_id", "operation", "idempotency_key"),)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    freelancer_id: Mapped[str] = mapped_column(String(64), index=True)
+    operation: Mapped[str] = mapped_column(String(32))
+    idempotency_key: Mapped[str] = mapped_column(String(128))
+    payload_hash: Mapped[str] = mapped_column(String(64))
+    response: Mapped[dict] = mapped_column(JSONType)

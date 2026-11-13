@@ -22,3 +22,15 @@ A duplicate Ollama image pull exhausted disk space during verification; that
 newly downloaded image was removed, the interrupted Compose write restored,
 and the configuration changed to a small bridge to the existing host service.
 The full stack and PostgreSQL tests were checked again after recovery.
+
+## Step 2 MCP layer
+
+OpenAI Codex implemented the three MCP servers, shared contracts/auth/audit/write
+receipts, typed MCP client/port, migration, Compose wiring, tests and documentation.
+The owner authorized the narrow GigSim idempotency/concurrency changes and chose
+to exclude Upwork, defer GitHub, and use a persistent local Workspace mock.
+
+One caught error: the first resource reader treated a URI-encoded evidence ID as
+its literal file ID, so the protocol test returned not_found. Resource handlers
+now decode template arguments before the persona/path checks, and the regression
+reads the resource through the actual in-memory MCP client.

@@ -404,23 +404,33 @@ and write idempotency need verification beyond the SQLite suite.
 
 ### 2 — MCP Servers
 
-**Portfolio server** (`mcp_servers/portfolio/`):
-- `search_evidence(requirement, k, filters)` → list of evidence items
-- `get_case_study(id)` → full text
-- `list_skills()` → skill list
-- Bearer token auth.
+Follow Part A of `GigBid_Assignment.md` for the MCP capabilities and contracts.
+Agreed project deviations: GigSim only; do not implement Upwork, OAuth for Upwork,
+or an Upwork stub. GitHub/third-party MCP integration is deferred. Workspace is
+an explicitly local, persistent Postgres calendar/email mock.
 
-**Marketplace server** (`mcp_servers/marketplace/`):
-- Read: `search_jobs`, `get_job`, `get_client_history`, `get_connects_balance`, `list_messages`
-- Write: `create_proposal_draft`, `submit_proposal`, `send_message`
-- Every write: `idempotency_key` field, `dry_run: bool` flag
-- One adapter for GigSim (`adapters/gigsim.py`), one stub for Upwork (`adapters/upwork_live.py`)
-- Switched by `MARKETPLACE_ADAPTER=gigsim|upwork` env var
-- `marketplace_port.py` is the single internal interface agents use — they never import an adapter directly
+Build three authenticated Streamable HTTP MCP servers with constrained Pydantic
+inputs and outputs, correct annotations, shared per-freelancer Redis rate limiting,
+bounded retries, trace propagation, append-only masked audit, durable idempotency,
+and contract snapshots. Portfolio includes tools, case/proposal resource templates,
+and a file-backed screening-question prompt. Search is interim lexical retrieval;
+Step 3 supplies the evaluated retrieval backend.
 
-**Workspace server** (`mcp_servers/workspace/`):
-- `get_free_slots(days_ahead)`, `create_hold(slot, title)`, `create_email_draft(to, subject, body)`
-- Back with a local mock if no Google API credentials available
+All agent marketplace access uses the typed MCP-backed `MarketplacePort`; only
+the Marketplace server's adapter calls GigSim REST. Tool allowlists are per role.
+Local drafts/holds do not send externally. Proposal/message sends require exact,
+unexpired database approval grants; MCP tools cannot issue grants. The later
+human UI/graph supplies the issuer. Tests may use grants in isolated fixtures.
+
+The owner explicitly authorized minimal GigSim changes for message write receipts,
+proposal/Connects transaction safety, and same-key payload-conflict detection.
+Preserve compatibility and existing data; the new receipt table is additive.
+This is an exception to preserving GigSim source, not permission for unrelated edits.
+
+Deploy all three owned services in Compose. Document the tool inventory, a usable
+Portfolio Docker launch command, and MCP Inspector capture instructions. Defer
+GitHub, the 40-task model/tool study, the grounded-agent demo, durable graph
+requeueing, and the product degraded-mode banner to their dependent milestones.
 
 ### 3 — RAG Pipeline
 

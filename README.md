@@ -9,8 +9,9 @@ message, and Connects spend. Development uses our separate GigSim marketplace.
 Step 0 supplies GigSim, data processing, persona generation, and simulator tests.
 Step 1 adds a Next.js/TypeScript web shell, FastAPI liveness/readiness endpoints,
 Arq worker, six tenant-owned PostgreSQL tables with Alembic migrations, Redis,
-Chroma, and a bridge to the existing host Ollama/qwen2.5:3b. Authentication, MCP tools, RAG, graphs, approvals, and full
-product screens remain future milestones. The shell reports actual readiness.
+Chroma, and a bridge to the existing host Ollama/qwen2.5:3b. Step 2 adds authenticated Portfolio/Marketplace/Workspace MCP services, durable
+write receipts, approval enforcement, and a persistent local Workspace mock.
+RAG, graphs, the human approval UI, and full product screens remain future milestones. The shell reports actual readiness.
 
 ## Run locally
 
@@ -59,3 +60,11 @@ untrusted input. Claims must have portfolio evidence. Prompts and policy belong
 in files/configuration. Secrets and hidden evaluation data never enter Git;
 measured evaluation outputs will be committed. No business data is publicly
 exposed by the foundation endpoints.
+
+## MCP layer
+
+See [the tool inventory](docs/TOOLS.md) and [Portfolio server installation](mcp_servers/portfolio/README.md).
+Provision distinct MCP tokens in `.env`, run `make migrate`, `make mcp-bootstrap`,
+then `make dev` and `make mcp-smoke`. Only previews/local drafts are available
+until the human approval UI exists. Marketplace integration is GigSim-only;
+Upwork is excluded and GitHub is deferred by project choice.

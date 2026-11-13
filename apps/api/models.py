@@ -103,3 +103,43 @@ class AuditLog(OwnedRecord, Base):
     action: Mapped[str] = mapped_column(String(100))
     trace_id: Mapped[str] = mapped_column(String(128), index=True)
     payload: Mapped[dict] = mapped_column(JSON().with_variant(JSONB(), "postgresql"))
+
+
+class MCPCredential(Base):
+    __tablename__ = "mcp_credentials"
+    token_hash: Mapped[str] = mapped_column(String(64), primary_key=True)
+    user_id: Mapped[str] = mapped_column(ForeignKey("users.id"), unique=True)
+
+
+class ToolReceipt(OwnedRecord, Base):
+    __tablename__ = "tool_receipts"
+    __table_args__ = (UniqueConstraint("user_id", "tool", "idempotency_key"),)
+    tool: Mapped[str] = mapped_column(String(64))
+    idempotency_key: Mapped[str] = mapped_column(String(128))
+    payload_hash: Mapped[str] = mapped_column(String(64))
+    result: Mapped[dict] = mapped_column(JSON().with_variant(JSONB(), "postgresql"))
+
+
+class ApprovalGrant(OwnedRecord, Base):
+    """Only a future trusted approval UI/graph may issue these, never MCP tools."""
+
+    __tablename__ = "approval_grants"
+    tool: Mapped[str] = mapped_column(String(64))
+    payload_hash: Mapped[str] = mapped_column(String(64))
+    idempotency_key: Mapped[str] = mapped_column(String(128))
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    consumed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+
+class WorkspaceHold(OwnedRecord, Base):
+    __tablename__ = "workspace_holds"
+    title: Mapped[str] = mapped_column(String(200))
+    starts_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    ends_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
+class EmailDraft(OwnedRecord, Base):
+    __tablename__ = "email_drafts"
+    recipient: Mapped[str] = mapped_column(String(320))
+    subject: Mapped[str] = mapped_column(String(200))
+    body: Mapped[str] = mapped_column(Text)

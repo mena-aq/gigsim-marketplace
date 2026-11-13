@@ -80,3 +80,48 @@ large Ollama image just to duplicate a model already installed on the host.
 
 Scouting schedules, conservative live polling, retries/dead letters, tracing,
 reviewer provisioning, and public deployment belong to later milestones.
+
+## Step 2: MCP services
+
+Three owned servers start with Compose: Portfolio on localhost:8101/mcp,
+Marketplace on localhost:8102/mcp, Workspace on localhost:8103/mcp. Each has a
+public `/health` liveness endpoint; `/mcp` requires bearer authentication.
+No Upwork or GitHub connection is needed. Host Ollama is unchanged and is not
+used by deterministic Step 2 tools.
+
+Add three distinct random MCP_TOKEN_ML_ENGINEER, MCP_TOKEN_FULLSTACK_DEV, and
+MCP_TOKEN_DATA_ANALYST values to the ignored root `.env`, using the names in
+`.env.example`. Generate values locally with `secrets.token_urlsafe(32)`; do not
+paste tokens into commands, screenshots, logs, or committed files. Then run:
+
+```bash
+make migrate
+make mcp-bootstrap
+make dev
+make mcp-smoke
+```
+
+Bootstrap creates/resolves one user per persona and stores only SHA-256 token
+hashes. Rerunning it rotates that user's credential to the supplied token.
+The simulator's persona tokens are separate from MCP tokens. Keep the correct
+GIGSIM_TOKEN_<PERSONA> values in `.env`. Persona corpora must already exist from
+Step 0. The services never regenerate your corpus or seed/reset GigSim.
+
+For host-only development use, for example:
+`uv run uvicorn mcp_servers.portfolio.server:create_app --factory --port 8101 --no-access-log`.
+Set MCP_BASE_URL to the matching host/port for each standalone server.
+
+Schema snapshots: `make mcp-snapshot`; tests: `make test`. The opt-in
+`tests/integration/test_mcp_postgres.py` suite uses FOUNDATION_TEST_DATABASE_URL,
+creates/removes isolated simulator schemas, and intentionally retains test audit
+rows/users in that disposable database. Migrate it before running. Set FOUNDATION_TEST_REDIS_URL to an isolated Redis
+database (for example redis://localhost:6379/15) to run the shared-quota test.
+Never run this
+suite against a production database. It verifies concurrent submissions/messages,
+Connects accounting, local holds, lost-response recovery, and immutable audit rows.
+
+Only local drafts/holds and previews are usable before the later human approval
+UI. Real proposal/message tools intentionally return `approval_required` without
+a matching trusted database grant. There is no operator bypass command. Deferred
+work: graph requeueing/degraded UI, retrieval experiments, the tool-design study,
+and a grounded-agent demo. See `docs/TOOLS.md` and the Portfolio server README.

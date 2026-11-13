@@ -34,9 +34,9 @@ decision → Pricing → Writer → claim verification → Critic (at most two r
 The conversation graph classifies messages, drafts replies/slots, and uses the
 same approval discipline. User edits must be rechecked before sending.
 
-Agents access capabilities through MCP only. One marketplace port selects
-GigSim or official Upwork MCP; Portfolio and Workspace have their own servers.
-A third-party GitHub MCP server supports repository ingestion. Step 2 adds the
+Agents access capabilities through MCP only. One marketplace port provides GigSim access; Portfolio and Workspace have
+their own servers. Upwork is excluded by project choice. A third-party GitHub
+MCP integration is deferred. Step 2 adds the
 three owned MCP containers. No agent may access simulator tables directly.
 
 Postgres-backed graph checkpoints, execution traces, and promoted long-term
@@ -57,3 +57,17 @@ The user already runs Ollama with `qwen2.5:3b`. The `ollama` Compose service
 is a Linux host-network TCP bridge to that service, using the existing Python
 image instead of downloading a duplicate Ollama image/model. Containers reach
 it through `host.docker.internal:11435`. Host Ollama stays bound to loopback.
+
+## Step 2 MCP boundary
+
+Portfolio (:8101), Marketplace (:8102), and Workspace (:8103) are separate
+Streamable HTTP services. They share GigBid Postgres for credential hashes,
+audit, write receipts, approval grants, and local artifacts. Marketplace alone
+uses Redis for the shared upstream request quota and calls GigSim through its
+adapter. Persona files are read-only mounts accessible only to Portfolio.
+Agents use `MCPGateway` role allowlists and the MCP-backed marketplace port.
+
+Upwork is intentionally excluded; GitHub is deferred. Workspace is local-only.
+Lexical portfolio search precedes evaluated RAG. MCP tools cannot issue approvals;
+proposal/message sends remain blocked until the later UI/graph issues grants.
+Audit rows are append-only in Postgres; simulator write receipts are in its own DB.

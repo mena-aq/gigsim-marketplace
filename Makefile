@@ -38,7 +38,7 @@ test:
 
 lint:
 	uv run ruff check .
-	uv run ruff format --check --line-length 88 infra/ollama_bridge.py apps/api worker scripts/export_openapi.py tests/unit/test_api_health.py tests/integration/test_foundation_postgres.py
+	uv run ruff format --check --line-length 88 mcp_servers agent/mcp_client.py agent/marketplace_port.py tests/unit/test_mcp_layer.py tests/contract/test_mcp_schemas.py tests/integration/test_mcp_postgres.py scripts/mcp_smoke.py scripts/mcp_snapshot.py infra/ollama_bridge.py apps/api worker scripts/export_openapi.py tests/unit/test_api_health.py tests/integration/test_foundation_postgres.py
 
 eval:
 	uv run python -m evals.runners.run_demo_eval
@@ -75,3 +75,14 @@ web-check:
 api-client:
 	uv run python -m scripts.export_openapi
 	cd apps/web && npm run api:generate
+
+.PHONY: mcp-bootstrap mcp-smoke mcp-snapshot
+
+mcp-bootstrap:
+	uv run python -m mcp_servers.common.bootstrap
+
+mcp-smoke:
+	uv run python -m scripts.mcp_smoke
+
+mcp-snapshot:
+	uv run python -m scripts.mcp_snapshot

@@ -121,3 +121,13 @@ docker compose -f infra/docker-compose.yml up -d gigsim-postgres gigsim
 
 The `gigsim` container runs the API on port 8081 and mounts
 `../data/processed` read-only for seeding at startup.
+
+## Step 2 write-safety update
+
+Message requests optionally accept `idempotency_key` (required by the MCP layer).
+Same-key retries return the stored response; changed payloads return 409. Proposal
+writes now have the same payload-conflict protection and immutable receipts.
+Postgres serializes writes per freelancer to prevent concurrent double spending.
+The additive `write_receipts` table is created by normal simulator startup; no
+existing tables or data are reset. SQLite uses an in-process lock for tests;
+multi-process write-safety is verified against Postgres.

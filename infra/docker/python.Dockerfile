@@ -7,6 +7,8 @@ COPY pyproject.toml uv.lock ./
 RUN uv sync --frozen --no-install-project --no-dev
 COPY apps/ apps/
 COPY worker/ worker/
+COPY agent/ agent/
+COPY mcp_servers/ mcp_servers/
 COPY alembic.ini ./
 COPY infra/ollama_bridge.py infra/ollama_bridge.py
 ENV PATH="/app/.venv/bin:$PATH"

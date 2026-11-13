@@ -6,6 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from gigsim.auth import get_current_freelancer
 from gigsim.db import get_session
+from gigsim.idempotency import remember, replay, write_lock
 from gigsim.models import AuditLog, Message, Proposal
 from gigsim.schemas import ConversationSummary, MessageIn, MessageOut
 from gigsim.util import utcnow
@@ -79,6 +80,19 @@ async def send_message(
     freelancer_id: str = Depends(get_current_freelancer),
     session: AsyncSession = Depends(get_session),
 ) -> MessageOut:
+    async with write_lock(session, freelancer_id):
+        return await _send_message(payload, freelancer_id, session)
+
+
+async def _send_message(
+    payload: MessageIn, freelancer_id: str, session: AsyncSession
+) -> MessageOut:
+    if payload.idempotency_key and not payload.dry_run:
+        existing = await replay(
+            session, freelancer_id, "send_message", payload.idempotency_key, payload
+        )
+        if existing is not None:
+            return MessageOut.model_validate(existing)
     if not _owns(payload.conversation_id, freelancer_id):
         raise HTTPException(status_code=403, detail="Not your conversation")
     proposal = (
@@ -112,6 +126,11 @@ async def send_message(
             payload={"conversation_id": payload.conversation_id},
         )
     )
+    await session.flush()
+    result = MessageOut.model_validate(message, from_attributes=True)
+    if payload.idempotency_key:
+        remember(
+            session, freelancer_id, "send_message", payload.idempotency_key, payload, result
+        )
     await session.commit()
-    await session.refresh(message)
-    return MessageOut.model_validate(message, from_attributes=True)
+    return result
