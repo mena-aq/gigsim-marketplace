@@ -283,6 +283,35 @@ async def detail(
     return RunDetail(**summary(run).model_dump(), state=snapshot.values, review=review)
 
 
+UNDELETABLE = {"queued", "running", "sent"}
+
+
+@router.delete("/runs/{run_id}", status_code=204)
+async def delete_run(
+    run_id: str, user=Depends(authenticated), service=Depends(coordinator)
+):
+    """Remove a run and its checkpoints. Audit log and tool receipts are kept."""
+    async with service.sessions() as session, session.begin():
+        run = await session.scalar(
+            select(GraphRun)
+            .where(GraphRun.id == run_id, GraphRun.user_id == user.subject)
+            .with_for_update()
+        )
+        if run is None:
+            raise HTTPException(404, "Run not found")
+        if run.status in UNDELETABLE:
+            raise HTTPException(
+                409,
+                "A running run cannot be deleted yet"
+                if run.status != "sent"
+                else "A sent proposal or message is a record and cannot be deleted",
+            )
+        thread_id = thread_config(run)["configurable"]["thread_id"]
+        await session.delete(run)
+    await service.saver.adelete_thread(thread_id)
+    RUN_TITLES.pop(run_id, None)
+
+
 @router.post("/runs/{run_id}/approval", response_model=RunSummary, status_code=202)
 async def approve(
     run_id: str,

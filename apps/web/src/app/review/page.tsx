@@ -153,6 +153,11 @@ export default function Review() {
           <div><h3>{run.kind === "conversation" ? "Reply: " : ""}{run.title ?? run.target}</h3>
             <small><strong>{run.status.replaceAll("_", " ")}</strong>{run.created_at ? ` · ${new Date(run.created_at).toLocaleString()}` : ""}</small></div>
           <button className="job-action" onClick={() => { setSelected(run.id); setDetail(null); setTimeout(() => document.getElementById("run-detail")?.scrollIntoView({ behavior: "smooth" }), 50); }}>{run.id === selected ? "Viewing" : "Open"}</button>
+          {!["queued", "running", "sent"].includes(run.status) && <button className="job-action danger" disabled={busy} aria-label={"Delete run " + (run.title ?? run.target)} onClick={() => { if (!window.confirm("Delete this run? Its draft and checkpoints are removed.")) return; void act(async () => {
+            const res = await fetch("/api/agent/runs/" + encodeURIComponent(run.id), { method: "DELETE" });
+            if (!res.ok) throw new Error((await res.json().catch(() => ({}))).detail ?? "Could not delete the run");
+            if (run.id === selected) { setSelected(""); setDetail(null); }
+          }); }}>Delete</button>}
         </article>)}</div>}
       </section>
       <section className="panel chats"><div className="inbox-heading"><div><p className="eyebrow">CLIENT MESSAGES</p><h2>Conversations on submitted proposals</h2></div></div>
