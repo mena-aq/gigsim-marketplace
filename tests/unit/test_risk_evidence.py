@@ -2,8 +2,11 @@
 
 from types import SimpleNamespace
 
+import pytest
+
 from agent.config import load_graph_config
 from agent.nodes.risk_assessor import risk, squash
+from mcp_servers.common.errors import ToolFailure
 
 HISTORY = {
     "client": {"payment_verified": True, "hire_rate": 0.9, "name": "Aurora"},
@@ -44,19 +47,23 @@ async def test_quote_with_repaired_spacing_is_accepted():
         job, context([finding("RAG system. This system should use more than 1 PDF")])
     )
     report = result["analyses"]["risk"]
-    assert report["score"] == 0.5 and report["ignored_findings"] == []
-    assert report["flags"] == ["because"]
+    assert report["score"] == 0.5 and report["flags"] == ["because"]
 
 
-async def test_fabricated_quote_is_ignored_not_fatal():
+async def test_fabricated_quote_still_fails_closed():
     job = state("Build a chatbot for our shop.")
-    result = await risk(
-        job, context([finding("send payment to my bank", level="high")])
-    )
-    report = result["analyses"]["risk"]
-    assert report["score"] == 0.1  # a made-up finding adds no risk
-    assert report["flags"] == [] and report["findings"] == []
-    assert report["ignored_findings"][0]["quote"] == "send payment to my bank"
+    with pytest.raises(ToolFailure, match="absent"):
+        await risk(job, context([finding("send payment to my bank", level="high")]))
+
+
+async def test_one_fabricated_finding_fails_even_next_to_a_real_one():
+    job = state("Pay is unpaid trial work first.")
+    findings = [
+        finding("unpaid trial work", level="high"),
+        finding("totally invented", level="high"),
+    ]
+    with pytest.raises(ToolFailure, match="absent"):
+        await risk(job, context(findings))
 
 
 async def test_history_quotes_match_plain_text_not_json_escapes():
@@ -64,24 +71,7 @@ async def test_history_quotes_match_plain_text_not_json_escapes():
     result = await risk(
         job, context([finding('Said "no refunds" twice.', source="history")])
     )
-    assert result["analyses"]["risk"]["ignored_findings"] == []
-
-
-async def test_grounded_and_ungrounded_findings_are_separated():
-    job = state("Pay is unpaid trial work first.")
-    result = await risk(
-        job,
-        context(
-            [
-                finding("unpaid trial work", level="high"),
-                finding("totally invented", level="high"),
-            ]
-        ),
-    )
-    report = result["analyses"]["risk"]
-    assert report["score"] == 0.9
-    assert [f["quote"] for f in report["findings"]] == ["unpaid trial work"]
-    assert [f["quote"] for f in report["ignored_findings"]] == ["totally invented"]
+    assert result["analyses"]["risk"]["flags"] == ["because"]
 
 
 def test_squash_ignores_whitespace_and_case_only():

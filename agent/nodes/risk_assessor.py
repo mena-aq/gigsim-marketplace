@@ -6,6 +6,7 @@ from agent.execution import NodeContext
 from agent.handoffs import RiskAssessment, RiskReport
 from agent.nodes.compliance import policy
 from agent.state import GigBidState
+from mcp_servers.common.errors import ToolFailure
 
 
 def squash(text: str) -> str:
@@ -50,23 +51,18 @@ async def risk(state: GigBidState, ctx: NodeContext) -> dict:
     settings = ctx.config["orchestration"]
     score = settings["risk_levels"]["none"]
     flags = []
-    ignored = []
     sources = {
         "job": squash("\n".join(strings(state["job"]))),
         "history": squash("\n".join(strings(history))) if history else "",
     }
     for finding in assessment["findings"]:
         # A finding only counts when its quote is really in the job or client history.
-        # An ungrounded one is discarded and recorded, rather than failing the run.
+        # An invented quote means the model output cannot be trusted: fail closed.
         if squash(finding["quote"]) not in sources[finding["source"]]:
-            ignored.append(
-                {
-                    "level": finding["level"],
-                    "quote": finding["quote"],
-                    "reason": "Quote not found in the " + finding["source"],
-                }
+            raise ToolFailure(
+                "invalid_risk_evidence",
+                "Risk assessment quoted text absent from the job or client history",
             )
-            continue
         flags.append(finding["reason"])
         score = max(score, settings["risk_levels"][finding["level"]])
     if history is None:
@@ -87,12 +83,7 @@ async def risk(state: GigBidState, ctx: NodeContext) -> dict:
         if flags
         else "No source-backed marketplace risk indicators found",
     ).model_dump()
-    report["findings"] = [
-        finding
-        for finding in assessment["findings"]
-        if finding["quote"] not in {item["quote"] for item in ignored}
-    ]
-    report["ignored_findings"] = ignored
+    report["findings"] = assessment["findings"]
     _, checks, _ = policy(ctx.config)
     job = state["job"]
     job_text = "\n".join(
