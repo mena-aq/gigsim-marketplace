@@ -17,6 +17,22 @@ def policy(config):
     return rules, checks, fingerprint({"rules": rules, "checks": checks})
 
 
+def verbatim_echo(draft: str, source: str, words: int = 10) -> str | None:
+    """Return a run of `words` consecutive words copied from the job post, if any."""
+    import re
+
+    def tokens(text):
+        return re.findall(r"[\w'+#.-]+", text.lower())
+
+    given, copied = tokens(draft), tokens(source)
+    seen = {tuple(copied[i : i + words]) for i in range(len(copied) - words + 1)}
+    for i in range(len(given) - words + 1):
+        window = tuple(given[i : i + words])
+        if window in seen:
+            return " ".join(window)
+    return None
+
+
 async def compliance(state: GigBidState, ctx: NodeContext) -> dict:
     import re
 
@@ -31,6 +47,12 @@ async def compliance(state: GigBidState, ctx: NodeContext) -> dict:
     violations = [
         rule["reason"] for rule in checks["rules"] if re.search(rule["pattern"], text)
     ]
+    job = state.get("job") or {}
+    echoed = verbatim_echo(text, job.get("description") or "")
+    if echoed:
+        violations.append(
+            f"Draft copies job-post text verbatim (possible injection echo): {echoed}"
+        )
     if violations:
         return {
             "compliance": {"passed": False, "violations": violations},

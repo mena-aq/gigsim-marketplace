@@ -68,8 +68,13 @@ async def risk(state: GigBidState, ctx: NodeContext) -> dict:
     import re
 
     _, checks, _ = policy(ctx.config)
+    job = state["job"]
+    job_text = "\n".join(
+        [job.get("title") or "", job.get("description") or ""]
+        + [str(item) for item in job.get("screening_questions") or []]
+    )
     for rule in checks.get("risk_rules", []):
-        if re.search(rule["pattern"], state["job"]["description"]):
+        if re.search(rule["pattern"], job_text, re.MULTILINE):
             report["score"] = max(report["score"], rule["minimum_risk"])
             report["flags"].append(rule["reason"])
             report["explanation"] += "; " + rule["reason"]

@@ -3,10 +3,26 @@ risk_rules:
   - pattern: '(?i)ignore (?:all |any )?(?:previous|prior|system) instructions|(?:reveal|output|print) (?:your |the )?system prompt'
     reason: Embedded instruction override or prompt disclosure request
     minimum_risk: 0.95
+  - pattern: '(?i)\b(?:disregard|forget|override|bypass|set aside)\b[^.\n]{0,40}\b(?:instructions?|rules|guidelines|policy|prompt)\b'
+    reason: Embedded instruction override attempt
+    minimum_risk: 0.95
+  - pattern: '(?i)(?:you are now|from now on,? you|act as|pretend (?:to be|you are)|new instructions?\s*:|developer mode|jailbreak)'
+    reason: Embedded role or persona change request
+    minimum_risk: 0.95
+  - pattern: '(?i)(?:<\|?(?:im_start|im_end|system|assistant)\|?>|^\s*(?:system|assistant)\s*:|\[/?(?:INST|SYS)\])'
+    reason: Embedded chat-control markup
+    minimum_risk: 0.95
+  - pattern: '(?i)(?:begin|start|end|open|close) (?:your|the) (?:proposal|reply|response|cover letter|answer)s? with|respond only with|reply only with|include the (?:word|phrase|code|string)'
+    reason: Embedded instruction dictating the proposal text
+    minimum_risk: 0.95
   - pattern: '(?i)\b(?:telegram|whatsapp|skype|off.platform|pay.?pal|wire transfer)\b'
     reason: Off-platform communication or payment request
     minimum_risk: 0.95
 rules:
+  - pattern: '(?i)ignore (?:all |any )?(?:previous|prior|system) instructions|system prompt|(?:disregard|forget|override)\b[^.\n]{0,40}\binstructions?'
+    reason: Draft repeats an instruction-override phrase
+  - pattern: '(?i)<\|?(?:im_start|im_end|system|assistant)\|?>'
+    reason: Draft contains chat-control markup
   - pattern: '[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}'
     reason: Email contact details are prohibited
   - pattern: '(?i)\b(?:https?://|www\.)\S+'
