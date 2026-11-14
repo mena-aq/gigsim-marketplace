@@ -6,6 +6,7 @@ import uuid
 from datetime import UTC, datetime
 from typing import Literal
 
+import psycopg
 from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import StreamingResponse
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
@@ -126,6 +127,9 @@ async def job(job_id: str, user=Depends(authenticated)) -> dict:
         raise HTTPException(404, "Job not found") from exc
 
 
+JOB_TITLES: dict[str, str] = {}
+
+
 @router.get("/conversations")
 async def conversations(request: Request, user=Depends(authenticated)) -> list[dict]:
     """Client conversations on submitted proposals, with any reply run already started."""
@@ -143,12 +147,17 @@ async def conversations(request: Request, user=Depends(authenticated)) -> list[d
     )
 
     async def title(job_id: str) -> str | None:
+        if job_id in JOB_TITLES:
+            return JOB_TITLES[job_id]
         try:
-            return (await scout.get_job(job_id)).title
+            found = (await scout.get_job(job_id)).title
         except ToolFailure:
             return None
+        JOB_TITLES[job_id] = found
+        return found
 
-    titles = await asyncio.gather(*(title(item.job_id) for item in items))
+    # Sequential and cached: marketplace calls share a small per-user quota.
+    titles = [await title(item.job_id) for item in items]
     async with async_sessionmaker(request.app.state.engine)() as session:
         rows = (
             await session.scalars(
@@ -203,10 +212,16 @@ async def start(body: StartRun, request: Request, user=Depends(authenticated)):
         return summary(run)
 
 
-@router.get("/runs", response_model=list[RunSummary])
-async def runs(request: Request, user=Depends(authenticated)):
-    from mcp_servers.common.errors import ToolFailure
+# A bid run's job title never changes once the scout node has stored it, so it is
+# read from the saved run state once and kept. This keeps the polled run list from
+# touching the marketplace, whose per-user request quota is small.
+RUN_TITLES: dict[str, str] = {}
 
+
+@router.get("/runs", response_model=list[RunSummary])
+async def runs(
+    request: Request, user=Depends(authenticated), service=Depends(coordinator)
+):
     async with async_sessionmaker(request.app.state.engine)() as session:
         rows = (
             await session.scalars(
@@ -217,28 +232,18 @@ async def runs(request: Request, user=Depends(authenticated)):
             )
         ).all()
     items = [summary(row) for row in rows]
-    scout = MCPMarketplacePort(
-        MCPGateway(user.token, "scout", "run-titles:" + user.subject)
-    )
-    cache: dict[str, str | None] = {}
-
-    async def title(job_id: str) -> str | None:
-        try:
-            return (await scout.get_job(job_id)).title
-        except ToolFailure:
-            return None
-
-    # Titles are a convenience: look up the newest runs only, and never fail the
-    # list when the marketplace is down.
-    wanted = {
-        item.target.split(":")[0] for item in items[:30] if item.target.split(":")[0]
-    }
-    for job_id, found in zip(
-        wanted, await asyncio.gather(*(title(job) for job in wanted)), strict=True
-    ):
-        cache[job_id] = found
-    for item in items:
-        item.title = cache.get(item.target.split(":")[0])
+    for row, item in zip(rows, items, strict=True):
+        if row.kind != "bid":
+            continue
+        if row.id not in RUN_TITLES and len(RUN_TITLES) < 5000:
+            try:
+                job = (await service.snapshot(row)).values.get("job") or {}
+            except (psycopg.Error, OSError, KeyError, ValueError, TypeError):
+                # A title is cosmetic; never fail the whole list over it.
+                job = {}
+            if job.get("title"):
+                RUN_TITLES[row.id] = job["title"]
+        item.title = RUN_TITLES.get(row.id)
     return items
 
 

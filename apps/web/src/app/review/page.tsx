@@ -165,7 +165,8 @@ export default function Review() {
           <div><h3>{chat.job_title ?? chat.job_id} <small>· {chat.proposal_status.replaceAll("_", " ")}</small></h3>
             <p>{chat.last_message ? chat.last_message.slice(0, 220) : "No messages yet."}</p>
             <small>{chat.message_count} message{chat.message_count === 1 ? "" : "s"}{chat.run ? ` · reply draft: ${chat.run.status.replaceAll("_", " ")}` : ""}</small></div>
-          {chat.run ? <button className="job-action" disabled={busy} onClick={() => { setSelected(chat.run.id); setDetail(null); }}>Open reply draft</button>
+          {chat.run ? <button className="job-action" disabled={busy} onClick={() => { setSelected(chat.run.id); setDetail(null); setTimeout(() => document.getElementById("run-detail")?.scrollIntoView({ behavior: "smooth" }), 50); }}>Open reply draft</button>
+            : chat.message_count === 0 ? <small>Waiting for the client to reply</small>
             : <button className="job-action" disabled={busy} onClick={() => void act(() => replyTo(chat.conversation_id))}>Draft reply</button>}
         </article>)}</div>}
       </section>
