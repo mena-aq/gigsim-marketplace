@@ -51,7 +51,8 @@ def sentence_spans(text: str) -> list[tuple[int, int]]:
 EXPERIENCE_MARKERS = re.compile(
     r"\b(?:built|delivered|achieved|reduced|increased|improved|deployed|worked|used|"
     r"led|managed|created|developed|implemented|designed|shipped|launched|trained|"
-    r"years?|experienced?|previously|expert|proficient|skilled|specializ\w+|certified)\b",
+    r"years?|experienced?|previously|expert|expertise|proficient|skilled|specializ\w+|"
+    r"certified|senior|background|track record|fluent|degree)\b",
     re.IGNORECASE,
 )
 FIRST_PERSON = re.compile(r"\b(?:I|I['’]ve|I['’]m|my|we|we['’]ve|our)\b", re.IGNORECASE)
@@ -236,6 +237,27 @@ async def verify_claims(
                         )
                     ],
                     kept=False,
+                )
+            )
+            continue
+        if mode == "reply" and not claims_own_experience(text):
+            # Not about the freelancer's skills or work: nothing to verify, so no
+            # model call. This also keeps long replies inside the model time budget.
+            sentences.append(
+                VerifiedSentence(
+                    text=text,
+                    start=start,
+                    end=end,
+                    claims=[
+                        AtomicClaim(
+                            text=text,
+                            kind="nonfactual",
+                            status="supported",
+                            evidence_ids=[],
+                            reason="Not a claim about your skills or work",
+                        )
+                    ],
+                    kept=True,
                 )
             )
             continue

@@ -590,23 +590,29 @@ async def test_reply_mode_only_checks_claims_about_own_skills_or_work():
         "I built a Kafka platform for a bank.\n"
         "[Your Name]"
     )
+    # Only the work claim reaches the model, and the model wrongly calls it harmless.
     llm = FakeLLM(
-        [
-            _answer(0, "Thanks for your question.", "nonfactual", "supported"),
-            # The model wrongly calls a harmless scheduling sentence unsupported.
-            _answer(1, "Tuesday works for me.", "intent", "unsupported"),
-            # ...and wrongly calls a work claim harmless.
-            _answer(2, "I built a Kafka platform for a bank.", "intent", "supported"),
-        ]
+        [_answer(2, "I built a Kafka platform for a bank.", "intent", "supported")]
     )
     report = await verify_claims(draft, [], llm, mode="reply")
+    assert len(llm.payloads) == 1
     assert report.cleaned_draft == "Thanks for your question.\nTuesday works for me."
-    kept = [s.kept for s in report.sentences]
-    assert kept == [True, True, False, False]
+    assert [s.kept for s in report.sentences] == [True, True, False, False]
     assert report.sentences[2].claims[0].kind == "experience"
     assert "placeholder" in report.sentences[3].claims[0].reason
     assert report.status == "verified"
     assert report.diagnostics["substantive"] is True
+
+
+async def test_reply_without_any_skill_claims_makes_no_model_calls():
+    llm = FakeLLM()
+    draft = (
+        "Thank you for your interest.\nI will send the milestone plan by Friday.\n"
+        "Could you share your preferred timezone?"
+    )
+    report = await verify_claims(draft, [], llm, mode="reply")
+    assert llm.payloads == [] and report.cleaned_draft == draft
+    assert report.status == "verified"
 
 
 async def test_proposal_mode_is_unchanged_and_still_strict():
