@@ -326,6 +326,60 @@ async def history(
     ]
 
 
+@router.get("/runs/{run_id}/decision")
+async def decision_trace(
+    run_id: str, user=Depends(authenticated), service=Depends(coordinator)
+) -> dict:
+    """Explain the bid/watch/skip decision: scores vs thresholds plus the node timeline."""
+    from agent.config import load_graph_config
+
+    run = await owned(service, user.subject, run_id)
+    state = (await service.snapshot(run)).values
+    thresholds = load_graph_config()["thresholds"]
+    analyses = state.get("analyses", {})
+    risk = analyses.get("risk", {})
+    fit = analyses.get("fit", {})
+    async with service.sessions() as session:
+        rows = (
+            await session.scalars(
+                select(AuditLog)
+                .where(
+                    AuditLog.user_id == user.subject,
+                    AuditLog.trace_id == run.trace_id,
+                    AuditLog.action.like("node.%"),
+                )
+                .order_by(AuditLog.created_at, AuditLog.id)
+            )
+        ).all()
+    decision = state.get("decision") or {}
+    driver = {"skip": "risk", "watch": "fit"}.get(decision.get("action"))
+    return {
+        "decision": decision or None,
+        "driver": driver,
+        "risk": {
+            "score": risk.get("score"),
+            "flags": risk.get("flags", []),
+            "explanation": risk.get("explanation"),
+            "maximum": thresholds["maximum_risk_score"],
+        },
+        "fit": {
+            "score": fit.get("score"),
+            "matched_skills": fit.get("matched_skills", []),
+            "missing_skills": fit.get("missing_skills", []),
+            "minimum": thresholds["minimum_fit_score"],
+        },
+        "nodes": [
+            {
+                "node": row.action.removeprefix("node."),
+                "seconds": (row.payload or {}).get("seconds"),
+                "error": (row.payload or {}).get("error"),
+                "update_keys": sorted(((row.payload or {}).get("update") or {}).keys()),
+            }
+            for row in rows
+        ],
+    }
+
+
 @router.get("/runs/{run_id}/events")
 async def events(
     run_id: str,

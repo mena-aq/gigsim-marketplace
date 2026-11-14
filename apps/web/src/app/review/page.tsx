@@ -26,6 +26,7 @@ export default function Review() {
   const [history, setHistory] = useState<Json[]>([]);
   const [jobs, setJobs] = useState<Job[]>([]);
   const [jobQuery, setJobQuery] = useState("");
+  const [why, setWhy] = useState<Json | null>(null);
   useEffect(() => {
     const run = new URLSearchParams(window.location.search).get("run");
     if (run) setSelected(run);
@@ -71,6 +72,12 @@ export default function Review() {
     stream.onmessage = event => setEvents(old => [...old.slice(-99), JSON.parse(event.data)]);
     return () => stream.close();
   }, [selected, signedIn]);
+  const decisionKey = state.decision?.action ?? "";
+  useEffect(() => {
+    setWhy(null);
+    if (!selected || !signedIn || !decisionKey) return;
+    fetch(`/api/agent/runs/${encodeURIComponent(selected)}/decision`).then(r => r.ok ? r.json() : null).then(setWhy).catch(() => setWhy(null));
+  }, [selected, signedIn, decisionKey]);
   async function act(work: () => Promise<void>) {
     setBusy(true); setError("");
     try { await work(); await refresh(); } catch (e) { setError(e instanceof Error ? e.message : "Request failed"); } finally { setBusy(false); }
@@ -111,6 +118,18 @@ export default function Review() {
             setSelected(result.data.id); setDetail(null);
           })}>{state.draft ? "Redraft safely in a new run" : "Retry analysis in a new run"}</button>}
           {state.decision && <p>{state.decision.action}: {state.decision.reason}</p>}
+          {why?.decision && <details open={why.decision.action !== "bid"} className="why"><summary>Why this decision</summary>
+            <p><strong>{why.decision.action.toUpperCase()}</strong> — {why.decision.reason}</p>
+            <table><thead><tr><th>Check</th><th>Score</th><th>Threshold</th><th>Result</th></tr></thead><tbody>
+              <tr className={why.driver === "risk" ? "driver" : ""}><td>Risk (node <code>risk</code>)</td><td>{why.risk.score?.toFixed(2) ?? "–"}</td><td>skip at ≥ {why.risk.maximum.toFixed(2)}</td><td>{why.risk.score >= why.risk.maximum ? "SKIP" : "pass"}</td></tr>
+              <tr className={why.driver === "fit" ? "driver" : ""}><td>Fit (node <code>matcher</code>)</td><td>{why.fit.score?.toFixed(2) ?? "–"}</td><td>watch below {why.fit.minimum.toFixed(2)}</td><td>{why.fit.score < why.fit.minimum ? "WATCH" : "pass"}</td></tr>
+            </tbody></table>
+            {why.risk.flags?.length > 0 && <p>Risk flags: {why.risk.flags.join("; ")}</p>}
+            {why.risk.explanation && <p>Risk explanation: {why.risk.explanation}</p>}
+            {why.fit.missing_skills?.length > 0 && <p>Missing skills: {why.fit.missing_skills.join(", ")}</p>}
+            <p><small>The <code>decision</code> node is deterministic (no model call): it compares the <code>risk</code> and <code>matcher</code> scores to <code>agent/config.yaml</code> thresholds. If the skip was wrong, the wrong score came from the node highlighted above.</small></p>
+            <ol className="timeline">{why.nodes.map((n: Json, i: number) => <li key={i} className={n.node === (why.driver === "risk" ? "risk" : why.driver === "fit" ? "matcher" : "decision") ? "driver" : ""}>{n.node}{n.seconds ? ` · ${n.seconds.toFixed(1)}s` : ""}{n.error ? ` · error: ${n.error}` : ""}<small> {n.update_keys.join(", ")}</small></li>)}</ol>
+          </details>}
           {state.compliance?.violations?.length > 0 && <p role="alert">Blocked: {state.compliance.violations.join("; ")}</p>}
           {review && <>
             <h3>Proposal or reply</h3><label>Draft<textarea rows={10} value={body} onChange={e => setBody(e.target.value)} /></label>

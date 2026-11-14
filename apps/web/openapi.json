@@ -827,6 +827,56 @@
         ]
       }
     },
+    "/agent/runs/{run_id}/decision": {
+      "get": {
+        "description": "Explain the bid/watch/skip decision: scores vs thresholds plus the node timeline.",
+        "operationId": "decision_trace_agent_runs__run_id__decision_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Decision Trace Agent Runs  Run Id  Decision Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Decision Trace",
+        "tags": [
+          "orchestration"
+        ]
+      }
+    },
     "/agent/runs/{run_id}/events": {
       "get": {
         "operationId": "events_agent_runs__run_id__events_get",
