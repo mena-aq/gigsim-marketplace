@@ -30,6 +30,7 @@ export default function Review() {
   const [retired, setRetired] = useState<string[]>([]);
   const [submission, setSubmission] = useState<Json | null>(null);
   const [recentEdits, setRecentEdits] = useState<Json | null>(null);
+  const [marketplaceDown, setMarketplaceDown] = useState(false);
   useEffect(() => {
     const run = new URLSearchParams(window.location.search).get("run");
     if (run) setSelected(run);
@@ -40,7 +41,8 @@ export default function Review() {
   const loadJobs = useCallback(async (query = "") => {
     const result = await client.GET("/agent/jobs", { params: { query: { q: query || undefined } } });
     if (result.response.status === 401) { setSignedIn(false); return; }
-    if (result.error) throw new Error("Job inbox is temporarily unavailable — try again shortly");
+    if (result.error) { setMarketplaceDown(true); return; }
+    setMarketplaceDown(false);
     setJobs(((result.data as { items?: Job[] } | undefined)?.items ?? []));
   }, []);
   const refresh = useCallback(async () => {
@@ -63,6 +65,11 @@ export default function Review() {
   useEffect(() => {
     loadJobs().catch(e => setError(e.message));
   }, [loadJobs]);
+  useEffect(() => {
+    if (!marketplaceDown) return;
+    const timer = setInterval(() => { void loadJobs(jobQuery).catch(() => setMarketplaceDown(true)); }, 5000);
+    return () => clearInterval(timer);
+  }, [marketplaceDown, loadJobs, jobQuery]);
   const review = detail?.review as Json | null;
   const state = (detail?.state ?? {}) as Json;
   useEffect(() => {
@@ -131,6 +138,7 @@ export default function Review() {
     {!signedIn ? <section className="panel"><p>Your workspace session is not active.</p><a href="/">Choose a persona</a></section> : <>
       <button onClick={() => void act(async () => { await fetch("/api/agent/session", { method: "DELETE" }); setSignedIn(false); setDetail(null); setSelected(""); })}>Sign out</button>
       <section className="analytics-strip" aria-label="Demo analytics"><div><span>DEMO ANALYTICS</span><strong>12</strong><small>jobs reviewed</small></div><div><span>PROPOSALS</span><strong>4</strong><small>sent with approval</small></div><div><span>REPLY RATE</span><strong>25%</strong><small>simulated history</small></div><div><span>CONNECTS</span><strong>28</strong><small>spent this week</small></div></section>
+      {marketplaceDown && <p role="status" className="alert">Marketplace unavailable. Analyses you start are queued and will run automatically when it returns. Retrying every few seconds…</p>}
       <section className="panel inbox"><div className="inbox-heading"><div><p className="eyebrow">JOB INBOX</p><h2>Open GigSim jobs</h2></div><form onSubmit={e => { e.preventDefault(); void loadJobs(jobQuery).catch(err => setError(err.message)); }}><label className="sr-only" htmlFor="job-search">Search jobs</label><input id="job-search" placeholder="Search jobs" value={jobQuery} onChange={e => setJobQuery(e.target.value)} /></form></div>{jobs.length === 0 ? <p>No jobs found.</p> : <div className="job-list">{jobCards}</div>}</section>
       <section className="panel" aria-live="polite">{!detail ? <p>{selected ? "Loading run…" : "Choose Analyze on a job to begin."}</p> : <>
           <h2>{state.job?.title ?? detail.target}</h2><p><strong>{detail.status.replaceAll("_", " ")}</strong> · {state.steps ?? 0} steps · {state.tokens ?? 0} tokens</p>

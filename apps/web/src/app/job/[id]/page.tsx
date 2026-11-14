@@ -22,6 +22,7 @@ export default function JobDetail() {
       const found = response.ok ? await response.json() as Job : null;
       if (!active) return;
       if (response.status === 401) setError("Choose a persona before opening a job.");
+      else if (response.status === 503) setError("Marketplace unavailable — you can still queue this job once it is back, and work already queued will resume automatically.");
       else if (!response.ok || !found) setError("This job is not available.");
       else setJob(found);
     }).catch(() => { if (active) setError("Workspace unavailable — work is queued"); });

@@ -366,6 +366,117 @@
   },
   "openapi": "3.1.0",
   "paths": {
+    "/agent/evidence/restore/{item_id}": {
+      "post": {
+        "operationId": "restore_evidence_agent_evidence_restore__item_id__post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "item_id",
+            "required": true,
+            "schema": {
+              "title": "Item Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Restore Evidence",
+        "tags": [
+          "orchestration"
+        ]
+      }
+    },
+    "/agent/evidence/retired": {
+      "get": {
+        "operationId": "retired_evidence_agent_evidence_retired_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "title": "Response Retired Evidence Agent Evidence Retired Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Retired Evidence",
+        "tags": [
+          "orchestration"
+        ]
+      }
+    },
+    "/agent/evidence/{item_id}": {
+      "delete": {
+        "description": "Remove an evidence item from retrieval and verification for this user.",
+        "operationId": "retire_evidence_agent_evidence__item_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "item_id",
+            "required": true,
+            "schema": {
+              "title": "Item Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Retire Evidence",
+        "tags": [
+          "orchestration"
+        ]
+      }
+    },
     "/agent/jobs": {
       "get": {
         "operationId": "jobs_agent_jobs_get",
@@ -488,6 +599,35 @@
           }
         ],
         "summary": "Me",
+        "tags": [
+          "orchestration"
+        ]
+      }
+    },
+    "/agent/memory/style/recent": {
+      "get": {
+        "description": "The last five deletions style memory observed and why each was or was not promoted.",
+        "operationId": "recent_style_edits_agent_memory_style_recent_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Recent Style Edits Agent Memory Style Recent Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Recent Style Edits",
         "tags": [
           "orchestration"
         ]
@@ -1075,6 +1215,56 @@
           }
         ],
         "summary": "Replay",
+        "tags": [
+          "orchestration"
+        ]
+      }
+    },
+    "/agent/runs/{run_id}/submission": {
+      "get": {
+        "description": "Evidence that an approved send happened exactly once, even across restarts.",
+        "operationId": "submission_agent_runs__run_id__submission_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Submission Agent Runs  Run Id  Submission Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Submission",
         "tags": [
           "orchestration"
         ]

@@ -117,7 +117,11 @@ async def job(job_id: str, user=Depends(authenticated)) -> dict:
         )
         return (await port.get_job(job_id)).model_dump(mode="json")
     except ToolFailure as exc:
-        raise HTTPException(404, "Job not found or marketplace unavailable") from exc
+        if exc.retryable:
+            raise HTTPException(
+                503, "Marketplace unavailable — work is queued"
+            ) from exc
+        raise HTTPException(404, "Job not found") from exc
 
 
 @router.post("/runs", response_model=RunSummary, status_code=202)
