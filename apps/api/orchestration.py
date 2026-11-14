@@ -21,7 +21,14 @@ from agent.mcp_client import MCPGateway
 from agent.memory.store import promote_outcome
 from agent.persistence import graph_storage
 from agent.runs import RunCoordinator, new_run, thread_config
-from apps.api.models import AuditLog, GraphRun, RetiredEvidence, User
+from apps.api.models import (
+    ApprovalGrant,
+    AuditLog,
+    GraphRun,
+    RetiredEvidence,
+    ToolReceipt,
+    User,
+)
 from mcp_servers.common.schemas import SearchJobs
 from mcp_servers.common.security import DatabaseTokenVerifier, mask
 
@@ -377,6 +384,65 @@ async def decision_trace(
             }
             for row in rows
         ],
+    }
+
+
+@router.get("/runs/{run_id}/submission")
+async def submission(
+    run_id: str, user=Depends(authenticated), service=Depends(coordinator)
+) -> dict:
+    """Evidence that an approved send happened exactly once, even across restarts."""
+    run = await owned(service, user.subject, run_id)
+    state = (await service.snapshot(run)).values
+    request = state.get("request") or {}
+    key = request.get("idempotency_key")
+    tool = "send_message" if state.get("conversation_id") else "submit_proposal"
+    async with service.sessions() as session:
+        receipts = (
+            await session.scalars(
+                select(ToolReceipt).where(
+                    ToolReceipt.user_id == user.subject,
+                    ToolReceipt.tool == tool,
+                    ToolReceipt.idempotency_key == key,
+                )
+            )
+        ).all()
+        grants = (
+            await session.scalars(
+                select(ApprovalGrant).where(
+                    ApprovalGrant.user_id == user.subject,
+                    ApprovalGrant.tool == tool,
+                    ApprovalGrant.idempotency_key == key,
+                )
+            )
+        ).all()
+        attempts = (
+            await session.scalars(
+                select(AuditLog).where(
+                    AuditLog.user_id == user.subject,
+                    AuditLog.trace_id == run.trace_id,
+                    AuditLog.action == "tool." + tool,
+                )
+            )
+        ).all()
+    return {
+        "status": run.status,
+        "worker_attempts": run.attempts,
+        "tool": tool,
+        "idempotency_key": key,
+        "approved_at": (run.resume or {}).get("accepted_at"),
+        "receipts": [
+            {"id": r.id, "created_at": r.created_at.isoformat()} for r in receipts
+        ],
+        "grants": [
+            {
+                "consumed": g.consumed_at is not None,
+                "expires_at": g.expires_at.isoformat(),
+            }
+            for g in grants
+        ],
+        "send_calls_logged": len(attempts),
+        "result": state.get("result") or None,
     }
 
 

@@ -28,6 +28,7 @@ export default function Review() {
   const [jobQuery, setJobQuery] = useState("");
   const [why, setWhy] = useState<Json | null>(null);
   const [retired, setRetired] = useState<string[]>([]);
+  const [submission, setSubmission] = useState<Json | null>(null);
   useEffect(() => {
     const run = new URLSearchParams(window.location.search).get("run");
     if (run) setSelected(run);
@@ -98,6 +99,12 @@ export default function Review() {
     if (result.error || !result.data) throw new Error("Could not queue a regeneration");
     setSelected(result.data.id); setDetail(null);
   }
+  const detailStatus = detail?.status ?? "";
+  useEffect(() => {
+    setSubmission(null);
+    if (!selected || !signedIn || !["queued", "running", "retry_wait", "sent", "dead_letter", "needs_attention"].includes(detailStatus)) return;
+    fetch(`/api/agent/runs/${encodeURIComponent(selected)}/submission`).then(r => r.ok ? r.json() : null).then(data => setSubmission(data?.idempotency_key ? data : null)).catch(() => setSubmission(null));
+  }, [selected, signedIn, detailStatus]);
   async function act(work: () => Promise<void>) {
     setBusy(true); setError("");
     try { await work(); await refresh(); } catch (e) { setError(e instanceof Error ? e.message : "Request failed"); } finally { setBusy(false); }
@@ -137,6 +144,18 @@ export default function Review() {
             if (result.error || !result.data) throw new Error("Could not queue a safe retry");
             setSelected(result.data.id); setDetail(null);
           })}>{state.draft ? "Redraft safely in a new run" : "Retry analysis in a new run"}</button>}
+          {submission && <section className="submission panel"><h3>Submission</h3>
+            <table><tbody>
+              <tr><td>Status</td><td><strong>{submission.status.replaceAll("_", " ")}</strong> (worker attempts since approval: {submission.worker_attempts})</td></tr>
+              <tr><td>Approved at</td><td>{submission.approved_at ?? "–"}</td></tr>
+              <tr><td>Idempotency key</td><td><code>{submission.idempotency_key}</code></td></tr>
+              <tr><td>Send receipts for this key</td><td><strong>{submission.receipts.length}</strong> (database allows at most 1)</td></tr>
+              <tr><td>Send calls logged</td><td>{submission.send_calls_logged}</td></tr>
+              <tr><td>Approval grant</td><td>{submission.grants.length ? (submission.grants.some((g: Json) => g.consumed) ? "consumed" : "issued, not yet consumed") : "none"}</td></tr>
+              {submission.result && <tr><td>Marketplace result</td><td><code>{JSON.stringify(submission.result)}</code></td></tr>}
+            </tbody></table>
+            <p><small>If the worker crashes after approval, it restarts the run with the same key; the receipt lookup returns the stored result instead of sending again.</small></p>
+          </section>}
           {state.decision && <p>{state.decision.action}: {state.decision.reason}</p>}
           {why?.decision && <details open={why.decision.action !== "bid"} className="why"><summary>Why this decision</summary>
             <p><strong>{why.decision.action.toUpperCase()}</strong> — {why.decision.reason}</p>
