@@ -100,6 +100,19 @@ async def jobs(q: str = "", user=Depends(authenticated)) -> dict:
         raise HTTPException(503, "Marketplace unavailable — work is queued") from exc
 
 
+@router.get("/jobs/{job_id}")
+async def job(job_id: str, user=Depends(authenticated)) -> dict:
+    from mcp_servers.common.errors import ToolFailure
+
+    try:
+        port = MCPMarketplacePort(
+            MCPGateway(user.token, "scout", "job:" + user.subject + ":" + job_id)
+        )
+        return (await port.get_job(job_id)).model_dump(mode="json")
+    except ToolFailure as exc:
+        raise HTTPException(404, "Job not found or marketplace unavailable") from exc
+
+
 @router.post("/runs", response_model=RunSummary, status_code=202)
 async def start(body: StartRun, request: Request, user=Depends(authenticated)):
     sessions = async_sessionmaker(request.app.state.engine, expire_on_commit=False)

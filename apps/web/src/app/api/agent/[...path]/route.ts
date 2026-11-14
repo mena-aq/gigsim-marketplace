@@ -14,7 +14,13 @@ async function proxy(request: NextRequest, context: { params: Promise<{ path: st
     if (origin && !allowed.includes(origin)) return NextResponse.json({ detail: "Invalid origin" }, { status: 403 });
   }
   if (path.join("/") === "session" && request.method === "POST") {
-    const { token } = await request.json();
+    const body = await request.json();
+    const personaTokens: Record<string, string | undefined> = {
+      ml_engineer: process.env.MCP_TOKEN_ML_ENGINEER,
+      fullstack_dev: process.env.MCP_TOKEN_FULLSTACK_DEV,
+      data_analyst: process.env.MCP_TOKEN_DATA_ANALYST,
+    };
+    const token = typeof body?.persona === "string" ? personaTokens[body.persona] : body?.token;
     if (typeof token !== "string" || token.length < 1 || token.length > 512) return NextResponse.json({ detail: "Enter your access key" }, { status: 400 });
     try {
       const check = await fetch(upstream + "/agent/me", { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" });

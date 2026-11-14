@@ -3,30 +3,29 @@
 import "./review.css";
 
 import { useCallback, useEffect, useState } from "react";
+import Link from "next/link";
 import createClient from "openapi-fetch";
 import type { paths, components } from "../../lib/api/schema";
 
 const client = createClient<paths>({ baseUrl: "/api" });
-type Run = components["schemas"]["RunSummary"];
 type Detail = components["schemas"]["RunDetail"];
 type Json = Record<string, any>;
+type Job = { id: string; title: string; description: string; skills: string[]; budget_min?: number | null; budget_max?: number | null; timeline_days?: number | null; screening_questions?: string[]; category?: string | null; status: string };
 
 export default function Review() {
   const [signedIn, setSignedIn] = useState(false);
-  const [token, setToken] = useState("");
-  const [runs, setRuns] = useState<Run[]>([]);
   const [selected, setSelected] = useState("");
   const [detail, setDetail] = useState<Detail | null>(null);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
-  const [kind, setKind] = useState<"bid" | "conversation">("bid");
-  const [target, setTarget] = useState("");
   const [body, setBody] = useState("");
   const [answers, setAnswers] = useState<Json[]>([]);
   const [reason, setReason] = useState("");
   const [events, setEvents] = useState<Json[]>([]);
   const [memory, setMemory] = useState<Json[]>([]);
   const [history, setHistory] = useState<Json[]>([]);
+  const [jobs, setJobs] = useState<Job[]>([]);
+  const [jobQuery, setJobQuery] = useState("");
   useEffect(() => {
     const run = new URLSearchParams(window.location.search).get("run");
     if (run) setSelected(run);
@@ -34,11 +33,17 @@ export default function Review() {
   useEffect(() => {
     if (selected) window.history.replaceState(null, "", `/review?run=${encodeURIComponent(selected)}`);
   }, [selected]);
+  const loadJobs = useCallback(async (query = "") => {
+    const result = await client.GET("/agent/jobs", { params: { query: { q: query || undefined } } });
+    if (result.response.status === 401) { setSignedIn(false); return; }
+    if (result.error) throw new Error("Job inbox is temporarily unavailable — try again shortly");
+    setJobs(((result.data as { items?: Job[] } | undefined)?.items ?? []));
+  }, []);
   const refresh = useCallback(async () => {
     const result = await client.GET("/agent/runs");
     if (result.response.status === 401) { setSignedIn(false); return; }
     if (result.error) throw new Error("Workspace unavailable — work is queued");
-    setRuns(result.data ?? []); setSignedIn(true);
+    setSignedIn(true);
     if (selected) {
       const next = await client.GET("/agent/runs/{run_id}", { params: { path: { run_id: selected } } });
       if (next.error) throw new Error("Run details unavailable");
@@ -47,8 +52,13 @@ export default function Review() {
   }, [selected]);
   useEffect(() => {
     const check = () => refresh().catch(e => setError(e.message));
-    check(); const timer = setInterval(check, 4000); return () => clearInterval(timer);
+    check();
+    const timer = setInterval(check, 4000);
+    return () => clearInterval(timer);
   }, [refresh]);
+  useEffect(() => {
+    loadJobs().catch(e => setError(e.message));
+  }, [loadJobs]);
   const review = detail?.review as Json | null;
   const state = (detail?.state ?? {}) as Json;
   useEffect(() => {
@@ -74,27 +84,21 @@ export default function Review() {
     if (result.error) throw new Error("Review changed or request was rejected. Refresh and try again.");
     setDetail(null);
   }
+  const jobCards = jobs.map(job => <article className="job-card" key={job.id}>
+    <div><h3>{job.title}</h3><p>{job.description.slice(0, 220)}{job.description.length > 220 ? "…" : ""}</p>
+      <small>{job.skills?.join(" · ")}{job.budget_max ? ` · $${job.budget_min ?? 0}–$${job.budget_max}` : ""}{job.timeline_days ? ` · ${job.timeline_days} days` : ""}</small>
+    </div><Link className="job-action" href={`/job/${encodeURIComponent(job.id)}`}>Analyze</Link>
+  </article>);
   return <main>
     <header><a className="brand" href="/">gigbid<span>●</span></a><h1 className="review-title">Review workspace</h1></header>
     <p>Review evidence, edit drafts, and choose what leaves your workspace.</p>
     {error && <p role="alert" className="alert">{error}</p>}
-    {!signedIn ? <form className="panel" onSubmit={e => { e.preventDefault(); void act(async () => {
-      const response = await fetch("/api/agent/session", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ token }) });
-      if (!response.ok) throw new Error("Sign-in failed. Check your workspace access key.");
-      setToken(""); setSignedIn(true);
-    }); }}><label>Workspace access key<input type="password" autoComplete="current-password" value={token} onChange={e => setToken(e.target.value)} required /></label><button disabled={busy}>Sign in</button></form> : <>
-      <button onClick={() => void act(async () => { await fetch("/api/agent/session", { method: "DELETE" }); setSignedIn(false); setRuns([]); setDetail(null); setSelected(""); })}>Sign out</button>
-      <form className="panel" onSubmit={e => { e.preventDefault(); void act(async () => {
-        const result = await client.POST("/agent/runs", { body: { kind, target } });
-        if (result.error || !result.data) throw new Error("Could not queue this run");
-        setSelected(result.data.id); setTarget("");
-      }); }}>
-        <label>Run type<select value={kind} onChange={e => setKind(e.target.value as typeof kind)}><option value="bid">Job proposal</option><option value="conversation">Client conversation</option></select></label>
-        <label>{kind === "bid" ? "Marketplace job ID" : "Conversation ID"}<input value={target} onChange={e => setTarget(e.target.value)} required /></label><button disabled={busy}>Queue analysis</button>
-      </form>
-      <div className="review-grid"><aside className="panel"><h2>Your runs</h2>{runs.length === 0 && <p>No runs yet. Queue a job to begin.</p>}{runs.map(run => <button className="run-link" aria-pressed={selected === run.id} key={run.id} onClick={() => { setDetail(null); setSelected(run.id); }}>{run.target}<br /><small>{run.status.replaceAll("_", " ")}</small></button>)}</aside>
-        <section className="panel" aria-live="polite">{!detail ? <p>{selected ? "Loading run…" : "Select a run to review its progress."}</p> : <>
-          <h2>{detail.target}</h2><p><strong>{detail.status.replaceAll("_", " ")}</strong> · {state.steps ?? 0} steps · {state.tokens ?? 0} tokens</p>
+    {!signedIn ? <section className="panel"><p>Your workspace session is not active.</p><a href="/">Choose a persona</a></section> : <>
+      <button onClick={() => void act(async () => { await fetch("/api/agent/session", { method: "DELETE" }); setSignedIn(false); setDetail(null); setSelected(""); })}>Sign out</button>
+      <section className="analytics-strip" aria-label="Demo analytics"><div><span>DEMO ANALYTICS</span><strong>12</strong><small>jobs reviewed</small></div><div><span>PROPOSALS</span><strong>4</strong><small>sent with approval</small></div><div><span>REPLY RATE</span><strong>25%</strong><small>simulated history</small></div><div><span>CONNECTS</span><strong>28</strong><small>spent this week</small></div></section>
+      <section className="panel inbox"><div className="inbox-heading"><div><p className="eyebrow">JOB INBOX</p><h2>Open GigSim jobs</h2></div><form onSubmit={e => { e.preventDefault(); void loadJobs(jobQuery).catch(err => setError(err.message)); }}><label className="sr-only" htmlFor="job-search">Search jobs</label><input id="job-search" placeholder="Search jobs" value={jobQuery} onChange={e => setJobQuery(e.target.value)} /></form></div>{jobs.length === 0 ? <p>No jobs found.</p> : <div className="job-list">{jobCards}</div>}</section>
+      <section className="panel" aria-live="polite">{!detail ? <p>{selected ? "Loading run…" : "Choose Analyze on a job to begin."}</p> : <>
+          <h2>{state.job?.title ?? detail.target}</h2><p><strong>{detail.status.replaceAll("_", " ")}</strong> · {state.steps ?? 0} steps · {state.tokens ?? 0} tokens</p>
           {detail.status === "retry_wait" && <p role="status" className="alert">A dependency is unavailable or rate limited — work is queued for retry.</p>}
           {(detail.error || Object.keys(state.errors ?? {}).length > 0) && <pre>{JSON.stringify(detail.error ?? state.errors, null, 2)}</pre>}
           {["needs_attention", "dead_letter"].includes(detail.status) && <button disabled={busy} onClick={() => void act(async () => {
@@ -129,7 +133,7 @@ export default function Review() {
             const result = await client.POST("/agent/runs/{run_id}/replay", { params: { path: { run_id: selected } }, body: { checkpoint_id: checkpoint.checkpoint_id, node: checkpoint.next[0] ?? "execute" } });
             if (result.error || !result.data) throw new Error("Could not replay this checkpoint"); setSelected(result.data.id); setDetail(null);
           })}>Replay in a new run</button></div>)}<p><small>Replaying a send returns to verification and human review.</small></p></details>
-        </>}</section></div>
+        </>}</section>
       <section className="panel"><h2>Learned memory</h2><button disabled={busy} onClick={() => void act(async () => {
         const result = await client.GET("/agent/memory/{kind}", { params: { path: { kind: "style" } } });
         const outcomes = await client.GET("/agent/memory/{kind}", { params: { path: { kind: "outcome" } } });
