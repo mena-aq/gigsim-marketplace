@@ -95,6 +95,29 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/agent/jobs/matched": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Matched Jobs
+         * @description Best-fitting open jobs for the signed-in persona (stored by `make match-jobs`).
+         *
+         *     Served from the database, never the marketplace, so it is cheap to load and works
+         *     even when the marketplace is down.
+         */
+        get: operations["matched_jobs_agent_jobs_matched_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/agent/jobs/{job_id}": {
         parameters: {
             query?: never;
@@ -684,6 +707,28 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    matched_jobs_agent_jobs_matched_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
                 };
             };
         };

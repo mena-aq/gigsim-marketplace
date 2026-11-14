@@ -26,6 +26,7 @@ from apps.api.models import (
     ApprovalGrant,
     AuditLog,
     GraphRun,
+    PersonaJobMatch,
     RetiredEvidence,
     ToolReceipt,
     User,
@@ -108,6 +109,27 @@ async def jobs(q: str = "", user=Depends(authenticated)) -> dict:
         return (await port.search_jobs(SearchJobs(q=q))).model_dump(mode="json")
     except ToolFailure as exc:
         raise HTTPException(503, "Marketplace unavailable — work is queued") from exc
+
+
+@router.get("/jobs/matched")
+async def matched_jobs(request: Request, user=Depends(authenticated)) -> list[dict]:
+    """Best-fitting open jobs for the signed-in persona (stored by `make match-jobs`).
+
+    Served from the database, never the marketplace, so it is cheap to load and works
+    even when the marketplace is down.
+    """
+    async with async_sessionmaker(request.app.state.engine)() as session:
+        rows = (
+            await session.scalars(
+                select(PersonaJobMatch)
+                .where(PersonaJobMatch.persona == user.claims["persona"])
+                .order_by(PersonaJobMatch.score.desc(), PersonaJobMatch.job_id)
+            )
+        ).all()
+    return [
+        {**row.job, "matched_skills": row.matched_skills, "match_score": row.score}
+        for row in rows
+    ]
 
 
 @router.get("/jobs/{job_id}")

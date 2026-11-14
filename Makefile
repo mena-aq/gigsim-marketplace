@@ -1,4 +1,4 @@
-.PHONY: install api test lint eval gigsim seed seed-demo-chats seed-reset download process personas personas-groq persona-prompts persona-import smoke
+.PHONY: install api test lint eval gigsim seed seed-demo-chats match-jobs seed-reset download process personas personas-groq persona-prompts persona-import smoke
 
 install:
 	uv sync --extra dev
@@ -14,6 +14,9 @@ seed:
 
 seed-demo-chats:
 	uv run python -m scripts.seed_demo_chats
+
+match-jobs:
+	uv run python -m scripts.match_jobs
 
 seed-reset:
 	uv run python -m gigsim.seed --reset

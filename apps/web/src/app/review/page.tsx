@@ -32,6 +32,7 @@ export default function Review() {
   const [recentEdits, setRecentEdits] = useState<Json | null>(null);
   const [marketplaceDown, setMarketplaceDown] = useState(false);
   const [chats, setChats] = useState<Json[]>([]);
+  const [matched, setMatched] = useState<Json[] | null>(null);
   const [runs, setRuns] = useState<Json[]>([]);
   useEffect(() => {
     const run = new URLSearchParams(window.location.search).get("run");
@@ -91,6 +92,10 @@ export default function Review() {
     if (!selected || !signedIn || !decisionKey) return;
     fetch(`/api/agent/runs/${encodeURIComponent(selected)}/decision`).then(r => r.ok ? r.json() : null).then(setWhy).catch(() => setWhy(null));
   }, [selected, signedIn, decisionKey]);
+  useEffect(() => {
+    if (!signedIn) return;
+    fetch("/api/agent/jobs/matched", { cache: "no-store" }).then(r => r.ok ? r.json() : []).then(setMatched).catch(() => setMatched([]));
+  }, [signedIn]);
   const loadChats = useCallback(async () => {
     const r = await fetch("/api/agent/conversations", { cache: "no-store" });
     if (r.ok) setChats(await r.json());
@@ -153,6 +158,13 @@ export default function Review() {
       <button onClick={() => void act(async () => { await fetch("/api/agent/session", { method: "DELETE" }); setSignedIn(false); setDetail(null); setSelected(""); })}>Sign out</button>
       <section className="analytics-strip" aria-label="Demo analytics"><div><span>DEMO ANALYTICS</span><strong>12</strong><small>jobs reviewed</small></div><div><span>PROPOSALS</span><strong>4</strong><small>sent with approval</small></div><div><span>REPLY RATE</span><strong>25%</strong><small>simulated history</small></div><div><span>CONNECTS</span><strong>28</strong><small>spent this week</small></div></section>
       {marketplaceDown && <p role="status" className="alert">Marketplace unavailable. Analyses you start are queued and will run automatically when it returns. Retrying every few seconds…</p>}
+      <section className="panel matched"><div className="inbox-heading"><div><p className="eyebrow">RECOMMENDED FOR YOU</p><h2>Jobs that match your skills</h2></div></div>
+        {matched === null ? <p>Loading…</p> : matched.length === 0 ? <p>No recommendations stored yet. Run <code>make match-jobs</code>.</p> : <div className="job-list">{matched.map(job => <article className="job-card" key={job.id}>
+          <div><h3>{job.title}</h3><p>{String(job.description ?? "").slice(0, 200)}{String(job.description ?? "").length > 200 ? "…" : ""}</p>
+            <small>Matches: <strong>{(job.matched_skills ?? []).join(", ")}</strong>{job.category ? ` · ${job.category}` : ""}{job.budget_max ? ` · $${job.budget_min ?? 0}–$${job.budget_max}` : ""}</small></div>
+          <Link className="job-action" href={`/job/${encodeURIComponent(job.id)}`}>Analyze</Link>
+        </article>)}</div>}
+      </section>
       <section className="panel history"><div className="inbox-heading"><div><p className="eyebrow">YOUR ANALYSES</p><h2>Run history</h2></div></div>
         {runs.length === 0 ? <p>No analyses yet. Choose Analyze on a job below.</p> : <div className="job-list">{runs.map(run => <article className={"job-card" + (run.id === selected ? " selected" : "")} key={run.id}>
           <div><h3>{run.kind === "conversation" ? "Reply: " : ""}{run.title ?? run.target}</h3>

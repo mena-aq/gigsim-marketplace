@@ -7,6 +7,7 @@ from decimal import Decimal
 from sqlalchemy import (
     JSON,
     DateTime,
+    Float,
     ForeignKey,
     ForeignKeyConstraint,
     Integer,
@@ -171,3 +172,23 @@ class RetiredEvidence(OwnedRecord, Base):
     __tablename__ = "retired_evidence"
     __table_args__ = (UniqueConstraint("user_id", "item_id"),)
     item_id: Mapped[str] = mapped_column(String(250))
+
+
+class PersonaJobMatch(Base):
+    """Best-fitting open jobs per persona, filled by `make match-jobs`.
+
+    Marketplace jobs are public data, so rows are keyed by persona, not by user. The
+    API only ever returns the signed-in user's own persona. A compact copy of the job
+    is stored so showing recommendations never costs a marketplace request.
+    """
+
+    __tablename__ = "persona_job_matches"
+    __table_args__ = (UniqueConstraint("persona", "job_id"),)
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_id)
+    persona: Mapped[str] = mapped_column(String(64), index=True)
+    job_id: Mapped[str] = mapped_column(String(64))
+    score: Mapped[float] = mapped_column(Float)
+    matched_skills: Mapped[list] = mapped_column(
+        JSON().with_variant(JSONB(), "postgresql")
+    )
+    job: Mapped[dict] = mapped_column(JSON().with_variant(JSONB(), "postgresql"))

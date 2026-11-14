@@ -605,6 +605,38 @@
         ]
       }
     },
+    "/agent/jobs/matched": {
+      "get": {
+        "description": "Best-fitting open jobs for the signed-in persona (stored by `make match-jobs`).\n\nServed from the database, never the marketplace, so it is cheap to load and works\neven when the marketplace is down.",
+        "operationId": "matched_jobs_agent_jobs_matched_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "additionalProperties": true,
+                    "type": "object"
+                  },
+                  "title": "Response Matched Jobs Agent Jobs Matched Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Matched Jobs",
+        "tags": [
+          "orchestration"
+        ]
+      }
+    },
     "/agent/jobs/{job_id}": {
       "get": {
         "operationId": "job_agent_jobs__job_id__get",
