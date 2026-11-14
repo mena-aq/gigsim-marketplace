@@ -46,6 +46,33 @@ def sentence_spans(text: str) -> list[tuple[int, int]]:
     return spans
 
 
+# Reply mode: only first-person statements about the freelancer's own skills or past
+# work need evidence. Thanks, questions, scheduling and plans are not claims.
+EXPERIENCE_MARKERS = re.compile(
+    r"\b(?:built|delivered|achieved|reduced|increased|improved|deployed|worked|used|"
+    r"led|managed|created|developed|implemented|designed|shipped|launched|trained|"
+    r"years?|experienced?|previously|expert|proficient|skilled|specializ\w+|certified)\b",
+    re.IGNORECASE,
+)
+FIRST_PERSON = re.compile(r"\b(?:I|I['’]ve|I['’]m|my|we|we['’]ve|our)\b", re.IGNORECASE)
+HAVE_DONE = re.compile(r"\b(?:I|we)(?:['’]ve| have| had)\b|\bmy (?:past|previous|portfolio|work|projects?|clients?)\b", re.IGNORECASE)
+PLACEHOLDER = re.compile(r"\[[^\]\n]{1,40}\]")
+GREETING_OR_CLOSING = re.compile(
+    r"(?:hi|hello|dear [\w ]{0,30}|thank you|thanks|best regards|kind regards|regards|sincerely)[!,. ]*",
+    re.IGNORECASE,
+)
+
+
+def claims_own_experience(text: str) -> bool:
+    """A first-person statement about the freelancer's past work or skills."""
+    value = text.strip()
+    if value.endswith("?"):
+        return False
+    return bool(HAVE_DONE.search(value)) or bool(
+        FIRST_PERSON.search(value) and EXPERIENCE_MARKERS.search(value)
+    )
+
+
 def plain_nonexperience(text: str, kind: str) -> bool:
     """Recognize a small set of harmless greetings and explicit future intentions."""
     value = text.strip()
@@ -88,7 +115,10 @@ def plain_nonexperience(text: str, kind: str) -> bool:
 
 
 def validate_claims(
-    text: str, claims: list[AtomicClaim], evidence: list[Chunk]
+    text: str,
+    claims: list[AtomicClaim],
+    evidence: list[Chunk],
+    mode: str = "proposal",
 ) -> list[AtomicClaim]:
     """Validate every claim/citation and reject unchecked factual sentence text."""
     aliases = {f"E{i + 1}": chunk for i, chunk in enumerate(evidence)}
@@ -104,7 +134,17 @@ def validate_claims(
             )
         location = text.find(claim.text)
         covered[location : location + len(claim.text)] = [True] * len(claim.text)
-        if claim.kind != "experience" and (
+        if mode == "reply" and claim.kind != "experience":
+            if claims_own_experience(claim.text):
+                # The model called it harmless, but it asserts skills or past work.
+                claim.kind = "experience"
+                if not claim.evidence_ids:
+                    claim.status = "unsupported"
+                    claim.reason = "States skills or past work without evidence"
+            else:
+                claim.status, claim.evidence_ids = "supported", []
+                claim.reason = "Not a claim about your skills or work"
+        elif claim.kind != "experience" and (
             claim.status != "supported"
             or claim.evidence_ids
             or not plain_nonexperience(claim.text, claim.kind)
@@ -163,8 +203,14 @@ def sentence_schema(index: int, evidence_count: int, exact_text: str | None = No
     )
 
 
-async def verify_claims(draft: str, evidence: list[Chunk], llm) -> VerificationReport:
-    """Verify factual sentences individually; preserve validated plain intentions."""
+async def verify_claims(
+    draft: str, evidence: list[Chunk], llm, mode: str = "proposal"
+) -> VerificationReport:
+    """Verify factual sentences individually; preserve validated plain intentions.
+
+    mode="reply" is for client chat: only claims about the freelancer's own skills or
+    work are checked against evidence; everything else is kept.
+    """
     sentences = []
     failures = []
     coverage_retries = []
@@ -174,6 +220,25 @@ async def verify_claims(draft: str, evidence: list[Chunk], llm) -> VerificationR
     ]
     for index, (start, end) in enumerate(sentence_spans(draft)):
         text = draft[start:end]
+        if mode == "reply" and PLACEHOLDER.search(text):
+            sentences.append(
+                VerifiedSentence(
+                    text=text,
+                    start=start,
+                    end=end,
+                    claims=[
+                        AtomicClaim(
+                            text=text,
+                            kind="nonfactual",
+                            status="unsupported",
+                            evidence_ids=[],
+                            reason="Contains an unfilled placeholder",
+                        )
+                    ],
+                    kept=False,
+                )
+            )
+            continue
         plain_kind = next(
             (
                 kind
@@ -209,7 +274,7 @@ async def verify_claims(draft: str, evidence: list[Chunk], llm) -> VerificationR
                     )
                 try:
                     claims = validate_claims(
-                        text, response.sentences[0].claims, evidence
+                        text, response.sentences[0].claims, evidence, mode
                     )
                 except RagFailure as exc:
                     if not evidence or exc.message != "Verifier left text unchecked":
@@ -226,7 +291,7 @@ async def verify_claims(draft: str, evidence: list[Chunk], llm) -> VerificationR
                         sentence_schema(index, len(evidence), exact_text=text),
                     )
                     claims = validate_claims(
-                        text, response.sentences[0].claims, evidence
+                        text, response.sentences[0].claims, evidence, mode
                     )
             except (RagFailure, ValidationError) as exc:
                 if isinstance(exc, ValidationError):
@@ -270,5 +335,15 @@ async def verify_claims(draft: str, evidence: list[Chunk], llm) -> VerificationR
             "llm_usage": llm.usage[before:],
             "failures": failures,
             "coverage_retries": coverage_retries,
+            **(
+                {
+                    "substantive": any(
+                        s.kept and not GREETING_OR_CLOSING.fullmatch(s.text.strip())
+                        for s in sentences
+                    )
+                }
+                if mode == "reply"
+                else {}
+            ),
         },
     )

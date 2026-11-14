@@ -189,6 +189,8 @@ class EvidencePage(BaseModel):
 class VerificationRequest(StrictModel):
     draft: str = Field(min_length=1, max_length=20000)
     chunk_ids: list[str] = Field(default_factory=list, max_length=20)
+    # "reply" (client chat) only checks claims about the freelancer's skills or work.
+    mode: Literal["proposal", "reply"] = "proposal"
 
 
 class SkillList(BaseModel):

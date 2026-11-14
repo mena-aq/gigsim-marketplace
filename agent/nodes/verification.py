@@ -16,12 +16,14 @@ async def verify(state: GigBidState, ctx: NodeContext) -> dict:
     ids = [item["chunk_id"] for item in state.get("evidence", [])][:20]
     reports = {}
     failed = False
+    mode = "reply" if state.get("conversation_id") else "proposal"
     for key, text in [("cover_letter", draft["cover_letter"])] + [
         (str(index), answer["answer"])
         for index, answer in enumerate(draft.get("screening_answers", []))
     ]:
         report = await ctx.tool(
-            "verifier", "verify_claims", {"request": {"draft": text, "chunk_ids": ids}}
+            "verifier", "verify_claims",
+            {"request": {"draft": text, "chunk_ids": ids, "mode": mode}},
         )
         reports[key] = report
         if report["status"] != "verified":
@@ -56,8 +58,13 @@ async def verify(state: GigBidState, ctx: NodeContext) -> dict:
                 ],
             },
         }
-    if not draft["cover_letter"].strip() or any(
-        not answer["answer"].strip() for answer in draft.get("screening_answers", [])
+    hollow = mode == "reply" and not (
+        reports["cover_letter"].get("diagnostics", {}).get("substantive", True)
+    )
+    if (
+        hollow
+        or not draft["cover_letter"].strip()
+        or any(not answer["answer"].strip() for answer in draft.get("screening_answers", []))
     ):
         return {
             "draft": draft,

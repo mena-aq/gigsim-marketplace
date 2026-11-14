@@ -562,3 +562,74 @@ async def test_retired_evidence_is_never_retrieved_or_cited(indexed, variant):
     restored.retired = frozenset()
     again = await restored.retrieve("python forecasting", 5, {}, variant)
     assert any(hit.chunk.id == retired.id for hit in again.hits)
+
+
+def _answer(index, text, kind, status):
+    return {
+        "sentences": [
+            {
+                "index": index,
+                "claims": [
+                    {
+                        "text": text,
+                        "kind": kind,
+                        "status": status,
+                        "evidence_ids": [],
+                        "reason": "test-only",
+                    }
+                ],
+            }
+        ]
+    }
+
+
+async def test_reply_mode_only_checks_claims_about_own_skills_or_work():
+    draft = (
+        "Thanks for your question.\n"
+        "Tuesday works for me.\n"
+        "I built a Kafka platform for a bank.\n"
+        "[Your Name]"
+    )
+    llm = FakeLLM(
+        [
+            _answer(0, "Thanks for your question.", "nonfactual", "supported"),
+            # The model wrongly calls a harmless scheduling sentence unsupported.
+            _answer(1, "Tuesday works for me.", "intent", "unsupported"),
+            # ...and wrongly calls a work claim harmless.
+            _answer(2, "I built a Kafka platform for a bank.", "intent", "supported"),
+        ]
+    )
+    report = await verify_claims(draft, [], llm, mode="reply")
+    assert report.cleaned_draft == "Thanks for your question.\nTuesday works for me."
+    kept = [s.kept for s in report.sentences]
+    assert kept == [True, True, False, False]
+    assert report.sentences[2].claims[0].kind == "experience"
+    assert "placeholder" in report.sentences[3].claims[0].reason
+    assert report.status == "verified"
+    assert report.diagnostics["substantive"] is True
+
+
+async def test_proposal_mode_is_unchanged_and_still_strict():
+    llm = FakeLLM([_answer(0, "Tuesday works for me.", "intent", "supported")])
+    report = await verify_claims("Tuesday works for me.", [], llm)
+    assert report.cleaned_draft == ""
+    assert "substantive" not in report.diagnostics
+
+
+async def test_reply_that_is_only_greetings_is_not_substantive():
+    report = await verify_claims(
+        "Dear Client,\nThank you.\nBest regards,", [], FakeLLM(), mode="reply"
+    )
+    assert report.diagnostics["substantive"] is False
+
+
+def test_claims_own_experience_ignores_questions_and_plans():
+    from rag.verify import claims_own_experience
+
+    assert claims_own_experience("I built a churn model.")
+    assert claims_own_experience("We've shipped this before.")
+    assert claims_own_experience("I have 5 years of experience.")
+    assert not claims_own_experience("Could you share your experience with Airflow?")
+    assert not claims_own_experience("Please share your preferred timezone.")
+    assert not claims_own_experience("I will send a plan by Friday.")
+    assert not claims_own_experience("Tuesday at 3pm works for me.")

@@ -2175,6 +2175,15 @@
                 "minLength": 1,
                 "title": "Draft",
                 "type": "string"
+              },
+              "mode": {
+                "default": "proposal",
+                "enum": [
+                  "proposal",
+                  "reply"
+                ],
+                "title": "Mode",
+                "type": "string"
               }
             },
             "required": [
