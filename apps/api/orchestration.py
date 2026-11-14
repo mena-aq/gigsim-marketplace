@@ -124,6 +124,52 @@ async def job(job_id: str, user=Depends(authenticated)) -> dict:
         raise HTTPException(404, "Job not found") from exc
 
 
+@router.get("/conversations")
+async def conversations(request: Request, user=Depends(authenticated)) -> list[dict]:
+    """Client conversations on submitted proposals, with any reply run already started."""
+    from mcp_servers.common.errors import ToolFailure
+
+    try:
+        liaison = MCPMarketplacePort(
+            MCPGateway(user.token, "liaison", "conversations:" + user.subject)
+        )
+        items = await liaison.list_conversations()
+    except ToolFailure as exc:
+        raise HTTPException(503, "Marketplace unavailable — work is queued") from exc
+    scout = MCPMarketplacePort(
+        MCPGateway(user.token, "scout", "conversation-titles:" + user.subject)
+    )
+
+    async def title(job_id: str) -> str | None:
+        try:
+            return (await scout.get_job(job_id)).title
+        except ToolFailure:
+            return None
+
+    titles = await asyncio.gather(*(title(item.job_id) for item in items))
+    async with async_sessionmaker(request.app.state.engine)() as session:
+        rows = (
+            await session.scalars(
+                select(GraphRun)
+                .where(GraphRun.user_id == user.subject, GraphRun.kind == "conversation")
+                .order_by(GraphRun.created_at)
+            )
+        ).all()
+    latest = {row.target: row for row in rows}
+    return [
+        {
+            **item.model_dump(mode="json"),
+            "job_title": name,
+            "run": (
+                {"id": latest[item.conversation_id].id, "status": latest[item.conversation_id].status}
+                if item.conversation_id in latest
+                else None
+            ),
+        }
+        for item, name in zip(items, titles, strict=True)
+    ]
+
+
 @router.post("/runs", response_model=RunSummary, status_code=202)
 async def start(body: StartRun, request: Request, user=Depends(authenticated)):
     sessions = async_sessionmaker(request.app.state.engine, expire_on_commit=False)

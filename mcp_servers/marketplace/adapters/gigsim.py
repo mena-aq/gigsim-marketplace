@@ -9,6 +9,7 @@ from pydantic import ValidationError
 from mcp_servers.common.schemas import (
     ClientHistory,
     ConnectsOut,
+    ConversationOut,
     JobOut,
     JobPage,
     MessageOut,
@@ -150,6 +151,9 @@ class GigSimAdapter:
 
     async def get_connects_balance(self, who):
         return await self.read(who, "/connects", ConnectsOut)
+
+    async def list_conversations(self, who):
+        return await self.read(who, "/messages/conversations", [ConversationOut])
 
     async def list_messages(self, who, conversation_id):
         return await self.read(

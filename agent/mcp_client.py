@@ -21,6 +21,7 @@ AGENT_TOOLS = {
     "verifier": {"verify_claims"},
     "compliance": set(),
     "liaison": {
+        "list_conversations",
         "list_messages",
         "get_free_slots",
         "create_hold",
@@ -36,6 +37,7 @@ SERVER_TOOLS = {
         "get_job",
         "get_client_history",
         "get_connects_balance",
+        "list_conversations",
         "list_messages",
         "create_proposal_draft",
         "submit_proposal",

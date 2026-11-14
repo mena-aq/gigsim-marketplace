@@ -9,6 +9,7 @@ from mcp_servers.common.runtime import Runtime
 from mcp_servers.common.schemas import (
     ClientHistory,
     ConnectsOut,
+    ConversationOut,
     JobOut,
     JobPage,
     MessageOut,
@@ -71,6 +72,13 @@ def create_server(runtime: Runtime):
         """Read the authenticated freelancer's remaining Connects without spending."""
         return await runtime.run(
             "get_connects_balance", {}, service.adapter.get_connects_balance
+        )
+
+    @server.tool(annotations=READ)
+    async def list_conversations() -> Result[list[ConversationOut]]:
+        """List the authenticated freelancer's conversations about submitted proposals."""
+        return await runtime.run(
+            "list_conversations", {}, service.adapter.list_conversations
         )
 
     @server.tool(annotations=READ)

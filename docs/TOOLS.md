@@ -15,6 +15,7 @@ Identity and assigned persona come from the token, never caller-supplied user ID
 | get_job | Marketplace | read | true / false / true / true | GigSim job |
 | get_client_history | Marketplace | read | true / false / true / true | Public client history |
 | get_connects_balance | Marketplace | read | true / false / true / true | Authenticated freelancer |
+| list_conversations | Marketplace | read | true / false / true / true | Authenticated freelancer's conversations |
 | list_messages | Marketplace | read | true / false / true / true | Owned conversation |
 | create_proposal_draft | Marketplace | write | false / false / true / true | Local proposal + upstream quote |
 | submit_proposal | Marketplace | write | false / true / true / true | Approval-gated GigSim submission |

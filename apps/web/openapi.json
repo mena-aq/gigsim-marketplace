@@ -366,6 +366,38 @@
   },
   "openapi": "3.1.0",
   "paths": {
+    "/agent/conversations": {
+      "get": {
+        "description": "Client conversations on submitted proposals, with any reply run already started.",
+        "operationId": "conversations_agent_conversations_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "additionalProperties": true,
+                    "type": "object"
+                  },
+                  "title": "Response Conversations Agent Conversations Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Conversations",
+        "tags": [
+          "orchestration"
+        ]
+      }
+    },
     "/agent/evidence/restore/{item_id}": {
       "post": {
         "operationId": "restore_evidence_agent_evidence_restore__item_id__post",

@@ -4,6 +4,26 @@
  */
 
 export interface paths {
+    "/agent/conversations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Conversations
+         * @description Client conversations on submitted proposals, with any reply run already started.
+         */
+        get: operations["conversations_agent_conversations_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/agent/evidence/restore/{item_id}": {
         parameters: {
             query?: never;
@@ -527,6 +547,28 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    conversations_agent_conversations_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
+            };
+        };
+    };
     restore_evidence_agent_evidence_restore__item_id__post: {
         parameters: {
             query?: never;

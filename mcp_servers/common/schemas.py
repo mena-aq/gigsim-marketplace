@@ -106,6 +106,15 @@ class MessageOut(BaseModel):
     sent_at: datetime
 
 
+class ConversationOut(BaseModel):
+    conversation_id: str
+    job_id: str
+    proposal_status: str
+    last_message: str | None = None
+    last_message_at: datetime | None = None
+    message_count: int
+
+
 class WriteRequest(StrictModel):
     idempotency_key: str = Field(min_length=1, max_length=128)
     dry_run: bool = False

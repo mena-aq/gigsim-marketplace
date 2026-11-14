@@ -6,6 +6,7 @@ from agent.mcp_client import MCPGateway
 from mcp_servers.common.schemas import (
     ClientHistory,
     ConnectsOut,
+    ConversationOut,
     JobOut,
     JobPage,
     MessageOut,
@@ -21,6 +22,7 @@ class MarketplacePort(Protocol):
     async def get_job(self, job_id: str) -> JobOut: ...
     async def get_client_history(self, client_id: str) -> ClientHistory: ...
     async def get_connects_balance(self) -> ConnectsOut: ...
+    async def list_conversations(self) -> list[ConversationOut]: ...
     async def list_messages(self, conversation_id: str) -> list[MessageOut]: ...
     async def create_proposal_draft(self, request: ProposalRequest) -> WriteResult: ...
     async def submit_proposal(self, request: ProposalRequest) -> WriteResult: ...
@@ -52,6 +54,12 @@ class MCPMarketplacePort:
         return ConnectsOut.model_validate(
             await self.gateway.call("get_connects_balance", {})
         )
+
+    async def list_conversations(self) -> list[ConversationOut]:
+        return [
+            ConversationOut.model_validate(item)
+            for item in await self.gateway.call("list_conversations", {})
+        ]
 
     async def list_messages(self, conversation_id: str) -> list[MessageOut]:
         return [

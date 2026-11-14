@@ -276,6 +276,12 @@ async def test_marketplace_previews_approval_replay_and_audit(runtime):
             client, "list_messages", {"conversation_id": message.conversation_id}
         )
         assert len(messages["data"]) == 1
+        conversations = await call(client, "list_conversations")
+        assert conversations["ok"]
+        assert [c["conversation_id"] for c in conversations["data"]] == [
+            "job_ml:ml_engineer"
+        ]
+        assert conversations["data"][0]["message_count"] == 1
         async with runtime.sessions() as session:
             audits = (await session.execute(select(AuditLog))).scalars().all()
             text = json.dumps([entry.payload for entry in audits])

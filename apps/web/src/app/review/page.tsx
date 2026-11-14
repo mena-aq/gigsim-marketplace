@@ -31,6 +31,7 @@ export default function Review() {
   const [submission, setSubmission] = useState<Json | null>(null);
   const [recentEdits, setRecentEdits] = useState<Json | null>(null);
   const [marketplaceDown, setMarketplaceDown] = useState(false);
+  const [chats, setChats] = useState<Json[]>([]);
   useEffect(() => {
     const run = new URLSearchParams(window.location.search).get("run");
     if (run) setSelected(run);
@@ -88,6 +89,17 @@ export default function Review() {
     if (!selected || !signedIn || !decisionKey) return;
     fetch(`/api/agent/runs/${encodeURIComponent(selected)}/decision`).then(r => r.ok ? r.json() : null).then(setWhy).catch(() => setWhy(null));
   }, [selected, signedIn, decisionKey]);
+  const loadChats = useCallback(async () => {
+    const r = await fetch("/api/agent/conversations", { cache: "no-store" });
+    if (r.ok) setChats(await r.json());
+  }, []);
+  useEffect(() => { if (signedIn) void loadChats().catch(() => setChats([])); }, [signedIn, loadChats]);
+  async function replyTo(conversationId: string) {
+    const result = await client.POST("/agent/runs", { body: { kind: "conversation", target: conversationId } });
+    if (result.error || !result.data) throw new Error("Could not start a reply draft for this conversation");
+    setSelected(result.data.id); setDetail(null);
+    await loadChats();
+  }
   const loadRetired = useCallback(async () => {
     const r = await fetch("/api/agent/evidence/retired");
     if (r.ok) setRetired(await r.json());
@@ -139,9 +151,19 @@ export default function Review() {
       <button onClick={() => void act(async () => { await fetch("/api/agent/session", { method: "DELETE" }); setSignedIn(false); setDetail(null); setSelected(""); })}>Sign out</button>
       <section className="analytics-strip" aria-label="Demo analytics"><div><span>DEMO ANALYTICS</span><strong>12</strong><small>jobs reviewed</small></div><div><span>PROPOSALS</span><strong>4</strong><small>sent with approval</small></div><div><span>REPLY RATE</span><strong>25%</strong><small>simulated history</small></div><div><span>CONNECTS</span><strong>28</strong><small>spent this week</small></div></section>
       {marketplaceDown && <p role="status" className="alert">Marketplace unavailable. Analyses you start are queued and will run automatically when it returns. Retrying every few seconds…</p>}
+      <section className="panel chats"><div className="inbox-heading"><div><p className="eyebrow">CLIENT MESSAGES</p><h2>Conversations on submitted proposals</h2></div></div>
+        {chats.length === 0 ? <p>No client conversations yet. They appear once a submitted proposal gets a reply.</p> : <div className="job-list">{chats.map(chat => <article className="job-card" key={chat.conversation_id}>
+          <div><h3>{chat.job_title ?? chat.job_id} <small>· {chat.proposal_status.replaceAll("_", " ")}</small></h3>
+            <p>{chat.last_message ? chat.last_message.slice(0, 220) : "No messages yet."}</p>
+            <small>{chat.message_count} message{chat.message_count === 1 ? "" : "s"}{chat.run ? ` · reply draft: ${chat.run.status.replaceAll("_", " ")}` : ""}</small></div>
+          {chat.run ? <button className="job-action" disabled={busy} onClick={() => { setSelected(chat.run.id); setDetail(null); }}>Open reply draft</button>
+            : <button className="job-action" disabled={busy} onClick={() => void act(() => replyTo(chat.conversation_id))}>Draft reply</button>}
+        </article>)}</div>}
+      </section>
       <section className="panel inbox"><div className="inbox-heading"><div><p className="eyebrow">JOB INBOX</p><h2>Open GigSim jobs</h2></div><form onSubmit={e => { e.preventDefault(); void loadJobs(jobQuery).catch(err => setError(err.message)); }}><label className="sr-only" htmlFor="job-search">Search jobs</label><input id="job-search" placeholder="Search jobs" value={jobQuery} onChange={e => setJobQuery(e.target.value)} /></form></div>{jobs.length === 0 ? <p>No jobs found.</p> : <div className="job-list">{jobCards}</div>}</section>
       <section className="panel" aria-live="polite">{!detail ? <p>{selected ? "Loading run…" : "Choose Analyze on a job to begin."}</p> : <>
-          <h2>{state.job?.title ?? detail.target}</h2><p><strong>{detail.status.replaceAll("_", " ")}</strong> · {state.steps ?? 0} steps · {state.tokens ?? 0} tokens</p>
+          <h2>{detail.kind === "conversation" ? "Client conversation" : (state.job?.title ?? detail.target)}</h2>
+          {detail.kind === "conversation" && Array.isArray(state.messages) && state.messages.length > 0 && <div className="thread" aria-label="Conversation">{state.messages.map((m: Json) => <p key={m.id} className={m.sender === "client" ? "from-client" : "from-me"}><strong>{m.sender === "client" ? "Client" : "You"}:</strong> {m.body}<br /><small>{m.sent_at}</small></p>)}</div>}<p><strong>{detail.status.replaceAll("_", " ")}</strong> · {state.steps ?? 0} steps · {state.tokens ?? 0} tokens</p>
           {detail.status === "retry_wait" && <p role="status" className="alert">A dependency is unavailable or rate limited — work is queued for retry.</p>}
           {(detail.error || Object.keys(state.errors ?? {}).length > 0) && <pre>{JSON.stringify(detail.error ?? state.errors, null, 2)}</pre>}
           {["needs_attention", "dead_letter"].includes(detail.status) && <button disabled={busy} onClick={() => void act(async () => {
