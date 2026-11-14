@@ -153,6 +153,18 @@
             "title": "Attempts",
             "type": "integer"
           },
+          "created_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
           "error": {
             "anyOf": [
               {
@@ -198,6 +210,17 @@
             "title": "Target",
             "type": "string"
           },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
           "trace_id": {
             "title": "Trace Id",
             "type": "string"
@@ -220,6 +243,18 @@
           "attempts": {
             "title": "Attempts",
             "type": "integer"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
           },
           "error": {
             "anyOf": [
@@ -248,6 +283,17 @@
           "target": {
             "title": "Target",
             "type": "string"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
           },
           "trace_id": {
             "title": "Trace Id",

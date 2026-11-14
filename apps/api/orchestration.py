@@ -78,6 +78,8 @@ class RunSummary(BaseModel):
     trace_id: str
     attempts: int
     error: dict | None = None
+    created_at: datetime | None = None
+    title: str | None = None
 
 
 class RunDetail(RunSummary):
@@ -203,6 +205,8 @@ async def start(body: StartRun, request: Request, user=Depends(authenticated)):
 
 @router.get("/runs", response_model=list[RunSummary])
 async def runs(request: Request, user=Depends(authenticated)):
+    from mcp_servers.common.errors import ToolFailure
+
     async with async_sessionmaker(request.app.state.engine)() as session:
         rows = (
             await session.scalars(
@@ -212,7 +216,30 @@ async def runs(request: Request, user=Depends(authenticated)):
                 .limit(100)
             )
         ).all()
-        return [summary(row) for row in rows]
+    items = [summary(row) for row in rows]
+    scout = MCPMarketplacePort(
+        MCPGateway(user.token, "scout", "run-titles:" + user.subject)
+    )
+    cache: dict[str, str | None] = {}
+
+    async def title(job_id: str) -> str | None:
+        try:
+            return (await scout.get_job(job_id)).title
+        except ToolFailure:
+            return None
+
+    # Titles are a convenience: look up the newest runs only, and never fail the
+    # list when the marketplace is down.
+    wanted = {
+        item.target.split(":")[0] for item in items[:30] if item.target.split(":")[0]
+    }
+    for job_id, found in zip(
+        wanted, await asyncio.gather(*(title(job) for job in wanted)), strict=True
+    ):
+        cache[job_id] = found
+    for item in items:
+        item.title = cache.get(item.target.split(":")[0])
+    return items
 
 
 @router.get("/runs/{run_id}", response_model=RunDetail)

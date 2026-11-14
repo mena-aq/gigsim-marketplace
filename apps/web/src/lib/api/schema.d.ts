@@ -466,6 +466,8 @@ export interface components {
         RunDetail: {
             /** Attempts */
             attempts: number;
+            /** Created At */
+            created_at?: string | null;
             /** Error */
             error?: {
                 [key: string]: unknown;
@@ -486,6 +488,8 @@ export interface components {
             status: string;
             /** Target */
             target: string;
+            /** Title */
+            title?: string | null;
             /** Trace Id */
             trace_id: string;
         };
@@ -493,6 +497,8 @@ export interface components {
         RunSummary: {
             /** Attempts */
             attempts: number;
+            /** Created At */
+            created_at?: string | null;
             /** Error */
             error?: {
                 [key: string]: unknown;
@@ -505,6 +511,8 @@ export interface components {
             status: string;
             /** Target */
             target: string;
+            /** Title */
+            title?: string | null;
             /** Trace Id */
             trace_id: string;
         };

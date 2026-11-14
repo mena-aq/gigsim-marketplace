@@ -32,6 +32,7 @@ export default function Review() {
   const [recentEdits, setRecentEdits] = useState<Json | null>(null);
   const [marketplaceDown, setMarketplaceDown] = useState(false);
   const [chats, setChats] = useState<Json[]>([]);
+  const [runs, setRuns] = useState<Json[]>([]);
   useEffect(() => {
     const run = new URLSearchParams(window.location.search).get("run");
     if (run) setSelected(run);
@@ -51,6 +52,7 @@ export default function Review() {
     if (result.response.status === 401) { setSignedIn(false); return; }
     if (result.error) throw new Error("Workspace unavailable — work is queued");
     setSignedIn(true);
+    setRuns((result.data ?? []) as Json[]);
     if (selected) {
       const next = await client.GET("/agent/runs/{run_id}", { params: { path: { run_id: selected } } });
       if (next.error) throw new Error("Run details unavailable");
@@ -151,6 +153,13 @@ export default function Review() {
       <button onClick={() => void act(async () => { await fetch("/api/agent/session", { method: "DELETE" }); setSignedIn(false); setDetail(null); setSelected(""); })}>Sign out</button>
       <section className="analytics-strip" aria-label="Demo analytics"><div><span>DEMO ANALYTICS</span><strong>12</strong><small>jobs reviewed</small></div><div><span>PROPOSALS</span><strong>4</strong><small>sent with approval</small></div><div><span>REPLY RATE</span><strong>25%</strong><small>simulated history</small></div><div><span>CONNECTS</span><strong>28</strong><small>spent this week</small></div></section>
       {marketplaceDown && <p role="status" className="alert">Marketplace unavailable. Analyses you start are queued and will run automatically when it returns. Retrying every few seconds…</p>}
+      <section className="panel history"><div className="inbox-heading"><div><p className="eyebrow">YOUR ANALYSES</p><h2>Run history</h2></div></div>
+        {runs.length === 0 ? <p>No analyses yet. Choose Analyze on a job below.</p> : <div className="job-list">{runs.map(run => <article className={"job-card" + (run.id === selected ? " selected" : "")} key={run.id}>
+          <div><h3>{run.kind === "conversation" ? "Reply: " : ""}{run.title ?? run.target}</h3>
+            <small><strong>{run.status.replaceAll("_", " ")}</strong>{run.created_at ? ` · ${new Date(run.created_at).toLocaleString()}` : ""}</small></div>
+          <button className="job-action" onClick={() => { setSelected(run.id); setDetail(null); setTimeout(() => document.getElementById("run-detail")?.scrollIntoView({ behavior: "smooth" }), 50); }}>{run.id === selected ? "Viewing" : "Open"}</button>
+        </article>)}</div>}
+      </section>
       <section className="panel chats"><div className="inbox-heading"><div><p className="eyebrow">CLIENT MESSAGES</p><h2>Conversations on submitted proposals</h2></div></div>
         {chats.length === 0 ? <p>No client conversations yet. They appear once a submitted proposal gets a reply.</p> : <div className="job-list">{chats.map(chat => <article className="job-card" key={chat.conversation_id}>
           <div><h3>{chat.job_title ?? chat.job_id} <small>· {chat.proposal_status.replaceAll("_", " ")}</small></h3>
@@ -161,7 +170,7 @@ export default function Review() {
         </article>)}</div>}
       </section>
       <section className="panel inbox"><div className="inbox-heading"><div><p className="eyebrow">JOB INBOX</p><h2>Open GigSim jobs</h2></div><form onSubmit={e => { e.preventDefault(); void loadJobs(jobQuery).catch(err => setError(err.message)); }}><label className="sr-only" htmlFor="job-search">Search jobs</label><input id="job-search" placeholder="Search jobs" value={jobQuery} onChange={e => setJobQuery(e.target.value)} /></form></div>{jobs.length === 0 ? <p>No jobs found.</p> : <div className="job-list">{jobCards}</div>}</section>
-      <section className="panel" aria-live="polite">{!detail ? <p>{selected ? "Loading run…" : "Choose Analyze on a job to begin."}</p> : <>
+      <section id="run-detail" className="panel" aria-live="polite">{!detail ? <p>{selected ? "Loading run…" : "Choose Analyze on a job to begin."}</p> : <>
           <h2>{detail.kind === "conversation" ? "Client conversation" : (state.job?.title ?? detail.target)}</h2>
           {detail.kind === "conversation" && Array.isArray(state.messages) && state.messages.length > 0 && <div className="thread" aria-label="Conversation">{state.messages.map((m: Json) => <p key={m.id} className={m.sender === "client" ? "from-client" : "from-me"}><strong>{m.sender === "client" ? "Client" : "You"}:</strong> {m.body}<br /><small>{m.sent_at}</small></p>)}</div>}<p><strong>{detail.status.replaceAll("_", " ")}</strong> · {state.steps ?? 0} steps · {state.tokens ?? 0} tokens</p>
           {detail.status === "retry_wait" && <p role="status" className="alert">A dependency is unavailable or rate limited — work is queued for retry.</p>}
