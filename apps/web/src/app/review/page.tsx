@@ -10,7 +10,6 @@ import type { paths, components } from "../../lib/api/schema";
 const client = createClient<paths>({ baseUrl: "/api" });
 type Detail = components["schemas"]["RunDetail"];
 type Json = Record<string, any>;
-type Job = { id: string; title: string; description: string; skills: string[]; budget_min?: number | null; budget_max?: number | null; timeline_days?: number | null; screening_questions?: string[]; category?: string | null; status: string };
 
 export default function Review() {
   const [signedIn, setSignedIn] = useState(false);
@@ -24,8 +23,6 @@ export default function Review() {
   const [events, setEvents] = useState<Json[]>([]);
   const [memory, setMemory] = useState<Json[]>([]);
   const [history, setHistory] = useState<Json[]>([]);
-  const [jobs, setJobs] = useState<Job[]>([]);
-  const [jobQuery, setJobQuery] = useState("");
   const [why, setWhy] = useState<Json | null>(null);
   const [retired, setRetired] = useState<string[]>([]);
   const [submission, setSubmission] = useState<Json | null>(null);
@@ -41,13 +38,6 @@ export default function Review() {
   useEffect(() => {
     if (selected) window.history.replaceState(null, "", `/review?run=${encodeURIComponent(selected)}`);
   }, [selected]);
-  const loadJobs = useCallback(async (query = "") => {
-    const result = await client.GET("/agent/jobs", { params: { query: { q: query || undefined } } });
-    if (result.response.status === 401) { setSignedIn(false); return; }
-    if (result.error) { setMarketplaceDown(true); return; }
-    setMarketplaceDown(false);
-    setJobs(((result.data as { items?: Job[] } | undefined)?.items ?? []));
-  }, []);
   const refresh = useCallback(async () => {
     const result = await client.GET("/agent/runs");
     if (result.response.status === 401) { setSignedIn(false); return; }
@@ -66,14 +56,6 @@ export default function Review() {
     const timer = setInterval(check, 4000);
     return () => clearInterval(timer);
   }, [refresh]);
-  useEffect(() => {
-    loadJobs().catch(e => setError(e.message));
-  }, [loadJobs]);
-  useEffect(() => {
-    if (!marketplaceDown) return;
-    const timer = setInterval(() => { void loadJobs(jobQuery).catch(() => setMarketplaceDown(true)); }, 5000);
-    return () => clearInterval(timer);
-  }, [marketplaceDown, loadJobs, jobQuery]);
   const review = detail?.review as Json | null;
   const state = (detail?.state ?? {}) as Json;
   useEffect(() => {
@@ -98,8 +80,14 @@ export default function Review() {
   }, [signedIn]);
   const loadChats = useCallback(async () => {
     const r = await fetch("/api/agent/conversations", { cache: "no-store" });
-    if (r.ok) setChats(await r.json());
+    if (r.ok) { setChats(await r.json()); setMarketplaceDown(false); }
+    else if (r.status === 503) setMarketplaceDown(true);
   }, []);
+  useEffect(() => {
+    if (!marketplaceDown) return;
+    const timer = setInterval(() => { void loadChats().catch(() => setMarketplaceDown(true)); }, 5000);
+    return () => clearInterval(timer);
+  }, [marketplaceDown, loadChats]);
   useEffect(() => { if (signedIn) void loadChats().catch(() => setChats([])); }, [signedIn, loadChats]);
   async function replyTo(conversationId: string) {
     const result = await client.POST("/agent/runs", { body: { kind: "conversation", target: conversationId } });
@@ -145,11 +133,6 @@ export default function Review() {
     if (result.error) throw new Error("Review changed or request was rejected. Refresh and try again.");
     setDetail(null);
   }
-  const jobCards = jobs.map(job => <article className="job-card" key={job.id}>
-    <div><h3>{job.title}</h3><p>{job.description.slice(0, 220)}{job.description.length > 220 ? "…" : ""}</p>
-      <small>{job.skills?.join(" · ")}{job.budget_max ? ` · $${job.budget_min ?? 0}–$${job.budget_max}` : ""}{job.timeline_days ? ` · ${job.timeline_days} days` : ""}</small>
-    </div><Link className="job-action" href={`/job/${encodeURIComponent(job.id)}`}>Analyze</Link>
-  </article>);
   return <main>
     <header><a className="brand" href="/">gigbid<span>●</span></a><h1 className="review-title">Review workspace</h1></header>
     <p>Review evidence, edit drafts, and choose what leaves your workspace.</p>
@@ -182,7 +165,6 @@ export default function Review() {
             : <button className="job-action" disabled={busy} onClick={() => void act(() => replyTo(chat.conversation_id))}>Draft reply</button>}
         </article>)}</div>}
       </section>
-      <section className="panel inbox"><div className="inbox-heading"><div><p className="eyebrow">JOB INBOX</p><h2>Open GigSim jobs</h2></div><form onSubmit={e => { e.preventDefault(); void loadJobs(jobQuery).catch(err => setError(err.message)); }}><label className="sr-only" htmlFor="job-search">Search jobs</label><input id="job-search" placeholder="Search jobs" value={jobQuery} onChange={e => setJobQuery(e.target.value)} /></form></div>{jobs.length === 0 ? <p>No jobs found.</p> : <div className="job-list">{jobCards}</div>}</section>
       <section id="run-detail" className="panel" aria-live="polite">{!detail ? <p>{selected ? "Loading run…" : "Choose Analyze on a job to begin."}</p> : <>
           <h2>{detail.kind === "conversation" ? "Client conversation" : (state.job?.title ?? detail.target)}</h2>
           {detail.kind === "conversation" && Array.isArray(state.messages) && state.messages.length > 0 && <div className="thread" aria-label="Conversation">{state.messages.map((m: Json) => <p key={m.id} className={m.sender === "client" ? "from-client" : "from-me"}><strong>{m.sender === "client" ? "Client" : "You"}:</strong> {m.body}<br /><small>{m.sent_at}</small></p>)}</div>}<p><strong>{detail.status.replaceAll("_", " ")}</strong> · {state.steps ?? 0} steps · {state.tokens ?? 0} tokens</p>
