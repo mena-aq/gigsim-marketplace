@@ -4,6 +4,7 @@ import asyncio
 import hashlib
 import json
 import os
+import re
 import shutil
 from pathlib import Path
 
@@ -34,40 +35,123 @@ class Embeddings:
             "model_unavailable", "Embedding model missing; run make rag-models"
         )
 
-    async def embed(self, texts: list[str]) -> list[list[float]]:
-        vectors = []
+    async def validate_runtime(self) -> int:
+        """Reject a configured embedding budget larger than the runtime accepts."""
         try:
-            async with httpx.AsyncClient(timeout=120) as client:
-                for offset in range(0, len(texts), 16):
-                    response = await client.post(
-                        self.config.ollama_url + "/api/embed",
-                        json={
-                            "model": self.config.embeddings_model,
-                            "input": texts[offset : offset + 16],
-                            "truncate": False,
-                            "keep_alive": "5m",
-                        },
-                    )
-                    response.raise_for_status()
-                    batch = response.json()["embeddings"]
-                    if len(batch) != len(texts[offset : offset + 16]):
-                        raise ValueError
-                    for vector in batch:
-                        array = np.asarray(vector, dtype=np.float32)
-                        norm = np.linalg.norm(array)
-                        if (
-                            array.shape != (self.config.embedding_dimensions,)
-                            or not np.isfinite(array).all()
-                            or norm <= 0
-                        ):
-                            raise ValueError
-                        vectors.append((array / norm).tolist())
-        except (httpx.HTTPError, KeyError, ValueError, TypeError):
+            async with httpx.AsyncClient(timeout=15) as client:
+                response = await client.post(
+                    self.config.ollama_url + "/api/show",
+                    json={"model": self.config.embeddings_model},
+                )
+                response.raise_for_status()
+            data = response.json()
+            limits = [
+                int(v)
+                for k, v in data.get("model_info", {}).items()
+                if k.endswith(".context_length")
+            ]
+            parameter = re.search(
+                r"^num_ctx\s+(\d+)\s*$", data.get("parameters", ""), re.MULTILINE
+            )
+            if parameter:
+                limits.append(int(parameter.group(1)))
+            if not limits:
+                raise ValueError("Missing embedding context metadata")
+            limit = min(limits)
+        except (httpx.HTTPError, ValueError, KeyError, TypeError):
             raise RagFailure(
-                "embedding_failed",
-                "Embedding response unavailable, invalid, or oversized",
-                True,
+                "model_unavailable", "Cannot validate embedding runtime context", True
             ) from None
+        if self.config.embedding_context_tokens > limit:
+            raise RagFailure(
+                "embedding_context_mismatch",
+                f"Configured embedding limit {self.config.embedding_context_tokens} exceeds runtime limit {limit}",
+            )
+        return limit
+
+    async def embed(self, texts: list[str]) -> list[list[float]]:
+        from tokenizers import Tokenizer
+
+        path = self.config.data_dir / "models/embedding/tokenizer.json"
+        if not path.is_file():
+            raise RagFailure(
+                "model_unavailable",
+                "Embedding tokenizer is missing; run make rag-models",
+            )
+        tokenizer = Tokenizer.from_file(str(path))
+        tokenizer.no_truncation()
+        tokenizer.no_padding()
+        limit = self.config.embedding_context_tokens - 2
+        if any(
+            len(tokenizer.encode(text, add_special_tokens=False).ids) > limit
+            for text in texts
+        ):
+            raise RagFailure(
+                "embedding_context_exceeded",
+                f"Embedding text exceeds the {limit}-token input budget",
+            )
+        vectors = []
+        async with httpx.AsyncClient(timeout=120) as client:
+            for offset in range(0, len(texts), 16):
+                inputs = texts[offset : offset + 16]
+                for attempt in range(2):
+                    try:
+                        response = await client.post(
+                            self.config.ollama_url + "/api/embed",
+                            json={
+                                "model": self.config.embeddings_model,
+                                "input": inputs,
+                                "truncate": False,
+                                "keep_alive": "5m",
+                            },
+                        )
+                        response.raise_for_status()
+                        batch = response.json()["embeddings"]
+                        if len(batch) != len(inputs):
+                            raise ValueError
+                        normalized = []
+                        for vector in batch:
+                            array = np.asarray(vector, dtype=np.float32)
+                            norm = np.linalg.norm(array)
+                            if (
+                                array.shape != (self.config.embedding_dimensions,)
+                                or not np.isfinite(array).all()
+                                or norm <= 0
+                            ):
+                                raise ValueError
+                            normalized.append((array / norm).tolist())
+                        vectors.extend(normalized)
+                        break
+                    except httpx.HTTPStatusError as exc:
+                        status = exc.response.status_code
+                        if (
+                            status == 400
+                            and "context length" in exc.response.text.lower()
+                        ):
+                            raise RagFailure(
+                                "embedding_context_exceeded",
+                                "Embedding runtime rejected input context; check model num_ctx",
+                            ) from None
+                        retryable = status == 429 or status >= 500
+                        failure = RagFailure(
+                            "embedding_http_error",
+                            f"Embedding request failed with HTTP {status}",
+                            retryable,
+                        )
+                    except (httpx.TimeoutException, httpx.TransportError):
+                        failure = RagFailure(
+                            "embedding_unavailable",
+                            "Embedding transport timed out or disconnected",
+                            True,
+                        )
+                    except (KeyError, ValueError, TypeError):
+                        failure = RagFailure(
+                            "embedding_response_invalid",
+                            "Embedding dimensions, values, or batch shape are invalid",
+                        )
+                    if not failure.retryable or attempt == 1:
+                        raise failure
+                    await asyncio.sleep(0.25)
         return vectors
 
 

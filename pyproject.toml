@@ -28,6 +28,8 @@ dependencies = [
   "onnxruntime",
   "tokenizers",
   "pypdf",
+  "langgraph-checkpoint-postgres>=3.2.1",
+  "psycopg[binary,pool]>=3.3.9",
 ]
 
 [project.optional-dependencies]

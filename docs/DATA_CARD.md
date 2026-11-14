@@ -170,3 +170,19 @@ are used as simulator evidence and are not claims about the user's real experien
 ```
 make rag-eval
 ```
+
+## Client linkage repair (version 2)
+
+Original job/client associations were random, producing incompatible hidden
+skill requirements for 29/30 benchmark jobs. The source processor now selects
+clients by public-job/hidden-client skill overlap, weighted by hiring history,
+and creates reusable synthetic coverage profiles when none exist. Assignment
+uses a fixed seed and never consumes generated proposal text or reply outcomes.
+
+`data/scripts/repair_client_assignments.py` repairs copies of processed seed data
+without model calls. The separate repaired corpus has 1,500 jobs and 209 clients;
+all 200 original client profiles remain intact, with nine new coverage profiles.
+The fixed benchmark's 30 public jobs are unchanged; only client references and
+corresponding profiles change. `evals/datasets/rag_jobs_v2.json` records original
+source hashes, the old benchmark hash, and the repair policy. Original measured
+runs, input files and human labels are retained as historical evidence.

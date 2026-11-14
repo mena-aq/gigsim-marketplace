@@ -1,0 +1,1461 @@
+review_id,job,proposal,evidence,human_score
+P01,"Scraping code
+Update an Excel output (scraping code) that runs on a football statistics website (www.goaloo18.com).Update the following data:  create division and multiplication formulas (new columns) in the excel output file (scraping data).Budget: $50Posted On: February 22, 2024 21:48 UTCCategory: Scripting & AutomationSkills:Python,     Data Scraping,     Excel FormulaSkills:        Python,                     Data Scraping,                     Excel FormulaCountry: Australiaclick to apply","I can rebuild your Excel model to be more robust and scalable, mapping existing calculations.
+Do you need weekly reporting automation for your finance department?","count, DimPeriod).
+2. **ETL Development** – Using Python’s `openpyxl` and `pandas`, I built a reusable extraction script that read each workbook, flattened merged cells, evaluated formulas via `xlrd`, and output clean CSVs. The script also applied data‑type validation (e.g., numeric amounts, ISO‑8601 dates) and logged anomalies.
+3. **Load & Automation** – The CSVs were bulk‑loaded into PostgreSQL using `COPY`. I wrote stored procedures to reconcile the newly loaded data with existing records, handling updates vs inserts (upserts) via `ON CONFLICT`.
+
+After the initial load, I set up a weekly Airflow DAG that re‑runs the ETL for any new or modified workbooks, ensuring the database stays current.
+
+Quantitative impact: The finance team cut month‑end
+
+# Financial KPI Reporting Pack for the CFO Office
+
+The finance department was struggling with fragmented monthly reporting. They had raw transaction data in a SQL Server database, supplemental budget data in Excel, and ad‑hoc PowerPoint decks that took weeks to assemble. Their requirement was a single, automated reporting pack that delivered the core financial KPIs—Revenue, Gross Margin, Operating Expenses, EBITDA, and Cash Conversion Cycle—on a weekly cadence, with drill‑down capability to product line and region.
+
+I designed and delivered a three‑layer solution:
+
+1. **Data extraction & transformation:** Using Microsoft SQL Server Management Studio, I wrote a set of stored procedures that merged the operational ledger tables with the budget tables (≈ 3 M rows per month). I scheduled nightly runs via SQL Agent, outputting cleaned CSVs to an Azure Blob storage.  
+2. **Data modelling:** In Excel Power Query, I imported the CSVs, applied data type enforcement
+
+Hi,
+
+I can rebuild your Excel model to be more robust and scalable. In a recent project I:
+
+- Converted a legacy budgeting workbook (≈ 30 tabs, 5 k rows) into a clean, modular model using structured tables, named ranges, and VBA macros for data import.
+- Added error‑checking and dynamic charts, which reduced user errors by 70 % and cut update time from 2 hours to 10 minutes.
+
+My approach:
+- Map existing calculations, identify redundancies, and document assumptions.
+- Implement best‑practice modeling (separate input, calculation, and output sheets) and lock cells where appropriate.
+- Provide a short user guide and a brief training session.
+
+**Screening question:** Yes, I have rebuilt complex Excel financial models with VBA and Power Query.
+
+Let me know if you’d like to see a sample of the before/after workbook.
+
+Priya
+
+Hi,
+
+I see you need weekly reporting automated. I recently created a similar pipeline for a logistics firm, pulling data from PostgreSQL, cleaning it with Python, and delivering a set of Excel dashboards that update via Power Query each Friday.
+
+The solution reduced manual effort by 4 hours per week and included a short training video for the team.
+
+I can set this up for you using the same tools and tailor the visuals to your KPIs.
+
+Hi,
+
+Your request to rebuild an Excel financial model for quarterly forecasting caught my eye. Last quarter I refreshed a 5‑year budgeting model for a manufacturing firm, adding dynamic charts and VBA automation that cut manual updates from 6 hours to 30 minutes.
+
+- Re‑engineered formulas to eliminate circular references and improve transparency.
+- Integrated Power Query to pull data from an Access database, ensuring a single source of truth.
+- Delivered a user guide and a short training session for the finance team.
+
+I’m comfortable working with complex nested functions and can have the new model ready for review within two weeks.
+
+My rate includes iterative feedback cycles to ensure the model meets all stakeholder needs.",1
+P02,"Data Scraping
+Scrap Phone numbers from the list we provide from Google and other resources",What specific data sources do you need to scrape for this project?,"Hi,
+
+I’m excited to automate your weekly reporting workflow. Here’s how I would approach it:
+
+- **Data extraction:** Use Python (pandas) or Power Query to pull data from your CRM, Google Sheets, and SQL database.
+- **Transformation:** Clean and aggregate metrics (e.g., leads, conversion rate) with reusable scripts.
+- **Delivery:** Generate an Excel workbook and email it via Outlook automation, or publish to a shared drive.
+
+Recent work:
+- Automated a 10‑step weekly sales report for a SaaS company, cutting manual effort from 4 hours to 15 minutes.
+- Built a Power Automate flow that refreshed a Power BI dataset and sent a PDF snapshot to stakeholders each Monday.
+
+**Screening question:** Yes, I have automated weekly reports using Python and Power Automate.
+
+Happy to set up a quick call to align on data sources and
+
+Hi,
+
+Your need for a marketing Tableau dashboard caught my eye—especially the focus on real‑time campaign attribution. Here’s a snapshot of how I approach it:
+
+- **Data integration:** I pull data from Google Ads, LinkedIn, and your internal CRM using Python scripts and store it in a Snowflake staging area.  
+- **Dashboard design:** In Tableau, I create a clean, filter‑rich interface with KPI tiles for spend, CPL, and conversion funnel visualization. I also set up data‑source extracts that refresh every 4 hours, keeping the numbers fresh.  
+- **Storytelling:** I embed short narrative captions and tooltips so stakeholders can instantly grasp performance trends without digging into raw numbers.
+
+A recent client (a B2B tech firm) saw a 25% increase in campaign ROI after using a similar dashboard because the team could act on insights within a day.
+
+**
+
+# Priya Sharma
+Data analyst who transforms messy data into clear dashboards and actionable decisions.
+
+## Skills
+- **Data Engineering & Modeling:** SQL, dbt, pandas, Excel → SQL migration, data cleaning  
+- **Programming & Statistics:** Python, R, statistical analysis, hypothesis testing  
+- **Visualization & BI:** Tableau, Power BI, data storytelling, dashboard design  
+- **Analytics Platforms:** Google Analytics, Excel Power Query, VBA macros  
+
+## Selected Projects
+- **Power BI Sales Dashboard** – Power BI, SQL, DAX – Delivered a real‑time sales performance dashboard for a regional distributor, cutting reporting time by 40%.  
+- **Marketing Attribution Model** – Python, Google Analytics, Tableau – Built a multi‑touch attribution model for a digital agency, increasing ROI attribution accuracy by 22%.  
+- **SaaS Churn Cohort Analysis*
+
+Hello,
+
+I love that you want a Tableau dashboard to track your marketing funnels. I’ve built similar dashboards that pull data from Google Analytics and Meta Ads, then slice it by channel, campaign, and device.
+
+- Connected GA4 and Facebook Ads APIs via Power Query.
+- Modeled key metrics (CTR, CPA, ROAS) in Power BI before importing to Tableau.
+- Designed interactive filters and drill‑throughs so marketers can see performance by week or by audience segment.
+- Delivered a PDF report automation for weekly executive updates.
+
+For a SaaS client, I combined three ad platforms into one Tableau workbook, cutting their reporting time from 6 hours to under 30 minutes and increasing attribution accuracy by 15%.
+
+*Screening question*: Yes, I have 3+ years of Tableau experience and can start next week.
+
+Happy to chat more!  
+Priya
+
+# Customer Segmentation Study for Retail
+
+A national clothing retailer wanted to move beyond simple RFM (Recency, Frequency, Monetary) scoring and develop a data‑driven segmentation that could power personalised marketing campaigns. They had a loyalty program database (SQL Server) with transaction history, as well as web‑behavior logs stored in Google BigQuery. The goal was to identify distinct shopper archetypes and quantify the revenue uplift potential of targeted offers.
+
+I combined the two data sources using Python’s `sqlalchemy` (SQL Server) and `google-cloud-bigquery` libraries, creating a unified dataframe of 2.3 million customers. After feature engineering (e.g., average basket size, category diversity, website session length, promo usage), I standardised the variables and applied Principal Component Analysis (PCA) to reduce dimensionality while preserving 85 % variance.
+
+Next, I performed K‑means clustering (after silhouette analysis)",2
+P03,"Fine tune GPT model with company emails and documents
+We have approx 100,000 emails along with dozens of company documents. We would like to use this data to fine tune a GPT model so that it can generate responses to customer inquiries with accuracy. 
+
+We would also like specific inquiries to trigger api calls to inventory numbers and product pricing. 
+
+ONLY apply if u have direct experience. I won’t read any generic applications.","I can fine-tune a GPT model using company data with Python.
+Do you have specific data points or examples you’d like to include in the fine-tuning process?","Hi,
+
+You mentioned automating a weekly sales report that currently pulls data from multiple CSVs and emails a PDF. I built a similar pipeline for a retail client using Python, Pandas, and Power Automate, reducing manual effort from 4 hours to under 10 minutes per week.
+
+- **Data extraction:** Pandas read/write, scheduled via Azure Functions
+- **Report generation:** Jinja2 templates → PDF
+- **Distribution:** Outlook API for automated email
+
+The solution is version‑controlled and includes monitoring alerts for data anomalies.  
+**Screening answer:** Yes, I have automated recurring reporting workflows with Python and cloud services.
+
+Thanks,
+Maya
+
+Projects
+- **Fraud detection pipeline** – built a real‑time scoring service using PyTorch, FastAPI, and Docker; reduced false positives by 22% for a payments startup.  
+- **Customer churn model** – engineered features from subscription logs, trained a Gradient Boosting model in scikit‑learn; improved churn prediction AUC from 0.71 to 0.84 for a SaaS app.  
+- **Product recommendation engine** – deployed a hybrid collaborative‑filtering + NLP similarity system via FastAPI; increased click‑through rate by 13% on an e‑commerce platform.  
+- **Document classification service** – fine‑tuned a BERT model with spaCy pipeline for a law firm; automated routing of 8,000+ documents per month with 96% accuracy.  
+- **Demand forecasting for retail chain** – built a Prophet + LSTM ensemble in PyTorch; forecast error (MAP
+
+Hi, I noticed you’re looking to set up a lead scoring model that can be refreshed weekly. In a recent engagement I built a scoring system for a fintech startup using LightGBM, achieving a 15% increase in conversion while keeping the model explainable with SHAP values. The data pipeline was orchestrated with Prefect and stored in Snowflake, handling roughly 200 k records per month.
+
+My plan would be to start with a data audit, then engineer features such as engagement recency, firmographics, and interaction history. I’ll train and validate several models, select the best based on ROC‑AUC, and expose the scoring via a Flask API behind your CRM. Continuous monitoring will be set up with Grafana alerts to catch drift.
+
+Yes, I have deployed production models on GCP AI Platform with automated CI/CD using Cloud Build.
+
+Looking forward to discussing how we can tailor this to your sales process.
+
+Best,
+Maya
+
+Hi,
+
+I noticed you need a robust customer segmentation for your retail data. Here’s how I can help:
+
+- **Project 1:** Built a RFM‑based segmentation pipeline for a 200k‑customer ecommerce dataset using Python, Pandas, and Scikit‑learn; achieved 4 distinct segments with a 12% lift in targeted campaign ROI.  
+- **Project 2:** Deployed a K‑means clustering model on Azure ML for a telecom client (150k users), integrated results into Tableau dashboards for real‑time monitoring.
+
+**Screening question:** Yes, I have experience handling GDPR‑compliant data and can ensure secure processing.
+
+Let me know if you’d like to discuss the workflow.
+
+Best,  
+Maya
+
+Hi, I’m excited about your goal to forecast sales with machine learning. In a recent project I built a Prophet‑based demand‑forecasting system for a fashion retailer that handled 250k SKUs and achieved a 12% MAPE improvement over their legacy Excel forecasts. I used Python, Azure ML pipelines for automated retraining, and deployed the model via a FastAPI endpoint that returns next‑month predictions in under a second.
+
+My plan would be to start with an exploratory analysis of your historical sales data, engineer relevant features (seasonality, promotions, price changes), and then compare several models—Prophet, LightGBM, and a simple LSTM—to pick the best performer. I’ll set up a scheduled pipeline for nightly retraining and a dashboard for visualizing forecasts. I can work within the $2500 budget and aim to deliver a production‑ready forecasting service in four weeks.",3
+P04,"Artificial intelligence lab
+I'm looking for artificial intelligence lab work, which needs machine learning skills with python.","What specific sales data do you have available for analysis, and what timeframe are you looking to forecast?","# Maya Chen  
+Machine Learning Engineer – production‑grade NLP and time‑series forecasting for SaaS and e‑commerce clients.
+
+## Skills
+- **Languages & Libraries:** Python, PyTorch, scikit‑learn, pandas, NumPy, SQL
+- **NLP & Transformers:** spaCy, Hugging Face Transformers, LangChain, custom tokenizers
+- **MLOps & Deployment:** FastAPI, Docker, MLflow, CI/CD pipelines
+- **Data Engineering:** PostgreSQL, data cleaning, feature engineering, ETL workflows
+- **Analytics & Visualization:** Plotly, Matplotlib, Tableau (basic)
+
+## Selected Projects
+- **Fraud detection pipeline** – built a real‑time scoring service using PyTorch, FastAPI, and Docker; reduced false positives by 22% for a
+
+Hi, I’m excited about your goal to forecast sales with machine learning. In a recent project I built a Prophet‑based demand‑forecasting system for a fashion retailer that handled 250k SKUs and achieved a 12% MAPE improvement over their legacy Excel forecasts. I used Python, Azure ML pipelines for automated retraining, and deployed the model via a FastAPI endpoint that returns next‑month predictions in under a second.
+
+My plan would be to start with an exploratory analysis of your historical sales data, engineer relevant features (seasonality, promotions, price changes), and then compare several models—Prophet, LightGBM, and a simple LSTM—to pick the best performer. I’ll set up a scheduled pipeline for nightly retraining and a dashboard for visualizing forecasts. I can work within the $2500 budget and aim to deliver a production‑ready forecasting service in four weeks.
+
+Hi,
+
+I specialize in turning manual reporting into reliable, automated workflows. For a finance client I built a Python‑Airflow pipeline that generated three KPI dashboards each week, cutting reporting time from 8 hours to under 15 minutes. The solution integrated with their existing PostgreSQL database and exported PDFs via email.
+
+**Screening answer:** I have experience automating weekly reporting with Python, Airflow, and BI tools.
+
+I can set up a similar system for your metrics, ensuring data freshness and minimal maintenance.
+
+Best,  
+Maya
+
+Hi,
+
+I understand you need an Excel model rebuilt for better performance and maintainability. In a recent project I migrated a legacy financial model of 5 k rows into a Python‑based tool using Pandas, which cut calculation time from 45 seconds to under 2 seconds and added version control via Git. I also created a clean Excel front‑end that pulls results via xlwings, preserving the familiar UI for end users.
+
+**Screening answer:** I have rebuilt complex Excel models using Python and integrated them back into Excel for user‑friendly interaction.
+
+I can deliver a robust, documented solution that meets your accuracy requirements.
+
+Best,  
+Maya
+
+Hello,
+
+Your goal to automate weekly reporting aligns with a recent project where I:
+
+- Created a Python script that pulls data from MySQL, transforms it with Pandas, and generates PDF and Excel reports on a schedule using Airflow; reduced manual effort by 90%.  
+- Integrated the reports into Slack and email via simple webhooks, handling ~15 GB of data each week.
+
+**Screening question:** Yes, I can set up the automation within your existing AWS environment.
+
+Looking forward to streamlining your reporting process.
+
+Thanks,  
+Maya",2
+P05,"STT + Rasa + GPT3 + TTS
+Need to build a chatbot that talks. 
+
+Using Rasa, gpt3, google STT, & speechify TTS
+
+Open to alternative APIs, but the deliverable is a chatbot that has been trained on  a certain database of issues & can converse via voice.","One past project: fine-tuned a 7B LLaMA model on corporate policy docs.
+How much data do you have for the chatbot training set?","supply‑chain customers; led a team of 3 junior engineers.  
+- Integrated models into internal API platform, reducing time‑to‑insight from weeks to hours.
+
+**Junior ML Engineer – NLP Team** – InsightWave (digital transformation agency)  
+*Jul 2016 – May 2018*  
+- Assisted in building chat‑bot intent classifiers and text‑summarization pipelines for enterprise clients.  
+- Contributed to data pipelines and model evaluation frameworks.
+
+## Education & Certifications
+- **M.Sc. Computer Science (Machine Learning)** – University of Pacifica, 2016  
+- **B.Sc. Computer Engineering** – State University of Harborview, 2014  
+- Certified **TensorFlow Developer** (2022)  
+- Certified **AWS Certified Machine Learning – Specialty** (2023)  
+
+Hourly Rate: **$65 USD**  
+Availability: **30 hrs/week**
+
+Hi, I see you want to fine‑tune an LLM for your internal documentation. I recently fine‑tuned a 7B LLaMA model on a legal‑tech knowledge base (≈150k Q&A pairs) using Hugging Face Transformers and LoRA, achieving a 0.87 F1 score on a held‑out set and a noticeable drop in hallucinations.
+
+I would start by cleaning and chunking your docs, creating a balanced training set, and then fine‑tuning with a low learning rate on a single GPU. The resulting model can be served via an OpenAI‑compatible API for easy integration with your existing tools. I can deliver this within the $500 budget and provide a short hand‑off guide.
+
+Hi,
+
+I’m excited about building a high‑performance NLP classifier for your support tickets. Recent work includes:
+
+- Training a RoBERTa model on 120k multilingual tickets, reaching 91% F1 and deploying it with TorchServe behind an NGINX load balancer, handling 500 req/s.  
+- Implementing a custom preprocessing pipeline (tokenization, entity masking) in spaCy to protect sensitive information.
+
+**Screening question:** Yes, I have experience scaling NLP services on Kubernetes and can meet your latency targets.
+
+Let me know if you’d like to review the architecture diagram.
+
+Best,  
+Maya
+
+`/classify` endpoint; Dockerised and deployed on Azure Kubernetes Service (AKS).  
+- Implemented MLflow for experiment tracking and model versioning.
+
+**Results:**  
+- Achieved 92 % macro‑F1 on a held‑out test set.  
+- Average inference time: 120 ms per document (including OCR).  
+- Reduced manual triage time from an average of 3.5 minutes per file to 15 seconds, saving roughly 1,200 hours per year for the firm.  
+- Model updates could be rolled out with a single `mlflow models serve` command, ensuring zero‑downtime deployments.
+
+**Challenge & solution:**  
+Legal jargon caused frequent tokenisation errors, especially with Latin phrases. I created a custom tokenizer that added domain‑specific tokens to the BERT vocabulary and applied sentence‑piece post‑processing. This improved classification of “force majeure” and “indemnity” clauses, raising F1 for those
+
+Hi,
+
+I saw you want to fine‑tune an LLM on internal documentation. I recently fine‑tuned a 7B LLaMA model on 150 MB of corporate policy docs, reaching a BLEU score improvement of 12% over the base model, and wrapped it in a FastAPI endpoint for internal use.
+
+- **Framework:** Hugging Face Transformers, PEFT (LoRA)
+- **Compute:** 2 × A100 GPUs, 8 h training
+- **Delivery:** Model checkpoint, inference API, usage guide
+
+I’ll handle data preprocessing, training, and deployment while keeping the process transparent.  
+**Screening answer:** Yes, I have fine‑tuned large language models on domain‑specific corpora.
+
+Regards,
+Maya",3
+P06,"Scraping code
+Update an Excel output (scraping code) that runs on a football statistics website (www.goaloo18.com).Update the following data:  create division and multiplication formulas (new columns) in the excel output file (scraping data).Budget: $50Posted On: February 22, 2024 21:48 UTCCategory: Scripting & AutomationSkills:Python,     Data Scraping,     Excel FormulaSkills:        Python,                     Data Scraping,                     Excel FormulaCountry: Australiaclick to apply",What specific data do you need to be updated in the Excel output file?,"# Priya Sharma
+Data analyst who transforms messy data into clear dashboards and actionable decisions.
+
+## Skills
+- **Data Engineering & Modeling:** SQL, dbt, pandas, Excel → SQL migration, data cleaning  
+- **Programming & Statistics:** Python, R, statistical analysis, hypothesis testing  
+- **Visualization & BI:** Tableau, Power BI, data storytelling, dashboard design  
+- **Analytics Platforms:** Google Analytics, Excel Power Query, VBA macros  
+
+## Selected Projects
+- **Power BI Sales Dashboard** – Power BI, SQL, DAX – Delivered a real‑time sales performance dashboard for a regional distributor, cutting reporting time by 40%.  
+- **Marketing Attribution Model** – Python, Google Analytics, Tableau – Built a multi‑touch attribution model for a digital agency, increasing ROI attribution accuracy by 22%.  
+- **SaaS Churn Cohort Analysis*
+
+Hi,
+
+I’m excited to automate your weekly reporting workflow. Here’s how I would approach it:
+
+- **Data extraction:** Use Python (pandas) or Power Query to pull data from your CRM, Google Sheets, and SQL database.
+- **Transformation:** Clean and aggregate metrics (e.g., leads, conversion rate) with reusable scripts.
+- **Delivery:** Generate an Excel workbook and email it via Outlook automation, or publish to a shared drive.
+
+Recent work:
+- Automated a 10‑step weekly sales report for a SaaS company, cutting manual effort from 4 hours to 15 minutes.
+- Built a Power Automate flow that refreshed a Power BI dataset and sent a PDF snapshot to stakeholders each Monday.
+
+**Screening question:** Yes, I have automated weekly reports using Python and Power Automate.
+
+Happy to set up a quick call to align on data sources and
+
+Hi,
+
+I read that you want to automate weekly reporting for your operations team. Here’s a quick look at a similar system I delivered:
+
+- **Data extraction:** Used Python (SQLAlchemy) to pull data from PostgreSQL and an API, cleaning it with pandas.  
+- **Report generation:** Created an automated Jupyter notebook that outputs a polished PDF and an Excel pivot workbook, then emails them via Outlook on a schedule.  
+- **Dashboard link:** Added a lightweight Power BI tile that refreshes daily, giving the team a quick visual snapshot.
+
+The previous client saved roughly 3.5 hours each week and appreciated the consistent formatting.  
+
+**Screening answer:** Yes, I have automated weekly reporting pipelines using Python, SQL, and scheduled email distribution.
+
+Let’s discuss how to tailor this to your metrics.  
+Priya
+
+Hi,
+
+I see you need weekly reporting automated. I recently created a similar pipeline for a logistics firm, pulling data from PostgreSQL, cleaning it with Python, and delivering a set of Excel dashboards that update via Power Query each Friday.
+
+The solution reduced manual effort by 4 hours per week and included a short training video for the team.
+
+I can set this up for you using the same tools and tailor the visuals to your KPIs.
+
+Hi,
+
+I can build a Power BI sales dashboard that brings together your CRM, Excel sales logs, and POS data into a single, interactive view. For a recent retail client I:
+
+- Connected to multiple data sources (SQL, Excel, CSV) and used Power Query to clean and unify product SKUs.
+- Designed a KPI page showing total sales, YoY growth, and top‑selling categories, plus drill‑through pages for regional performance.
+
+The dashboard reduced manual reporting time from 3 hours to 15 minutes per week. I’ll create a clean layout, set up row‑level security, and provide a short user guide.
+
+Priya",2
+P07,"Data Scraping
+Scrap Phone numbers from the list we provide from Google and other resources","I can scrape phone numbers from provided Google and other resources using Python.
+I will begin by setting up a chunked request strategy to avoid API throttling.
+What specific data sources and scraping requirements do you need for this project?","(up from 12 % under last‑click) while paid search dropped to 34 %.
+
+Quantitative impact: after reallocating 15 % of the media spend from paid search to email and organic social, the agency’s average CPA fell from $84 to $62 (26 % reduction) within two months, and overall ROAS increased from 3.8× to 5.1×.
+
+**Challenge:** GA4’s data sampling throttled the API when pulling > 2 million rows, causing incomplete path reconstruction. I mitigated this by implementing a chunked request strategy with dynamic date windows and by enabling the “BigQuery Export” feature for the client’s GA4 property. The exported tables were then queried directly, bypassing sampling limits and ensuring full‑fidelity data for the attribution calculations.
+
+---
+
+Hi,
+
+Your need for a marketing Tableau dashboard caught my eye—especially the focus on real‑time campaign attribution. Here’s a snapshot of how I approach it:
+
+- **Data integration:** I pull data from Google Ads, LinkedIn, and your internal CRM using Python scripts and store it in a Snowflake staging area.  
+- **Dashboard design:** In Tableau, I create a clean, filter‑rich interface with KPI tiles for spend, CPL, and conversion funnel visualization. I also set up data‑source extracts that refresh every 4 hours, keeping the numbers fresh.  
+- **Storytelling:** I embed short narrative captions and tooltips so stakeholders can instantly grasp performance trends without digging into raw numbers.
+
+A recent client (a B2B tech firm) saw a 25% increase in campaign ROI after using a similar dashboard because the team could act on insights within a day.
+
+**
+
+Hi,
+
+I’m ready to conduct a customer segmentation analysis for your dataset of 250 k records. My plan includes:
+
+- Data cleaning and feature engineering in Python (pandas, sklearn).
+- Determining the optimal number of clusters with the elbow method and silhouette analysis.
+- Building a Tableau dashboard to explore segment characteristics and revenue contribution.
+
+For a recent e‑commerce client, I identified five distinct segments, leading to a targeted campaign that boosted average order value by 11%.
+
+*Screening question*: Yes, I have performed segmentation projects using clustering and visualization tools.
+
+Let’s discuss your data sources and business goals.  
+Priya
+
+5/5 - Priya turned our chaotic sales data into a sleek Power BI dashboard in just two weeks—impressive speed and clarity.  
+4/5 - The churn analysis was spot‑on; we now target at‑risk users before they leave.  
+5/5 - Excellent communication, delivered the Excel‑to‑SQL migration ahead of schedule.  
+5/5 - Very thorough with the dbt pipeline; data quality is now rock solid.  
+4/5 - Great work on the attribution model, though a bit more documentation would help.  
+5/5 - Quick, reliable, and the visualizations are exactly what our stakeholders needed.
+
+Hi,
+
+I read that you want to automate weekly reporting for your operations team. Here’s a quick look at a similar system I delivered:
+
+- **Data extraction:** Used Python (SQLAlchemy) to pull data from PostgreSQL and an API, cleaning it with pandas.  
+- **Report generation:** Created an automated Jupyter notebook that outputs a polished PDF and an Excel pivot workbook, then emails them via Outlook on a schedule.  
+- **Dashboard link:** Added a lightweight Power BI tile that refreshes daily, giving the team a quick visual snapshot.
+
+The previous client saved roughly 3.5 hours each week and appreciated the consistent formatting.  
+
+**Screening answer:** Yes, I have automated weekly reporting pipelines using Python, SQL, and scheduled email distribution.
+
+Let’s discuss how to tailor this to your metrics.  
+Priya",3
+P08,"Web Developer for Auto-Metal Recycling Automation Project
+We need a senior backend-developer to expansion of our system that automates the price calculation and sale of used cars. The system then streamlines the process of selling the car, making it easy for both the seller and the buyer of the car. An existing system is already set up, and we need more hands on deck to help with expansion of features and services.The ideal candidate should (1) have a strong background in python backend frameworks such as Flask or FastAPI, (2) be experienced with web database architectureHourly Range: $10.00-$15.00Posted On: February 23, 2024 16:58 UTCCategory: Full Stack DevelopmentSkills:Web Development,     Python,     DatabaseSkills:        Web Development,                     Python,                     Databaseclick to apply",What specific features do you need to be included in the expansion of the system?,"Hi, I noticed you’re looking to launch a marketplace MVP with core buyer‑seller flows. I recently built a two‑sided marketplace for local artisans using React, TypeScript, and Node.js, handling 1,200 users and 3,500 transactions in the first month. I set up Stripe Connect for payouts and integrated Algolia for fast product search. I can deliver a clean, responsive UI and a scalable backend within your timeline. My typical approach includes a shared component library, automated tests, and CI/CD pipelines to keep releases smooth. I’m comfortable with iterative development, so we can start with the essential features and expand later. Yes, I’ve worked with Stripe Connect before.  
+Best,  
+Daniel
+
+# Daniel Okafor
+Full‑stack developer specializing in fast, type‑safe web applications with React, TypeScript and Node.js.
+
+## Skills
+- **Front‑end:** React, Next.js, TypeScript, Tailwind CSS, CSS, GraphQL (Apollo)
+- **Back‑end:** Node.js, Express, Prisma, PostgreSQL, Redis, Docker, Jest
+- **Other:** Python (scripts & data processing), REST APIs, CI/CD, Agile/Scrum
+
+## Selected Projects
+- **ClinicChain Booking SaaS** – React, Next.js, TypeScript, PostgreSQL, Prisma, Docker; built a multi‑tenant scheduling system that reduced appointment‑booking time by 30 %.
+- **ShopEase E‑commerce Storefront** – React, Tailwind, Stripe,
+
+# Payment Portal Integration for Invoicing
+
+A SaaS provider of professional services software approached me to embed a seamless payment experience directly into their existing invoicing module. Their customers needed to pay invoices online without being redirected to an external site, and the client required automatic reconciliation of payments with their internal accounting system. The legacy system was built on a monolithic Node.js backend, and they wanted a TypeScript‑first solution to improve maintainability.
+
+I developed a **Node.js** microservice written entirely in **TypeScript** that interfaced with the **Stripe** API. The service exposes REST endpoints for creating payment intents, handling webhooks, and retrieving payment status. I used Stripe’s Checkout Sessions for PCI‑compliant UI rendering, but customized the look‑and‑feel to match the client’s branding via Stripe Elements. All data—customers,
+
+# Job Board Platform with Employer Accounts
+
+The client, a fast‑growing recruitment startup, needed a modern job board where employers could post listings, manage applications, and view analytics—all from a single dashboard. Their existing solution was a collection of static pages and a manual spreadsheet workflow, which caused data inconsistencies and limited scalability. They wanted a responsive, SEO‑friendly platform that could handle thousands of concurrent users and give employers real‑time insights into their postings.
+
+I built a full‑stack application using **Next.js** for server‑side rendering and static generation, **PostgreSQL** as the relational data store, and **Prisma** as the type‑safe ORM. The architecture consists of a Next.js API layer that talks to PostgreSQL via Prisma, while the front‑end leverages React hooks and SWR for data fetching. Employer accounts are protected with J
+
+Hi, I see you’re building a React Native e‑commerce app and need a solid foundation. I recently delivered a React Native marketplace for 8,000 monthly shoppers, integrating Stripe and Firebase Auth, and keeping the bundle under 6 MB.
+
+I’ll set up a modular architecture with TypeScript, implement lazy loading for product images, and add automated end‑to‑end tests with Detox to catch regressions early.
+
+I have extensive experience with React Native, TypeScript, and mobile payment integrations, and can work within the $1,200 scope.",2
+P09,"AI Llama2 and RAG Specialist
+Hi all,We are looking for a skilled expert in Llama2 and Retrieval Augmented Generation (RAG) technology.The Person for this job will be in charge of setting up a Llama2 RAG system.This system should be able to use more than 1 pdf file.With a prompt template from us.More details in a short call.Please reply with : I am not an AI model.Hourly Range: $15.00-$20.00Posted On: February 16, 2024 09:53 UTCCategory: Machine LearningSkills:Python,     PyTorch,     Artificial Intelligence,     Machine LearningSkills:        Python,                     PyTorch,                     Artificial Intelligence,                     Machine LearningCountry: Vietnamclick to apply","I can start by cleaning and chunking your docs, creating a balanced training set.
+I will fine-tune LLaMA on your PDF files using PyTorch and Hugging Face Transformers.
+What specific PDF files do you want to use for training LLaMA?","Hi, I see you want to fine‑tune an LLM for your internal documentation. I recently fine‑tuned a 7B LLaMA model on a legal‑tech knowledge base (≈150k Q&A pairs) using Hugging Face Transformers and LoRA, achieving a 0.87 F1 score on a held‑out set and a noticeable drop in hallucinations.
+
+I would start by cleaning and chunking your docs, creating a balanced training set, and then fine‑tuning with a low learning rate on a single GPU. The resulting model can be served via an OpenAI‑compatible API for easy integration with your existing tools. I can deliver this within the $500 budget and provide a short hand‑off guide.
+
+supply‑chain customers; led a team of 3 junior engineers.  
+- Integrated models into internal API platform, reducing time‑to‑insight from weeks to hours.
+
+**Junior ML Engineer – NLP Team** – InsightWave (digital transformation agency)  
+*Jul 2016 – May 2018*  
+- Assisted in building chat‑bot intent classifiers and text‑summarization pipelines for enterprise clients.  
+- Contributed to data pipelines and model evaluation frameworks.
+
+## Education & Certifications
+- **M.Sc. Computer Science (Machine Learning)** – University of Pacifica, 2016  
+- **B.Sc. Computer Engineering** – State University of Harborview, 2014  
+- Certified **TensorFlow Developer** (2022)  
+- Certified **AWS Certified Machine Learning – Specialty** (2023)  
+
+Hourly Rate: **$65 USD**  
+Availability: **30 hrs/week**
+
+# Document classification service for a law firm
+
+The firm needed to automatically tag incoming legal documents (contracts, briefs, pleadings) into predefined categories to streamline their internal workflow and reduce manual triage time, targeting a 90 % accuracy threshold.
+
+**What I built & tools:**  
+- Ingested PDFs via a Watchdog script, extracted text with Apache Tika, and stored raw content in an S3 bucket.  
+- Fine‑tuned a pretrained BERT model (`bert-base-uncased`) using the Hugging Face Transformers library, adding a classification head for 12 legal categories.  
+- Trained on a labelled corpus of 45 k documents (augmented with back‑translation for data diversity).  
+- Wrapped the model in a FastAPI service, exposing a `/classify` endpoint; Dockerised and deployed on Azure Kubernetes Service (AKS).  
+- Implemented MLflow for experiment tracking and model versioning.
+
+**Results:
+
+Hi,
+
+I saw you want to fine‑tune an LLM on internal documentation. I recently fine‑tuned a 7B LLaMA model on 150 MB of corporate policy docs, reaching a BLEU score improvement of 12% over the base model, and wrapped it in a FastAPI endpoint for internal use.
+
+- **Framework:** Hugging Face Transformers, PEFT (LoRA)
+- **Compute:** 2 × A100 GPUs, 8 h training
+- **Delivery:** Model checkpoint, inference API, usage guide
+
+I’ll handle data preprocessing, training, and deployment while keeping the process transparent.  
+**Screening answer:** Yes, I have fine‑tuned large language models on domain‑specific corpora.
+
+Regards,
+Maya
+
+5/5 - Maya delivered a flawless fraud‑detection model ahead of schedule; the API integration was spot‑on.  
+5/5 - Absolutely thrilled with the churn predictor – the AUC improvement was exactly what we needed.  
+4/5 - Good work on the recommendation engine; a few minor bugs were fixed quickly.  
+5/5 - The document classifier runs smoothly in production; accuracy exceeded expectations.  
+4/5 - Solid forecasting solution, though initial data wrangling took a bit longer than planned.  
+5/5 - Professional, responsive, and technically strong – would hire again without hesitation.",5
+P10,"Lead generation
+Hi Tazmir, my name is Emin and Im looking for someone to help me generate leads for my Social media marketing agency. specifically I am looking for ecom businesses or local businesses in my area which can be discusses later 
+ would love to work with you.","One past project: Tableau dashboard for marketing performance.
+I will audit your data sources and design a modular dashboard.
+What specific KPIs do you want to track for your leads?","Hi, I noticed you’re looking for a comprehensive Tableau dashboard to track your multi‑channel marketing performance. Recently I delivered a similar solution for an e‑commerce client, integrating Google Analytics, Facebook Ads, and email platform data into a single Tableau workbook. The dashboard featured drill‑down views, KPI cards, and a custom attribution model that helped the client identify a 12% increase in ROI across campaigns. I used Tableau Prep Builder for data blending and scheduled daily extracts from a PostgreSQL warehouse, ensuring the data stayed fresh without manual intervention.  
+
+My approach would be to first audit your data sources, then design a modular dashboard that lets stakeholders toggle between channel, geography, and time‑period views. I’ll also include a brief user guide and a short training session so your team can maintain and extend the visualizations.  
+
+I can begin within three days and aim to deliver a functional prototype in ten business days.
+
+Hi,
+
+Your request for a Tableau dashboard to track marketing campaign performance aligns with my recent work:
+
+- **Data pipeline** – extracted and merged Google Analytics, Facebook Ads, and CRM data using SQL Server and Python (SQLAlchemy).  
+- **Dashboard creation** – designed a Tableau workbook with drill‑down views for spend, CTR, and ROI, supporting filters by channel and date range.  
+- **User training** – delivered a 30‑minute walkthrough and documentation for the marketing team.
+
+The final dashboard was adopted by a mid‑size SaaS firm, reducing manual reporting time by 40%.  
+**Screening answer:** I have built end‑to‑end Tableau dashboards for marketing teams and can replicate that for your needs.
+
+Happy to discuss specifics.  
+Priya
+
+Hi, I saw you need a Tableau dashboard to visualize your marketing funnel metrics. In a recent project I built a Tableau dashboard for a mid‑size SaaS firm that combined Google Ads, email, and CRM data, reducing manual reporting time by 70% and surfacing a 15% lift in qualified leads. I used Tableau Prep for data cleaning and set up parameter‑driven filters so the team can slice by channel, campaign, and date range on the fly.  
+
+I’m comfortable connecting to MySQL and Snowflake, handling joins and calculated fields, and I’ll deliver a polished, interactive workbook with clear documentation.  
+
+Yes, I can start within two days and have a first draft ready in a week.
+
+Hi,
+
+I noticed you need a Tableau dashboard to track your marketing campaigns across multiple channels. I recently delivered a similar solution for a B2B SaaS firm, integrating Google Ads, LinkedIn, and internal lead data into a single workbook that let the team see cost‑per‑lead and pipeline impact at a glance.
+
+I used Tableau Prep to blend the raw CSV exports, built calculated fields for ROI and funnel conversion, and set up row‑level security so each marketer only sees their own campaigns. The final dashboard reduced their manual reporting effort by half and was adopted company‑wide within three weeks.
+
+I’m comfortable working with your data sources, designing a clean visual layout, and publishing to Tableau Server for ongoing access. Let’s discuss the specific KPIs you want to monitor.
+
+Priya
+
+# Marketing Attribution Model for an Agency
+
+A digital marketing agency managing dozens of client campaigns asked for a more accurate way to credit conversions to the right channels. Their current “last‑click” model over‑valued paid search and under‑represented email and social, leading to mis‑allocation of budgets. They needed a data‑driven multi‑touch attribution model that could be refreshed weekly.
+
+I assembled a pipeline using Python, Google Analytics (GA4) APIs, and a PostgreSQL data warehouse. First, I extracted raw hit‑level data via the GA4 Reporting API (≈ 5 million rows per week) and loaded it into PostgreSQL using `psycopg2`. I then joined this with the agency’s CRM conversion table (SQL Server) on client‑ID and timestamp, creating a unified event log.
+
+Using Python’s `pandas` and `numpy`, I implemented a Marko",1
+P11,"PowerPoint Presentation
+I have a 30 page business proposal for an upcoming contract bid that I need to turn into a 30 minute powerpoint presentation. Not all pages within the 30 page proposal will need to be included but I need a freelancer to take the data (words) and convert it into a professional looking presentation using PowerPoint.Budget: $100Posted On: February 20, 2024 15:44 UTCCategory: Presentation DesignSkills:Data Visualization,     Chart Presentation,     Presentation Design,     PPTX,     Sales Presentation,     Training Presentation,     Microsoft PowerPoint,     Business PresentationSkills:        Data Visualization,                     Chart Presentation,                     Presentation Design,                     PPTX,                     Sales Presentation,                     Training Presentation,                     Microsoft PowerPoint,                     Business PresentationCountry: United Statesclick to apply","I will start by organizing your data and creating a clean, professional layout.","Hi,
+
+I can build a Power BI sales dashboard that brings together your CRM, Excel sales logs, and POS data into a single, interactive view. For a recent retail client I:
+
+- Connected to multiple data sources (SQL, Excel, CSV) and used Power Query to clean and unify product SKUs.
+- Designed a KPI page showing total sales, YoY growth, and top‑selling categories, plus drill‑through pages for regional performance.
+
+The dashboard reduced manual reporting time from 3 hours to 15 minutes per week. I’ll create a clean layout, set up row‑level security, and provide a short user guide.
+
+Priya
+
+Dear Hiring Manager,
+
+- Built a Power BI sales dashboard for a regional retailer, integrating data from SQL Server and Excel, reducing reporting time by 40%.
+- Used DAX measures to calculate month‑over‑month growth and created drill‑through pages for product categories.
+- Delivered a PDF export automation that updates daily via Power BI Service.
+
+I can replicate a similar solution for your sales data, delivering a clean, interactive dashboard within the budget.
+
+My typical workflow includes data validation, model design, and user training.
+
+Hi,
+
+I’m excited to automate your weekly reporting workflow. Here’s how I would approach it:
+
+- **Data extraction:** Use Python (pandas) or Power Query to pull data from your CRM, Google Sheets, and SQL database.
+- **Transformation:** Clean and aggregate metrics (e.g., leads, conversion rate) with reusable scripts.
+- **Delivery:** Generate an Excel workbook and email it via Outlook automation, or publish to a shared drive.
+
+Recent work:
+- Automated a 10‑step weekly sales report for a SaaS company, cutting manual effort from 4 hours to 15 minutes.
+- Built a Power Automate flow that refreshed a Power BI dataset and sent a PDF snapshot to stakeholders each Monday.
+
+**Screening question:** Yes, I have automated weekly reports using Python and Power Automate.
+
+Happy to set up a quick call to align on data sources and
+
+Hi, I noticed you need a Power BI dashboard to monitor sales performance. I recently built a sales dashboard for a consumer‑goods company that integrated data from Oracle and CSV exports, delivering interactive visuals that highlighted a 5% month‑over‑month growth and cut reporting effort by three hours per week. I used Power Query for data cleaning, set up DAX calculations for YoY and MoM changes, and configured automatic daily refreshes in the Power BI service.  
+
+My plan would be to map your current data sources, design a clean layout with KPI cards, trend lines, and a drill‑through to product details, and provide a short user guide. I can start within a couple of days and aim to have a working prototype in ten business days.
+
+Hi,
+
+I saw you need to automate weekly reporting for your sales team. I can create a reliable pipeline that pulls data from your SQL Server, transforms it with Python, and publishes a polished Power BI report every Friday morning.
+
+- **Data pull**: Scheduled stored procedures to extract the latest sales, inventory, and forecast tables.
+- **Transformation**: Pandas scripts to calculate KPIs (YoY growth, win‑rate, pipeline health) and flag anomalies.
+- **Automation**: Use Azure Data Factory or Power Automate to trigger the workflow and email the PDF/PowerPoint to stakeholders.
+- **Visualization**: Build a Power BI dashboard with slicers for region, product line, and sales rep, plus a drill‑through to detailed transaction logs.
+
+For a recent client, I reduced their manual reporting time from 6 hours to 15 minutes and eliminated data‑entry errors for a six‑month period.
+
+*Screening question",2
+P12,"Senior Python Developer Architect
+Python - Mandatory Skills 	Python,Pandas,Django,Python coding,MySQL/Postgres or any relational DB,MONGO DB,Flask
+Good to have Skills 	AWS,jinja,mako,Django CMS
+
+Expertise and must have around 10+ years exp",What are the current data sources for your weekly reports?,"count, DimPeriod).
+2. **ETL Development** – Using Python’s `openpyxl` and `pandas`, I built a reusable extraction script that read each workbook, flattened merged cells, evaluated formulas via `xlrd`, and output clean CSVs. The script also applied data‑type validation (e.g., numeric amounts, ISO‑8601 dates) and logged anomalies.
+3. **Load & Automation** – The CSVs were bulk‑loaded into PostgreSQL using `COPY`. I wrote stored procedures to reconcile the newly loaded data with existing records, handling updates vs inserts (upserts) via `ON CONFLICT`.
+
+After the initial load, I set up a weekly Airflow DAG that re‑runs the ETL for any new or modified workbooks, ensuring the database stays current.
+
+Quantitative impact: The finance team cut month‑end
+
+Hi,
+
+I read that you want to automate weekly reporting for your operations team. Here’s a quick look at a similar system I delivered:
+
+- **Data extraction:** Used Python (SQLAlchemy) to pull data from PostgreSQL and an API, cleaning it with pandas.  
+- **Report generation:** Created an automated Jupyter notebook that outputs a polished PDF and an Excel pivot workbook, then emails them via Outlook on a schedule.  
+- **Dashboard link:** Added a lightweight Power BI tile that refreshes daily, giving the team a quick visual snapshot.
+
+The previous client saved roughly 3.5 hours each week and appreciated the consistent formatting.  
+
+**Screening answer:** Yes, I have automated weekly reporting pipelines using Python, SQL, and scheduled email distribution.
+
+Let’s discuss how to tailor this to your metrics.  
+Priya
+
+Hi, I saw you want to automate weekly reporting and reduce the manual effort your team spends on Excel pulls. In a recent engagement I automated a weekly financial reporting pipeline for a tech startup using Python, Pandas, and Power BI. I built a script that extracted data from multiple APIs, cleaned and merged the datasets, and published the results to a Power BI dataset that refreshed automatically each Monday. The client saved roughly 12 hours per week and gained a consistent, error‑free report.  
+
+My approach would be to:
+
+1. Map all current data sources (databases, CSVs, APIs).
+2. Write a Python/Pandas ETL that runs on a scheduled cloud function.
+3. Load the cleaned data into a Power BI dataset or an Excel workbook with Power Query.
+4. Set up automated email distribution of the final report or a Power BI dashboard link.
+
+I’m comfortable with Azure Functions, AWS Lambda, and scheduling via cr",1
+P13,"Create an admin portal using a low code platform
+I'm looking for someone that has some experience with web application development.
+
+What should be done?
+1 - the hired talent will be accountable for creating an admin portal. The portal should be made using a well know and established low code platform.
+2 - the hired talent will be accountable for providing low code platform options, so I can choose the one that fits us better.
+3 - the hired talent will be accountable for creating the entire page design. There are very simple pages to be made. If the design is not so beautiful, that's not a problem. The usability must be good, but if the page is beautiful or not, doesn't matter.
+
+What will be provided?
+1 - I will provide a mock API server, so the hired talent can call it from the portal and test it while developing.","One past project: refreshed React admin dashboard, reducing support tickets by 30%.
+I will start with a component audit, then rebuild key pages with TypeScript and reusable UI blocks.
+What specific low code platform options do you prefer for the admin portal?","Hi, I see you want to redesign your admin panel for better usability. I recently refreshed a React admin dashboard for a SaaS product, switching to Ant Design and adding responsive layouts, which cut support tickets by 30%.
+
+I’ll start with a component audit, then rebuild key pages with TypeScript and reusable UI blocks, ensuring accessibility and performance.
+
+I have solid experience with React, TypeScript, and UI redesigns, and can work within the $500 budget.
+
+Hi, I read that you want to redesign your admin panel for better usability. I recently refreshed a React admin dashboard for a fintech client, reducing page load from 4 s to 1.2 s and improving task completion rates by 30 %. Another project was a TypeScript‑based internal tool that introduced a modular component library and dark‑mode support.  
+**Screening question:** Yes, I have experience modernizing admin interfaces with React, TypeScript, and Tailwind CSS.  
+I’ll deliver a responsive UI, component documentation, and performance optimizations while staying within the $500 scope.
+
+5/5 - Daniel delivered the booking platform ahead of schedule and the codebase is clean and well documented.  
+5/5 - Excellent communication, rapid iterations, and the final product exceeded our expectations.  
+4/5 - Solid work on the e‑commerce site; a few minor UI tweaks were needed after delivery.  
+5/5 - Very responsive and proactive; the admin dashboard now runs flawlessly under heavy load.  
+5/5 - The real‑estate portal’s map search is slick and performs beautifully on mobile.  
+4/5 - Good overall; appreciated the Docker setup, though onboarding took a bit longer than planned.
+
+# Job Board Platform with Employer Accounts
+
+The client, a fast‑growing recruitment startup, needed a modern job board where employers could post listings, manage applications, and view analytics—all from a single dashboard. Their existing solution was a collection of static pages and a manual spreadsheet workflow, which caused data inconsistencies and limited scalability. They wanted a responsive, SEO‑friendly platform that could handle thousands of concurrent users and give employers real‑time insights into their postings.
+
+I built a full‑stack application using **Next.js** for server‑side rendering and static generation, **PostgreSQL** as the relational data store, and **Prisma** as the type‑safe ORM. The architecture consists of a Next.js API layer that talks to PostgreSQL via Prisma, while the front‑end leverages React hooks and SWR for data fetching. Employer accounts are protected with J
+
+Hi, I noticed you’re looking to launch a marketplace MVP with core buyer‑seller flows. I recently built a two‑sided marketplace for local artisans using React, TypeScript, and Node.js, handling 1,200 users and 3,500 transactions in the first month. I set up Stripe Connect for payouts and integrated Algolia for fast product search. I can deliver a clean, responsive UI and a scalable backend within your timeline. My typical approach includes a shared component library, automated tests, and CI/CD pipelines to keep releases smooth. I’m comfortable with iterative development, so we can start with the essential features and expand later. Yes, I’ve worked with Stripe Connect before.  
+Best,  
+Daniel",2
+P14,"Web Developer for Auto-Metal Recycling Automation Project
+We need a senior backend-developer to expansion of our system that automates the price calculation and sale of used cars. The system then streamlines the process of selling the car, making it easy for both the seller and the buyer of the car. An existing system is already set up, and we need more hands on deck to help with expansion of features and services.The ideal candidate should (1) have a strong background in python backend frameworks such as Flask or FastAPI, (2) be experienced with web database architectureHourly Range: $10.00-$15.00Posted On: February 23, 2024 16:58 UTCCategory: Full Stack DevelopmentSkills:Web Development,     Python,     DatabaseSkills:        Web Development,                     Python,                     Databaseclick to apply","I can set up a clean, scalable backend within your timeline, sharing a component library and automating tests.
+What specific features do you need to be included in the backend for this auto-metal recycling automation project?","Hi, I noticed you’re looking to launch a marketplace MVP with core buyer‑seller flows. I recently built a two‑sided marketplace for local artisans using React, TypeScript, and Node.js, handling 1,200 users and 3,500 transactions in the first month. I set up Stripe Connect for payouts and integrated Algolia for fast product search. I can deliver a clean, responsive UI and a scalable backend within your timeline. My typical approach includes a shared component library, automated tests, and CI/CD pipelines to keep releases smooth. I’m comfortable with iterative development, so we can start with the essential features and expand later. Yes, I’ve worked with Stripe Connect before.  
+Best,  
+Daniel
+
+# Daniel Okafor
+Full‑stack developer specializing in fast, type‑safe web applications with React, TypeScript and Node.js.
+
+## Skills
+- **Front‑end:** React, Next.js, TypeScript, Tailwind CSS, CSS, GraphQL (Apollo)
+- **Back‑end:** Node.js, Express, Prisma, PostgreSQL, Redis, Docker, Jest
+- **Other:** Python (scripts & data processing), REST APIs, CI/CD, Agile/Scrum
+
+## Selected Projects
+- **ClinicChain Booking SaaS** – React, Next.js, TypeScript, PostgreSQL, Prisma, Docker; built a multi‑tenant scheduling system that reduced appointment‑booking time by 30 %.
+- **ShopEase E‑commerce Storefront** – React, Tailwind, Stripe,
+
+# Payment Portal Integration for Invoicing
+
+A SaaS provider of professional services software approached me to embed a seamless payment experience directly into their existing invoicing module. Their customers needed to pay invoices online without being redirected to an external site, and the client required automatic reconciliation of payments with their internal accounting system. The legacy system was built on a monolithic Node.js backend, and they wanted a TypeScript‑first solution to improve maintainability.
+
+I developed a **Node.js** microservice written entirely in **TypeScript** that interfaced with the **Stripe** API. The service exposes REST endpoints for creating payment intents, handling webhooks, and retrieving payment status. I used Stripe’s Checkout Sessions for PCI‑compliant UI rendering, but customized the look‑and‑feel to match the client’s branding via Stripe Elements. All data—customers,
+
+# Job Board Platform with Employer Accounts
+
+The client, a fast‑growing recruitment startup, needed a modern job board where employers could post listings, manage applications, and view analytics—all from a single dashboard. Their existing solution was a collection of static pages and a manual spreadsheet workflow, which caused data inconsistencies and limited scalability. They wanted a responsive, SEO‑friendly platform that could handle thousands of concurrent users and give employers real‑time insights into their postings.
+
+I built a full‑stack application using **Next.js** for server‑side rendering and static generation, **PostgreSQL** as the relational data store, and **Prisma** as the type‑safe ORM. The architecture consists of a Next.js API layer that talks to PostgreSQL via Prisma, while the front‑end leverages React hooks and SWR for data fetching. Employer accounts are protected with J
+
+Hi, I see you’re building a React Native e‑commerce app and need a solid foundation. I recently delivered a React Native marketplace for 8,000 monthly shoppers, integrating Stripe and Firebase Auth, and keeping the bundle under 6 MB.
+
+I’ll set up a modular architecture with TypeScript, implement lazy loading for product images, and add automated end‑to‑end tests with Detox to catch regressions early.
+
+I have extensive experience with React Native, TypeScript, and mobile payment integrations, and can work within the $1,200 scope.",2
+P15,"Need chatGPT writer for new eye care website
+Hi, 
+
+Looking for someone who can use chatGPT/Ai for website writing.  It's also helpful if you know how to use a couple plagerism tools, also.  This job will be ongoing (6 month... 12 months?)
+
+You must have EXCLELLENT/SUPERIOR English writing skills (ie., grammar, punctuation, etc).  
+
+thanks,
+james","I will start with a proof-of-concept using chatGPT for initial content.
+Do you prefer to use existing data or would you like to start from scratch?","Hi,
+
+I’m excited about building a high‑performance NLP classifier for your support tickets. Recent work includes:
+
+- Training a RoBERTa model on 120k multilingual tickets, reaching 91% F1 and deploying it with TorchServe behind an NGINX load balancer, handling 500 req/s.  
+- Implementing a custom preprocessing pipeline (tokenization, entity masking) in spaCy to protect sensitive information.
+
+**Screening question:** Yes, I have experience scaling NLP services on Kubernetes and can meet your latency targets.
+
+Let me know if you’d like to review the architecture diagram.
+
+Best,  
+Maya
+
+Hi,
+
+Your need for an NLP classifier for support tickets matches a project I completed last quarter. I:
+
+- Developed a BERT‑based ticket classification system (≈70k labeled tickets) with an 89% F1 score, hosted on AWS SageMaker and integrated via a REST endpoint.  
+- Set up a CI/CD pipeline with GitHub Actions to retrain the model monthly, ensuring it stays current with new issue types.
+
+**Screening question:** Yes, I can work with your existing ticketing API and handle any required data sanitization.
+
+I’m ready to start the proof‑of‑concept next week.
+
+Thanks,  
+Maya
+
+Hi, I see you need a lead scoring model that integrates with your existing CRM. I recently built a lead scoring pipeline for a B2B SaaS client using Python, scikit‑learn, and XGBoost, achieving a 12% lift in qualified leads over three months. I used Airflow for daily retraining and stored features in PostgreSQL.
+
+I can set up a similar end‑to‑end solution, including data preprocessing, model training, and a simple API for real‑time scoring. My approach emphasizes interpretability, so you’ll have clear feature importance reports for the sales team.
+
+Yes, I have experience deploying production models on AWS SageMaker with CI/CD pipelines.
+
+Best,
+Maya
+
+Hi, I noticed you’re looking to set up a lead scoring model that can be refreshed weekly. In a recent engagement I built a scoring system for a fintech startup using LightGBM, achieving a 15% increase in conversion while keeping the model explainable with SHAP values. The data pipeline was orchestrated with Prefect and stored in Snowflake, handling roughly 200 k records per month.
+
+My plan would be to start with a data audit, then engineer features such as engagement recency, firmographics, and interaction history. I’ll train and validate several models, select the best based on ROC‑AUC, and expose the scoring via a Flask API behind your CRM. Continuous monitoring will be set up with Grafana alerts to catch drift.
+
+Yes, I have deployed production models on GCP AI Platform with automated CI/CD using Cloud Build.
+
+Looking forward to discussing how we can tailor this to your sales process.
+
+Best,
+Maya
+
+supply‑chain customers; led a team of 3 junior engineers.  
+- Integrated models into internal API platform, reducing time‑to‑insight from weeks to hours.
+
+**Junior ML Engineer – NLP Team** – InsightWave (digital transformation agency)  
+*Jul 2016 – May 2018*  
+- Assisted in building chat‑bot intent classifiers and text‑summarization pipelines for enterprise clients.  
+- Contributed to data pipelines and model evaluation frameworks.
+
+## Education & Certifications
+- **M.Sc. Computer Science (Machine Learning)** – University of Pacifica, 2016  
+- **B.Sc. Computer Engineering** – State University of Harborview, 2014  
+- Certified **TensorFlow Developer** (2022)  
+- Certified **AWS Certified Machine Learning – Specialty** (2023)  
+
+Hourly Rate: **$65 USD**  
+Availability: **30 hrs/week**",2
+P16,"STT + Rasa + GPT3 + TTS
+Need to build a chatbot that talks. 
+
+Using Rasa, gpt3, google STT, & speechify TTS
+
+Open to alternative APIs, but the deliverable is a chatbot that has been trained on  a certain database of issues & can converse via voice.","I will clean and chunk your docs, fine-tuning a model for your needs.
+Do you prefer a 7B model or are you open to other sizes?","supply‑chain customers; led a team of 3 junior engineers.  
+- Integrated models into internal API platform, reducing time‑to‑insight from weeks to hours.
+
+**Junior ML Engineer – NLP Team** – InsightWave (digital transformation agency)  
+*Jul 2016 – May 2018*  
+- Assisted in building chat‑bot intent classifiers and text‑summarization pipelines for enterprise clients.  
+- Contributed to data pipelines and model evaluation frameworks.
+
+## Education & Certifications
+- **M.Sc. Computer Science (Machine Learning)** – University of Pacifica, 2016  
+- **B.Sc. Computer Engineering** – State University of Harborview, 2014  
+- Certified **TensorFlow Developer** (2022)  
+- Certified **AWS Certified Machine Learning – Specialty** (2023)  
+
+Hourly Rate: **$65 USD**  
+Availability: **30 hrs/week**
+
+Hi, I see you want to fine‑tune an LLM for your internal documentation. I recently fine‑tuned a 7B LLaMA model on a legal‑tech knowledge base (≈150k Q&A pairs) using Hugging Face Transformers and LoRA, achieving a 0.87 F1 score on a held‑out set and a noticeable drop in hallucinations.
+
+I would start by cleaning and chunking your docs, creating a balanced training set, and then fine‑tuning with a low learning rate on a single GPU. The resulting model can be served via an OpenAI‑compatible API for easy integration with your existing tools. I can deliver this within the $500 budget and provide a short hand‑off guide.",2
+P17,"Hubspot Website Changes
+We are looking for a skilled professional who can make changes to our Hubspot website. The ideal candidate should have experience with Hubspot and be proficient in web development and design. They should be able to understand our requirements and implement the necessary changes within the Hubspot platform. The tasks may include updating the content, modifying the layout, adding or removing features, and optimizing the website for better performance. Attention to detail, strong communication skills, and the ability to work independently are essential for this role.Budget: $1,100Posted On: February 16, 2024 09:14 UTCCategory: Web DesignSkills:Web Design,     HTML,     Web Development,     CSS,     HubSpotSkills:        Web Design,                     HTML,                     Web Development,                     CSS,                     HubSpotCountry: Denmarkclick to apply","I recently built a Next.js site with TypeScript, Tailwind CSS, and a CMS, achieving a high Lighthouse score.
+I can set up a similar site for your Hubspot needs.
+I will set up a Next.js site with a CMS for your Hubspot website, ensuring it's production-ready and optimized for performance.
+What CMS do you prefer for your Hubspot website, and do you have specific SEO requirements or content workflows in mind?","React, TypeScript, GraphQL, Docker; a fitness‑tracking platform with real‑time charts and social sharing, reaching 5 k active users in the first month.
+
+## Experience
+**Freelance Full‑Stack Engineer** – Self‑employed (2020 – Present)  
+Delivered end‑to‑end web solutions for startups and midsize firms, averaging 3–4 concurrent projects and maintaining a 95 % client satisfaction rate.
+
+**Software Engineer, TechNova Solutions** – Lagos, Nigeria (2017 – 2020)  
+Worked on a SaaS product suite; led the migration from monolith to micro‑services, improving system scalability by 40 %.
+
+**Junior Web Developer, BrightByte Labs** – Accra, Ghana (2015 – 2017)  
+Contributed to front‑end features for e‑commerce sites; introduced component‑driven styling with Tailwind, reducing CSS bloat by 25 %.
+
+## Education & Certifications
+- B.Sc.
+
+5/5 - Daniel delivered the booking platform ahead of schedule and the codebase is clean and well documented.  
+5/5 - Excellent communication, rapid iterations, and the final product exceeded our expectations.  
+4/5 - Solid work on the e‑commerce site; a few minor UI tweaks were needed after delivery.  
+5/5 - Very responsive and proactive; the admin dashboard now runs flawlessly under heavy load.  
+5/5 - The real‑estate portal’s map search is slick and performs beautifully on mobile.  
+4/5 - Good overall; appreciated the Docker setup, though onboarding took a bit longer than planned.
+
+Hi! I see you need a Next.js marketing site with a CMS for easy content updates. I recently built a 12‑page Next.js site for a tech conference, using TypeScript, Tailwind CSS, and Sanity.io as the headless CMS. The site achieved a 96 % Lighthouse score and handled 8 k monthly visitors without issue.
+
+I can set up a similar architecture, connect it to your preferred CMS (Sanity, Contentful, or Strapi), and implement SEO best practices and fast image optimization with next‑image.
+
+Screening question: Yes, I have delivered production‑ready Next.js sites integrated with headless CMS platforms.
+
+Looking forward to learning more about your branding guidelines and content workflow.
+
+ries.
+
+**Results**
+- Monthly active users grew from 2,000 to 12,500 within three months (+ 525%).  
+- Average time‑to‑contact after a listing view fell from 48 hours to 6 hours.  
+- Search latency improved from 3.2 seconds to 0.6 seconds thanks to indexed geospatial queries.  
+- The portal handled peak loads of 1,200 concurrent users without degradation (AWS Elastic Beanstalk autoscaling).
+
+**Challenge & Solution**  
+Initial map rendering caused jitter on low‑end devices because all pins were rendered as separate React components. I switched to a canvas‑based clustering library (Supercluster) that pre‑aggregated points on the server and sent only cluster data to the client. The map now draws clusters as simple circles, reducing DOM nodes from thousands to under 100 and delivering smooth panning even on mobile browsers.
+
+# Restaurant Ordering PWA
+
+A fast‑growing casual‑dining chain wanted a Progressive Web App that let customers order food for pickup or delivery directly from their phones, without requiring app store downloads. Their previous QR‑code system only displayed a static menu and could not handle concurrent orders during peak hours.
+
+I built a **React**‑based PWA with a **Node.js** backend and styled it with **Tailwind CSS** for rapid UI iteration. Service workers cached static assets and used IndexedDB to store pending orders when offline, syncing automatically when connectivity returned. The ordering flow integrated with the restaurant’s POS via a webhook API, and payments were processed through Stripe Elements.
+
+**Results**
+- Monthly orders increased from 3,200 to 9,800 (+ 206%).  
+- Average order placement time fell from 1 minute 45 seconds to 38 seconds.  
+- Offline order success rate reached 98% during",1
+P18,"Webflow
+I have a 7 page website for a podcast site with 3 merch for sale. The site is on wordpress. I need a new site on Webflow. I want the CMS collection to be linked to the podcast allowing me to use the CMS for making changes to the collection. I also have 3 merchandises I sell. Please provide estimate of time or a fixed price on doing so. The site is basic 5 pages, 1 page for eccommerce and 1 page for the podcast.Hourly Range: $30.00-$45.00Posted On: February 15, 2024 22:37 UTCCategory: Web DesignSkills:WebflowSkills:        WebflowCountry: United Statesclick to apply",What Stripe features are essential for your e-commerce site?,"Hi, I saw you need a Stripe checkout integration for your e‑commerce flow. I recently added Stripe payments to a React/TypeScript storefront that processed $120K in sales over three months, using Stripe Elements and webhooks for order fulfillment. I also built a subscription portal for a SaaS product that handled 1,200 recurring customers with automatic invoicing.  
+**Screening question:** Yes, I have worked with Stripe’s API and can set up both one‑time and subscription payments.  
+I’ll deliver a clean, responsive checkout page, server‑side verification, and thorough testing within the budget and timeline.
+
+Hi! I see you need a Next.js marketing site with a CMS for easy content updates. I recently built a 12‑page Next.js site for a tech conference, using TypeScript, Tailwind CSS, and Sanity.io as the headless CMS. The site achieved a 96 % Lighthouse score and handled 8 k monthly visitors without issue.
+
+I can set up a similar architecture, connect it to your preferred CMS (Sanity, Contentful, or Strapi), and implement SEO best practices and fast image optimization with next‑image.
+
+Screening question: Yes, I have delivered production‑ready Next.js sites integrated with headless CMS platforms.
+
+Looking forward to learning more about your branding guidelines and content workflow.
+
+Hi, I noticed you’re looking to integrate Stripe checkout into your web store to streamline payments. I integrated Stripe Elements into a React/TypeScript e‑commerce site handling $120k in monthly sales, with PCI‑compliant tokenization and webhook handling for order fulfillment. I’ll set up the checkout flow, test webhooks, and ensure a smooth UX. I can begin right away and have the integration live within the project scope.
+
+Hi, I noticed you’re looking to launch a marketplace MVP with core buyer‑seller flows. I recently built a two‑sided marketplace for local artisans using React, TypeScript, and Node.js, handling 1,200 users and 3,500 transactions in the first month. I set up Stripe Connect for payouts and integrated Algolia for fast product search. I can deliver a clean, responsive UI and a scalable backend within your timeline. My typical approach includes a shared component library, automated tests, and CI/CD pipelines to keep releases smooth. I’m comfortable with iterative development, so we can start with the essential features and expand later. Yes, I’ve worked with Stripe Connect before.  
+Best,  
+Daniel
+
+Hi, I noticed you’re looking to add Stripe checkout to your site. I recently integrated Stripe Checkout into a marketplace built with React, TypeScript, and Node.js, processing $75k in the first month and handling subscription upgrades via webhooks. The integration included a custom checkout button, dynamic pricing tiers, and serverless functions on AWS Lambda for secure token exchange.  
+
+My approach for your project would be to:  
+1. Set up Stripe Elements and a responsive checkout component that matches your branding.  
+2. Configure product and price objects in the Stripe dashboard, then connect them via the Stripe API.  
+3. Implement webhook endpoints to update order status in your database and send confirmation emails.  
+
+I follow a test‑driven workflow, writing unit tests for the payment service and end‑to‑end tests with Cypress to ensure reliability. Yes, I have worked with Stripe Checkout and webhook handling before.  
+Daniel",2
+P19,"Web Developer for Auto-Metal Recycling Automation Project
+We need a senior backend-developer to expansion of our system that automates the price calculation and sale of used cars. The system then streamlines the process of selling the car, making it easy for both the seller and the buyer of the car. An existing system is already set up, and we need more hands on deck to help with expansion of features and services.The ideal candidate should (1) have a strong background in python backend frameworks such as Flask or FastAPI, (2) be experienced with web database architectureHourly Range: $10.00-$15.00Posted On: February 23, 2024 16:58 UTCCategory: Full Stack DevelopmentSkills:Web Development,     Python,     DatabaseSkills:        Web Development,                     Python,                     Databaseclick to apply","I recently built a two-sided marketplace using React, TypeScript, and Node.js, handling 1,200 users and 3,500 transactions.
+What specific features do you need for the React dashboard for internal tooling?","Docker; built a multi‑tenant scheduling system that reduced appointment‑booking time by 30 %.
+- **ShopEase E‑commerce Storefront** – React, Tailwind, Stripe, GraphQL; delivered a responsive storefront with a checkout flow handling $200k+ monthly sales.
+- **HomeFinder Real‑Estate Portal** – Next.js, TypeScript, PostgreSQL, Mapbox API; implemented map‑based search and filters, increasing lead generation by 22 %.
+- **LogiTrack Admin Dashboard** – React, Tailwind, Node.js, Redis; created an internal logistics dashboard that cut reporting latency from hours to minutes.
+- **FitPulse Web App** – React, TypeScript, GraphQL, Docker; a fitness‑tracking platform with real‑time charts and social sharing, reaching 5 k active users in the first month.
+
+## Experience
+*
+
+Hi, I noticed you’re looking to launch a marketplace MVP with core buyer‑seller flows. I recently built a two‑sided marketplace for local artisans using React, TypeScript, and Node.js, handling 1,200 users and 3,500 transactions in the first month. I set up Stripe Connect for payouts and integrated Algolia for fast product search. I can deliver a clean, responsive UI and a scalable backend within your timeline. My typical approach includes a shared component library, automated tests, and CI/CD pipelines to keep releases smooth. I’m comfortable with iterative development, so we can start with the essential features and expand later. Yes, I’ve worked with Stripe Connect before.  
+Best,  
+Daniel
+
+.js API layer that talks to PostgreSQL via Prisma, while the front‑end leverages React hooks and SWR for data fetching. Employer accounts are protected with JWT‑based authentication, and role‑based access control ensures that only authorized users can edit or delete listings. I also integrated Algolia for instant search across job titles and locations, and implemented a simple analytics dashboard using Chart.js to visualize impressions, clicks, and application conversion rates.
+
+**Results:**  
+- Launched in 8 weeks, three weeks ahead of the client’s deadline.  
+- Handled **12,000+ active job listings** and **250,000+ monthly page views** with sub‑second response times (average 0.84 s).  
+- Employer self‑service reduced manual admin workload by **85 %**, saving the client roughly **30 hours per week**.  
+- SEO improvements (server‑
+
+Hi, I’m excited about the React dashboard you need for internal tooling. In a recent project I built a React/TypeScript dashboard for a manufacturing client, supporting 150 concurrent users and integrating real‑time data via GraphQL; load times dropped from 3.5 s to under 1 s after implementing code‑splitting and memoization.
+
+My approach would be to start with a component audit, then refactor heavy tables using React Virtualized, and set up a Redux Toolkit store with typed selectors for predictable state. I’ll also add role‑based routing and exportable CSV reports, ensuring the UI follows your brand guidelines.
+
+I have a strong track record of delivering performant, maintainable React dashboards on time and within budget, and I’m ready to start right away.
+
+Hi, I see you need a React dashboard for internal tooling. I built a similar internal dashboard for a logistics firm, handling 200+ daily reports, using Material‑UI and React Query to keep data fresh.
+
+I’ll create a modular component library, implement role‑based access, and add charts with Recharts to visualize key metrics.
+
+I have the right mix of React and TypeScript experience to deliver this within your $250 budget.",1
+P20,"Engineer or Data to Retrieve Golf Course Database
+Im looking for someone to be able to get me the data for golf courses around the world. This site provides data on about 42,000 golf courses with the following data points:(link removed)/We need to basically build the same database + also have a functionality like an api that will us to refresh that data whenever we need it.If you think you can do this, please reach out. (I need all the same data points that the above company provides)Budget: $500Posted On: February 19, 2024 05:26 UTCCategory: Data EngineeringSkills:Data Engineering,     Data Scraping,     Data MiningSkills:        Data Engineering,                     Data Scraping,                     Data MiningCountry: United Statesclick to apply","What specific data points are most critical for your golf course database, and how often do you need to refresh it?","Hi,
+
+I see you need weekly reporting automated. I recently created a similar pipeline for a logistics firm, pulling data from PostgreSQL, cleaning it with Python, and delivering a set of Excel dashboards that update via Power Query each Friday.
+
+The solution reduced manual effort by 4 hours per week and included a short training video for the team.
+
+I can set this up for you using the same tools and tailor the visuals to your KPIs.
+
+Dear Hiring Manager,
+
+I understand you need a rigorous A/B test analysis. My approach will be:
+
+- **Data ingestion**: Pull raw logs from your analytics platform into a PostgreSQL staging area.
+- **Cleaning & preprocessing**: Use Python (pandas) to handle missing values, outliers, and ensure consistent user identifiers.
+- **Statistical testing**: Apply two‑sample t‑tests and non‑parametric alternatives, calculate confidence intervals, and adjust for multiple comparisons using Bonferroni correction.
+- **Effect size calculation**: Provide Cohen’s d and lift percentages for each key metric.
+- **Visualization**: Build a Tableau workbook with hypothesis‑testing dashboards, including distribution plots, funnel comparisons, and a summary sheet for executives.
+- **Documentation**: Deliver a reproducible Jupyter notebook and a concise executive
+
+Hi,
+
+I’m excited to automate your weekly reporting workflow. Here’s how I would approach it:
+
+- **Data extraction:** Use Python (pandas) or Power Query to pull data from your CRM, Google Sheets, and SQL database.
+- **Transformation:** Clean and aggregate metrics (e.g., leads, conversion rate) with reusable scripts.
+- **Delivery:** Generate an Excel workbook and email it via Outlook automation, or publish to a shared drive.
+
+Recent work:
+- Automated a 10‑step weekly sales report for a SaaS company, cutting manual effort from 4 hours to 15 minutes.
+- Built a Power Automate flow that refreshed a Power BI dataset and sent a PDF snapshot to stakeholders each Monday.
+
+**Screening question:** Yes, I have automated weekly reports using Python and Power Automate.
+
+Happy to set up a quick call to align on data sources and
+
+Hi,
+
+I can build the Tableau marketing dashboard you described, pulling data from Google Ads, Meta, and your email platform into a single view.
+
+- Connect APIs via Power Query, clean and aggregate metrics.
+- Create interactive filters for campaign, date range, and channel.
+- Visualize key KPIs: impressions, clicks, CPA, ROAS, and funnel conversion.
+- Set up a scheduled refresh so the dashboard stays up‑to‑date.
+
+In a recent project I delivered a similar dashboard for a B2B SaaS client, reducing their reporting time from 4 hours to 20 minutes and improving cross‑channel insight.
+
+*Screening question*: Yes, I have extensive Tableau experience and can start next week.
+
+Looking forward to helping you see the full picture of your marketing performance.  
+Priya
+
+– Self‑employed  
+*Jan 2021 – Present*  
+- Delivered 30+ projects across e‑commerce, SaaS, and manufacturing sectors.  
+- Managed end‑to‑end data pipelines, from extraction to dashboard delivery, averaging a 4.8/5 client rating.  
+
+**Data Analyst** – Apex Logistics Solutions (mid‑size logistics firm)  
+*Jun 2017 – Dec 2020*  
+- Designed operational dashboards that reduced freight cost reporting latency from weekly to daily.  
+- Implemented dbt models to standardize warehouse inventory data, decreasing data errors by 30%.  
+
+**Business Intelligence Intern** – NovaTech Consulting (consulting boutique)  
+*Jan 2016 – May 2017*  
+- Assisted senior analysts in building Tableau visualizations for client marketing decks.  
+- Conducted ad‑hoc SQL queries for performance metrics, supporting a 12% increase in client satisfaction scores.  
+
+## Education & Certifications
+- **B.Sc. in Statistics**, University of Delhi – 2015  
+- **",2
+P21,"Webflow
+I have a 7 page website for a podcast site with 3 merch for sale. The site is on wordpress. I need a new site on Webflow. I want the CMS collection to be linked to the podcast allowing me to use the CMS for making changes to the collection. I also have 3 merchandises I sell. Please provide estimate of time or a fixed price on doing so. The site is basic 5 pages, 1 page for eccommerce and 1 page for the podcast.Hourly Range: $30.00-$45.00Posted On: February 15, 2024 22:37 UTCCategory: Web DesignSkills:WebflowSkills:        WebflowCountry: United Statesclick to apply",What specific CMS do you want to use for your podcast CMS?,"Hi! I see you need a Next.js marketing site with a CMS for easy content updates. I recently built a 12‑page Next.js site for a tech conference, using TypeScript, Tailwind CSS, and Sanity.io as the headless CMS. The site achieved a 96 % Lighthouse score and handled 8 k monthly visitors without issue.
+
+I can set up a similar architecture, connect it to your preferred CMS (Sanity, Contentful, or Strapi), and implement SEO best practices and fast image optimization with next‑image.
+
+Screening question: Yes, I have delivered production‑ready Next.js sites integrated with headless CMS platforms.
+
+Looking forward to learning more about your branding guidelines and content workflow.
+
+Hello, the need for a Next.js marketing site with a CMS aligns with my recent work. I built a Next.js site for a tech startup that attracted 12 K unique visitors in the first month, using Contentful for content editing and Vercel for instant deployments. I also created a portfolio site with Sanity.io that allowed the client to update blog posts without developer assistance.  
+**Screening question:** Yes, I can integrate a headless CMS with Next.js and TypeScript for a fast, SEO‑friendly site.  
+I’ll set up the CMS, design responsive pages, and ensure smooth CI/CD pipelines within the budget.
+
+front‑end features for e‑commerce sites; introduced component‑driven styling with Tailwind, reducing CSS bloat by 25 %.
+
+## Education & Certifications
+- B.Sc. Computer Science, University of Lagos (2015)  
+- Certified React Developer – React Academy (2021)  
+- PostgreSQL Associate – Database Institute (2022)  
+- Docker Fundamentals – Cloud Native Computing Foundation (2023)  
+
+Hourly Rate: **$55 USD**  
+Availability: **35 hours/week**
+
+Hi, I noticed you’re looking to launch a marketplace MVP with core buyer‑seller flows. I recently built a two‑sided marketplace for local artisans using React, TypeScript, and Node.js, handling 1,200 users and 3,500 transactions in the first month. I set up Stripe Connect for payouts and integrated Algolia for fast product search. I can deliver a clean, responsive UI and a scalable backend within your timeline. My typical approach includes a shared component library, automated tests, and CI/CD pipelines to keep releases smooth. I’m comfortable with iterative development, so we can start with the essential features and expand later. Yes, I’ve worked with Stripe Connect before.  
+Best,  
+Daniel
+
+Hi, I saw you need a Stripe checkout integration for your web product. I recently added Stripe Checkout to a SaaS subscription site built with React, TypeScript, and Next.js, processing over $50k in the first month and handling webhooks for subscription lifecycle events. I used Stripe Elements for a seamless UI and set up serverless functions on Vercel for secure payment handling.  
+
+My plan is to embed a custom checkout button, configure product pricing tiers, and implement webhook listeners to update user status in your database. I’ll also add unit tests for the payment flow and document the integration steps for future maintenance. Yes, I have experience with Stripe Checkout and webhooks.  
+Daniel",2
+P22,"Artificial intelligence lab
+I'm looking for artificial intelligence lab work, which needs machine learning skills with python.",Do you have access to the required historical sales data for the exploratory analysis?,"# Maya Chen  
+Machine Learning Engineer – production‑grade NLP and time‑series forecasting for SaaS and e‑commerce clients.
+
+## Skills
+- **Languages & Libraries:** Python, PyTorch, scikit‑learn, pandas, NumPy, SQL
+- **NLP & Transformers:** spaCy, Hugging Face Transformers, LangChain, custom tokenizers
+- **MLOps & Deployment:** FastAPI, Docker, MLflow, CI/CD pipelines
+- **Data Engineering:** PostgreSQL, data cleaning, feature engineering, ETL workflows
+- **Analytics & Visualization:** Plotly, Matplotlib, Tableau (basic)
+
+## Selected Projects
+- **Fraud detection pipeline** – built a real‑time scoring service using PyTorch, FastAPI, and Docker; reduced false positives by 22% for a
+
+Hi, I’m excited about your goal to forecast sales with machine learning. In a recent project I built a Prophet‑based demand‑forecasting system for a fashion retailer that handled 250k SKUs and achieved a 12% MAPE improvement over their legacy Excel forecasts. I used Python, Azure ML pipelines for automated retraining, and deployed the model via a FastAPI endpoint that returns next‑month predictions in under a second.
+
+My plan would be to start with an exploratory analysis of your historical sales data, engineer relevant features (seasonality, promotions, price changes), and then compare several models—Prophet, LightGBM, and a simple LSTM—to pick the best performer. I’ll set up a scheduled pipeline for nightly retraining and a dashboard for visualizing forecasts. I can work within the $2500 budget and aim to deliver a production‑ready forecasting service in four weeks.
+
+Hi,
+
+I understand you need an Excel model rebuilt for better performance and maintainability. In a recent project I migrated a legacy financial model of 5 k rows into a Python‑based tool using Pandas, which cut calculation time from 45 seconds to under 2 seconds and added version control via Git. I also created a clean Excel front‑end that pulls results via xlwings, preserving the familiar UI for end users.
+
+**Screening answer:** I have rebuilt complex Excel models using Python and integrated them back into Excel for user‑friendly interaction.
+
+I can deliver a robust, documented solution that meets your accuracy requirements.
+
+Best,  
+Maya
+
+Hi,
+
+I saw you want to forecast sales with a machine‑learning model. In a recent project I:
+
+- Built a Prophet‑based time‑series model for a retail chain (≈2 years of daily sales), achieving a 6% MAPE and deployed it on Azure Functions for automated daily forecasts.  
+
+The approach will include feature engineering for promotions and holidays, and a simple dashboard for visualizing predictions.
+
+**Screening question:** Yes, I have access to the required historical sales data and can start the exploratory analysis immediately.
+
+Let’s chat about the specifics.
+
+Best,  
+Maya
+
+Hello,
+
+Your goal to automate weekly reporting aligns with a recent project where I:
+
+- Created a Python script that pulls data from MySQL, transforms it with Pandas, and generates PDF and Excel reports on a schedule using Airflow; reduced manual effort by 90%.  
+- Integrated the reports into Slack and email via simple webhooks, handling ~15 GB of data each week.
+
+**Screening question:** Yes, I can set up the automation within your existing AWS environment.
+
+Looking forward to streamlining your reporting process.
+
+Thanks,  
+Maya",2
+P23,"Webflow
+I have a 7 page website for a podcast site with 3 merch for sale. The site is on wordpress. I need a new site on Webflow. I want the CMS collection to be linked to the podcast allowing me to use the CMS for making changes to the collection. I also have 3 merchandises I sell. Please provide estimate of time or a fixed price on doing so. The site is basic 5 pages, 1 page for eccommerce and 1 page for the podcast.Hourly Range: $30.00-$45.00Posted On: February 15, 2024 22:37 UTCCategory: Web DesignSkills:WebflowSkills:        WebflowCountry: United Statesclick to apply","I recently built a Next.js site with a CMS for easy updates.
+What CMS do you want to use for your podcast CMS integration?","Hi! I see you need a Next.js marketing site with a CMS for easy content updates. I recently built a 12‑page Next.js site for a tech conference, using TypeScript, Tailwind CSS, and Sanity.io as the headless CMS. The site achieved a 96 % Lighthouse score and handled 8 k monthly visitors without issue.
+
+I can set up a similar architecture, connect it to your preferred CMS (Sanity, Contentful, or Strapi), and implement SEO best practices and fast image optimization with next‑image.
+
+Screening question: Yes, I have delivered production‑ready Next.js sites integrated with headless CMS platforms.
+
+Looking forward to learning more about your branding guidelines and content workflow.
+
+Hello, the need for a Next.js marketing site with a CMS aligns with my recent work. I built a Next.js site for a tech startup that attracted 12 K unique visitors in the first month, using Contentful for content editing and Vercel for instant deployments. I also created a portfolio site with Sanity.io that allowed the client to update blog posts without developer assistance.  
+**Screening question:** Yes, I can integrate a headless CMS with Next.js and TypeScript for a fast, SEO‑friendly site.  
+I’ll set up the CMS, design responsive pages, and ensure smooth CI/CD pipelines within the budget.
+
+Hi, I saw you need a Stripe checkout integration for your web product. I recently added Stripe Checkout to a SaaS subscription site built with React, TypeScript, and Next.js, processing over $50k in the first month and handling webhooks for subscription lifecycle events. I used Stripe Elements for a seamless UI and set up serverless functions on Vercel for secure payment handling.  
+
+My plan is to embed a custom checkout button, configure product pricing tiers, and implement webhook listeners to update user status in your database. I’ll also add unit tests for the payment flow and document the integration steps for future maintenance. Yes, I have experience with Stripe Checkout and webhooks.  
+Daniel
+
+Hi, I noticed you’re looking to add Stripe checkout to your site. I recently integrated Stripe Checkout into a marketplace built with React, TypeScript, and Node.js, processing $75k in the first month and handling subscription upgrades via webhooks. The integration included a custom checkout button, dynamic pricing tiers, and serverless functions on AWS Lambda for secure token exchange.  
+
+My approach for your project would be to:  
+1. Set up Stripe Elements and a responsive checkout component that matches your branding.  
+2. Configure product and price objects in the Stripe dashboard, then connect them via the Stripe API.  
+3. Implement webhook endpoints to update order status in your database and send confirmation emails.  
+
+I follow a test‑driven workflow, writing unit tests for the payment service and end‑to‑end tests with Cypress to ensure reliability. Yes, I have worked with Stripe Checkout and webhook handling before.  
+Daniel
+
+5/5 - Daniel delivered the booking platform ahead of schedule and the codebase is clean and well documented.  
+5/5 - Excellent communication, rapid iterations, and the final product exceeded our expectations.  
+4/5 - Solid work on the e‑commerce site; a few minor UI tweaks were needed after delivery.  
+5/5 - Very responsive and proactive; the admin dashboard now runs flawlessly under heavy load.  
+5/5 - The real‑estate portal’s map search is slick and performs beautifully on mobile.  
+4/5 - Good overall; appreciated the Docker setup, though onboarding took a bit longer than planned.",2
+P24,"Engineer or Data to Retrieve Golf Course Database
+Im looking for someone to be able to get me the data for golf courses around the world. This site provides data on about 42,000 golf courses with the following data points:(link removed)/We need to basically build the same database + also have a functionality like an api that will us to refresh that data whenever we need it.If you think you can do this, please reach out. (I need all the same data points that the above company provides)Budget: $500Posted On: February 19, 2024 05:26 UTCCategory: Data EngineeringSkills:Data Engineering,     Data Scraping,     Data MiningSkills:        Data Engineering,                     Data Scraping,                     Data MiningCountry: United Statesclick to apply",What specific data points are essential for your golf course database?,"workbook with Power Query.
+4. Set up automated email distribution of the final report or a Power BI dashboard link.
+
+I’m comfortable with Azure Functions, AWS Lambda, and scheduling via cron, so we can choose the platform that fits your stack. I can start within three days and have the first automated run ready in a week.
+
+Hi, I noticed you’re looking for a comprehensive Tableau dashboard to track your multi‑channel marketing performance. Recently I delivered a similar solution for an e‑commerce client, integrating Google Analytics, Facebook Ads, and email platform data into a single Tableau workbook. The dashboard featured drill‑down views, KPI cards, and a custom attribution model that helped the client identify a 12% increase in ROI across campaigns. I used Tableau Prep Builder for data blending and scheduled daily extracts from a PostgreSQL warehouse, ensuring the data stayed fresh without manual intervention.  
+
+My approach would be to first audit your data sources, then design a modular dashboard that lets stakeholders toggle between channel, geography, and time‑period views. I’ll also include a brief user guide and a short training session so your team can maintain and extend the visualizations.  
+
+I can begin within three days and aim to deliver a functional prototype in ten business days.
+
+Analytics, Tableau – Built a multi‑touch attribution model for a digital agency, increasing ROI attribution accuracy by 22%.  
+- **SaaS Churn Cohort Analysis** – SQL, pandas, R – Identified high‑risk user segments, enabling a targeted retention campaign that reduced churn by 8%.  
+- **Warehouse Data Cleanup with dbt** – dbt, Snowflake, SQL – Re‑engineered the data pipeline, improving data quality scores from 72% to 96%.  
+- **Excel‑to‑SQL Migration for Finance** – Excel, SQL Server, Python – Automated the migration of 12+ financial workbooks to a centralized SQL database, saving 15 hours per month.  
+
+## Experience
+**Freelance Data Analyst** – Self‑employed  
+*Jan 2021 – Present*  
+- Delivered 30+ projects across e‑commerce, SaaS, and manufacturing sectors.  
+- Managed end‑to‑end data pipelines, from extraction
+
+Hi,
+
+I see you need weekly reporting automated. I recently created a similar pipeline for a logistics firm, pulling data from PostgreSQL, cleaning it with Python, and delivering a set of Excel dashboards that update via Power Query each Friday.
+
+The solution reduced manual effort by 4 hours per week and included a short training video for the team.
+
+I can set this up for you using the same tools and tailor the visuals to your KPIs.
+
+Hi,
+
+I read that you want to automate weekly reporting for your operations team. Here’s a quick look at a similar system I delivered:
+
+- **Data extraction:** Used Python (SQLAlchemy) to pull data from PostgreSQL and an API, cleaning it with pandas.  
+- **Report generation:** Created an automated Jupyter notebook that outputs a polished PDF and an Excel pivot workbook, then emails them via Outlook on a schedule.  
+- **Dashboard link:** Added a lightweight Power BI tile that refreshes daily, giving the team a quick visual snapshot.
+
+The previous client saved roughly 3.5 hours each week and appreciated the consistent formatting.  
+
+**Screening answer:** Yes, I have automated weekly reporting pipelines using Python, SQL, and scheduled email distribution.
+
+Let’s discuss how to tailor this to your metrics.  
+Priya",2
+P25,"Engineer or Data to Retrieve Golf Course Database
+Im looking for someone to be able to get me the data for golf courses around the world. This site provides data on about 42,000 golf courses with the following data points:(link removed)/We need to basically build the same database + also have a functionality like an api that will us to refresh that data whenever we need it.If you think you can do this, please reach out. (I need all the same data points that the above company provides)Budget: $500Posted On: February 19, 2024 05:26 UTCCategory: Data EngineeringSkills:Data Engineering,     Data Scraping,     Data MiningSkills:        Data Engineering,                     Data Scraping,                     Data MiningCountry: United Statesclick to apply",What specific data points are essential for your golf course database project?,"– Self‑employed  
+*Jan 2021 – Present*  
+- Delivered 30+ projects across e‑commerce, SaaS, and manufacturing sectors.  
+- Managed end‑to‑end data pipelines, from extraction to dashboard delivery, averaging a 4.8/5 client rating.  
+
+**Data Analyst** – Apex Logistics Solutions (mid‑size logistics firm)  
+*Jun 2017 – Dec 2020*  
+- Designed operational dashboards that reduced freight cost reporting latency from weekly to daily.  
+- Implemented dbt models to standardize warehouse inventory data, decreasing data errors by 30%.  
+
+**Business Intelligence Intern** – NovaTech Consulting (consulting boutique)  
+*Jan 2016 – May 2017*  
+- Assisted senior analysts in building Tableau visualizations for client marketing decks.  
+- Conducted ad‑hoc SQL queries for performance metrics, supporting a 12% increase in client satisfaction scores.  
+
+## Education & Certifications
+- **B.Sc. in Statistics**, University of Delhi – 2015  
+- **
+
+Hi,
+
+I see you need weekly reporting automated. I recently created a similar pipeline for a logistics firm, pulling data from PostgreSQL, cleaning it with Python, and delivering a set of Excel dashboards that update via Power Query each Friday.
+
+The solution reduced manual effort by 4 hours per week and included a short training video for the team.
+
+I can set this up for you using the same tools and tailor the visuals to your KPIs.
+
+Dear Hiring Manager,
+
+- Built a Power BI sales dashboard for a regional retailer, integrating data from SQL Server and Excel, reducing reporting time by 40%.
+- Used DAX measures to calculate month‑over‑month growth and created drill‑through pages for product categories.
+- Delivered a PDF export automation that updates daily via Power BI Service.
+
+I can replicate a similar solution for your sales data, delivering a clean, interactive dashboard within the budget.
+
+My typical workflow includes data validation, model design, and user training.
+
+Hi,
+
+Your request for a Tableau dashboard to track marketing campaign performance aligns with my recent work:
+
+- **Data pipeline** – extracted and merged Google Analytics, Facebook Ads, and CRM data using SQL Server and Python (SQLAlchemy).  
+- **Dashboard creation** – designed a Tableau workbook with drill‑down views for spend, CTR, and ROI, supporting filters by channel and date range.  
+- **User training** – delivered a 30‑minute walkthrough and documentation for the marketing team.
+
+The final dashboard was adopted by a mid‑size SaaS firm, reducing manual reporting time by 40%.  
+**Screening answer:** I have built end‑to‑end Tableau dashboards for marketing teams and can replicate that for your needs.
+
+Happy to discuss specifics.  
+Priya
+
+Hi,
+
+Your need for a marketing Tableau dashboard caught my eye—especially the focus on real‑time campaign attribution. Here’s a snapshot of how I approach it:
+
+- **Data integration:** I pull data from Google Ads, LinkedIn, and your internal CRM using Python scripts and store it in a Snowflake staging area.  
+- **Dashboard design:** In Tableau, I create a clean, filter‑rich interface with KPI tiles for spend, CPL, and conversion funnel visualization. I also set up data‑source extracts that refresh every 4 hours, keeping the numbers fresh.  
+- **Storytelling:** I embed short narrative captions and tooltips so stakeholders can instantly grasp performance trends without digging into raw numbers.
+
+A recent client (a B2B tech firm) saw a 25% increase in campaign ROI after using a similar dashboard because the team could act on insights within a day.
+
+**",2
+P26,"Senior .Net Developer (Full-stack)
+Looking for a Full stack Developer to join our IT team to help meet growing demands of in-house software development. The right candidate will need to be able to work an 8 hour shift for a period of 5 days between Monday and Saturday. 
+
+Work hours window is 6am - 6pm in US Central Time. Flexible work schedule to be accommodated to meet a 40hr/5days a week schedule.
+
+Responsibilities
+
+Translate application requirements and use cases into functional applications
+Design, build, and maintain efficient, reusable, and reliable code
+Integrate data storage solutions SQL Server 2014
+Ensure the best possible performance, quality, and responsiveness of applications
+Identify bottlenecks and bugs, and devise solutions to mitigate and address these issues
+Help enhance and maintain code quality, organization, and automation
+
+Skills
+
+Strong knowledge of .NET web framework .NET 4.8 , MVC 4.0+
+Proficient in C#, with a good knowledge of their ecosystems
+Strong understanding of object-oriented programming
+Skill for writing reusable libraries
+Familiar with various design and architectural patterns
+Knowledge of concurrency patterns
+Familiarity with Microsoft SQL Server 2014 onwards
+Experience with popular web application frameworks MVC
+Knack for writing clean, readable, and easily maintainable code
+Understanding of fundamental design principles for building a scalable application
+Experience creating database schemas that represent and support business processes
+Basic understanding of Common Language Runtime (CLR), its limitations, weaknesses, and workarounds
+Experience implementing automated testing platforms and unit tests
+Proficient understanding of code versioning tools Visual Studio 2019/2022, GIT
+Jquery, Ajax, Web Api, Bootstrap, Angular
+
+Must be comfortable with work management tools such as Upwork Time Tracker, Time Doctor.
+
+Position qualifies for full-time position following initial project completion.",Do you prefer a React-based solution or are there specific UI elements you need to include?,"# Daniel Okafor
+Full‑stack developer specializing in fast, type‑safe web applications with React, TypeScript and Node.js.
+
+## Skills
+- **Front‑end:** React, Next.js, TypeScript, Tailwind CSS, CSS, GraphQL (Apollo)
+- **Back‑end:** Node.js, Express, Prisma, PostgreSQL, Redis, Docker, Jest
+- **Other:** Python (scripts & data processing), REST APIs, CI/CD, Agile/Scrum
+
+## Selected Projects
+- **ClinicChain Booking SaaS** – React, Next.js, TypeScript, PostgreSQL, Prisma, Docker; built a multi‑tenant scheduling system that reduced appointment‑booking time by 30 %.
+- **ShopEase E‑commerce Storefront** – React, Tailwind, Stripe,
+
+.js API layer that talks to PostgreSQL via Prisma, while the front‑end leverages React hooks and SWR for data fetching. Employer accounts are protected with JWT‑based authentication, and role‑based access control ensures that only authorized users can edit or delete listings. I also integrated Algolia for instant search across job titles and locations, and implemented a simple analytics dashboard using Chart.js to visualize impressions, clicks, and application conversion rates.
+
+**Results:**  
+- Launched in 8 weeks, three weeks ahead of the client’s deadline.  
+- Handled **12,000+ active job listings** and **250,000+ monthly page views** with sub‑second response times (average 0.84 s).  
+- Employer self‑service reduced manual admin workload by **85 %**, saving the client roughly **30 hours per week**.  
+- SEO improvements (server‑
+
+5/5 - Daniel delivered the booking platform ahead of schedule and the codebase is clean and well documented.  
+5/5 - Excellent communication, rapid iterations, and the final product exceeded our expectations.  
+4/5 - Solid work on the e‑commerce site; a few minor UI tweaks were needed after delivery.  
+5/5 - Very responsive and proactive; the admin dashboard now runs flawlessly under heavy load.  
+5/5 - The real‑estate portal’s map search is slick and performs beautifully on mobile.  
+4/5 - Good overall; appreciated the Docker setup, though onboarding took a bit longer than planned.
+
+Hi, I noticed you want a complete redesign of your admin panel with a focus on modular UI and TypeScript safety. In a recent project I rebuilt an internal admin for a logistics company using React, Ant Design, and Redux Toolkit, cutting UI code by 30% and improving maintainability. I’ll deliver a component library, responsive layout, and thorough unit tests to meet your specs. I’m comfortable with the budget and can begin this week.
+
+Hi, I read that you want to redesign your admin panel for better usability. I recently refreshed a React admin dashboard for a fintech client, reducing page load from 4 s to 1.2 s and improving task completion rates by 30 %. Another project was a TypeScript‑based internal tool that introduced a modular component library and dark‑mode support.  
+**Screening question:** Yes, I have experience modernizing admin interfaces with React, TypeScript, and Tailwind CSS.  
+I’ll deliver a responsive UI, component documentation, and performance optimizations while staying within the $500 scope.",1
+P27,"Scraping code
+Update an Excel output (scraping code) that runs on a football statistics website (www.goaloo18.com).Update the following data:  create division and multiplication formulas (new columns) in the excel output file (scraping data).Budget: $50Posted On: February 22, 2024 21:48 UTCCategory: Scripting & AutomationSkills:Python,     Data Scraping,     Excel FormulaSkills:        Python,                     Data Scraping,                     Excel FormulaCountry: Australiaclick to apply","I built a Python script to extract and transform data from a website, updating an Excel file.
+I will use Python and Excel formulas to update your Excel output with new data.
+What specific data do you need to be updated in your Excel file?","count, DimPeriod).
+2. **ETL Development** – Using Python’s `openpyxl` and `pandas`, I built a reusable extraction script that read each workbook, flattened merged cells, evaluated formulas via `xlrd`, and output clean CSVs. The script also applied data‑type validation (e.g., numeric amounts, ISO‑8601 dates) and logged anomalies.
+3. **Load & Automation** – The CSVs were bulk‑loaded into PostgreSQL using `COPY`. I wrote stored procedures to reconcile the newly loaded data with existing records, handling updates vs inserts (upserts) via `ON CONFLICT`.
+
+After the initial load, I set up a weekly Airflow DAG that re‑runs the ETL for any new or modified workbooks, ensuring the database stays current.
+
+Quantitative impact: The finance team cut month‑end
+
+# Financial KPI Reporting Pack for the CFO Office
+
+The finance department was struggling with fragmented monthly reporting. They had raw transaction data in a SQL Server database, supplemental budget data in Excel, and ad‑hoc PowerPoint decks that took weeks to assemble. Their requirement was a single, automated reporting pack that delivered the core financial KPIs—Revenue, Gross Margin, Operating Expenses, EBITDA, and Cash Conversion Cycle—on a weekly cadence, with drill‑down capability to product line and region.
+
+I designed and delivered a three‑layer solution:
+
+1. **Data extraction & transformation:** Using Microsoft SQL Server Management Studio, I wrote a set of stored procedures that merged the operational ledger tables with the budget tables (≈ 3 M rows per month). I scheduled nightly runs via SQL Agent, outputting cleaned CSVs to an Azure Blob storage.  
+2. **Data modelling:** In Excel Power Query, I imported the CSVs, applied data type enforcement
+
+Hi,
+
+I can rebuild your Excel model to be more robust and scalable. In a recent project I:
+
+- Converted a legacy budgeting workbook (≈ 30 tabs, 5 k rows) into a clean, modular model using structured tables, named ranges, and VBA macros for data import.
+- Added error‑checking and dynamic charts, which reduced user errors by 70 % and cut update time from 2 hours to 10 minutes.
+
+My approach:
+- Map existing calculations, identify redundancies, and document assumptions.
+- Implement best‑practice modeling (separate input, calculation, and output sheets) and lock cells where appropriate.
+- Provide a short user guide and a brief training session.
+
+**Screening question:** Yes, I have rebuilt complex Excel financial models with VBA and Power Query.
+
+Let me know if you’d like to see a sample of the before/after workbook.
+
+Priya
+
+Hi,
+
+I see you need weekly reporting automated. I recently created a similar pipeline for a logistics firm, pulling data from PostgreSQL, cleaning it with Python, and delivering a set of Excel dashboards that update via Power Query each Friday.
+
+The solution reduced manual effort by 4 hours per week and included a short training video for the team.
+
+I can set this up for you using the same tools and tailor the visuals to your KPIs.
+
+Hi,
+
+Your request to rebuild an Excel financial model for quarterly forecasting caught my eye. Last quarter I refreshed a 5‑year budgeting model for a manufacturing firm, adding dynamic charts and VBA automation that cut manual updates from 6 hours to 30 minutes.
+
+- Re‑engineered formulas to eliminate circular references and improve transparency.
+- Integrated Power Query to pull data from an Access database, ensuring a single source of truth.
+- Delivered a user guide and a short training session for the finance team.
+
+I’m comfortable working with complex nested functions and can have the new model ready for review within two weeks.
+
+My rate includes iterative feedback cycles to ensure the model meets all stakeholder needs.",4
+P28,"AI Llama2 and RAG Specialist
+Hi all,We are looking for a skilled expert in Llama2 and Retrieval Augmented Generation (RAG) technology.The Person for this job will be in charge of setting up a Llama2 RAG system.This system should be able to use more than 1 pdf file.With a prompt template from us.More details in a short call.Please reply with : I am not an AI model.Hourly Range: $15.00-$20.00Posted On: February 16, 2024 09:53 UTCCategory: Machine LearningSkills:Python,     PyTorch,     Artificial Intelligence,     Machine LearningSkills:        Python,                     PyTorch,                     Artificial Intelligence,                     Machine LearningCountry: Vietnamclick to apply","I recently fine-tuned a 7B LLaMA model on corporate policy docs.
+I will start by cleaning and chunking your docs, creating a balanced training set.
+Do you prefer to use more than one PDF file for training?","Hi, I see you want to fine‑tune an LLM for your internal documentation. I recently fine‑tuned a 7B LLaMA model on a legal‑tech knowledge base (≈150k Q&A pairs) using Hugging Face Transformers and LoRA, achieving a 0.87 F1 score on a held‑out set and a noticeable drop in hallucinations.
+
+I would start by cleaning and chunking your docs, creating a balanced training set, and then fine‑tuning with a low learning rate on a single GPU. The resulting model can be served via an OpenAI‑compatible API for easy integration with your existing tools. I can deliver this within the $500 budget and provide a short hand‑off guide.
+
+Hi,
+
+I saw you want to fine‑tune an LLM on internal documentation. I recently fine‑tuned a 7B LLaMA model on 150 MB of corporate policy docs, reaching a BLEU score improvement of 12% over the base model, and wrapped it in a FastAPI endpoint for internal use.
+
+- **Framework:** Hugging Face Transformers, PEFT (LoRA)
+- **Compute:** 2 × A100 GPUs, 8 h training
+- **Delivery:** Model checkpoint, inference API, usage guide
+
+I’ll handle data preprocessing, training, and deployment while keeping the process transparent.  
+**Screening answer:** Yes, I have fine‑tuned large language models on domain‑specific corpora.
+
+Regards,
+Maya",5
+P29,"Senior Shopify developer(urgent)
+I was hoping to have our property displayed on the map as &quot;Stone Avenue Standard&quot; with the ability for mobile website visitors to click on it and have Google Maps load for turn-by-turn directions from current position to our property . Additionally, I would like static maps to open on desktop browsers. Could you help with that?Hourly Range: $20.00-$40.00Posted On: February 20, 2024 14:55 UTCCategory: Ecommerce Website DevelopmentSkills:API Integration,     ShopifySkills:        API Integration,                     ShopifyCountry: United Statesclick to apply","One past project was a Shopify store with Stripe for payments.
+Would you prefer to use Sanity CMS for product catalog instead?","# E‑Commerce Storefront with Stripe Checkout
+
+A boutique fashion brand wanted a fast, SEO‑friendly storefront that could showcase their limited‑edition collections and handle secure, global payments. Their existing Shopify store was slow, and they needed full control over the checkout flow to implement custom discounts and subscription options.
+
+I built the site with **Next.js** (React + SSR) and **TypeScript**, integrating **Stripe Checkout** for payments. The product catalog was stored in a headless CMS (Sanity) and fetched at build time via its GraphQL API, enabling static generation of product pages for optimal performance. For dynamic pricing (e.g., tiered discounts), I created a serverless function on Vercel that calculated line‑item prices before redirecting users to Stripe’s hosted checkout.
+
+**Results**
+- PageSpeed Insights scores: 98 (mobile) and 100
+
+Hi, I’m excited about the React Native e‑commerce app you described. I recently delivered a small‑scale shop app for a craft retailer, using React Native, TypeScript, and Context API, serving 800 users and integrating Stripe for payments.  
+
+- Set up product listing screens with lazy loading for performance.  
+- Implemented a cart and checkout flow using Stripe Elements, storing tokens securely.  
+- Added push notifications via Firebase Cloud Messaging for order updates.  
+
+I work in two‑week sprints, delivering a functional MVP before moving to polish. Yes, I have integrated Stripe payments in React Native before.  
+Daniel",2
+P30,"Senior Python Developer Architect
+Python - Mandatory Skills 	Python,Pandas,Django,Python coding,MySQL/Postgres or any relational DB,MONGO DB,Flask
+Good to have Skills 	AWS,jinja,mako,Django CMS
+
+Expertise and must have around 10+ years exp",What specific KPIs do you want to track in your weekly reports?,"Hi,
+
+I noticed you want to automate your weekly reporting for sales and inventory. I recently built a Python‑based pipeline that pulls data from MySQL, transforms it with pandas, and emails a PDF and Excel summary every Monday morning.
+
+The solution cut reporting time from 4 hours to under 15 minutes and runs on a modest AWS Lambda setup.
+
+**Screening answer:** Yes, I have automated weekly reports using Python, SQL, and scheduled tasks.
+
+Let’s get this running for you quickly.  
+Priya
+
+# Priya Sharma
+Data analyst who transforms messy data into clear dashboards and actionable decisions.
+
+## Skills
+- **Data Engineering & Modeling:** SQL, dbt, pandas, Excel → SQL migration, data cleaning  
+- **Programming & Statistics:** Python, R, statistical analysis, hypothesis testing  
+- **Visualization & BI:** Tableau, Power BI, data storytelling, dashboard design  
+- **Analytics Platforms:** Google Analytics, Excel Power Query, VBA macros  
+
+## Selected Projects
+- **Power BI Sales Dashboard** – Power BI, SQL, DAX – Delivered a real‑time sales performance dashboard for a regional distributor, cutting reporting time by 40%.  
+- **Marketing Attribution Model** – Python, Google Analytics, Tableau – Built a multi‑touch attribution model for a digital agency, increasing ROI attribution accuracy by 22%.  
+- **SaaS Churn Cohort Analysis*
+
+# Excel‑to‑SQL Migration for Finance Team
+
+The finance department of a manufacturing firm relied on a network folder of 120 + Excel workbooks to track monthly P&L, cash flow, and variance analysis. Each workbook had its own layout, formulas, and hidden rows, making consolidation a nightmare. Management wanted a single source of truth in a relational database to enable real‑time KPI dashboards and eliminate manual copy‑pasting.
+
+I led the migration to a PostgreSQL instance on AWS RDS. The process consisted of three phases:
+
+1. **Discovery & Mapping** – I catalogued each workbook, identified common fields (date, account_code, amount) and unique ones, and created a logical data model (FactFinance, DimAccount, DimPeriod).
+2. **ETL Development** – Using Python’s `openpyxl` and `pandas`, I built a reusa
+
+Hi,
+
+I read that you want to automate weekly reporting for your operations team. Here’s a quick look at a similar system I delivered:
+
+- **Data extraction:** Used Python (SQLAlchemy) to pull data from PostgreSQL and an API, cleaning it with pandas.  
+- **Report generation:** Created an automated Jupyter notebook that outputs a polished PDF and an Excel pivot workbook, then emails them via Outlook on a schedule.  
+- **Dashboard link:** Added a lightweight Power BI tile that refreshes daily, giving the team a quick visual snapshot.
+
+The previous client saved roughly 3.5 hours each week and appreciated the consistent formatting.  
+
+**Screening answer:** Yes, I have automated weekly reporting pipelines using Python, SQL, and scheduled email distribution.
+
+Let’s discuss how to tailor this to your metrics.  
+Priya
+
+Hi,
+
+I see you need weekly reporting automated. I recently created a similar pipeline for a logistics firm, pulling data from PostgreSQL, cleaning it with Python, and delivering a set of Excel dashboards that update via Power Query each Friday.
+
+The solution reduced manual effort by 4 hours per week and included a short training video for the team.
+
+I can set this up for you using the same tools and tailor the visuals to your KPIs.",1

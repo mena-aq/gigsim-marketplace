@@ -1,0 +1,252 @@
+{
+  "items": 30,
+  "exact_agreement": 0.1,
+  "cohens_kappa": 0.031100478468899528,
+  "minimum_kappa": 0.4,
+  "status": "insufficient_agreement",
+  "pairs": [
+    {
+      "review_id": "P01",
+      "id": "job_83307a6592ca",
+      "variant": "v8",
+      "judge_score": 4,
+      "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+      "human_score": 1
+    },
+    {
+      "review_id": "P02",
+      "id": "job_bf2deb6b7cf6",
+      "variant": "v3",
+      "judge_score": 3,
+      "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+      "human_score": 2
+    },
+    {
+      "review_id": "P03",
+      "id": "job_8e5ef503df44",
+      "variant": "v0",
+      "judge_score": 4,
+      "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+      "human_score": 3
+    },
+    {
+      "review_id": "P04",
+      "id": "job_f2604ab8d941",
+      "variant": "v3",
+      "judge_score": 4,
+      "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+      "human_score": 2
+    },
+    {
+      "review_id": "P05",
+      "id": "job_4a33907c28e0",
+      "variant": "v1",
+      "judge_score": 4,
+      "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+      "human_score": 3
+    },
+    {
+      "review_id": "P06",
+      "id": "job_83307a6592ca",
+      "variant": "v1",
+      "judge_score": 4,
+      "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+      "human_score": 2
+    },
+    {
+      "review_id": "P07",
+      "id": "job_bf2deb6b7cf6",
+      "variant": "v1",
+      "judge_score": 3,
+      "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+      "human_score": 3
+    },
+    {
+      "review_id": "P08",
+      "id": "job_38baba300945",
+      "variant": "v8",
+      "judge_score": 4,
+      "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+      "human_score": 2
+    },
+    {
+      "review_id": "P09",
+      "id": "job_9b8853e7b3b9",
+      "variant": "v0",
+      "judge_score": 4,
+      "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+      "human_score": 5
+    },
+    {
+      "review_id": "P10",
+      "id": "job_ad7c814ce45e",
+      "variant": "v2",
+      "judge_score": 4,
+      "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+      "human_score": 1
+    },
+    {
+      "review_id": "P11",
+      "id": "job_03b0d82b94a9",
+      "variant": "v0",
+      "judge_score": 3,
+      "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+      "human_score": 2
+    },
+    {
+      "review_id": "P12",
+      "id": "job_a9200d05f8fc",
+      "variant": "v8",
+      "judge_score": 4,
+      "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+      "human_score": 1
+    },
+    {
+      "review_id": "P13",
+      "id": "job_697c99cd0e9b",
+      "variant": "v2",
+      "judge_score": 4,
+      "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+      "human_score": 2
+    },
+    {
+      "review_id": "P14",
+      "id": "job_38baba300945",
+      "variant": "v3",
+      "judge_score": 4,
+      "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+      "human_score": 2
+    },
+    {
+      "review_id": "P15",
+      "id": "job_4a37bff66f15",
+      "variant": "v2",
+      "judge_score": 3,
+      "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+      "human_score": 2
+    },
+    {
+      "review_id": "P16",
+      "id": "job_4a33907c28e0",
+      "variant": "v8",
+      "judge_score": 4,
+      "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+      "human_score": 2
+    },
+    {
+      "review_id": "P17",
+      "id": "job_8412ae937e40",
+      "variant": "v1",
+      "judge_score": 4,
+      "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+      "human_score": 1
+    },
+    {
+      "review_id": "P18",
+      "id": "job_079baa9c6d72",
+      "variant": "v3",
+      "judge_score": 4,
+      "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+      "human_score": 2
+    },
+    {
+      "review_id": "P19",
+      "id": "job_38baba300945",
+      "variant": "v0",
+      "judge_score": 4,
+      "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+      "human_score": 1
+    },
+    {
+      "review_id": "P20",
+      "id": "job_33828a90e9c6",
+      "variant": "v2",
+      "judge_score": 3,
+      "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+      "human_score": 2
+    },
+    {
+      "review_id": "P21",
+      "id": "job_079baa9c6d72",
+      "variant": "v0",
+      "judge_score": 3,
+      "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+      "human_score": 2
+    },
+    {
+      "review_id": "P22",
+      "id": "job_f2604ab8d941",
+      "variant": "v2",
+      "judge_score": 4,
+      "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+      "human_score": 2
+    },
+    {
+      "review_id": "P23",
+      "id": "job_079baa9c6d72",
+      "variant": "v2",
+      "judge_score": 2,
+      "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+      "human_score": 2
+    },
+    {
+      "review_id": "P24",
+      "id": "job_33828a90e9c6",
+      "variant": "v3",
+      "judge_score": 3,
+      "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+      "human_score": 2
+    },
+    {
+      "review_id": "P25",
+      "id": "job_33828a90e9c6",
+      "variant": "v0",
+      "judge_score": 3,
+      "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+      "human_score": 2
+    },
+    {
+      "review_id": "P26",
+      "id": "job_184d724ce3ee",
+      "variant": "v1",
+      "judge_score": 4,
+      "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+      "human_score": 1
+    },
+    {
+      "review_id": "P27",
+      "id": "job_83307a6592ca",
+      "variant": "v3",
+      "judge_score": 4,
+      "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+      "human_score": 4
+    },
+    {
+      "review_id": "P28",
+      "id": "job_9b8853e7b3b9",
+      "variant": "v8",
+      "judge_score": 4,
+      "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+      "human_score": 5
+    },
+    {
+      "review_id": "P29",
+      "id": "job_3e37f4c2ad21",
+      "variant": "v8",
+      "judge_score": 3,
+      "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+      "human_score": 2
+    },
+    {
+      "review_id": "P30",
+      "id": "job_a9200d05f8fc",
+      "variant": "v1",
+      "judge_score": 4,
+      "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+      "human_score": 1
+    }
+  ],
+  "observations_sha256": "1945b5fa1aace5e0f7411ab382afab91f2647b8230dfa610afcb70ea7bca6b2b",
+  "human_review_sha256": "a3d55ea2bb23f00c8a23bde83ad9aac4752bc853ce5e8a6e4c85d382bdce7323",
+  "limitation": "Same local model for generation and judging; shared bias remains possible"
+}

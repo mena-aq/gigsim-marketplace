@@ -1,0 +1,1559 @@
+{
+  "seed": 42,
+  "label_provenance": "Seeded processed-job sample; no evidence qrels for these jobs",
+  "selection": "10 non-scam, non-injection jobs per mapped category; description <=3000 chars",
+  "source_jobs_sha256": "ccddf0d49e1c0dcae820d48d9aedb349203418b09875d50ccfe619198ab73f25",
+  "source_clients_sha256": "84b41e6525c7ccc9ae9bfa64803c9a53e2489aebfa364f15c02f8ff49ad2d37b",
+  "cases": [
+    {
+      "id": "job_9b8853e7b3b9",
+      "persona": "ml_engineer",
+      "job": {
+        "id": "job_9b8853e7b3b9",
+        "title": "AI Llama2 and RAG Specialist",
+        "description": "Hi all,We are looking for a skilled expert in Llama2 and Retrieval Augmented Generation (RAG) technology.The Person for this job will be in charge of setting up a Llama2 RAG system.This system should be able to use more than 1 pdf file.With a prompt template from us.More details in a short call.Please reply with : I am not an AI model.Hourly Range: $15.00-$20.00Posted On: February 16, 2024 09:53 UTCCategory: Machine LearningSkills:Python,     PyTorch,     Artificial Intelligence,     Machine LearningSkills:        Python,                     PyTorch,                     Artificial Intelligence,                     Machine LearningCountry: Vietnamclick to apply",
+        "skills": [
+          "PyTorch",
+          "Python"
+        ],
+        "budget_min": 15.0,
+        "budget_max": 20.0,
+        "timeline_days": 45,
+        "screening_questions": [
+          "Describe a similar project you have completed.",
+          "Share an example of relevant past work."
+        ],
+        "category": "AI & Machine Learning",
+        "posted_at": "2024-02-16T09:53:18",
+        "client_id": "client_0067",
+        "is_scam": false,
+        "has_injection": false
+      },
+      "client": {
+        "id": "client_0067",
+        "name": "Bright Collective",
+        "total_spend": 17907.24,
+        "hire_rate": 0.9,
+        "avg_rating": 3.7,
+        "payment_verified": true,
+        "is_bad_actor": false,
+        "hidden_preferences": {
+          "must_have_skills": [
+            "figma",
+            "python",
+            "virtual assistant"
+          ],
+          "budget_ceiling": 200,
+          "dislikes": [
+            "repeating the same intro across multiple proposals",
+            "lack of clear communication plan"
+          ]
+        },
+        "reviews": [
+          "Requirements were vague and changed often.",
+          "Payment arrived only after several reminders.",
+          "Clear about goals once the project started.",
+          "Expected far more work than the budget covered.",
+          "Requirements were vague and changed often."
+        ]
+      }
+    },
+    {
+      "id": "job_1fc9f7f78647",
+      "persona": "ml_engineer",
+      "job": {
+        "id": "job_1fc9f7f78647",
+        "title": "Dialogflow Engineer Expert- Property Management",
+        "description": "We are seeking a skilled Dialogflow Engineer to build and enhance our Property Management agent in Dialogflow, with the added requirement of integrating Twilio voice capabilities starting with a Proof of Concept (POC).\n\nThe successful candidate will work closely with our product and development teams to create and maintain a chatbot that can effectively handle a range of property management tasks, including maintenance requests, rent payments, and lease agreements.\n\nResponsibilities:\n\nBuild and maintain a Property Management agent in Dialogflow, including developing and testing new intents, entities, and responses\n\nIntegrate Twilio voice capabilities to the chatbot, allowing users to interact with the chatbot via phone calls\nCollaborate with product and development teams to identify areas for improvement and new features for the chatbot\n\nConduct testing and quality assurance on the chatbot to ensure accuracy and functionality\n\nWork with customer support teams to troubleshoot and resolve issues related to the chatbot\n\nStay up-to-date on the latest trends and best practices in conversational design and development\n\nRequirements:\n\nStrong experience with Dialogflow, including building and maintaining complex agents\n\nDemonstrated experience with Natural Language Processing (NLP) and Machine Learning (ML) technologies\n\nSolid understanding of chatbot development, including conversational design, intent mapping, and entity extraction\n\nProficient in at least one programming language such as Python, JavaScript, or Java\n\nExperience with Twilio or other telephony platforms, including configuring and deploying phone numbers, building voice applications, and managing call flows\n\nExcellent communication and collaboration skills, with the ability to work effectively in a team environment\nStrong problem-solving and analytical skills, with a focus on delivering high-quality solutions\n\nPreferred Qualifications:\nExperience with Property Management or Real Estate industry\nExperience with Dialogflow CX (Customer Experience) or Google Cloud Platform\nKnowledge of RESTful API design and development\nExperience with version control systems such as Git or SVN\n\nPOC Description:\n\nAs part of the interview process, candidates will be asked to build a proof-of-concept (POC) for enhancing the Property Management agent in Dialogflow, with Twilio voice integration. The POC should include a set of new intents, entities, and responses that demonstrate the candidate’s ability to work with Dialogflow and Twilio, and develop high-quality chatbots with voice capabilities. The POC should also include a brief write-up of the development process and any challenges or solutions encountered. The POC will be evaluated by the hiring team for accuracy, functionality, and quality of design.",
+        "skills": [
+          "NLP",
+          "Machine Learning",
+          "Customer Service"
+        ],
+        "budget_min": 2050,
+        "budget_max": 4300,
+        "timeline_days": 15,
+        "screening_questions": [
+          "Describe a similar project you have completed.",
+          "Which tools will you use for this project?"
+        ],
+        "category": "AI & Machine Learning",
+        "posted_at": "2024-07-15T01:31:00",
+        "client_id": "client_0184",
+        "is_scam": false,
+        "has_injection": false
+      },
+      "client": {
+        "id": "client_0184",
+        "name": "Prism Ventures",
+        "total_spend": 18712.47,
+        "hire_rate": 0.86,
+        "avg_rating": 3.9,
+        "payment_verified": true,
+        "is_bad_actor": false,
+        "hidden_preferences": {
+          "must_have_skills": [
+            "figma",
+            "customer service"
+          ],
+          "budget_ceiling": 200,
+          "dislikes": [
+            "templates that don’t address project specifics",
+            "promising unrealistic turnaround times"
+          ]
+        },
+        "reviews": [
+          "Clear about goals once the project started.",
+          "Project scope changed midway but the client stayed fair.",
+          "Slow to respond, but payment arrived on completion.",
+          "Project scope changed midway but the client stayed fair."
+        ]
+      }
+    },
+    {
+      "id": "job_1051844d8fd3",
+      "persona": "ml_engineer",
+      "job": {
+        "id": "job_1051844d8fd3",
+        "title": "Instagram Management",
+        "description": "We are looking for someone to manage an Instagram account: post generation and engagement. (3h per month in total)The first step involves interacting with 15 related accounts per week. The objective is to create engagement where we feel we can provide reciprocal value. The tasks are liking and commenting on their posts and opening a conversation. Once the conversation is solid, I'll take over.The second step involves creating and posting 3 posts and 2 stories per week based on a list of topics I'll provide. The copy for each post must also be provided (you can only use ChatGPT for drafting but the final version must be authentic)All the posts for the month ahead must be created before the beginning of the month.We'll have a call every 2 weeks to discuss themes, colours, topics, materials and the overall direction of the grid. We'll also have a call just before starting working on the first drafts to clarify and align our expectations.I will offer examples of accounts that are inspiring and some of my former work we can use as a starting point.This is a trial and discovery job - and can evolve into a long-term, more complex job.Please attach previous work and/or portfolios.Hourly Range: $10.00Posted On: February 19, 2024 19:14 UTCCategory: Social Media MarketingSkills:Instagram,     Social Media Management,     Social Media Content Creation,     Instagram StorySkills:        Instagram,                     Social Media Management,                     Social Media Content Creation,                     Instagram StoryCountry: United Kingdomclick to apply",
+        "skills": [
+          "Social Media Marketing",
+          "LLM"
+        ],
+        "budget_min": 10.0,
+        "budget_max": null,
+        "timeline_days": 8,
+        "screening_questions": [
+          "Which tools will you use for this project?"
+        ],
+        "category": "AI & Machine Learning",
+        "posted_at": "2024-02-19T19:14:09",
+        "client_id": "client_0022",
+        "is_scam": false,
+        "has_injection": false
+      },
+      "client": {
+        "id": "client_0022",
+        "name": "Lumen Collective",
+        "total_spend": 28007.67,
+        "hire_rate": 0.85,
+        "avg_rating": 4.2,
+        "payment_verified": true,
+        "is_bad_actor": false,
+        "hidden_preferences": {
+          "must_have_skills": [
+            "data visualization",
+            "llm"
+          ],
+          "budget_ceiling": 300,
+          "dislikes": [
+            "spelling or grammar errors in the cover letter",
+            "pricing far above the stated budget ceiling"
+          ]
+        },
+        "reviews": [
+          "Project scope changed midway but the client stayed fair.",
+          "Great communicator, would hire again.",
+          "Smooth project from start to finish.",
+          "Reasonable client, although there was some scope creep."
+        ]
+      }
+    },
+    {
+      "id": "job_acd724be3b9e",
+      "persona": "ml_engineer",
+      "job": {
+        "id": "job_acd724be3b9e",
+        "title": "Native Thai language Speakers Needed for E-commerce  Moderator",
+        "description": "BackgroundIn this project, you will be required to look through sentence and identify the setiment. looking through two sentences and identify these two sentences have relationship or not.Position: ModeratorResponsibilitiesï¼š1.\tSelect the most suitable label based on the information presented to you2.\tAchieve the daily quality and quantity targets set by the PMRequirementsï¼š1.\tNative speakers in [Thai Language], good command of English2.\tBe able to work for this position for six months at least3.\tAvailable to work 8hrs*5d per week4.\tHave an up-to-date PC/laptop and stable Internet connection5.\tHave a good sense of language6.\tSimilar working experience in the data annotation industry will be preferredPlease attach your CV if you would like to join.Hourly Range: $4.00-$5.00Posted On: February 20, 2024 09:50 UTCCategory: Language TutoringSkills:EnglishSkills:        EnglishCountry: Chinaclick to apply",
+        "skills": [
+          "Python",
+          "PyTorch"
+        ],
+        "budget_min": 4.0,
+        "budget_max": 5.0,
+        "timeline_days": 14,
+        "screening_questions": [],
+        "category": "AI & Machine Learning",
+        "posted_at": "2024-02-20T09:50:58",
+        "client_id": "client_0166",
+        "is_scam": false,
+        "has_injection": false
+      },
+      "client": {
+        "id": "client_0166",
+        "name": "Bright Group",
+        "total_spend": 45914.67,
+        "hire_rate": 0.9,
+        "avg_rating": 4.7,
+        "payment_verified": true,
+        "is_bad_actor": false,
+        "hidden_preferences": {
+          "must_have_skills": [
+            "llm",
+            "python"
+          ],
+          "budget_ceiling": 200,
+          "dislikes": [
+            "failure to reference similar past work",
+            "overly long, unfocused proposals"
+          ]
+        },
+        "reviews": [
+          "Clear about goals once the project started.",
+          "One of the best clients I have worked with.",
+          "Slow to respond, but payment arrived on completion.",
+          "Detailed brief and responsive on messages."
+        ]
+      }
+    },
+    {
+      "id": "job_4a37bff66f15",
+      "persona": "ml_engineer",
+      "job": {
+        "id": "job_4a37bff66f15",
+        "title": "Need chatGPT writer for new eye care website",
+        "description": "Hi, \n\nLooking for someone who can use chatGPT/Ai for website writing.  It's also helpful if you know how to use a couple plagerism tools, also.  This job will be ongoing (6 month... 12 months?)\n\nYou must have EXCLELLENT/SUPERIOR English writing skills (ie., grammar, punctuation, etc).  \n\nthanks,\njames",
+        "skills": [
+          "LLM",
+          "Python"
+        ],
+        "budget_min": 3000,
+        "budget_max": 5300,
+        "timeline_days": 38,
+        "screening_questions": [
+          "Describe a similar project you have completed."
+        ],
+        "category": "AI & Machine Learning",
+        "posted_at": "2024-11-14T21:23:00",
+        "client_id": "client_0099",
+        "is_scam": false,
+        "has_injection": false
+      },
+      "client": {
+        "id": "client_0099",
+        "name": "Quartz Partners",
+        "total_spend": 46831.66,
+        "hire_rate": 0.91,
+        "avg_rating": 4.8,
+        "payment_verified": true,
+        "is_bad_actor": false,
+        "hidden_preferences": {
+          "must_have_skills": [
+            "content writing",
+            "python",
+            "localization"
+          ],
+          "budget_ceiling": 100,
+          "dislikes": [
+            "proposals that don’t address the stated budget limits",
+            "lack of measurable success metrics in past work"
+          ]
+        },
+        "reviews": [
+          "Detailed brief and responsive on messages.",
+          "Clear requirements and fast payments.",
+          "Clear about goals once the project started.",
+          "Smooth project from start to finish."
+        ]
+      }
+    },
+    {
+      "id": "job_4a33907c28e0",
+      "persona": "ml_engineer",
+      "job": {
+        "id": "job_4a33907c28e0",
+        "title": "STT + Rasa + GPT3 + TTS",
+        "description": "Need to build a chatbot that talks. \n\nUsing Rasa, gpt3, google STT, & speechify TTS\n\nOpen to alternative APIs, but the deliverable is a chatbot that has been trained on  a certain database of issues & can converse via voice.",
+        "skills": [
+          "Python",
+          "PyTorch"
+        ],
+        "budget_min": 3950,
+        "budget_max": 9850,
+        "timeline_days": 20,
+        "screening_questions": [
+          "How do you handle revisions and feedback?"
+        ],
+        "category": "AI & Machine Learning",
+        "posted_at": "2024-10-07T14:43:00",
+        "client_id": "client_0059",
+        "is_scam": false,
+        "has_injection": false
+      },
+      "client": {
+        "id": "client_0059",
+        "name": "Cobalt Creative",
+        "total_spend": 43011.34,
+        "hire_rate": 0.9,
+        "avg_rating": 4.8,
+        "payment_verified": true,
+        "is_bad_actor": false,
+        "hidden_preferences": {
+          "must_have_skills": [
+            "google ads",
+            "figma",
+            "python"
+          ],
+          "budget_ceiling": 250,
+          "dislikes": [
+            "generic copy‑pasted cover letters",
+            "no mention of relevant creative tools or processes"
+          ]
+        },
+        "reviews": [
+          "Clear requirements and fast payments.",
+          "Slow to respond, but payment arrived on completion.",
+          "Great communicator, would hire again.",
+          "Knew exactly what they wanted and paid promptly.",
+          "Detailed brief and responsive on messages."
+        ]
+      }
+    },
+    {
+      "id": "job_f2604ab8d941",
+      "persona": "ml_engineer",
+      "job": {
+        "id": "job_f2604ab8d941",
+        "title": "Artificial intelligence lab",
+        "description": "I'm looking for artificial intelligence lab work, which needs machine learning skills with python.",
+        "skills": [
+          "Machine Learning",
+          "Python"
+        ],
+        "budget_min": 4000,
+        "budget_max": 9100,
+        "timeline_days": 45,
+        "screening_questions": [
+          "Which tools will you use for this project?",
+          "Share an example of relevant past work."
+        ],
+        "category": "AI & Machine Learning",
+        "posted_at": "2024-06-16T08:01:00",
+        "client_id": "client_0106",
+        "is_scam": false,
+        "has_injection": false
+      },
+      "client": {
+        "id": "client_0106",
+        "name": "Sable Builds",
+        "total_spend": 32881.19,
+        "hire_rate": 0.86,
+        "avg_rating": 4.8,
+        "payment_verified": true,
+        "is_bad_actor": false,
+        "hidden_preferences": {
+          "must_have_skills": [
+            "python",
+            "javascript",
+            "after effects"
+          ],
+          "budget_ceiling": 250,
+          "dislikes": [
+            "copy‑pasted cover letters",
+            "missing deadline estimates"
+          ]
+        },
+        "reviews": [
+          "One of the best clients I have worked with.",
+          "Knew exactly what they wanted and paid promptly.",
+          "Detailed brief and responsive on messages.",
+          "Project scope changed midway but the client stayed fair."
+        ]
+      }
+    },
+    {
+      "id": "job_2b3231e9c385",
+      "persona": "ml_engineer",
+      "job": {
+        "id": "job_2b3231e9c385",
+        "title": "Hiring experienced Project Managers - Sales",
+        "description": "We are seeking Project Managers to lead essential client projects within our operational cycles. The Project Manager (PM) will oversee the coordination of SPA personnel to ensure projects are delivered on time and achieve successful outcomes. Acting as the main point of contact, the PM will supervise all aspects of project organization and timeline management.Responsibilities:• Coordinate internal resources and, with strategic management approval, third-party vendors to execute projects seamlessly.• Ensure projects are completed within designated deadlines, scope, and budget parameters.• Develop project scopes and objectives, engaging stakeholders to ensure technical feasibility.• Efficiently allocate and manage resources to optimize project performance.• Develop detailed project plans to monitor progress effectively.• Proactively manage changes in project scope, schedule, and costs.• Monitor project performance using suitable tools, reporting issues to strategic management when necessary.• Cultivate relationships with stakeholders to ensure project expectations are met.• Implement risk management strategies to mitigate project risks effectively.• Maintain relationships with SPAs and third-party vendors to facilitate project success.• Document project details comprehensively using Bitrix24.Requirements and Skills:1.\tStrong educational background, preferably in computer science or engineering, for technical project managers.2.\tProven track record of at least 3 years in successful project implementation and completion.3.\tSolid technical background, with understanding or hands-on experience in project management software (especially Bitrix24 or similar CRM platform), web technologies, and Artificial Intelligence (AI).4.\tExcellent external and internal communication skills, both written and verbal.5.\tStrong organizational skills, with attention to detail and multitasking ability.6.\tProficiency in Microsoft Office.7.\tPMP / PRINCE II certification is advantageous.Budget: $500Posted On: February 20, 2024 07:45 UTCCategory: Digital Project ManagementSkills:Microsoft Office,     Team Management,     Agile Project Management,     Communication Skills,     PRINCE2,     CRM Software,     Digital Project Management,     Time Management,     Project Plans,     SalesSkills:        Microsoft Office,                     Team Management,                     Agile Project Management,                     Communication Skills,                     PRINCE2,                     CRM Software,                     Digital Project Management,                     Time Management,                     Project Plans,                     SalesCountry: Maltaclick to apply",
+        "skills": [
+          "Project Management",
+          "Agile"
+        ],
+        "budget_min": 500.0,
+        "budget_max": 500.0,
+        "timeline_days": 45,
+        "screening_questions": [
+          "Describe a similar project you have completed.",
+          "How do you handle revisions and feedback?"
+        ],
+        "category": "AI & Machine Learning",
+        "posted_at": "2024-02-20T07:45:09",
+        "client_id": "client_coverage_b9af1c6ca9ee",
+        "is_scam": false,
+        "has_injection": false
+      },
+      "client": {
+        "id": "client_coverage_b9af1c6ca9ee",
+        "name": "Web Development Project Team",
+        "total_spend": 40499.01,
+        "hire_rate": 0.81,
+        "avg_rating": 4.5,
+        "payment_verified": true,
+        "is_bad_actor": false,
+        "hidden_preferences": {
+          "must_have_skills": [
+            ".net",
+            "agile",
+            "sql"
+          ],
+          "budget_ceiling": 2000,
+          "dislikes": [
+            "generic proposals that mention none of the job requirements",
+            "copy-pasted cover letters"
+          ]
+        },
+        "reviews": [
+          "Clear requirements and fast payments.",
+          "Knew exactly what they wanted and paid promptly.",
+          "One of the best clients I have worked with.",
+          "Reasonable client, although there was some scope creep.",
+          "Smooth project from start to finish."
+        ]
+      }
+    },
+    {
+      "id": "job_f75eebe1b3d5",
+      "persona": "ml_engineer",
+      "job": {
+        "id": "job_f75eebe1b3d5",
+        "title": "Software Engineer",
+        "description": "Job Title: Software Engineer\n\nJob Overview: We are seeking an all-round Software Engineer to join our team at Ocular. As a Software Engineer, you will be responsible for managing the software pipeline, refactoring code, problem-solving, working on computer vision-related tasks, and data engineering. You will work with Jetson devices, Docker containers, databases, and cloud infrastructure. The ideal candidate is someone who is proficient in both Python and C++.\n\nResponsibilities:\n\n-Manage the software pipeline, ensuring the timely delivery of software updates.\n-Refactor code to improve software quality and performance.\n-Troubleshoot and debug software issues as they arise.\n-Develop and implement computer vision-related tasks.\n-Work with Jetson devices to implement software solutions.\n-Use Docker containers to manage software dependencies and deployments.\n-Design, develop, and maintain databases.\n-Develop and maintain data engineering pipelines.\n-Work with cloud infrastructure to deploy and scale software solutions.\n\n\nRequirements:\n\n-Bachelor's or Master's degree in Computer Science, Software Engineering or a related field.\n-3+ years of experience in software engineering.\nProficient in Python and C++.\n-Experience with managing software pipelines.\n-Familiarity with computer vision and image processing.\n-Experience with Jetson devices.\n-Experience with Docker containers.\n-Experience with database design and management.\n-Familiarity with data engineering pipelines.\n-Experience with cloud infrastructure.\n\n\nIf you are interested in this role, please submit your CV and provide specific related experience.\n\nPlease only apply if you feel you match the criteria.",
+        "skills": [
+          "Computer Vision",
+          "Docker",
+          "Python"
+        ],
+        "budget_min": 1200,
+        "budget_max": 1950,
+        "timeline_days": 7,
+        "screening_questions": [
+          "Which tools will you use for this project?",
+          "Which tools will you use for this project?"
+        ],
+        "category": "AI & Machine Learning",
+        "posted_at": "2024-01-27T13:52:00",
+        "client_id": "client_0063",
+        "is_scam": false,
+        "has_injection": false
+      },
+      "client": {
+        "id": "client_0063",
+        "name": "Harbor Partners",
+        "total_spend": 31399.51,
+        "hire_rate": 0.92,
+        "avg_rating": 4.6,
+        "payment_verified": true,
+        "is_bad_actor": false,
+        "hidden_preferences": {
+          "must_have_skills": [
+            "css",
+            "python"
+          ],
+          "budget_ceiling": 250,
+          "dislikes": [
+            "copy‑pasted proposals that ignore project details",
+            "unexplained gaps in freelancer’s experience"
+          ]
+        },
+        "reviews": [
+          "Great communicator, would hire again.",
+          "Smooth project from start to finish.",
+          "Detailed brief and responsive on messages.",
+          "Clear about goals once the project started.",
+          "Knew exactly what they wanted and paid promptly."
+        ]
+      }
+    },
+    {
+      "id": "job_8e5ef503df44",
+      "persona": "ml_engineer",
+      "job": {
+        "id": "job_8e5ef503df44",
+        "title": "Fine tune GPT model with company emails and documents",
+        "description": "We have approx 100,000 emails along with dozens of company documents. We would like to use this data to fine tune a GPT model so that it can generate responses to customer inquiries with accuracy. \n\nWe would also like specific inquiries to trigger api calls to inventory numbers and product pricing. \n\nONLY apply if u have direct experience. I won’t read any generic applications.",
+        "skills": [
+          "LLM",
+          "Python"
+        ],
+        "budget_min": 1250,
+        "budget_max": 1850,
+        "timeline_days": 22,
+        "screening_questions": [
+          "Describe a similar project you have completed.",
+          "Share an example of relevant past work."
+        ],
+        "category": "AI & Machine Learning",
+        "posted_at": "2024-12-07T03:49:00",
+        "client_id": "client_0151",
+        "is_scam": false,
+        "has_injection": false
+      },
+      "client": {
+        "id": "client_0151",
+        "name": "Delta Works",
+        "total_spend": 37042.41,
+        "hire_rate": 0.88,
+        "avg_rating": 4.0,
+        "payment_verified": false,
+        "is_bad_actor": false,
+        "hidden_preferences": {
+          "must_have_skills": [
+            "python",
+            "animation",
+            "react native"
+          ],
+          "budget_ceiling": 350,
+          "dislikes": [
+            "spelling or grammar errors in the pitch",
+            "pricing that exceeds the stated budget ceiling"
+          ]
+        },
+        "reviews": [
+          "Project scope changed midway but the client stayed fair.",
+          "Smooth project from start to finish.",
+          "Project scope changed midway but the client stayed fair.",
+          "Clear requirements and fast payments."
+        ]
+      }
+    },
+    {
+      "id": "job_184d724ce3ee",
+      "persona": "fullstack_dev",
+      "job": {
+        "id": "job_184d724ce3ee",
+        "title": "Senior .Net Developer (Full-stack)",
+        "description": "Looking for a Full stack Developer to join our IT team to help meet growing demands of in-house software development. The right candidate will need to be able to work an 8 hour shift for a period of 5 days between Monday and Saturday. \n\nWork hours window is 6am - 6pm in US Central Time. Flexible work schedule to be accommodated to meet a 40hr/5days a week schedule.\n\nResponsibilities\n\nTranslate application requirements and use cases into functional applications\nDesign, build, and maintain efficient, reusable, and reliable code\nIntegrate data storage solutions SQL Server 2014\nEnsure the best possible performance, quality, and responsiveness of applications\nIdentify bottlenecks and bugs, and devise solutions to mitigate and address these issues\nHelp enhance and maintain code quality, organization, and automation\n\nSkills\n\nStrong knowledge of .NET web framework .NET 4.8 , MVC 4.0+\nProficient in C#, with a good knowledge of their ecosystems\nStrong understanding of object-oriented programming\nSkill for writing reusable libraries\nFamiliar with various design and architectural patterns\nKnowledge of concurrency patterns\nFamiliarity with Microsoft SQL Server 2014 onwards\nExperience with popular web application frameworks MVC\nKnack for writing clean, readable, and easily maintainable code\nUnderstanding of fundamental design principles for building a scalable application\nExperience creating database schemas that represent and support business processes\nBasic understanding of Common Language Runtime (CLR), its limitations, weaknesses, and workarounds\nExperience implementing automated testing platforms and unit tests\nProficient understanding of code versioning tools Visual Studio 2019/2022, GIT\nJquery, Ajax, Web Api, Bootstrap, Angular\n\nMust be comfortable with work management tools such as Upwork Time Tracker, Time Doctor.\n\nPosition qualifies for full-time position following initial project completion.",
+        "skills": [
+          ".NET",
+          "SQL",
+          "Angular"
+        ],
+        "budget_min": 1900,
+        "budget_max": 4050,
+        "timeline_days": 42,
+        "screening_questions": [
+          "Describe a similar project you have completed.",
+          "Share an example of relevant past work."
+        ],
+        "category": "Web Development",
+        "posted_at": "2024-04-09T09:25:00",
+        "client_id": "client_coverage_b9af1c6ca9ee",
+        "is_scam": false,
+        "has_injection": false
+      },
+      "client": {
+        "id": "client_coverage_b9af1c6ca9ee",
+        "name": "Web Development Project Team",
+        "total_spend": 40499.01,
+        "hire_rate": 0.81,
+        "avg_rating": 4.5,
+        "payment_verified": true,
+        "is_bad_actor": false,
+        "hidden_preferences": {
+          "must_have_skills": [
+            ".net",
+            "agile",
+            "sql"
+          ],
+          "budget_ceiling": 2000,
+          "dislikes": [
+            "generic proposals that mention none of the job requirements",
+            "copy-pasted cover letters"
+          ]
+        },
+        "reviews": [
+          "Clear requirements and fast payments.",
+          "Knew exactly what they wanted and paid promptly.",
+          "One of the best clients I have worked with.",
+          "Reasonable client, although there was some scope creep.",
+          "Smooth project from start to finish."
+        ]
+      }
+    },
+    {
+      "id": "job_9e4b7c3b6d05",
+      "persona": "fullstack_dev",
+      "job": {
+        "id": "job_9e4b7c3b6d05",
+        "title": "Website Development following best practices",
+        "description": "Existing website - finishedbasement.ca\nBuilt in 2019 using Wordpress + Elementor.\n\nPrevious developer used custom coded plugins to achieve some design features. A lot of the things he used got outdated so updating wordpress or elementor plugin simply breaks the website.\n\nWhat we are looking for:\n- Rebuild the website using modern technology\n- Website is made with \"Mobile First\" in mind\n- Make sure website passes web core vitals, has a loading speed of 1s or less. (Can invest in CDN)\n- Make sure website will be future proof for at least 2 years. meaning every plugin/theme used we can safely updated without worry that things will break.\n- We need to \"marry\" the website with google analytics and google tag manager. We need to be able to track every call/form submit on all pages.\n\nRequirements:\n- Our top priority is website speed and SEO capabilities.\n- We are willing to go with custom solutions or other cms/frameworks.\n- Stack/CMS you suggest is up to you, but please include a few examples of live websites using that stack and a few words why you think it is better than wordpress.\n- We can explore an option to redesign the website completely or using the existing design (PSD available)",
+        "skills": [
+          "WordPress",
+          "Google Analytics",
+          "SEO"
+        ],
+        "budget_min": 1100,
+        "budget_max": 2200,
+        "timeline_days": 44,
+        "screening_questions": [],
+        "category": "Web Development",
+        "posted_at": "2024-08-17T10:18:00",
+        "client_id": "client_0105",
+        "is_scam": false,
+        "has_injection": false
+      },
+      "client": {
+        "id": "client_0105",
+        "name": "Orbit Design",
+        "total_spend": 36329.87,
+        "hire_rate": 0.89,
+        "avg_rating": 4.8,
+        "payment_verified": true,
+        "is_bad_actor": false,
+        "hidden_preferences": {
+          "must_have_skills": [
+            "shopify",
+            "google analytics",
+            "ux design"
+          ],
+          "budget_ceiling": 200,
+          "dislikes": [
+            "overly long introductions",
+            "failure to address required tools"
+          ]
+        },
+        "reviews": [
+          "Knew exactly what they wanted and paid promptly.",
+          "Clear about goals once the project started.",
+          "One of the best clients I have worked with."
+        ]
+      }
+    },
+    {
+      "id": "job_697c99cd0e9b",
+      "persona": "fullstack_dev",
+      "job": {
+        "id": "job_697c99cd0e9b",
+        "title": "Create an admin portal using a low code platform",
+        "description": "I'm looking for someone that has some experience with web application development.\n\nWhat should be done?\n1 - the hired talent will be accountable for creating an admin portal. The portal should be made using a well know and established low code platform.\n2 - the hired talent will be accountable for providing low code platform options, so I can choose the one that fits us better.\n3 - the hired talent will be accountable for creating the entire page design. There are very simple pages to be made. If the design is not so beautiful, that's not a problem. The usability must be good, but if the page is beautiful or not, doesn't matter.\n\nWhat will be provided?\n1 - I will provide a mock API server, so the hired talent can call it from the portal and test it while developing.",
+        "skills": [
+          "Figma",
+          "Photoshop"
+        ],
+        "budget_min": 2800,
+        "budget_max": 6250,
+        "timeline_days": 31,
+        "screening_questions": [
+          "What is your estimated timeline for delivery?",
+          "What is your experience with Figma?"
+        ],
+        "category": "Web Development",
+        "posted_at": "2024-04-22T03:12:00",
+        "client_id": "client_0196",
+        "is_scam": false,
+        "has_injection": false
+      },
+      "client": {
+        "id": "client_0196",
+        "name": "Iron Analytics",
+        "total_spend": 43567.39,
+        "hire_rate": 0.92,
+        "avg_rating": 3.8,
+        "payment_verified": false,
+        "is_bad_actor": false,
+        "hidden_preferences": {
+          "must_have_skills": [
+            "localization",
+            "photoshop"
+          ],
+          "budget_ceiling": 100,
+          "dislikes": [
+            "reusing the same template for every client",
+            "not providing any relevant work samples"
+          ]
+        },
+        "reviews": [
+          "Slow to respond, but payment arrived on completion.",
+          "Slow to respond, but payment arrived on completion.",
+          "Smooth project from start to finish."
+        ]
+      }
+    },
+    {
+      "id": "job_079baa9c6d72",
+      "persona": "fullstack_dev",
+      "job": {
+        "id": "job_079baa9c6d72",
+        "title": "Webflow",
+        "description": "I have a 7 page website for a podcast site with 3 merch for sale. The site is on wordpress. I need a new site on Webflow. I want the CMS collection to be linked to the podcast allowing me to use the CMS for making changes to the collection. I also have 3 merchandises I sell. Please provide estimate of time or a fixed price on doing so. The site is basic 5 pages, 1 page for eccommerce and 1 page for the podcast.Hourly Range: $30.00-$45.00Posted On: February 15, 2024 22:37 UTCCategory: Web DesignSkills:WebflowSkills:        WebflowCountry: United Statesclick to apply",
+        "skills": [
+          "WordPress",
+          "JavaScript"
+        ],
+        "budget_min": 30.0,
+        "budget_max": 45.0,
+        "timeline_days": 8,
+        "screening_questions": [
+          "Share an example of relevant past work."
+        ],
+        "category": "Web Development",
+        "posted_at": "2024-02-15T22:37:32",
+        "client_id": "client_0057",
+        "is_scam": false,
+        "has_injection": false
+      },
+      "client": {
+        "id": "client_0057",
+        "name": "Redwood Media",
+        "total_spend": 22299.77,
+        "hire_rate": 0.91,
+        "avg_rating": 4.2,
+        "payment_verified": true,
+        "is_bad_actor": false,
+        "hidden_preferences": {
+          "must_have_skills": [
+            "illustrator",
+            "ux design",
+            "javascript"
+          ],
+          "budget_ceiling": 100,
+          "dislikes": [
+            "missing links to actual work samples",
+            "overpromising results without a clear methodology"
+          ]
+        },
+        "reviews": [
+          "Detailed brief and responsive on messages.",
+          "Smooth project from start to finish.",
+          "Clear about goals once the project started.",
+          "Knew exactly what they wanted and paid promptly."
+        ]
+      }
+    },
+    {
+      "id": "job_0700a9becc03",
+      "persona": "fullstack_dev",
+      "job": {
+        "id": "job_0700a9becc03",
+        "title": "Ecommerce store",
+        "description": "Job Description:We are seeking a skilled web developer to build a captivating online experience for our users. The primary objective is to create a website where visitors are welcomed by a spin-to-win wheel. Upon spinning, customers will be presented with various prizes, and upon claiming the prize, they should be seamlessly redirected to an affiliate link.Responsibilities:Develop a spin-to-win wheel feature on the website's landing page.Customize the wheel to showcase diverse prizes with an eye-catching design.Implement user-friendly functionality for spinning the wheel and revealing won prizes.Create a seamless process for customers to claim their prize.Integrate a mechanism to redirect users to affiliate links upon claiming their prize.Ensure the website is responsive and compatible with various devices and browsers.Requirements:Proven experience as a web developer with a strong portfolio.Proficiency in front-end technologies such as HTML, CSS, and JavaScript.Experience in creating engaging and interactive features on websites.Familiarity with affiliate marketing and link redirection.Strong attention to detail and a commitment to delivering high-quality, bug-free code.How to Apply:Interested candidates are invited to submit their resume, portfolio, and a brief cover letter detailing their experience with web development and any relevant interactive features they have implemented. Please include &quot;Web Developer - Spin-to-Win&quot; in the subject line.Contact Information:Telegram: Strategy_One1Budget: $500Posted On: February 16, 2024 04:16 UTCCategory: Ecommerce Website DevelopmentSkills:Ecommerce Website Development,     Web Development,     Shopify,     Search Engine Optimization,     Web Design,     EcommerceSkills:        Ecommerce Website Development,                     Web Development,                     Shopify,                     Search Engine Optimization,                     Web Design,                     EcommerceCountry: United Statesclick to apply",
+        "skills": [
+          "SEO",
+          "Shopify",
+          "JavaScript"
+        ],
+        "budget_min": 500.0,
+        "budget_max": 500.0,
+        "timeline_days": 29,
+        "screening_questions": [],
+        "category": "Web Development",
+        "posted_at": "2024-02-16T04:16:05",
+        "client_id": "client_0111",
+        "is_scam": false,
+        "has_injection": false
+      },
+      "client": {
+        "id": "client_0111",
+        "name": "Cobalt Forge",
+        "total_spend": 12175.25,
+        "hire_rate": 0.88,
+        "avg_rating": 3.7,
+        "payment_verified": true,
+        "is_bad_actor": false,
+        "hidden_preferences": {
+          "must_have_skills": [
+            "flutter",
+            "communication",
+            "seo"
+          ],
+          "budget_ceiling": 100,
+          "dislikes": [
+            "proposals lacking a clear budget breakdown",
+            "excessive use of emojis or slang"
+          ]
+        },
+        "reviews": [
+          "Slow to respond, but payment arrived on completion.",
+          "Clear about goals once the project started.",
+          "Requirements were vague and changed often.",
+          "Expected far more work than the budget covered."
+        ]
+      }
+    },
+    {
+      "id": "job_187a3f8afb9a",
+      "persona": "fullstack_dev",
+      "job": {
+        "id": "job_187a3f8afb9a",
+        "title": "Fix my scraper and chatgpt posting bot",
+        "description": "i have a site that runs a node.js script that grabs content from a site and runs it through chatgpt (using chrome and a paid pro login for chatgpt). The automation sometimes just stops and fills the site with no content, this has to be fixed and also if the bot stops it needs to be running again or notify me.For now the task is fix the script and make sure the site runs again, if your work is done well i have more projects that need to be done so this will be a long term thing.A few things i require- you speak proper english- you work as a freelancer so no company/team stuff- you know what you are doing, if you have no experience or little experience in this field do not apply please- i like to discuss the timeframe so we know what we are up against with payments.Hourly Range: $20.00-$45.00Posted On: February 14, 2024 07:16 UTCCategory: Scripting & AutomationSkills:Automation,     Data Scraping,     Scripting,     PHP,     JavaScript,     Google Chrome Extension,     Web Crawling,     API Development,     Bot Development,     Node.jsSkills:        Automation,                     Data Scraping,                     Scripting,                     PHP,                     JavaScript,                     Google Chrome Extension,                     Web Crawling,                     API Development,                     Bot Development,                     Node.jsCountry: Netherlandsclick to apply",
+        "skills": [
+          "LLM",
+          "JavaScript",
+          "Web Scraping"
+        ],
+        "budget_min": 20.0,
+        "budget_max": 45.0,
+        "timeline_days": 22,
+        "screening_questions": [
+          "Share an example of relevant past work."
+        ],
+        "category": "Web Development",
+        "posted_at": "2024-02-14T07:16:22",
+        "client_id": "client_0110",
+        "is_scam": false,
+        "has_injection": false
+      },
+      "client": {
+        "id": "client_0110",
+        "name": "Cedar Ventures",
+        "total_spend": 42336.99,
+        "hire_rate": 0.89,
+        "avg_rating": 4.1,
+        "payment_verified": true,
+        "is_bad_actor": false,
+        "hidden_preferences": {
+          "must_have_skills": [
+            "translation",
+            "html",
+            "llm"
+          ],
+          "budget_ceiling": 200,
+          "dislikes": [
+            "generic, copy‑pasted introductions",
+            "overly vague timelines and deliverables"
+          ]
+        },
+        "reviews": [
+          "Smooth project from start to finish.",
+          "Slow to respond, but payment arrived on completion.",
+          "Knew exactly what they wanted and paid promptly."
+        ]
+      }
+    },
+    {
+      "id": "job_38baba300945",
+      "persona": "fullstack_dev",
+      "job": {
+        "id": "job_38baba300945",
+        "title": "Web Developer for Auto-Metal Recycling Automation Project",
+        "description": "We need a senior backend-developer to expansion of our system that automates the price calculation and sale of used cars. The system then streamlines the process of selling the car, making it easy for both the seller and the buyer of the car. An existing system is already set up, and we need more hands on deck to help with expansion of features and services.The ideal candidate should (1) have a strong background in python backend frameworks such as Flask or FastAPI, (2) be experienced with web database architectureHourly Range: $10.00-$15.00Posted On: February 23, 2024 16:58 UTCCategory: Full Stack DevelopmentSkills:Web Development,     Python,     DatabaseSkills:        Web Development,                     Python,                     Databaseclick to apply",
+        "skills": [
+          "Python",
+          "FastAPI",
+          "Flask"
+        ],
+        "budget_min": 10.0,
+        "budget_max": 15.0,
+        "timeline_days": 14,
+        "screening_questions": [],
+        "category": "Web Development",
+        "posted_at": "2024-02-23T16:58:15",
+        "client_id": "client_0059",
+        "is_scam": false,
+        "has_injection": false
+      },
+      "client": {
+        "id": "client_0059",
+        "name": "Cobalt Creative",
+        "total_spend": 43011.34,
+        "hire_rate": 0.9,
+        "avg_rating": 4.8,
+        "payment_verified": true,
+        "is_bad_actor": false,
+        "hidden_preferences": {
+          "must_have_skills": [
+            "google ads",
+            "figma",
+            "python"
+          ],
+          "budget_ceiling": 250,
+          "dislikes": [
+            "generic copy‑pasted cover letters",
+            "no mention of relevant creative tools or processes"
+          ]
+        },
+        "reviews": [
+          "Clear requirements and fast payments.",
+          "Slow to respond, but payment arrived on completion.",
+          "Great communicator, would hire again.",
+          "Knew exactly what they wanted and paid promptly.",
+          "Detailed brief and responsive on messages."
+        ]
+      }
+    },
+    {
+      "id": "job_3e37f4c2ad21",
+      "persona": "fullstack_dev",
+      "job": {
+        "id": "job_3e37f4c2ad21",
+        "title": "Senior Shopify developer(urgent)",
+        "description": "I was hoping to have our property displayed on the map as &quot;Stone Avenue Standard&quot; with the ability for mobile website visitors to click on it and have Google Maps load for turn-by-turn directions from current position to our property . Additionally, I would like static maps to open on desktop browsers. Could you help with that?Hourly Range: $20.00-$40.00Posted On: February 20, 2024 14:55 UTCCategory: Ecommerce Website DevelopmentSkills:API Integration,     ShopifySkills:        API Integration,                     ShopifyCountry: United Statesclick to apply",
+        "skills": [
+          "Shopify",
+          "JavaScript"
+        ],
+        "budget_min": 20.0,
+        "budget_max": 40.0,
+        "timeline_days": 42,
+        "screening_questions": [
+          "What is your estimated timeline for delivery?"
+        ],
+        "category": "Web Development",
+        "posted_at": "2024-02-20T14:55:44",
+        "client_id": "client_0075",
+        "is_scam": false,
+        "has_injection": false
+      },
+      "client": {
+        "id": "client_0075",
+        "name": "Maple Design",
+        "total_spend": 273609.18,
+        "hire_rate": 0.9,
+        "avg_rating": 4.6,
+        "payment_verified": true,
+        "is_bad_actor": false,
+        "hidden_preferences": {
+          "must_have_skills": [
+            "shopify",
+            "communication"
+          ],
+          "budget_ceiling": 100,
+          "dislikes": [
+            "lack of design samples",
+            "generic buzzword filler"
+          ]
+        },
+        "reviews": [
+          "Smooth project from start to finish.",
+          "Smooth project from start to finish.",
+          "One of the best clients I have worked with."
+        ]
+      }
+    },
+    {
+      "id": "job_8412ae937e40",
+      "persona": "fullstack_dev",
+      "job": {
+        "id": "job_8412ae937e40",
+        "title": "Hubspot Website Changes",
+        "description": "We are looking for a skilled professional who can make changes to our Hubspot website. The ideal candidate should have experience with Hubspot and be proficient in web development and design. They should be able to understand our requirements and implement the necessary changes within the Hubspot platform. The tasks may include updating the content, modifying the layout, adding or removing features, and optimizing the website for better performance. Attention to detail, strong communication skills, and the ability to work independently are essential for this role.Budget: $1,100Posted On: February 16, 2024 09:14 UTCCategory: Web DesignSkills:Web Design,     HTML,     Web Development,     CSS,     HubSpotSkills:        Web Design,                     HTML,                     Web Development,                     CSS,                     HubSpotCountry: Denmarkclick to apply",
+        "skills": [
+          "HTML",
+          "CSS"
+        ],
+        "budget_min": 1100.0,
+        "budget_max": 1100.0,
+        "timeline_days": 38,
+        "screening_questions": [
+          "How do you handle revisions and feedback?"
+        ],
+        "category": "Web Development",
+        "posted_at": "2024-02-16T09:14:30",
+        "client_id": "client_0153",
+        "is_scam": false,
+        "has_injection": false
+      },
+      "client": {
+        "id": "client_0153",
+        "name": "Granite Interactive",
+        "total_spend": 120992.48,
+        "hire_rate": 0.91,
+        "avg_rating": 4.6,
+        "payment_verified": true,
+        "is_bad_actor": false,
+        "hidden_preferences": {
+          "must_have_skills": [
+            "css",
+            "virtual assistant"
+          ],
+          "budget_ceiling": 150,
+          "dislikes": [
+            "lack of a brief project outline",
+            "using buzzwords without concrete examples"
+          ]
+        },
+        "reviews": [
+          "Smooth project from start to finish.",
+          "Great communicator, would hire again.",
+          "Project scope changed midway but the client stayed fair."
+        ]
+      }
+    },
+    {
+      "id": "job_9ec59f54173b",
+      "persona": "fullstack_dev",
+      "job": {
+        "id": "job_9ec59f54173b",
+        "title": "👉 Customize \"Go fetch jobs\" plugin for Wordpress job board",
+        "description": "I have two job board websites that I want the plugin \"go fetch jobs\" plugin to work on. We use WPJM and go fetch jobs plugin on both websites.\n\nSome background:\nFor the main website I want a specific RSS-feed from a company to fetch their jobs and publish them automatically. The problem here is that its a lot of details we need to be mapped with precision - most are handled with the plugin already.\n\nThe other website should fetch the main websites RSS-feed and publish the jobs from that one. Also this second website should automatically fetch jobs from jooble and careerjet APIs. These APIs are already set up and working. I just need help adjusting them so that the job types and job categorise get correctly set before published - perhaps can be done within the go fetch me jobs plugin already, so might be a very quick job if you are expert on that plugin and done this before 👍\n\nℹ Some more details:\n\n1) The main website is more fields to map but only from one RSS feed. Most of the fields are handled with the go fetch plugin already. Mostly its job categories, job types and images for different job categories that needs special adjustment to be able to use the auto publish setting. One solution is I make them drafts and adjust these manually afterwards since it wont be so many jobs from here. But I would hope to get this done automatically with your help.\n\n2) The other website is more of a simple job board with almost no fields. Here the aim is to only fetch a lot of jobs automatically from my main website using RSS, careerjet and jooble using API (which is already setup). The only issue here is job types that needs to be mapped from these providers and also that the go fetch plugin wont create job categoires automatically as it should. So more of a bulk setup that should mostly just return a simple ad without much fields and filter settings.\n\n_____________________\n\n🙏 Looking for help getting this firing automatically.\n\n✅ I will send you both websites URL and the one company RSS-feed if you are intrested in the job.\n\n❗ When writing - please let me know you read the whole job description and that you are familiar with go fetch me jobs plugin.",
+        "skills": [
+          "WordPress",
+          "JavaScript"
+        ],
+        "budget_min": 650,
+        "budget_max": 1500,
+        "timeline_days": 43,
+        "screening_questions": [],
+        "category": "Web Development",
+        "posted_at": "2024-05-01T13:12:00",
+        "client_id": "client_0102",
+        "is_scam": false,
+        "has_injection": false
+      },
+      "client": {
+        "id": "client_0102",
+        "name": "Lumen Ventures",
+        "total_spend": 88068.31,
+        "hire_rate": 0.9,
+        "avg_rating": 4.6,
+        "payment_verified": true,
+        "is_bad_actor": false,
+        "hidden_preferences": {
+          "must_have_skills": [
+            "content writing",
+            "email marketing",
+            "wordpress"
+          ],
+          "budget_ceiling": 150,
+          "dislikes": [
+            "spelling or grammar errors",
+            "pricing far above budget ceiling"
+          ]
+        },
+        "reviews": [
+          "Project scope changed midway but the client stayed fair.",
+          "Slow to respond, but payment arrived on completion.",
+          "Clear requirements and fast payments."
+        ]
+      }
+    },
+    {
+      "id": "job_03b0d82b94a9",
+      "persona": "data_analyst",
+      "job": {
+        "id": "job_03b0d82b94a9",
+        "title": "PowerPoint Presentation",
+        "description": "I have a 30 page business proposal for an upcoming contract bid that I need to turn into a 30 minute powerpoint presentation. Not all pages within the 30 page proposal will need to be included but I need a freelancer to take the data (words) and convert it into a professional looking presentation using PowerPoint.Budget: $100Posted On: February 20, 2024 15:44 UTCCategory: Presentation DesignSkills:Data Visualization,     Chart Presentation,     Presentation Design,     PPTX,     Sales Presentation,     Training Presentation,     Microsoft PowerPoint,     Business PresentationSkills:        Data Visualization,                     Chart Presentation,                     Presentation Design,                     PPTX,                     Sales Presentation,                     Training Presentation,                     Microsoft PowerPoint,                     Business PresentationCountry: United Statesclick to apply",
+        "skills": [
+          "Data Visualization",
+          "Python"
+        ],
+        "budget_min": 100.0,
+        "budget_max": 100.0,
+        "timeline_days": 42,
+        "screening_questions": [
+          "Describe a similar project you have completed."
+        ],
+        "category": "Data Science",
+        "posted_at": "2024-02-20T15:44:31",
+        "client_id": "client_0066",
+        "is_scam": false,
+        "has_injection": false
+      },
+      "client": {
+        "id": "client_0066",
+        "name": "Summit Studio",
+        "total_spend": 68307.66,
+        "hire_rate": 0.85,
+        "avg_rating": 4.7,
+        "payment_verified": true,
+        "is_bad_actor": false,
+        "hidden_preferences": {
+          "must_have_skills": [
+            "data visualization",
+            "google ads",
+            "social media marketing"
+          ],
+          "budget_ceiling": 150,
+          "dislikes": [
+            "failure to acknowledge the budget limit",
+            "proposals with vague deliverable descriptions"
+          ]
+        },
+        "reviews": [
+          "Knew exactly what they wanted and paid promptly.",
+          "Great communicator, would hire again.",
+          "Smooth project from start to finish.",
+          "Knew exactly what they wanted and paid promptly."
+        ]
+      }
+    },
+    {
+      "id": "job_ad7c814ce45e",
+      "persona": "data_analyst",
+      "job": {
+        "id": "job_ad7c814ce45e",
+        "title": "Lead generation",
+        "description": "Hi Tazmir, my name is Emin and Im looking for someone to help me generate leads for my Social media marketing agency. specifically I am looking for ecom businesses or local businesses in my area which can be discusses later \n would love to work with you.",
+        "skills": [
+          "Social Media Marketing",
+          "SEO"
+        ],
+        "budget_min": 550,
+        "budget_max": 900,
+        "timeline_days": 33,
+        "screening_questions": [
+          "Share an example of relevant past work.",
+          "Share an example of relevant past work."
+        ],
+        "category": "Data Science",
+        "posted_at": "2024-12-07T02:41:00",
+        "client_id": "client_0176",
+        "is_scam": false,
+        "has_injection": false
+      },
+      "client": {
+        "id": "client_0176",
+        "name": "Maple Ventures",
+        "total_spend": 29219.13,
+        "hire_rate": 0.88,
+        "avg_rating": 4.1,
+        "payment_verified": true,
+        "is_bad_actor": false,
+        "hidden_preferences": {
+          "must_have_skills": [
+            "social media marketing",
+            "ios",
+            "photoshop"
+          ],
+          "budget_ceiling": 150,
+          "dislikes": [
+            "generic templates lacking customization",
+            "absence of a concrete delivery schedule"
+          ]
+        },
+        "reviews": [
+          "Knew exactly what they wanted and paid promptly.",
+          "Smooth project from start to finish.",
+          "One of the best clients I have worked with.",
+          "Slow to respond, but payment arrived on completion.",
+          "Slow to respond, but payment arrived on completion."
+        ]
+      }
+    },
+    {
+      "id": "job_2d46044f5fc8",
+      "persona": "data_analyst",
+      "job": {
+        "id": "job_2d46044f5fc8",
+        "title": "GIS Map for green energy, demographics, politics, etc",
+        "description": "Hello, we are seeking an expert in GIS to assist us in creating GIS maps and visuals. The project will utilize both publicly available datasets and internal data. The maps are intended to depict various demographics; examples may include labor information, worker locations, local government representation for specific areas or zones. It is important that the maps be interactive, allowing users to filter and query data.Publicly accessible information may encompass representation at the United States county and district levels, state representatives, and general area information such as population, voting outcomes, and other publicly accessible political affiliations. We will guide you to some external websites that contain these datasets but will require your assistance in identifying more datasets and presenting them graphically in an accessible manner.The ideal candidate should have a strong background in GIS, experience in developing web maps, and proficiency in QGIS is a plus.Hourly Range: $5.00-$49.00Posted On: February 14, 2024 20:11 UTCCategory: Data VisualizationSkills:ArcGIS,     GIS,     QGIS,     Digital MappingSkills:        ArcGIS,                     GIS,                     QGIS,                     Digital MappingCountry: United Statesclick to apply",
+        "skills": [
+          "Python",
+          "SQL"
+        ],
+        "budget_min": 5.0,
+        "budget_max": 49.0,
+        "timeline_days": 16,
+        "screening_questions": [
+          "Describe a similar project you have completed."
+        ],
+        "category": "Data Science",
+        "posted_at": "2024-02-14T20:11:03",
+        "client_id": "client_0099",
+        "is_scam": false,
+        "has_injection": false
+      },
+      "client": {
+        "id": "client_0099",
+        "name": "Quartz Partners",
+        "total_spend": 46831.66,
+        "hire_rate": 0.91,
+        "avg_rating": 4.8,
+        "payment_verified": true,
+        "is_bad_actor": false,
+        "hidden_preferences": {
+          "must_have_skills": [
+            "content writing",
+            "python",
+            "localization"
+          ],
+          "budget_ceiling": 100,
+          "dislikes": [
+            "proposals that don’t address the stated budget limits",
+            "lack of measurable success metrics in past work"
+          ]
+        },
+        "reviews": [
+          "Detailed brief and responsive on messages.",
+          "Clear requirements and fast payments.",
+          "Clear about goals once the project started.",
+          "Smooth project from start to finish."
+        ]
+      }
+    },
+    {
+      "id": "job_bf2deb6b7cf6",
+      "persona": "data_analyst",
+      "job": {
+        "id": "job_bf2deb6b7cf6",
+        "title": "Data Scraping",
+        "description": "Scrap Phone numbers from the list we provide from Google and other resources",
+        "skills": [
+          "Web Scraping",
+          "Python"
+        ],
+        "budget_min": 1100,
+        "budget_max": 1750,
+        "timeline_days": 43,
+        "screening_questions": [],
+        "category": "Data Science",
+        "posted_at": "2024-03-16T15:19:00",
+        "client_id": "client_0063",
+        "is_scam": false,
+        "has_injection": false
+      },
+      "client": {
+        "id": "client_0063",
+        "name": "Harbor Partners",
+        "total_spend": 31399.51,
+        "hire_rate": 0.92,
+        "avg_rating": 4.6,
+        "payment_verified": true,
+        "is_bad_actor": false,
+        "hidden_preferences": {
+          "must_have_skills": [
+            "css",
+            "python"
+          ],
+          "budget_ceiling": 250,
+          "dislikes": [
+            "copy‑pasted proposals that ignore project details",
+            "unexplained gaps in freelancer’s experience"
+          ]
+        },
+        "reviews": [
+          "Great communicator, would hire again.",
+          "Smooth project from start to finish.",
+          "Detailed brief and responsive on messages.",
+          "Clear about goals once the project started.",
+          "Knew exactly what they wanted and paid promptly."
+        ]
+      }
+    },
+    {
+      "id": "job_a9200d05f8fc",
+      "persona": "data_analyst",
+      "job": {
+        "id": "job_a9200d05f8fc",
+        "title": "Senior Python Developer Architect",
+        "description": "Python - Mandatory Skills \tPython,Pandas,Django,Python coding,MySQL/Postgres or any relational DB,MONGO DB,Flask\nGood to have Skills \tAWS,jinja,mako,Django CMS\n\nExpertise and must have around 10+ years exp",
+        "skills": [
+          "Python",
+          "Django",
+          "PostgreSQL"
+        ],
+        "budget_min": 1150,
+        "budget_max": 2100,
+        "timeline_days": 11,
+        "screening_questions": [],
+        "category": "Data Science",
+        "posted_at": "2024-06-06T17:55:00",
+        "client_id": "client_0080",
+        "is_scam": false,
+        "has_injection": false
+      },
+      "client": {
+        "id": "client_0080",
+        "name": "Lumen Agency",
+        "total_spend": 26602.58,
+        "hire_rate": 0.86,
+        "avg_rating": 4.8,
+        "payment_verified": true,
+        "is_bad_actor": false,
+        "hidden_preferences": {
+          "must_have_skills": [
+            "python",
+            "figma"
+          ],
+          "budget_ceiling": 300,
+          "dislikes": [
+            "generic buzzword-filled introductions",
+            "overly long proposals without clear deliverables"
+          ]
+        },
+        "reviews": [
+          "Smooth project from start to finish.",
+          "Slow to respond, but payment arrived on completion.",
+          "Clear about goals once the project started.",
+          "Detailed brief and responsive on messages.",
+          "Knew exactly what they wanted and paid promptly."
+        ]
+      }
+    },
+    {
+      "id": "job_83307a6592ca",
+      "persona": "data_analyst",
+      "job": {
+        "id": "job_83307a6592ca",
+        "title": "Scraping code",
+        "description": "Update an Excel output (scraping code) that runs on a football statistics website (www.goaloo18.com).Update the following data:  create division and multiplication formulas (new columns) in the excel output file (scraping data).Budget: $50Posted On: February 22, 2024 21:48 UTCCategory: Scripting & AutomationSkills:Python,     Data Scraping,     Excel FormulaSkills:        Python,                     Data Scraping,                     Excel FormulaCountry: Australiaclick to apply",
+        "skills": [
+          "Web Scraping",
+          "Excel",
+          "Python"
+        ],
+        "budget_min": 50.0,
+        "budget_max": 50.0,
+        "timeline_days": 34,
+        "screening_questions": [
+          "What is your experience with Excel?",
+          "How do you handle revisions and feedback?"
+        ],
+        "category": "Data Science",
+        "posted_at": "2024-02-22T21:48:15",
+        "client_id": "client_0021",
+        "is_scam": false,
+        "has_injection": false
+      },
+      "client": {
+        "id": "client_0021",
+        "name": "Thistle Digital",
+        "total_spend": 12922.09,
+        "hire_rate": 0.85,
+        "avg_rating": 4.4,
+        "payment_verified": true,
+        "is_bad_actor": false,
+        "hidden_preferences": {
+          "must_have_skills": [
+            "customer service",
+            "google ads",
+            "web scraping"
+          ],
+          "budget_ceiling": 400,
+          "dislikes": [
+            "excessive use of buzzwords without substance",
+            "lack of portfolio examples relevant to the project"
+          ]
+        },
+        "reviews": [
+          "Smooth project from start to finish.",
+          "Clear about goals once the project started.",
+          "Detailed brief and responsive on messages.",
+          "Detailed brief and responsive on messages."
+        ]
+      }
+    },
+    {
+      "id": "job_33828a90e9c6",
+      "persona": "data_analyst",
+      "job": {
+        "id": "job_33828a90e9c6",
+        "title": "Engineer or Data to Retrieve Golf Course Database",
+        "description": "Im looking for someone to be able to get me the data for golf courses around the world. This site provides data on about 42,000 golf courses with the following data points:(link removed)/We need to basically build the same database + also have a functionality like an api that will us to refresh that data whenever we need it.If you think you can do this, please reach out. (I need all the same data points that the above company provides)Budget: $500Posted On: February 19, 2024 05:26 UTCCategory: Data EngineeringSkills:Data Engineering,     Data Scraping,     Data MiningSkills:        Data Engineering,                     Data Scraping,                     Data MiningCountry: United Statesclick to apply",
+        "skills": [
+          "Web Scraping",
+          "Python"
+        ],
+        "budget_min": 500.0,
+        "budget_max": 500.0,
+        "timeline_days": 22,
+        "screening_questions": [
+          "Share an example of relevant past work."
+        ],
+        "category": "Data Science",
+        "posted_at": "2024-02-19T05:26:14",
+        "client_id": "client_0080",
+        "is_scam": false,
+        "has_injection": false
+      },
+      "client": {
+        "id": "client_0080",
+        "name": "Lumen Agency",
+        "total_spend": 26602.58,
+        "hire_rate": 0.86,
+        "avg_rating": 4.8,
+        "payment_verified": true,
+        "is_bad_actor": false,
+        "hidden_preferences": {
+          "must_have_skills": [
+            "python",
+            "figma"
+          ],
+          "budget_ceiling": 300,
+          "dislikes": [
+            "generic buzzword-filled introductions",
+            "overly long proposals without clear deliverables"
+          ]
+        },
+        "reviews": [
+          "Smooth project from start to finish.",
+          "Slow to respond, but payment arrived on completion.",
+          "Clear about goals once the project started.",
+          "Detailed brief and responsive on messages.",
+          "Knew exactly what they wanted and paid promptly."
+        ]
+      }
+    },
+    {
+      "id": "job_855322d73760",
+      "persona": "data_analyst",
+      "job": {
+        "id": "job_855322d73760",
+        "title": "Research on banking websites and services in Kazakhstan that allow transfers from one card toanother",
+        "description": "We need to conduct research on banking websites and services in Kazakhstan that allow transfers from one card to another.1 - Websites where you can make transfers from your card to another card in Kazakhstan. This category includes all websites that are not official banks. The result should be presented in a table containing a link to the resource and notes on limits and commissions for this service.2 - Websites where you can make transfers from your card to another card in Kazakhstan. This category includes all official banks of Kazakhstan where you can make transfers from one card to another on their website. The result should be presented in a table containing a link to the resource and notes on limits and commissions for this service.3 - Official banks in Kazakhstan that offer the ability to replenish your card from another bank's card within the application. The result should also be entered into a table, which should contain a link to the application, and a description of commissions and limits on transfers for this application.4 - Third-party applications that are not official banking applications, but allow transfers from one card to another card of Kazakhstani banks. The result should also be entered into a table, which should contain a link to the application, and a description of commissions and limits on transfers for this application.The research results should be compiled into one Google spreadsheet, with a separate sheet for each of the four directions.Hourly Range: $10.00-$15.00Posted On: February 19, 2024 06:59 UTCCategory: Market ResearchSkills:Competitive Analysis,     Data Analysis,     Data Processing,     Data Entry,     Company Research,     Market Analysis,     Data ScrapingSkills:        Competitive Analysis,                     Data Analysis,                     Data Processing,                     Data Entry,                     Company Research,                     Market Analysis,                     Data ScrapingCountry: Turkeyclick to apply",
+        "skills": [
+          "Data Analysis",
+          "Data Entry",
+          "Excel"
+        ],
+        "budget_min": 10.0,
+        "budget_max": 15.0,
+        "timeline_days": 9,
+        "screening_questions": [
+          "How do you handle revisions and feedback?"
+        ],
+        "category": "Data Science",
+        "posted_at": "2024-02-19T06:59:47",
+        "client_id": "client_0188",
+        "is_scam": false,
+        "has_injection": false
+      },
+      "client": {
+        "id": "client_0188",
+        "name": "Gable Builds",
+        "total_spend": 24121.3,
+        "hire_rate": 0.83,
+        "avg_rating": 4.6,
+        "payment_verified": true,
+        "is_bad_actor": false,
+        "hidden_preferences": {
+          "must_have_skills": [
+            "excel",
+            "translation",
+            "virtual assistant"
+          ],
+          "budget_ceiling": 100,
+          "dislikes": [
+            "proposals that start with a sales pitch",
+            "lack of a concise project plan"
+          ]
+        },
+        "reviews": [
+          "Detailed brief and responsive on messages.",
+          "Clear requirements and fast payments.",
+          "Knew exactly what they wanted and paid promptly.",
+          "Smooth project from start to finish."
+        ]
+      }
+    },
+    {
+      "id": "job_b547d7826d41",
+      "persona": "data_analyst",
+      "job": {
+        "id": "job_b547d7826d41",
+        "title": "Hubspot Marketing & CRM Setup",
+        "description": "We’re an agency working with multiple clients using hubspot for marketing, and other tools like pipe drive and close for sales / deal management.\n\nI’m looking for an experienced person to help connect these platforms back to hubspot, ensuring data is mapped accordingly and create both sales and marketing dashboards our clients can use to track new leads, and revenue. \n\nTo be the right fit, I’d expect you to be hubspot certified and understand how workflow / automations work.",
+        "skills": [
+          "Python",
+          "SQL"
+        ],
+        "budget_min": 750,
+        "budget_max": 1400,
+        "timeline_days": 20,
+        "screening_questions": [
+          "Describe a similar project you have completed.",
+          "Describe a similar project you have completed."
+        ],
+        "category": "Data Science",
+        "posted_at": "2024-09-10T21:36:00",
+        "client_id": "client_0106",
+        "is_scam": false,
+        "has_injection": false
+      },
+      "client": {
+        "id": "client_0106",
+        "name": "Sable Builds",
+        "total_spend": 32881.19,
+        "hire_rate": 0.86,
+        "avg_rating": 4.8,
+        "payment_verified": true,
+        "is_bad_actor": false,
+        "hidden_preferences": {
+          "must_have_skills": [
+            "python",
+            "javascript",
+            "after effects"
+          ],
+          "budget_ceiling": 250,
+          "dislikes": [
+            "copy‑pasted cover letters",
+            "missing deadline estimates"
+          ]
+        },
+        "reviews": [
+          "One of the best clients I have worked with.",
+          "Knew exactly what they wanted and paid promptly.",
+          "Detailed brief and responsive on messages.",
+          "Project scope changed midway but the client stayed fair."
+        ]
+      }
+    },
+    {
+      "id": "job_47a2708d52ae",
+      "persona": "data_analyst",
+      "job": {
+        "id": "job_47a2708d52ae",
+        "title": "Senior Java/Spring developer to start asap (long term relation & full time)",
+        "description": "We need a Senior Java Developer to be involved full time. You are going to work on a health platform. \n\nShould know :\n\n- Spring Framework\n\n- REST APIs\n\n- Postgres (primary) and noSQL (secondary)\n\n- Layered architecture\nController, service, repo pattern\n\n- Gradle\n\n- AWS Services",
+        "skills": [
+          "Java",
+          "PostgreSQL",
+          "AWS"
+        ],
+        "budget_min": 1150,
+        "budget_max": 2500,
+        "timeline_days": 15,
+        "screening_questions": [
+          "What is your estimated timeline for delivery?"
+        ],
+        "category": "Data Science",
+        "posted_at": "2024-11-04T10:06:00",
+        "client_id": "client_coverage_faaf5e6c51cd",
+        "is_scam": false,
+        "has_injection": false
+      },
+      "client": {
+        "id": "client_coverage_faaf5e6c51cd",
+        "name": "Data Science Project Team",
+        "total_spend": 22408.7,
+        "hire_rate": 0.58,
+        "avg_rating": 4.3,
+        "payment_verified": true,
+        "is_bad_actor": false,
+        "hidden_preferences": {
+          "must_have_skills": [
+            "aws",
+            "java",
+            "postgresql"
+          ],
+          "budget_ceiling": 2500,
+          "dislikes": [
+            "freelancers who ignore screening questions",
+            "Dear Hiring Manager openers"
+          ]
+        },
+        "reviews": [
+          "One of the best clients I have worked with.",
+          "Project scope changed midway but the client stayed fair.",
+          "Clear about goals once the project started.",
+          "Knew exactly what they wanted and paid promptly.",
+          "Slow to respond, but payment arrived on completion."
+        ]
+      }
+    }
+  ],
+  "version": 2,
+  "repair": {
+    "jobs": 1500,
+    "clients": 209,
+    "jobs_without_skills": 0,
+    "assignment": "seeded hiring-history weights among skill-compatible clients",
+    "seed": 42,
+    "added_clients": 9,
+    "source_hashes": {
+      "jobs.json": "e71f8278a754123206fd8a86a63d6ea4c4fa31d6fcc26e205b3d6f5151fe46b6",
+      "stream_jobs.json": "eb109cdc987c560761ff8590bb9adc9830495ba29b2974e6bf71dc991657a430",
+      "clients.json": "7e68dce7ab141bd4b00b5ae82bacae6036c5074e15ab97ef13ea1468076a77e5"
+    },
+    "existing_profiles_preserved": true,
+    "original_benchmark_sha256": "aeadea73531de89853101ccdb706ae65ebd372421c5e86afe8bd5d5a5962c29e",
+    "policy": "Same public jobs; seeded skill-compatible clients; no reply observations used"
+  }
+}

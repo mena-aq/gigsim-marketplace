@@ -5,13 +5,12 @@ import asyncio
 import hashlib
 import json
 import time
-from datetime import UTC, datetime
 from pathlib import Path
 
 from sqlalchemy import select
 
 from apps.api.models import MCPCredential, User
-from evals.runners.rag_eval import code_fingerprint
+from evals.runners.rag_metrics import code_fingerprint
 from evals.runners.rag_study import (
     StudyError,
     bootstrap,
@@ -139,11 +138,14 @@ def analyze_rows(rows: list[dict], dataset: dict) -> dict:
 async def main_async(args) -> None:
     config = load_config()
     dataset = load_dataset(args.dataset)
-    claimset = json.loads((ROOT / "evals/datasets/claim_dev.json").read_text())
+    claimset = json.loads(
+        getattr(
+            args, "claim_dataset", ROOT / "evals/datasets/claim_dev.json"
+        ).read_text()
+    )
     runtime = Runtime()
     args.output_dir.mkdir(parents=True, exist_ok=True)
-    timestamp = datetime.now(UTC).strftime("%Y%m%d_%H%M%S_%f")
-    path = args.output_dir / ("rag_ablation_" + timestamp + ".jsonl")
+    path = args.output_dir / "rag_ablation_observations.jsonl"
     try:
         async with runtime.sessions() as session:
             users = {
@@ -169,6 +171,7 @@ async def main_async(args) -> None:
             Path(__file__).read_bytes()
             + (ROOT / "evals/runners/rag_study.py").read_bytes()
             + (ROOT / "evals/runners/rag_eval.py").read_bytes()
+            + (ROOT / "evals/runners/rag_metrics.py").read_bytes()
         ).hexdigest()
         fingerprint = hashlib.sha256(
             (retrieval_fingerprint + wrapper_hash).encode()
@@ -182,14 +185,28 @@ async def main_async(args) -> None:
             != next(iter(manifests.values()))["embedding_digest"]
         ):
             raise StudyError("Installed model metadata differs from the indexed model")
-        rows = []
-        with path.open("w") as output:
+        rows = (
+            [json.loads(line) for line in path.read_text().splitlines()]
+            if path.exists()
+            else []
+        )
+        keys = [(row["id"], row["configuration"]) for row in rows]
+        expected = {(q["id"], c) for q in dataset["queries"] for c in CONFIGURATIONS}
+        if len(set(keys)) != len(keys) or not set(keys) <= expected:
+            raise StudyError("Duplicate or unexpected ablation observations")
+        if any(row["fingerprint"] != fingerprint for row in rows):
+            raise StudyError(
+                "Cannot resume ablation: model/index/code/fixtures changed"
+            )
+        with path.open("a") as output:
             for offset, query in enumerate(dataset["queries"]):
                 # Counterbalance shared-cache and execution-order effects without
                 # claiming this shared development CPU is controlled hardware.
                 pivot = offset % len(CONFIGURATIONS)
                 order = CONFIGURATIONS[pivot:] + CONFIGURATIONS[:pivot]
                 for configuration in order:
+                    if (query["id"], configuration) in keys:
+                        continue
                     user = users[query["persona"]]
                     pipeline = Pipeline(
                         config,

@@ -1,134 +1,165 @@
-# RAG comparison protocol
+# One RAG evaluation for Part B
 
-This is an exploratory development comparison, not a preregistered study. Smoke
-queries and CPU-budget tuning preceded the final run. The final table references
-one run with a fixed configuration/code/index fingerprint; interrupted diagnostic
-runs are not pooled into its aggregate.
+`make rag-eval` evaluates V0, V1, V2, V3 and V8 in one run. B3 claim verification
+is a stage of this evaluation and supplies B5's unsupported-claim measurements.
+Component ablation runs at the end. The completed V2–V3 R&D hypothesis study is
+separate and is not rerun automatically.
 
-Working hypotheses: requirement decomposition may help multi-requirement queries;
-hybrid retrieval may recover exact tool names; cross-encoder reranking may improve
-nDCG; grading/correction may improve no-evidence abstention at a latency cost.
-No outcome or winning variant is assumed. The user chooses the shipped variant.
+## Fixtures and execution
 
-The development set is agent-authored from the current synthetic case studies:
-30 queries, ten per persona (four direct, three multi-requirement, two paraphrase,
-one no-evidence). Positive labels are intentionally reviewable but not exhaustive;
-unjudged historical proposals/CVs/reviews count as nonrelevant. These provisional
-labels can understate retrieval quality. No human gold-label or judge-calibration
-claim is made. The 12 claim examples are also provisional and not Cohen's kappa
-calibration. Synthetic portfolio numbers are evidence within the simulator only.
+The benchmark uses 30 labelled retrieval queries (ten per persona), 12 controlled
+claim-regression examples, and 30 fixed GigSim jobs (ten per persona). Future runs use rag_jobs_v2.json,
+which preserves public jobs while repairing client associations. Query and
+regression labels remain agent-authored and provisional. Jobs were sampled with
+seed 42 from the processed data, excluding flagged scams/injections and job
+texts longer than 3,000 characters. Original hidden client preferences are never
+passed to the writer. The fixtures are parts of one benchmark; historical query
+and job measurements are not paired observations of the same jobs.
 
-All variants use the same 200-token chunks with 40-token overlap, user namespaces,
-embedding digest and cosine vectors. V0 is whole-query dense; V1 uses at most six
-source-quoted requirements; V2 fuses BM25/dense ranks; V3 reranks 20 candidates;
-V8 grades the best five unique candidates and can re-query once. V8 may return
-fewer than ten results; this is reflected in nDCG@10 rather than padded with
-unsupported evidence. Absent/partial support is preserved in diagnostics.
+Retrieval uses the configured 200-token chunks, 40 overlap, model revisions and
+user namespaces. V0 is dense; V1 selects source sentence/bullet IDs and reconstructs exact requirements; V2 uses
+BM25/dense RRF; V3 reranks 20 candidates; V8 grades five candidates and may run one
+corrective search. Missing/stale indexes fail explicitly rather than substituting
+lexical results. Empty-label queries are excluded from ranking metrics and have
+a separate correct-abstention metric. Retrieval failures score zero quality and
+never count as successful abstention.
 
-Timing covers retrieval-library calls, not MCP serialization/audit or a full
-proposal workflow. Verification examples use supplied gold-source chunks, not
-end-to-end generated proposals; their keep/removal rates are sentence-example
-metrics, not calibrated atomic-claim accuracy. Supported retention and unsafe
-removal must be considered together; dropping everything is not success.
+For each job/variant, retrieve evidence, write a short draft, verify claims,
+independently assess original/cleaned text, judge quality, and measure a simulated
+outcome. Variant order rotates per job. The same writer settings apply to every
+variant. All-minilm architecture metadata advertises 512 tokens, but installed
+Ollama parameters set num_ctx=256. Query inputs are therefore limited to 254
+tokens plus two special tokens; long inputs are explicitly truncated by the
+retriever and diagnosed. Existing 200-token chunks and vectors remain usable. Prompt text lives in agent/prompts/rag_*.md; settings live in
+agent/config.yaml. No model downloads or production sends are part of evaluation.
 
-Record Recall@5, MRR, nDCG@10 on positive queries; report correct abstention
-separately on empty-label queries. Retrieval failures count as zero quality and
-never count as successful abstention. Timing includes model loading when incurred;
-there is no explicit warmup. Runs are sequential on a shared development CPU,
-not dedicated benchmarking hardware. Token totals use Ollama-reported values;
-failed requests without usage reports cannot be assigned invented token counts.
-Local hardware cost is unknown, paid API cost is zero. No proposal reply/hire rate
-is measured in this milestone.
+New runs use timestamped directories with common code/configuration/fixture and
+model/runtime fingerprints. Each stage flushes raw observations; resumption
+preserves completed calls and failed observations. Completed stages are not
+repeated. Changing code, fixtures, model/runtime or a stage's index fingerprint
+requires a new run. Models execute sequentially on a shared CPU without an explicit
+warmup. This is not a dedicated-hardware latency benchmark.
 
-Claim verification extracts source-quoted claims, validates supplied evidence IDs,
-and excludes sentences with anything less than fully supported experience. A
-conservative literal-number guard also rejects numerical details absent from cited
-text; equivalent formats (for example 1.2M versus 1,200,000) require review rather
-than guessed conversion. Invalid/unavailable judgments mark affected text
-unverified and excluded. This is not a guarantee that a small model never makes
-semantic grading mistakes. The retained-claim unsupported rate is null if no
-sentences survive, never a fabricated perfect score.
+## B3 and B5 measurements
 
-## Quick R&D question B: a fixed hypothesis
+Claim verification splits drafts into source-quoted atomic claims and assigns
+supported, partly_supported, or unsupported status using owned evidence chunks.
+It verifies factual sentences individually using a schema restricted to their
+index and available evidence IDs. Plain intentions/questions are retained without
+generative grading. It removes unsupported/partial facts and only the sentence
+affected by a failed judgment. Conservative classification, number and unchecked-text guards close
+observed bypasses; they do not guarantee that a small model grades every fact
+correctly. Controlled claim examples remain regression diagnostics, rather than
+the generated-draft claim rates used in B5.
 
-Hypothesis: **Adding cross-encoder reranking to hybrid retrieval improves mean
-nDCG@10.** V3 is the candidate for this experiment; this does not select the
-production retriever. This is exploratory analysis of existing development data,
-not a preregistered or held-out confirmation.
+Independent assessment gets a separate prompt/context without verifier labels.
+Plain greetings, questions and explicit future intentions are excluded from
+experience counts by a conservative filter. Generation and assessment still use
+the same local model, so shared bias remains possible. Report unsupported atomic
+experience claims divided by assessed experience claims before and after
+verification, plus unsupported claims per assessed draft. Partly supported
+claims, assessment failures, empty drafts and exact-text supported retention are
+recorded separately. Empty claim denominators remain undefined; a zero rate with
+few assessed claims is not proof of zero hallucinations.
 
-Run the offline paired analysis yourself:
+The primary CSV has exactly the eight assignment columns, one row per variant:
+Variant, Evidence Recall@5, nDCG@10, Unsupported claims per proposal, Judge score,
+GigSim reply rate, p95 latency (s), Cost per proposal (USD). MRR, p50, tokens,
+counts, per-persona/category metrics, hire rate, B3 diagnostics and ablation remain
+in the same JSON/Markdown report. p95 covers retrieval, drafting and verification;
+it excludes evaluation-only assessment, judge calls and simulator waiting. Model
+loading is included when incurred. Paid API spend is zero; total USD per proposal
+is unmeasured without hardware/electricity accounting.
 
-```bash
-uv run python -m evals.runners.rag_rd_b \
-  --run evals/results/rag_20261113_155449.jsonl
-```
+GigSim outcomes use real in-memory Marketplace MCP sessions and fresh in-memory
+simulator/approval databases. Redis quotas and chaos are disabled for the fixture.
+The job, original client preferences and per-job random seed are identical across
+variants. GigSim derives skill mentions from the cleaned cover letter; the writer
+cannot supply invented skill metadata. Reply rate counts replied/interview/hired
+outcomes among successfully submitted proposals with completed outcomes. Report
+submission failures, empty drafts, outcome failures and reply yield per attempted
+job alongside it. GigSim checks skill mentions, generic openings and randomness,
+not semantic proposal quality, so improved retrieval need not increase replies.
+Production agent workflows will later run through the same evaluation entry point
+with their workflow profile recorded separately.
 
-Use the exact JSONL file you want to analyze. Every dataset query must have exactly
-one V2 and one V3 observation, with one shared retrieval fingerprint and matching
-persona/type metadata. Duplicate/missing observations and mismatched environment
-sidecars are rejected. The script re-scores rankings against the supplied labels,
-rather than trusting previously saved metric values. It requires no live services,
-models, or database connection.
+## One-score human calibration
 
-Primary endpoint: mean paired nDCG@10 difference, V3 minus V2, on positive-label
-queries. Empty-label queries are excluded from ranking metrics and have a separate
-abstention metric. Failures count as zero quality and never successful abstention.
-The percentile bootstrap uses 10,000 samples, seed 42, resampling paired differences
-within persona. An interval above zero is an observed improvement; below zero is
-an observed decrease; overlapping zero is inconclusive. Equal scores are reported
-as no observed difference. These development-data intervals do not establish
-population-wide significance or higher reply rate. Secondary endpoints are
-Recall@5, MRR, failures, and recorded latency; do not pick a different primary
-endpoint after seeing the result.
+Generate a 30-item blinded pack from six scored outputs per variant, aiming for
+two per persona; sparse cells are filled from other personas of that variant.
+This sample represents judge-scored survivors and excludes failed/empty outputs.
+The rubric asks for one overall integer score, 1–5, combining relevance,
+specificity, grounding and clarity. Fill only human_score in rag_human_review.csv;
+no sub-scores or comments are required. Do not inspect rag_calibration_key.json
+before scoring. Existing human labels are never overwritten automatically.
 
-Historical observations store query IDs, not query text. Preserve the original
-query text for those IDs. Labels can be reviewed and re-scored; changed query text
-requires a fresh run/new IDs. The analysis saves the actual scoring dataset and
-its hash, the source run/hash/fingerprint, and per-query pairs. Per-persona/type
-deltas and full summaries are in rag_rd_b.json; the Markdown file gives a short
-finding and comparison table. No model inference is needed for this script.
+`make rag-calibrate` imports all 30 real labels, validates reviewed text against
+observations, and reports exact agreement and unweighted Cohen's kappa. Judge
+means are published even with low agreement, explicitly labelled provisional;
+the former 0.4 reference is diagnostic only. Changed proposals need a new review
+pack. The separate blind pairwise classmate panel required by B4 remains pending.
 
-## Quick one-component-at-a-time ablation
+## Ablation and separate R&D hypothesis
 
-```bash
-uv run python -m evals.runners.rag_ablation
-```
+The existing hypothesis is that cross-encoder reranking improves mean nDCG@10
+over hybrid retrieval. Its offline V2–V3 analysis uses paired differences on
+positive queries, a 10,000-sample percentile bootstrap with seed 42, and
+resampling within persona. An interval above zero is observed improvement;
+covering zero is inconclusive. This exploratory development result does not prove
+better replies or population-wide significance. The earlier experiment was not
+preregistered or held out; no stronger claim is made now.
 
-This measures three configurations fresh on the same development queries:
+The main evaluation automatically measures full V3, without reranking, and
+without BM25, removing one added component at a time while retaining dense
+retrieval. All arms share the same chunk candidate limit (20 by default), return
+at most ten unique items, rotate execution order, and use a no-generation guard.
+Removing BM25 reranks the raw dense chunk pool, not V0's deduplicated output.
+Full-minus-ablated effects, bootstrap intervals and persona/query-type breakdowns
+are included in the RAG summary. Ablation observations are resumable. This does
+not add registered RAG variants or select the shipped variant automatically.
 
-| Configuration | Dense | BM25 | Cross-encoder |
-| --- | --- | --- | --- |
-| full_v3 | yes | yes | yes |
-| without_reranker | yes | yes | no |
-| without_bm25 | yes | no | yes |
+## Commands and imported evidence
 
-These are experiment wrappers, not new registered RAG variants. The dense
-backbone remains in place. All arms use the same candidate limit (20 chunks by
-default) and return at most ten unique items after final ranking. Removing BM25
-uses the raw dense chunk pool before reranking, not already-deduplicated V0 output.
-Removing the reranker calls the existing V2 implementation unchanged.
+- `make rag-table`: regenerate the CSV, report and README offline.
+- `make rag-calibrate`: import the active run's human scores and regenerate.
+- `make rag-eval` (or `make eval`): execute the complete benchmark and ablation.
+- `make rag-smoke`: execute a small check without publishing it as the full run.
 
-The dataset is evaluated sequentially, rotating configuration order per query to
-reduce fixed order/cache bias. Each arm has a fresh pipeline context; there is no
-explicit warmup and model loading is included. Qwen/decomposition/grading/claim
-verification is never invoked: an explicit no-generation guard rejects such calls.
-Ollama embeddings, Chroma, the existing indexes, and provisioned user mappings
-must be available. No models are downloaded and the active variant is unchanged.
+Current outputs are evals/results/rag_comparison.json, .csv and .md. The JSON
+records the active artifact directory and hashes every source. Historical
+retrieval/workflow observations, ablation, human labels and calibration were
+imported without inference. Originals under evals/results/proposal/ and historical
+JSONL files are preserved as evidence. Imported measurements retain their original
+fingerprints rather than pretending they came from one fresh run. The source
+import manifest records the copied artifacts and hashes. See the runbook for
+resume commands and prerequisites.
 
-Queries/configurations are flushed to a timestamped JSONL as they complete. A
-changed/stale index or missing model stops the run; transient retrieval failures
-are recorded as zero quality. Completed reports contain per-query evidence,
-per-persona/type summaries, and paired full-minus-ablated effects. Positive effects
-mean that the removed component helped on this dataset. Latency comes from this
-fresh run; do not pool it with cached timings from the hypothesis analysis.
+## Failure diagnosis and corrected data
 
-The default output directory is evals/results. Both scripts accept --dataset and
---output-dir for separate review/experiments. Completed outputs are:
+The historical 150 attempts had 44 embedding errors and 12 unanchored
+requirement-extraction errors. All 42 submissions were rejected at GigSim's
+skill gate: random job/client assignments left 29/30 public job skill sets
+incompatible with their clients. This did not measure real response quality.
 
-- rag_rd_b.json / .csv / .md, plus rag_rd_b_queries.jsonl and rag_rd_b_dataset.json.
-- rag_ablation.json / .csv / .md, plus a timestamped raw run, consolidated query
-  evidence, and the exact scoring-dataset snapshot.
+Data generation now weights job assignment only among skill-compatible clients,
+adding deterministic category-specific profiles where coverage is missing.
+Bad actors remain eligible; profiles are never chosen from observed replies.
+`make rag-repair-data` applies the same matching policy to existing processed
+inputs, writes separate seed files under data/processed/repaired_clients/, and
+freezes rag_jobs_v2.json. It preserves all 30 job IDs/public fields, existing
+client profiles, original snapshots, measured results and human scores. The
+repaired 1,500-job seed has 209 clients (nine coverage profiles beyond the 200
+originals). Existing bad actors remain present; no reply rules were changed.
 
-A new execution overwrites the corresponding derived summaries; use a separate
---output-dir if you want to retain several analysis reports. Source run files are
-not changed. Partial ablation runs are not treated as completed summaries.
+Before model inference, preflight checks every job/client skill intersection,
+the embedding runtime budget, a boundary embedding, and real MCP positive and
+negative reply controls in fresh fixtures. Control outcomes are excluded from
+measured reply rates. A compatible control may reply, while an actual draft
+that omits the matching public skill is still rejected. Do not force a nonzero
+benchmark rate or provide hidden preferences to the writer.
+
+JSON/Markdown diagnostics distinguish embedding/decomposition/structured-model
+failures, verifier and assessment errors, empty drafts, low-hire-rate and skill
+rejections, generic openings, and eligible-but-no-reply outcomes. Old reply gates
+can be reconstructed from saved inputs without rewriting outcomes. Changed drafts
+from a new run require a fresh human review pack; old scores are not transferable.

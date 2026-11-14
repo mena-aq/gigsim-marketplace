@@ -85,7 +85,7 @@ services:
       PORTFOLIO_MCP_URL: http://portfolio-mcp:8000/mcp
       MARKETPLACE_MCP_URL: http://marketplace-mcp:8000/mcp
       WORKSPACE_MCP_URL: http://workspace-mcp:8000/mcp
-    command: ["alembic", "upgrade", "head"]
+    command: ["sh", "-c", "alembic upgrade head && python -m agent.persistence"]
     depends_on:
       postgres:
         condition: service_healthy

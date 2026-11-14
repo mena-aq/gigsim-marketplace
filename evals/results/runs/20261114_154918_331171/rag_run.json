@@ -1,0 +1,13 @@
+{
+  "fingerprint": "c16a8942470e92555e79afd7c786eceebfad7b9a4b8a2b7345787720b85df794",
+  "stages": [],
+  "limit": 0,
+  "variants": [
+    "v0",
+    "v1",
+    "v2",
+    "v3",
+    "v8"
+  ],
+  "workflow": "rag_benchmark"
+}

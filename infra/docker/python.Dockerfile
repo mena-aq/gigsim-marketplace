@@ -11,6 +11,7 @@ COPY worker/ worker/
 COPY agent/ agent/
 COPY rag/ rag/
 COPY mcp_servers/ mcp_servers/
+COPY data/policy_pack/ data/policy_pack/
 COPY alembic.ini ./
 COPY infra/ollama_bridge.py infra/ollama_bridge.py
 ENV PATH="/app/.venv/bin:$PATH"

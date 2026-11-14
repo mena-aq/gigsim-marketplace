@@ -75,12 +75,31 @@ class StructuredLLM:
                         }
                     )
                     return schema.model_validate_json(data["message"]["content"])
-                except (httpx.HTTPError, KeyError, ValueError, ValidationError):
-                    if attempt == 1:
-                        raise RagFailure(
-                            "model_response_invalid",
-                            "Structured Qwen inference failed; no result was guessed",
-                            True,
-                        ) from None
-                    await asyncio.sleep(0.25)
+                except httpx.TimeoutException:
+                    failure = RagFailure(
+                        "model_timeout", "Structured model request timed out", True
+                    )
+                except httpx.HTTPStatusError as exc:
+                    status = exc.response.status_code
+                    failure = RagFailure(
+                        "model_http_error",
+                        f"Structured model request failed with HTTP {status}",
+                        status == 429 or status >= 500,
+                    )
+                except httpx.TransportError:
+                    failure = RagFailure(
+                        "model_unavailable",
+                        "Structured model transport disconnected",
+                        True,
+                    )
+                except (KeyError, ValueError, ValidationError):
+                    failure = RagFailure(
+                        "model_response_invalid",
+                        "Structured model response failed schema validation",
+                    )
+                if attempt == 1 or (
+                    failure.code == "model_http_error" and not failure.retryable
+                ):
+                    raise failure from None
+                await asyncio.sleep(0.25)
         raise RagFailure("model_response_invalid", "Structured inference failed", True)

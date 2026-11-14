@@ -73,7 +73,11 @@ class DatabaseTokenVerifier(TokenVerifier):
 def mask(value):
     if isinstance(value, dict):
         return {
-            key: "[REDACTED]"
+            key: item
+            if key in {"tokens", "prompt_tokens", "completion_tokens"}
+            and isinstance(item, int)
+            and not isinstance(item, bool)
+            else "[REDACTED]"
             if any(
                 word in key.lower()
                 for word in (

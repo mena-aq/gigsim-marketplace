@@ -1,0 +1,72 @@
+---
+config:
+  flowchart:
+    curve: linear
+---
+graph TD;
+	__start__([<p>__start__</p>]):::first
+	scout(scout)
+	analyst(analyst)
+	risk(risk)
+	matcher(matcher)
+	decision(decision)
+	pricing(pricing)
+	writer(writer)
+	verify(verify)
+	critic(critic)
+	compliance(compliance)
+	preview(preview)
+	execute(execute)
+	learn(learn)
+	approval(approval)
+	stop(stop)
+	join(join)
+	verification_attention(verification_attention)
+	exhausted(exhausted)
+	compliance_block(compliance_block)
+	__end__([<p>__end__</p>]):::last
+	__start__ --> scout;
+	analyst --> join;
+	approval -.-> __end__;
+	approval -.-> execute;
+	approval -.-> verify;
+	compliance -.-> compliance_block;
+	compliance -.-> preview;
+	compliance -.-> stop;
+	critic -.-> compliance;
+	critic -.-> exhausted;
+	critic -.-> stop;
+	critic -.-> writer;
+	decision -.-> __end__;
+	decision -.-> pricing;
+	decision -.-> stop;
+	execute -.-> learn;
+	execute -.-> stop;
+	join -.-> decision;
+	join -.-> stop;
+	matcher --> join;
+	preview -.-> approval;
+	preview -.-> stop;
+	pricing -.-> stop;
+	pricing -.-> writer;
+	risk --> join;
+	scout -.-> analyst;
+	scout -.-> matcher;
+	scout -.-> risk;
+	scout -.-> stop;
+	verify -.-> compliance;
+	verify -.-> critic;
+	verify -.-> stop;
+	verify -.-> verification_attention;
+	verify -.-> writer;
+	writer -.-> stop;
+	writer -.-> verify;
+	compliance_block --> __end__;
+	exhausted --> __end__;
+	learn --> __end__;
+	stop --> __end__;
+	verification_attention --> __end__;
+	classDef default fill:#f2f0ff,line-height:1.2
+	classDef first fill-opacity:0
+	classDef last fill:#bfb6fc
+

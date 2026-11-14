@@ -186,7 +186,7 @@ async def test_grader_cannot_invent_evidence_or_query_terms(indexed):
 
 async def test_decomposition_cannot_add_requirements(indexed):
     with pytest.raises(RagFailure, match="anchored"):
-        await pipeline(indexed, llm=FakeLLM([{"items": ["invented skill"]}])).retrieve(
+        await pipeline(indexed, llm=FakeLLM([{"ids": ["R999"]}])).retrieve(
             "python", variant="v1"
         )
 
@@ -255,7 +255,11 @@ async def test_verifier_removes_partial_and_keeps_offsets(indexed):
                         "claims": [
                             claims("I built Python.", "experience", "supported", ["E1"])
                         ],
-                    },
+                    }
+                ]
+            },
+            {
+                "sentences": [
                     {
                         "index": 1,
                         "claims": [
@@ -266,15 +270,9 @@ async def test_verifier_removes_partial_and_keeps_offsets(indexed):
                                 ["E1"],
                             )
                         ],
-                    },
-                    {
-                        "index": 2,
-                        "claims": [
-                            claims("Let's discuss a plan.", "intent", "supported", [])
-                        ],
-                    },
+                    }
                 ]
-            }
+            },
         ]
     )
     result = await verify_claims(draft, chunks, llm)

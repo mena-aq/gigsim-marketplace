@@ -1,338 +1,156 @@
-"""Real-model RAG comparison; provisional labels, no automatic winner selection."""
+"""One Part B evaluation: retrieval, B3 verification, B5 metrics, and ablation."""
 
 import argparse
 import asyncio
 import hashlib
 import json
-import math
-import platform
-import subprocess
-import time
 from datetime import UTC, datetime
 from pathlib import Path
-from statistics import mean
+from types import SimpleNamespace
 
-from sqlalchemy import select
-
-from apps.api.models import MCPCredential, User
-from mcp_servers.common.runtime import Runtime
+from evals.runners import rag_ablation, rag_retrieval, rag_workflow
+from evals.runners.rag_calibration import review_pack
+from evals.runners.rag_environment import capture_environment
+from evals.runners.rag_metrics import aggregate, code_fingerprint, metrics, percentile
+from evals.runners.rag_preflight import preflight
 from rag.config import ROOT, VARIANTS, load_config
-from rag.ingest.pipeline import read_manifest
-from rag.retriever import Pipeline
-from rag.types import Chunk, RagFailure
-from rag.verify import verify_claims
+from rag.types import RagFailure
 
+__all__ = ["aggregate", "code_fingerprint", "metrics", "percentile"]
 RESULTS = ROOT / "evals/results"
 
 
-def metrics(ids: list[str], qrels: dict) -> dict:
-    if not qrels:
-        return {
-            "recall_at_5": None,
-            "mrr": None,
-            "ndcg_at_10": None,
-            "correct_abstention": not ids,
-        }
-    recall = len(set(ids[:5]) & set(qrels)) / len(qrels)
-    reciprocal = next((1 / (i + 1) for i, key in enumerate(ids) if key in qrels), 0)
-    gain = sum(
-        (2 ** qrels.get(key, 0) - 1) / math.log2(i + 2)
-        for i, key in enumerate(ids[:10])
-    )
-    ideal = sum(
-        (2**grade - 1) / math.log2(i + 2)
-        for i, grade in enumerate(sorted(qrels.values(), reverse=True)[:10])
-    )
-    return {
-        "recall_at_5": recall,
-        "mrr": reciprocal,
-        "ndcg_at_10": gain / ideal if ideal else 0,
-        "correct_abstention": None,
-    }
-
-
-def percentile(values: list[float], fraction: float) -> float | None:
-    if not values:
-        return None
-    ordered = sorted(values)
-    return ordered[max(0, math.ceil(fraction * len(ordered)) - 1)]
-
-
-def aggregate(rows: list[dict]) -> dict:
-    output = {}
-    groups = {"all": rows}
-    for persona in sorted({row["persona"] for row in rows}):
-        groups[persona] = [row for row in rows if row["persona"] == persona]
-    for kind in sorted({row["query_type"] for row in rows}):
-        groups["type:" + kind] = [row for row in rows if row["query_type"] == kind]
-    for name, group in groups.items():
-        output[name] = {}
-        for variant in VARIANTS:
-            selected = [row for row in group if row["variant"] == variant]
-            if not selected:
-                continue
-            result = {
-                "queries": len(selected),
-                "failures": sum(row["error"] is not None for row in selected),
-                "p50_seconds": percentile([row["seconds"] for row in selected], 0.5),
-                "p95_seconds": percentile([row["seconds"] for row in selected], 0.95),
-                "prompt_tokens": sum(
-                    call["prompt_tokens"]
-                    for row in selected
-                    for call in row["llm_usage"]
-                ),
-                "completion_tokens": sum(
-                    call["completion_tokens"]
-                    for row in selected
-                    for call in row["llm_usage"]
-                ),
-            }
-            for metric in ("recall_at_5", "mrr", "ndcg_at_10", "correct_abstention"):
-                values = [
-                    row["metrics"][metric]
-                    for row in selected
-                    if row["metrics"][metric] is not None
-                ]
-                result[metric] = mean(values) if values else None
-            output[name][variant] = result
-    return output
-
-
-def code_fingerprint(config, manifests, dataset, claimset) -> str:
-    files = sorted((ROOT / "rag").rglob("*.py")) + sorted(
-        (ROOT / "agent/prompts").glob("rag_*.md")
-    )
-    content = b"".join(path.read_bytes() for path in files)
-    body = {
-        "config": config.model_dump(mode="json"),
-        "indexes": {
-            key: hashlib.sha256(json.dumps(value, sort_keys=True).encode()).hexdigest()
-            for key, value in manifests.items()
-        },
-        "dataset": dataset,
-        "claimset": claimset,
-    }
-    return hashlib.sha256(
-        content + json.dumps(body, sort_keys=True).encode()
-    ).hexdigest()
-
-
-async def main() -> None:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--resume", type=Path)
-    args = parser.parse_args()
+def run_fingerprint(args) -> str:
+    """Bind resumable stages to the same code, configuration, and fixtures."""
+    paths = sorted((ROOT / "evals/runners").glob("rag*.py"))
+    paths += sorted((ROOT / "rag").rglob("*.py"))
+    paths += sorted((ROOT / "mcp_servers").rglob("*.py"))
+    paths += sorted((ROOT / "gigsim").rglob("*.py"))
+    paths += [ROOT / "data/client_matching.py"]
+    paths += sorted((ROOT / "agent/prompts").glob("rag*.md"))
     config = load_config()
-    dataset = json.loads((ROOT / "evals/datasets/rag_dev.json").read_text())
-    claimset = json.loads((ROOT / "evals/datasets/claim_dev.json").read_text())
-    runtime = Runtime()
-    RESULTS.mkdir(parents=True, exist_ok=True)
-    try:
-        async with runtime.sessions() as session:
-            users = {
-                user.persona: user
-                for user in (
-                    await session.execute(select(User).join(MCPCredential))
-                ).scalars()
-            }
-        manifests = {
-            persona: read_manifest(config, user.id) for persona, user in users.items()
-        }
-        fingerprint = code_fingerprint(config, manifests, dataset, claimset)
-        path = args.resume or RESULTS / (
-            "rag_" + datetime.now(UTC).strftime("%Y%m%d_%H%M%S") + ".jsonl"
-        )
-        existing = (
-            [json.loads(line) for line in path.read_text().splitlines()]
-            if args.resume
-            else []
-        )
-        if any(row["fingerprint"] != fingerprint for row in existing):
-            raise SystemExit("Cannot resume: code, models, dataset, or index changed")
-        observations = [row for row in existing if row["kind"] == "retrieval"]
-        # Recompute derived quality metrics from immutable rankings on resume.
-        labels = {query["id"]: query for query in dataset["queries"]}
-        for row in observations:
-            query = labels[row["id"]]
-            row["metrics"] = metrics(row["returned_ids"], query["qrels"])
-            if row["error"] and not query["qrels"]:
-                row["metrics"]["correct_abstention"] = False
-        verified = [row for row in existing if row["kind"] == "verification"]
-        completed = {row["id"] + ":" + row.get("variant", "") for row in existing}
-        from evals.runners.rag_environment import capture_environment
+    paths += sorted((config.data_dir / "indexes").glob("*.json"))
+    paths += [config.data_dir / "models/manifest.json"]
+    paths += [
+        ROOT / "agent/config.yaml",
+        ROOT / "uv.lock",
+        args.retrieval_dataset,
+        args.jobs_dataset,
+        args.claim_dataset,
+    ]
+    body = {
+        "files": {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for p in paths},
+        "config": config.model_dump(mode="json"),
+        "limit": args.limit,
+        "variants": args.variants,
+    }
+    return hashlib.sha256(json.dumps(body, sort_keys=True).encode()).hexdigest()
 
-        await capture_environment(
-            config, path.with_suffix(".environment.json"), fingerprint
-        )
-        with path.open("a") as output:
 
-            def save(row):
-                row["fingerprint"] = fingerprint
-                output.write(json.dumps(row, ensure_ascii=False) + "\n")
-                output.flush()
+async def run(args) -> None:
+    """Execute all benchmark stages; completed observations are resumable."""
+    from evals.runners.rag_table import write_report
 
-            for query in dataset["queries"]:
-                user = users[query["persona"]]
-                source_ids = {
-                    record["chunk"]["id"]
-                    for record in manifests[user.persona]["records"]
-                }
-                if not set(query["qrels"]) <= source_ids:
-                    raise SystemExit(
-                        "A labelled source is missing; review the development dataset"
-                    )
-                for variant in VARIANTS:
-                    if query["id"] + ":" + variant in completed:
-                        continue
-                    pipeline = Pipeline(
-                        config, runtime.settings.mcp_persona_dir, user.id, user.persona
-                    )
-                    start = time.perf_counter()
-                    error = None
-                    hits = []
-                    diagnostics = {}
-                    try:
-                        result = await pipeline.retrieve(
-                            query["query"], 10, variant=variant
-                        )
-                        hits = [hit.chunk.id for hit in result.hits]
-                        diagnostics = result.diagnostics
-                    except RagFailure as exc:
-                        error = {"code": exc.code, "message": exc.message}
-                    score = metrics(hits, query["qrels"])
-                    if error and not query["qrels"]:
-                        score["correct_abstention"] = False
-                    row = {
-                        "kind": "retrieval",
-                        "id": query["id"],
-                        "persona": user.persona,
-                        "query_type": query["type"],
-                        "variant": variant,
-                        "returned_ids": hits,
-                        "metrics": score,
-                        "error": error,
-                        "diagnostics": diagnostics,
-                        "llm_usage": pipeline.llm.usage,
-                        "seconds": time.perf_counter() - start,
-                    }
-                    observations.append(row)
-                    save(row)
-                    print(
-                        query["id"],
-                        variant,
-                        "ok" if error is None else error["code"],
-                        round(row["seconds"], 2),
-                        flush=True,
-                    )
-            for example in claimset["examples"]:
-                if example["id"] + ":" in completed:
-                    continue
-                user = users[example["persona"]]
-                pipeline = Pipeline(
-                    config, runtime.settings.mcp_persona_dir, user.id, user.persona
-                )
-                evidence = []
-                if example["source_id"]:
-                    candidates = [
-                        Chunk.model_validate(record["chunk"])
-                        for record in manifests[user.persona]["records"]
-                        if record["chunk"]["id"] == example["source_id"]
-                        and example["evidence_quote"] in record["chunk"]["text"]
-                    ]
-                    if not candidates:
-                        raise SystemExit(
-                            "Verification evidence quote missing; review its source/chunking"
-                        )
-                    evidence = candidates[:1]
-                report = await verify_claims(example["draft"], evidence, pipeline.llm)
-                kept = bool(report.cleaned_draft.strip())
-                row = {
-                    "kind": "verification",
-                    "id": example["id"],
-                    "persona": user.persona,
-                    "expected_keep": example["expected_keep"],
-                    "kept": kept,
-                    "correct": kept == example["expected_keep"],
-                    "report": report.model_dump(mode="json"),
-                }
-                verified.append(row)
-                save(row)
-                print(
-                    example["id"],
-                    report.status,
-                    "kept" if kept else "excluded",
-                    flush=True,
-                )
-        bad_before = sum(not row["expected_keep"] for row in verified)
-        bad_after = sum(not row["expected_keep"] and row["kept"] for row in verified)
-        survivors = sum(row["kept"] for row in verified)
-        summary = {
-            "label_reviewed": dataset["reviewed_by_user"],
-            "label_provenance": dataset["provenance"],
+    folder = args.output_dir
+    folder.mkdir(parents=True, exist_ok=True)
+    path = folder / "rag_run.json"
+    fingerprint = run_fingerprint(args)
+    manifest = (
+        json.loads(path.read_text())
+        if path.exists()
+        else {
             "fingerprint": fingerprint,
-            "observations": str(path.relative_to(ROOT)),
-            "environment": str(path.with_suffix(".environment.json").relative_to(ROOT)),
-            "config": config.model_dump(mode="json"),
-            "models": json.loads(
-                (config.data_dir / "models/manifest.json").read_text()
-            ),
-            "hardware": {
-                "platform": platform.platform(),
-                "cpu": platform.processor(),
-                "cpu_threads_configured": config.cpu_threads,
-            },
-            "git_commit": (
-                await asyncio.to_thread(
-                    subprocess.check_output,
-                    ["git", "rev-parse", "HEAD"],
-                    cwd=ROOT,
-                    text=True,
-                )
-            ).strip(),
-            "local_hardware_cost_usd": None,
-            "paid_api_cost_usd": 0,
-            "warmup": "No explicit warmup; sequential local calls include model loading where incurred",
-            "retrieval": aggregate(observations),
-            "verification": {
-                "unit": "one_sentence_example_with_supplied_gold_source_evidence",
-                "supported_retention_rate": sum(
-                    row["expected_keep"] and row["kept"] for row in verified
-                )
-                / sum(row["expected_keep"] for row in verified)
-                if any(row["expected_keep"] for row in verified)
-                else None,
-                "unsafe_removal_rate": sum(
-                    not row["expected_keep"] and not row["kept"] for row in verified
-                )
-                / bad_before
-                if bad_before
-                else None,
-                "examples": len(verified),
-                "reviewed": claimset["reviewed_by_user"],
-                "before_unsafe_sentence_rate": bad_before / len(verified)
-                if verified
-                else None,
-                "after_unsafe_sentence_rate": bad_after / survivors
-                if survivors
-                else None,
-                "retained": survivors,
-                "unsafe_retained": bad_after,
-                "correct_keep_decisions": sum(row["correct"] for row in verified),
-                "needs_attention": sum(
-                    row["report"]["status"] != "verified" for row in verified
-                ),
-            },
-            "selection": "Pending the user's decision; V0 remains the development baseline",
+            "stages": [],
+            "limit": args.limit,
+            "variants": args.variants,
+            "workflow": "rag_benchmark",
         }
-        (RESULTS / "rag_comparison.json").write_text(
-            json.dumps(summary, indent=2, ensure_ascii=False) + "\n"
+    )
+    if manifest["fingerprint"] != fingerprint:
+        raise ValueError(
+            "Cannot resume: code/configuration/fixtures changed; use a new --output-dir"
         )
-        from evals.runners.rag_table import main as table
+    environment = folder / "rag_environment.json"
+    await capture_environment(load_config(), environment, fingerprint)
+    path.write_text(json.dumps(manifest, indent=2) + "\n")
+    print("RAG preflight: embedding boundary and simulator controls", flush=True)
+    checks = await preflight(load_config(), args.jobs_dataset)
+    (folder / "rag_preflight.json").write_text(json.dumps(checks, indent=2) + "\n")
+    stages = (
+        ("retrieval_and_claim_regressions", rag_retrieval.run, args),
+        ("draft_verify_assess_judge_outcomes", rag_workflow.run, args),
+        (
+            "ablation",
+            rag_ablation.main_async,
+            SimpleNamespace(
+                dataset=args.retrieval_dataset,
+                output_dir=folder,
+                claim_dataset=getattr(
+                    args, "claim_dataset", ROOT / "evals/datasets/claim_dev.json"
+                ),
+            ),
+        ),
+    )
+    for name, execute, stage_args in stages:
+        if name in manifest["stages"]:
+            continue
+        print(f"RAG evaluation stage: {name}", flush=True)
+        if name == "ablation" and args.limit:
+            dataset = json.loads(args.retrieval_dataset.read_text())
+            dataset["queries"] = dataset["queries"][: args.limit]
+            subset = folder / "rag_ablation_input.json"
+            subset.write_text(json.dumps(dataset, indent=2) + "\n")
+            stage_args.dataset = subset
+        await execute(stage_args)
+        if run_fingerprint(args) != fingerprint:
+            raise ValueError(
+                "Code/configuration/fixtures/indexes changed during evaluation"
+            )
+        await capture_environment(load_config(), environment, fingerprint)
+        manifest["stages"].append(name)
+        path.write_text(json.dumps(manifest, indent=2) + "\n")
+    print(json.dumps({"review_pack": review_pack(folder)}), flush=True)
+    full = not args.limit and set(args.variants) == set(VARIANTS)
+    write_report(folder, publish=full, update_readme=full)
+    print(f"RAG evaluation saved: {folder / 'rag_comparison.csv'}", flush=True)
 
-        table()
-        print("Comparison saved; no active variant was changed", flush=True)
-    finally:
-        await runtime.close()
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output-dir", type=Path)
+    parser.add_argument(
+        "--resume", type=Path, help="Resume an existing unified run directory"
+    )
+    parser.add_argument(
+        "--retrieval-dataset", type=Path, default=ROOT / "evals/datasets/rag_dev.json"
+    )
+    parser.add_argument(
+        "--jobs-dataset", type=Path, default=ROOT / "evals/datasets/rag_jobs_v2.json"
+    )
+    parser.add_argument(
+        "--claim-dataset", type=Path, default=ROOT / "evals/datasets/claim_dev.json"
+    )
+    parser.add_argument("--limit", type=int, default=0)
+    parser.add_argument(
+        "--variants", nargs="+", choices=VARIANTS, default=list(VARIANTS)
+    )
+    args = parser.parse_args()
+    if args.limit < 0 or len(set(args.variants)) != len(args.variants):
+        parser.error("Limit must be nonnegative and variants unique")
+    if args.resume and args.output_dir:
+        parser.error("Use --resume or --output-dir, not both")
+    if args.resume and not (args.resume / "rag_run.json").exists():
+        parser.error("--resume requires a unified run with rag_run.json")
+    args.output_dir = (
+        args.resume
+        or args.output_dir
+        or RESULTS / "runs" / datetime.now(UTC).strftime("%Y%m%d_%H%M%S_%f")
+    ).resolve()
+    try:
+        asyncio.run(run(args))
+    except (OSError, ValueError, RagFailure) as exc:
+        parser.exit(1, f"RAG evaluation stopped: {exc}\n")
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()

@@ -1,0 +1,19 @@
+# Machine-enforced subset; rules.md remains the full policy for the model guard.
+risk_rules:
+  - pattern: '(?i)ignore (?:all |any )?(?:previous|prior|system) instructions|(?:reveal|output|print) (?:your |the )?system prompt'
+    reason: Embedded instruction override or prompt disclosure request
+    minimum_risk: 0.95
+  - pattern: '(?i)\b(?:telegram|whatsapp|skype|off.platform|pay.?pal|wire transfer)\b'
+    reason: Off-platform communication or payment request
+    minimum_risk: 0.95
+rules:
+  - pattern: '[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}'
+    reason: Email contact details are prohibited
+  - pattern: '(?i)\b(?:https?://|www\.)\S+'
+    reason: External contact links are prohibited
+  - pattern: '(?i)\b(?:telegram|whatsapp|skype|off.platform|pay.?pal|wire transfer)\b'
+    reason: Off-platform contact or payment is prohibited
+  - pattern: '(?i)\b(?:guaranteed results|I will definitely|guarantee that)\b'
+    reason: Guaranteed outcomes are prohibited
+  - pattern: '(?<!\w)\+\d[\d ()-]{7,}\d(?!\w)'
+    reason: Phone contact details are prohibited

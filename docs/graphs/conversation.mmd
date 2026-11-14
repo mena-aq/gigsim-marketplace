@@ -1,0 +1,48 @@
+---
+config:
+  flowchart:
+    curve: linear
+---
+graph TD;
+	__start__([<p>__start__</p>]):::first
+	read_messages(read_messages)
+	classify_intent(classify_intent)
+	liaison(liaison)
+	verify(verify)
+	compliance(compliance)
+	preview(preview)
+	execute(execute)
+	learn(learn)
+	approval(approval)
+	stop(stop)
+	scam_block(scam_block)
+	compliance_block(compliance_block)
+	__end__([<p>__end__</p>]):::last
+	__start__ --> read_messages;
+	approval -.-> __end__;
+	approval -.-> execute;
+	approval -.-> verify;
+	classify_intent -.-> liaison;
+	classify_intent -.-> scam_block;
+	classify_intent -.-> stop;
+	compliance -.-> compliance_block;
+	compliance -.-> preview;
+	compliance -.-> stop;
+	execute -.-> learn;
+	execute -.-> stop;
+	liaison -.-> stop;
+	liaison -.-> verify;
+	preview -.-> approval;
+	preview -.-> stop;
+	read_messages -.-> classify_intent;
+	read_messages -.-> stop;
+	verify -.-> compliance;
+	verify -.-> stop;
+	compliance_block --> __end__;
+	learn --> __end__;
+	scam_block --> __end__;
+	stop --> __end__;
+	classDef default fill:#f2f0ff,line-height:1.2
+	classDef first fill-opacity:0
+	classDef last fill:#bfb6fc
+

@@ -1,0 +1,1240 @@
+{
+  "hypothesis": "Fine-grained tools with rewritten descriptions improve argument accuracy, while coarse tools reduce schema tokens but make more tool/action errors.",
+  "generated_at_utc": "2026-11-14T11:56:23.144022+00:00",
+  "environment": {
+    "captured_at_utc": "2026-11-14T11:56:23.132604+00:00",
+    "ollama_url": "http://localhost:11434",
+    "ollama_version": "0.40.14",
+    "model": "qwen2.5:3b",
+    "model_digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+    "python": "3.12.3",
+    "platform": "Linux-6.8.0-147-generic-x86_64-with-glibc2.39"
+  },
+  "seed": 0,
+  "tasks": 15,
+  "task_sha256": "5cfcd85d2c905f805bacbfcaa533892c743bf4d7592515e72c2717ab2a931b02",
+  "toolset_sha256": "eba366c7a38d1bd2944583779c1fb945a8802cab7fb85dca1168538fa9452129",
+  "code_sha256": "e4e74cf021c3309e20d2cdead2563140297abbb5d8f001fb2ed00c080aab90d2",
+  "configs": {
+    "fine": {
+      "tools": 12,
+      "tool_names": [
+        "search_jobs",
+        "get_job",
+        "get_client_history",
+        "get_connects_balance",
+        "list_messages",
+        "send_message",
+        "search_evidence",
+        "get_case_study",
+        "list_skills",
+        "verify_claims",
+        "get_free_slots",
+        "create_email_draft"
+      ],
+      "schema_chars": 3469
+    },
+    "coarse": {
+      "tools": 3,
+      "tool_names": [
+        "marketplace",
+        "portfolio",
+        "workspace"
+      ],
+      "schema_chars": 1723
+    },
+    "rewritten": {
+      "tools": 12,
+      "tool_names": [
+        "search_jobs",
+        "get_job",
+        "get_client_history",
+        "get_connects_balance",
+        "list_messages",
+        "send_message",
+        "search_evidence",
+        "get_case_study",
+        "list_skills",
+        "verify_claims",
+        "get_free_slots",
+        "create_email_draft"
+      ],
+      "schema_chars": 3966
+    }
+  },
+  "summary": {
+    "fine": {
+      "tasks": 15,
+      "tools": 12,
+      "selection_accuracy": 1,
+      "argument_accuracy": 0.8666666666666667,
+      "argument_accuracy_given_selection": 0.8666666666666667,
+      "tokens_per_task": 1355.1333333333334,
+      "prompt_tokens_per_task": 1317.8666666666666,
+      "completion_tokens_per_task": 37.266666666666666,
+      "failures": 0,
+      "schema_chars": 3469
+    },
+    "coarse": {
+      "tasks": 15,
+      "tools": 3,
+      "selection_accuracy": 0.6666666666666666,
+      "argument_accuracy": 0.5333333333333333,
+      "argument_accuracy_given_selection": 0.8,
+      "tokens_per_task": 802,
+      "prompt_tokens_per_task": 758.8666666666667,
+      "completion_tokens_per_task": 43.13333333333333,
+      "failures": 0,
+      "schema_chars": 1723
+    },
+    "rewritten": {
+      "tasks": 15,
+      "tools": 12,
+      "selection_accuracy": 1,
+      "argument_accuracy": 0.9333333333333333,
+      "argument_accuracy_given_selection": 0.9333333333333333,
+      "tokens_per_task": 1487.6,
+      "prompt_tokens_per_task": 1451.8666666666666,
+      "completion_tokens_per_task": 35.733333333333334,
+      "failures": 0,
+      "schema_chars": 3966
+    }
+  },
+  "observations": [
+    {
+      "task_id": "marketplace_search",
+      "config": "fine",
+      "prompt": "On the marketplace, find open jobs matching 'Flask' with a maximum budget of $2,000.",
+      "expected_action": "search_jobs",
+      "error": null,
+      "tokens": 1361,
+      "prompt_tokens": 1324,
+      "completion_tokens": 37,
+      "seconds": 8.699202974999935,
+      "content": "{\n  \"tool\": \"search_jobs\",\n  \"arguments\": {\n    \"q\": \"Flask\",\n    \"budget_max\": 2000\n  }\n}",
+      "expected_tool": "search_jobs",
+      "expected_args": {
+        "q": "Flask",
+        "budget_max": 2000
+      },
+      "chosen_tool": "search_jobs",
+      "arguments": {
+        "q": "Flask",
+        "budget_max": 2000
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "marketplace_search",
+      "config": "coarse",
+      "prompt": "On the marketplace, find open jobs matching 'Flask' with a maximum budget of $2,000.",
+      "expected_action": "search_jobs",
+      "error": null,
+      "tokens": 810,
+      "prompt_tokens": 765,
+      "completion_tokens": 45,
+      "seconds": 30.441942100998858,
+      "content": "{\n  \"tool\": \"marketplace\",\n  \"arguments\": {\n    \"action\": \"search_jobs\",\n    \"q\": \"Flask\",\n    \"budget_max\": 2000\n  }\n}",
+      "expected_tool": "marketplace",
+      "expected_args": {
+        "action": "search_jobs",
+        "q": "Flask",
+        "budget_max": 2000
+      },
+      "chosen_tool": "marketplace",
+      "arguments": {
+        "action": "search_jobs",
+        "q": "Flask",
+        "budget_max": 2000
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "marketplace_search",
+      "config": "rewritten",
+      "prompt": "On the marketplace, find open jobs matching 'Flask' with a maximum budget of $2,000.",
+      "expected_action": "search_jobs",
+      "error": null,
+      "tokens": 1495,
+      "prompt_tokens": 1458,
+      "completion_tokens": 37,
+      "seconds": 43.92736426600095,
+      "content": "{\n  \"tool\": \"search_jobs\",\n  \"arguments\": {\n    \"q\": \"Flask\",\n    \"budget_max\": 2000\n  }\n}",
+      "expected_tool": "search_jobs",
+      "expected_args": {
+        "q": "Flask",
+        "budget_max": 2000
+      },
+      "chosen_tool": "search_jobs",
+      "arguments": {
+        "q": "Flask",
+        "budget_max": 2000
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "job_detail",
+      "config": "coarse",
+      "prompt": "Show me the full public requirements for job `job_1042`.",
+      "expected_action": "get_job",
+      "error": null,
+      "tokens": 796,
+      "prompt_tokens": 757,
+      "completion_tokens": 39,
+      "seconds": 38.483934554998996,
+      "content": "{\n  \"tool\": \"marketplace\",\n  \"arguments\": {\n    \"action\": \"get_job\",\n    \"job_id\": \"job_1042\"\n  }\n}",
+      "expected_tool": "marketplace",
+      "expected_args": {
+        "action": "get_job",
+        "job_id": "job_1042"
+      },
+      "chosen_tool": "marketplace",
+      "arguments": {
+        "action": "get_job",
+        "job_id": "job_1042"
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "job_detail",
+      "config": "rewritten",
+      "prompt": "Show me the full public requirements for job `job_1042`.",
+      "expected_action": "get_job",
+      "error": null,
+      "tokens": 1481,
+      "prompt_tokens": 1450,
+      "completion_tokens": 31,
+      "seconds": 7.467644434000249,
+      "content": "{\n  \"tool\": \"get_job\",\n  \"arguments\": {\n    \"job_id\": \"job_1042\"\n  }\n}",
+      "expected_tool": "get_job",
+      "expected_args": {
+        "job_id": "job_1042"
+      },
+      "chosen_tool": "get_job",
+      "arguments": {
+        "job_id": "job_1042"
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "job_detail",
+      "config": "fine",
+      "prompt": "Show me the full public requirements for job `job_1042`.",
+      "expected_action": "get_job",
+      "error": null,
+      "tokens": 1347,
+      "prompt_tokens": 1316,
+      "completion_tokens": 31,
+      "seconds": 8.380753871002526,
+      "content": "{\n  \"tool\": \"get_job\",\n  \"arguments\": {\n    \"job_id\": \"job_1042\"\n  }\n}",
+      "expected_tool": "get_job",
+      "expected_args": {
+        "job_id": "job_1042"
+      },
+      "chosen_tool": "get_job",
+      "arguments": {
+        "job_id": "job_1042"
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "client_history",
+      "config": "rewritten",
+      "prompt": "Read the public hiring history and reviews for client `client_77`.",
+      "expected_action": "get_client_history",
+      "error": null,
+      "tokens": 1479,
+      "prompt_tokens": 1449,
+      "completion_tokens": 30,
+      "seconds": 12.327197462000186,
+      "content": "{\n  \"tool\": \"get_client_history\",\n  \"arguments\": {\n    \"client_id\": \"client_77\"\n  }\n}",
+      "expected_tool": "get_client_history",
+      "expected_args": {
+        "client_id": "client_77"
+      },
+      "chosen_tool": "get_client_history",
+      "arguments": {
+        "client_id": "client_77"
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "client_history",
+      "config": "fine",
+      "prompt": "Read the public hiring history and reviews for client `client_77`.",
+      "expected_action": "get_client_history",
+      "error": null,
+      "tokens": 1345,
+      "prompt_tokens": 1315,
+      "completion_tokens": 30,
+      "seconds": 4.845145977997163,
+      "content": "{\n  \"tool\": \"get_client_history\",\n  \"arguments\": {\n    \"client_id\": \"client_77\"\n  }\n}",
+      "expected_tool": "get_client_history",
+      "expected_args": {
+        "client_id": "client_77"
+      },
+      "chosen_tool": "get_client_history",
+      "arguments": {
+        "client_id": "client_77"
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "client_history",
+      "config": "coarse",
+      "prompt": "Read the public hiring history and reviews for client `client_77`.",
+      "expected_action": "get_client_history",
+      "error": null,
+      "tokens": 793,
+      "prompt_tokens": 756,
+      "completion_tokens": 37,
+      "seconds": 30.42434084499837,
+      "content": "{\n  \"tool\": \"portfolio\",\n  \"arguments\": {\n    \"action\": \"get_client_history\",\n    \"client_id\": \"client_77\"\n  }\n}",
+      "expected_tool": "marketplace",
+      "expected_args": {
+        "action": "get_client_history",
+        "client_id": "client_77"
+      },
+      "chosen_tool": "portfolio",
+      "arguments": {
+        "action": "get_client_history",
+        "client_id": "client_77"
+      },
+      "selection_ok": false,
+      "arguments_ok_raw": true,
+      "arguments_ok": false
+    },
+    {
+      "task_id": "connects_balance",
+      "config": "fine",
+      "prompt": "How many Connects do I have left before I bid?",
+      "expected_action": "get_connects_balance",
+      "error": null,
+      "tokens": 1330,
+      "prompt_tokens": 1312,
+      "completion_tokens": 18,
+      "seconds": 33.012247318001755,
+      "content": "{\n  \"tool\": \"get_connects_balance\",\n  \"arguments\": {}\n}",
+      "expected_tool": "get_connects_balance",
+      "expected_args": {},
+      "chosen_tool": "get_connects_balance",
+      "arguments": {},
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "connects_balance",
+      "config": "coarse",
+      "prompt": "How many Connects do I have left before I bid?",
+      "expected_action": "get_connects_balance",
+      "error": null,
+      "tokens": 780,
+      "prompt_tokens": 753,
+      "completion_tokens": 27,
+      "seconds": 34.2436727389977,
+      "content": "{\n  \"tool\": \"portfolio\",\n  \"arguments\": {\n    \"action\": \"get_connects_balance\"\n  }\n}",
+      "expected_tool": "marketplace",
+      "expected_args": {
+        "action": "get_connects_balance"
+      },
+      "chosen_tool": "portfolio",
+      "arguments": {
+        "action": "get_connects_balance"
+      },
+      "selection_ok": false,
+      "arguments_ok_raw": true,
+      "arguments_ok": false
+    },
+    {
+      "task_id": "connects_balance",
+      "config": "rewritten",
+      "prompt": "How many Connects do I have left before I bid?",
+      "expected_action": "get_connects_balance",
+      "error": null,
+      "tokens": 1464,
+      "prompt_tokens": 1446,
+      "completion_tokens": 18,
+      "seconds": 26.064451253001607,
+      "content": "{\n  \"tool\": \"get_connects_balance\",\n  \"arguments\": {}\n}",
+      "expected_tool": "get_connects_balance",
+      "expected_args": {},
+      "chosen_tool": "get_connects_balance",
+      "arguments": {},
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "read_messages",
+      "config": "coarse",
+      "prompt": "Show the messages in conversation `conv_300`.",
+      "expected_action": "list_messages",
+      "error": null,
+      "tokens": 790,
+      "prompt_tokens": 753,
+      "completion_tokens": 37,
+      "seconds": 16.835722181000165,
+      "content": "{\n  \"tool\": \"workspace\",\n  \"arguments\": {\n    \"action\": \"list_messages\",\n    \"conversation_id\": \"conv_300\"\n  }\n}",
+      "expected_tool": "marketplace",
+      "expected_args": {
+        "action": "list_messages",
+        "conversation_id": "conv_300"
+      },
+      "chosen_tool": "workspace",
+      "arguments": {
+        "action": "list_messages",
+        "conversation_id": "conv_300"
+      },
+      "selection_ok": false,
+      "arguments_ok_raw": true,
+      "arguments_ok": false
+    },
+    {
+      "task_id": "read_messages",
+      "config": "rewritten",
+      "prompt": "Show the messages in conversation `conv_300`.",
+      "expected_action": "list_messages",
+      "error": null,
+      "tokens": 1476,
+      "prompt_tokens": 1446,
+      "completion_tokens": 30,
+      "seconds": 27.27132873199662,
+      "content": "{\n  \"tool\": \"list_messages\",\n  \"arguments\": {\n    \"conversation_id\": \"conv_300\"\n  }\n}",
+      "expected_tool": "list_messages",
+      "expected_args": {
+        "conversation_id": "conv_300"
+      },
+      "chosen_tool": "list_messages",
+      "arguments": {
+        "conversation_id": "conv_300"
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "read_messages",
+      "config": "fine",
+      "prompt": "Show the messages in conversation `conv_300`.",
+      "expected_action": "list_messages",
+      "error": null,
+      "tokens": 1342,
+      "prompt_tokens": 1312,
+      "completion_tokens": 30,
+      "seconds": 28.7261366849998,
+      "content": "{\n  \"tool\": \"list_messages\",\n  \"arguments\": {\n    \"conversation_id\": \"conv_300\"\n  }\n}",
+      "expected_tool": "list_messages",
+      "expected_args": {
+        "conversation_id": "conv_300"
+      },
+      "chosen_tool": "list_messages",
+      "arguments": {
+        "conversation_id": "conv_300"
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "send_reply",
+      "config": "rewritten",
+      "prompt": "Reply in conversation `conv_300` with exactly: Thanks, I will send the revised draft tomorrow.",
+      "expected_action": "send_message",
+      "error": null,
+      "tokens": 1502,
+      "prompt_tokens": 1457,
+      "completion_tokens": 45,
+      "seconds": 46.41920655699869,
+      "content": "{\n  \"tool\": \"send_message\",\n  \"arguments\": {\n    \"conversation_id\": \"conv_300\",\n    \"body\": \"Thanks, I will send the revised draft tomorrow.\"\n  }\n}",
+      "expected_tool": "send_message",
+      "expected_args": {
+        "conversation_id": "conv_300",
+        "body": "Thanks, I will send the revised draft tomorrow."
+      },
+      "chosen_tool": "send_message",
+      "arguments": {
+        "conversation_id": "conv_300",
+        "body": "Thanks, I will send the revised draft tomorrow."
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "send_reply",
+      "config": "fine",
+      "prompt": "Reply in conversation `conv_300` with exactly: Thanks, I will send the revised draft tomorrow.",
+      "expected_action": "send_message",
+      "error": null,
+      "tokens": 1368,
+      "prompt_tokens": 1323,
+      "completion_tokens": 45,
+      "seconds": 42.27959245799866,
+      "content": "{\n  \"tool\": \"send_message\",\n  \"arguments\": {\n    \"conversation_id\": \"conv_300\",\n    \"body\": \"Thanks, I will send the revised draft tomorrow.\"\n  }\n}",
+      "expected_tool": "send_message",
+      "expected_args": {
+        "conversation_id": "conv_300",
+        "body": "Thanks, I will send the revised draft tomorrow."
+      },
+      "chosen_tool": "send_message",
+      "arguments": {
+        "conversation_id": "conv_300",
+        "body": "Thanks, I will send the revised draft tomorrow."
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "send_reply",
+      "config": "coarse",
+      "prompt": "Reply in conversation `conv_300` with exactly: Thanks, I will send the revised draft tomorrow.",
+      "expected_action": "send_message",
+      "error": null,
+      "tokens": 826,
+      "prompt_tokens": 764,
+      "completion_tokens": 62,
+      "seconds": 106.1899915239992,
+      "content": "{\n  \"tool\": \"workspace\",\n  \"arguments\": {\n    \"action\": \"create_email_draft\",\n    \"to\": \"client@example.com\",\n    \"subject\": \"Revised Draft for Your Review\",\n    \"body\": \"Thanks, I will send the revised draft tomorrow.\"\n  }\n}",
+      "expected_tool": "marketplace",
+      "expected_args": {
+        "action": "send_message",
+        "conversation_id": "conv_300",
+        "body": "Thanks, I will send the revised draft tomorrow."
+      },
+      "chosen_tool": "workspace",
+      "arguments": {
+        "action": "create_email_draft",
+        "to": "client@example.com",
+        "subject": "Revised Draft for Your Review",
+        "body": "Thanks, I will send the revised draft tomorrow."
+      },
+      "selection_ok": false,
+      "arguments_ok_raw": false,
+      "arguments_ok": false
+    },
+    {
+      "task_id": "portfolio_evidence",
+      "config": "fine",
+      "prompt": "Search my own portfolio for case studies about dbt pipeline migrations and return 3 results.",
+      "expected_action": "search_evidence",
+      "error": null,
+      "tokens": 1355,
+      "prompt_tokens": 1318,
+      "completion_tokens": 37,
+      "seconds": 10.46362951500123,
+      "content": "{\n  \"tool\": \"search_evidence\",\n  \"arguments\": {\n    \"requirement\": \"dbt pipeline migrations\",\n    \"k\": 3\n  }\n}",
+      "expected_tool": "search_evidence",
+      "expected_args": {
+        "requirement": "dbt pipeline migrations",
+        "k": 3,
+        "filters": {
+          "type": "case_study"
+        }
+      },
+      "chosen_tool": "search_evidence",
+      "arguments": {
+        "requirement": "dbt pipeline migrations",
+        "k": 3
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": false,
+      "arguments_ok": false
+    },
+    {
+      "task_id": "portfolio_evidence",
+      "config": "coarse",
+      "prompt": "Search my own portfolio for case studies about dbt pipeline migrations and return 3 results.",
+      "expected_action": "search_evidence",
+      "error": null,
+      "tokens": 803,
+      "prompt_tokens": 759,
+      "completion_tokens": 44,
+      "seconds": 40.57821517999764,
+      "content": "{\n  \"tool\": \"portfolio\",\n  \"arguments\": {\n    \"action\": \"search_evidence\",\n    \"requirement\": \"dbt pipeline migrations\",\n    \"k\": 3\n  }\n}",
+      "expected_tool": "portfolio",
+      "expected_args": {
+        "action": "search_evidence",
+        "requirement": "dbt pipeline migrations",
+        "k": 3,
+        "filters": {
+          "type": "case_study"
+        }
+      },
+      "chosen_tool": "portfolio",
+      "arguments": {
+        "action": "search_evidence",
+        "requirement": "dbt pipeline migrations",
+        "k": 3
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": false,
+      "arguments_ok": false
+    },
+    {
+      "task_id": "portfolio_evidence",
+      "config": "rewritten",
+      "prompt": "Search my own portfolio for case studies about dbt pipeline migrations and return 3 results.",
+      "expected_action": "search_evidence",
+      "error": null,
+      "tokens": 1489,
+      "prompt_tokens": 1452,
+      "completion_tokens": 37,
+      "seconds": 8.024760212003457,
+      "content": "{\n  \"tool\": \"search_evidence\",\n  \"arguments\": {\n    \"requirement\": \"dbt pipeline migrations\",\n    \"k\": 3\n  }\n}",
+      "expected_tool": "search_evidence",
+      "expected_args": {
+        "requirement": "dbt pipeline migrations",
+        "k": 3,
+        "filters": {
+          "type": "case_study"
+        }
+      },
+      "chosen_tool": "search_evidence",
+      "arguments": {
+        "requirement": "dbt pipeline migrations",
+        "k": 3
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": false,
+      "arguments_ok": false
+    },
+    {
+      "task_id": "case_study_detail",
+      "config": "coarse",
+      "prompt": "Load the full case study with evidence ID `case_88`.",
+      "expected_action": "get_case_study",
+      "error": null,
+      "tokens": 799,
+      "prompt_tokens": 755,
+      "completion_tokens": 44,
+      "seconds": 6.166184114998032,
+      "content": "{\n  \"tool\": \"portfolio\",\n  \"arguments\": {\n    \"action\": \"get_case_study\",\n    \"id\": \"case_88\",\n    \"requirement\": \"full\"\n  }\n}",
+      "expected_tool": "portfolio",
+      "expected_args": {
+        "action": "get_case_study",
+        "id": "case_88"
+      },
+      "chosen_tool": "portfolio",
+      "arguments": {
+        "action": "get_case_study",
+        "id": "case_88",
+        "requirement": "full"
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "case_study_detail",
+      "config": "rewritten",
+      "prompt": "Load the full case study with evidence ID `case_88`.",
+      "expected_action": "get_case_study",
+      "error": null,
+      "tokens": 1477,
+      "prompt_tokens": 1448,
+      "completion_tokens": 29,
+      "seconds": 35.306177619000664,
+      "content": "{\n  \"tool\": \"get_case_study\",\n  \"arguments\": {\n    \"id\": \"case_88\"\n  }\n}",
+      "expected_tool": "get_case_study",
+      "expected_args": {
+        "id": "case_88"
+      },
+      "chosen_tool": "get_case_study",
+      "arguments": {
+        "id": "case_88"
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "case_study_detail",
+      "config": "fine",
+      "prompt": "Load the full case study with evidence ID `case_88`.",
+      "expected_action": "get_case_study",
+      "error": null,
+      "tokens": 1343,
+      "prompt_tokens": 1314,
+      "completion_tokens": 29,
+      "seconds": 31.566938243999175,
+      "content": "{\n  \"tool\": \"get_case_study\",\n  \"arguments\": {\n    \"id\": \"case_88\"\n  }\n}",
+      "expected_tool": "get_case_study",
+      "expected_args": {
+        "id": "case_88"
+      },
+      "chosen_tool": "get_case_study",
+      "arguments": {
+        "id": "case_88"
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "profile_skills",
+      "config": "rewritten",
+      "prompt": "List the skills on my freelancer profile.",
+      "expected_action": "list_skills",
+      "error": null,
+      "tokens": 1458,
+      "prompt_tokens": 1442,
+      "completion_tokens": 16,
+      "seconds": 13.334612225997262,
+      "content": "{\n  \"tool\": \"list_skills\",\n  \"arguments\": {}\n}",
+      "expected_tool": "list_skills",
+      "expected_args": {},
+      "chosen_tool": "list_skills",
+      "arguments": {},
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "profile_skills",
+      "config": "fine",
+      "prompt": "List the skills on my freelancer profile.",
+      "expected_action": "list_skills",
+      "error": null,
+      "tokens": 1324,
+      "prompt_tokens": 1308,
+      "completion_tokens": 16,
+      "seconds": 25.427595321001718,
+      "content": "{\n  \"tool\": \"list_skills\",\n  \"arguments\": {}\n}",
+      "expected_tool": "list_skills",
+      "expected_args": {},
+      "chosen_tool": "list_skills",
+      "arguments": {},
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "profile_skills",
+      "config": "coarse",
+      "prompt": "List the skills on my freelancer profile.",
+      "expected_action": "list_skills",
+      "error": null,
+      "tokens": 774,
+      "prompt_tokens": 749,
+      "completion_tokens": 25,
+      "seconds": 29.725673911998456,
+      "content": "{\n  \"tool\": \"portfolio\",\n  \"arguments\": {\n    \"action\": \"list_skills\"\n  }\n}",
+      "expected_tool": "portfolio",
+      "expected_args": {
+        "action": "list_skills"
+      },
+      "chosen_tool": "portfolio",
+      "arguments": {
+        "action": "list_skills"
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "verify_draft",
+      "config": "fine",
+      "prompt": "Check this draft claim against owned chunks `chunk_a` and `chunk_b`: I built a dbt migration for a retail client.",
+      "expected_action": "verify_claims",
+      "error": null,
+      "tokens": 1380,
+      "prompt_tokens": 1327,
+      "completion_tokens": 53,
+      "seconds": 32.3628064479999,
+      "content": "{\n  \"tool\": \"verify_claims\",\n  \"arguments\": {\n    \"draft\": \"I built a dbt migration for a retail client.\",\n    \"chunk_ids\": [\n      \"chunk_a\",\n      \"chunk_b\"\n    ]\n  }\n}",
+      "expected_tool": "verify_claims",
+      "expected_args": {
+        "draft": "I built a dbt migration for a retail client.",
+        "chunk_ids": [
+          "chunk_a",
+          "chunk_b"
+        ]
+      },
+      "chosen_tool": "verify_claims",
+      "arguments": {
+        "draft": "I built a dbt migration for a retail client.",
+        "chunk_ids": [
+          "chunk_a",
+          "chunk_b"
+        ]
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "verify_draft",
+      "config": "coarse",
+      "prompt": "Check this draft claim against owned chunks `chunk_a` and `chunk_b`: I built a dbt migration for a retail client.",
+      "expected_action": "verify_claims",
+      "error": null,
+      "tokens": 822,
+      "prompt_tokens": 768,
+      "completion_tokens": 54,
+      "seconds": 30.13756841000213,
+      "content": "{\n  \"tool\": \"portfolio\",\n  \"arguments\": {\n    \"action\": \"verify_claims\",\n    \"requirement\": \"I built a dbt migration for a retail client.\",\n    \"draft\": \"chunk_a,chunk_b\"\n  }\n}",
+      "expected_tool": "portfolio",
+      "expected_args": {
+        "action": "verify_claims",
+        "draft": "I built a dbt migration for a retail client.",
+        "chunk_ids": [
+          "chunk_a",
+          "chunk_b"
+        ]
+      },
+      "chosen_tool": "portfolio",
+      "arguments": {
+        "action": "verify_claims",
+        "requirement": "I built a dbt migration for a retail client.",
+        "draft": "chunk_a,chunk_b"
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": false,
+      "arguments_ok": false
+    },
+    {
+      "task_id": "verify_draft",
+      "config": "rewritten",
+      "prompt": "Check this draft claim against owned chunks `chunk_a` and `chunk_b`: I built a dbt migration for a retail client.",
+      "expected_action": "verify_claims",
+      "error": null,
+      "tokens": 1514,
+      "prompt_tokens": 1461,
+      "completion_tokens": 53,
+      "seconds": 44.32999073499741,
+      "content": "{\n  \"tool\": \"verify_claims\",\n  \"arguments\": {\n    \"draft\": \"I built a dbt migration for a retail client.\",\n    \"chunk_ids\": [\n      \"chunk_a\",\n      \"chunk_b\"\n    ]\n  }\n}",
+      "expected_tool": "verify_claims",
+      "expected_args": {
+        "draft": "I built a dbt migration for a retail client.",
+        "chunk_ids": [
+          "chunk_a",
+          "chunk_b"
+        ]
+      },
+      "chosen_tool": "verify_claims",
+      "arguments": {
+        "draft": "I built a dbt migration for a retail client.",
+        "chunk_ids": [
+          "chunk_a",
+          "chunk_b"
+        ]
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "free_slots",
+      "config": "coarse",
+      "prompt": "Find my free interview slots for the next 14 days.",
+      "expected_action": "get_free_slots",
+      "error": null,
+      "tokens": 790,
+      "prompt_tokens": 754,
+      "completion_tokens": 36,
+      "seconds": 16.974948544000654,
+      "content": "{\n  \"tool\": \"workspace\",\n  \"arguments\": {\n    \"action\": \"get_free_slots\",\n    \"days_ahead\": 14\n  }\n}",
+      "expected_tool": "workspace",
+      "expected_args": {
+        "action": "get_free_slots",
+        "days_ahead": 14
+      },
+      "chosen_tool": "workspace",
+      "arguments": {
+        "action": "get_free_slots",
+        "days_ahead": 14
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "free_slots",
+      "config": "rewritten",
+      "prompt": "Find my free interview slots for the next 14 days.",
+      "expected_action": "get_free_slots",
+      "error": null,
+      "tokens": 1476,
+      "prompt_tokens": 1447,
+      "completion_tokens": 29,
+      "seconds": 15.709294856002089,
+      "content": "{\n  \"tool\": \"get_free_slots\",\n  \"arguments\": {\n    \"days_ahead\": 14\n  }\n}",
+      "expected_tool": "get_free_slots",
+      "expected_args": {
+        "days_ahead": 14
+      },
+      "chosen_tool": "get_free_slots",
+      "arguments": {
+        "days_ahead": 14
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "free_slots",
+      "config": "fine",
+      "prompt": "Find my free interview slots for the next 14 days.",
+      "expected_action": "get_free_slots",
+      "error": null,
+      "tokens": 1342,
+      "prompt_tokens": 1313,
+      "completion_tokens": 29,
+      "seconds": 11.390440630002558,
+      "content": "{\n  \"tool\": \"get_free_slots\",\n  \"arguments\": {\n    \"days_ahead\": 14\n  }\n}",
+      "expected_tool": "get_free_slots",
+      "expected_args": {
+        "days_ahead": 14
+      },
+      "chosen_tool": "get_free_slots",
+      "arguments": {
+        "days_ahead": 14
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "email_draft",
+      "config": "rewritten",
+      "prompt": "Draft an email to sam@example.com with subject 'Interview availability' and body 'Are you free Tuesday at 10:00?'",
+      "expected_action": "create_email_draft",
+      "error": null,
+      "tokens": 1515,
+      "prompt_tokens": 1462,
+      "completion_tokens": 53,
+      "seconds": 8.986484601002303,
+      "content": "{\n  \"tool\": \"create_email_draft\",\n  \"arguments\": {\n    \"to\": \"sam@example.com\",\n    \"subject\": \"Interview availability\",\n    \"body\": \"Are you free Tuesday at 10:00?\"\n  }\n}",
+      "expected_tool": "create_email_draft",
+      "expected_args": {
+        "to": "sam@example.com",
+        "subject": "Interview availability",
+        "body": "Are you free Tuesday at 10:00?"
+      },
+      "chosen_tool": "create_email_draft",
+      "arguments": {
+        "to": "sam@example.com",
+        "subject": "Interview availability",
+        "body": "Are you free Tuesday at 10:00?"
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "email_draft",
+      "config": "fine",
+      "prompt": "Draft an email to sam@example.com with subject 'Interview availability' and body 'Are you free Tuesday at 10:00?'",
+      "expected_action": "create_email_draft",
+      "error": null,
+      "tokens": 1403,
+      "prompt_tokens": 1328,
+      "completion_tokens": 75,
+      "seconds": 28.40017987900137,
+      "content": "{\n  \"tool\": \"create_email_draft\",\n  \"arguments\": {\n    \"to\": \"sam@example.com\",\n    \"subject\": \"Interview availability\",\n    \"body\": \"Are you free Tuesday at 10:00?\",\n    \"idempotency_key\": \"unique-id-for-draft\",\n    \"dry_run\": false\n  }\n}",
+      "expected_tool": "create_email_draft",
+      "expected_args": {
+        "to": "sam@example.com",
+        "subject": "Interview availability",
+        "body": "Are you free Tuesday at 10:00?"
+      },
+      "chosen_tool": "create_email_draft",
+      "arguments": {
+        "to": "sam@example.com",
+        "subject": "Interview availability",
+        "body": "Are you free Tuesday at 10:00?",
+        "idempotency_key": "unique-id-for-draft",
+        "dry_run": false
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "email_draft",
+      "config": "coarse",
+      "prompt": "Draft an email to sam@example.com with subject 'Interview availability' and body 'Are you free Tuesday at 10:00?'",
+      "expected_action": "create_email_draft",
+      "error": null,
+      "tokens": 829,
+      "prompt_tokens": 769,
+      "completion_tokens": 60,
+      "seconds": 36.38500089599984,
+      "content": "{\n  \"tool\": \"workspace\",\n  \"arguments\": {\n    \"action\": \"create_email_draft\",\n    \"to\": \"sam@example.com\",\n    \"subject\": \"Interview availability\",\n    \"body\": \"Are you free Tuesday at 10:00?\"\n  }\n}",
+      "expected_tool": "workspace",
+      "expected_args": {
+        "action": "create_email_draft",
+        "to": "sam@example.com",
+        "subject": "Interview availability",
+        "body": "Are you free Tuesday at 10:00?"
+      },
+      "chosen_tool": "workspace",
+      "arguments": {
+        "action": "create_email_draft",
+        "to": "sam@example.com",
+        "subject": "Interview availability",
+        "body": "Are you free Tuesday at 10:00?"
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "evidence_not_jobs",
+      "config": "fine",
+      "prompt": "Find portfolio case studies that show my experience with PostgreSQL, not new jobs.",
+      "expected_action": "search_evidence",
+      "error": null,
+      "tokens": 1350,
+      "prompt_tokens": 1315,
+      "completion_tokens": 35,
+      "seconds": 41.29926995999995,
+      "content": "{\n  \"tool\": \"search_evidence\",\n  \"arguments\": {\n    \"requirement\": \"PostgreSQL\",\n    \"k\": 5\n  }\n}",
+      "expected_tool": "search_evidence",
+      "expected_args": {
+        "requirement": "PostgreSQL",
+        "filters": {
+          "type": "case_study"
+        }
+      },
+      "chosen_tool": "search_evidence",
+      "arguments": {
+        "requirement": "PostgreSQL",
+        "k": 5
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": false,
+      "arguments_ok": false
+    },
+    {
+      "task_id": "evidence_not_jobs",
+      "config": "coarse",
+      "prompt": "Find portfolio case studies that show my experience with PostgreSQL, not new jobs.",
+      "expected_action": "search_evidence",
+      "error": null,
+      "tokens": 814,
+      "prompt_tokens": 756,
+      "completion_tokens": 58,
+      "seconds": 37.30114242399941,
+      "content": "{\n  \"tool\": \"portfolio\",\n  \"arguments\": {\n    \"action\": \"search_evidence\",\n    \"requirement\": \"PostgreSQL\",\n    \"filters\": {\n      \"type\": \"case_study\",\n      \"outcome\": \"showcase\"\n    }\n  }\n}",
+      "expected_tool": "portfolio",
+      "expected_args": {
+        "action": "search_evidence",
+        "requirement": "PostgreSQL",
+        "filters": {
+          "type": "case_study"
+        }
+      },
+      "chosen_tool": "portfolio",
+      "arguments": {
+        "action": "search_evidence",
+        "requirement": "PostgreSQL",
+        "filters": {
+          "type": "case_study",
+          "outcome": "showcase"
+        }
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "evidence_not_jobs",
+      "config": "rewritten",
+      "prompt": "Find portfolio case studies that show my experience with PostgreSQL, not new jobs.",
+      "expected_action": "search_evidence",
+      "error": null,
+      "tokens": 1506,
+      "prompt_tokens": 1449,
+      "completion_tokens": 57,
+      "seconds": 35.41086037700006,
+      "content": "{\n  \"tool\": \"search_evidence\",\n  \"arguments\": {\n    \"requirement\": \"PostgreSQL\",\n    \"k\": 5,\n    \"filters\": {\n      \"type\": \"case_study\",\n      \"outcome\": \"success\"\n    }\n  }\n}",
+      "expected_tool": "search_evidence",
+      "expected_args": {
+        "requirement": "PostgreSQL",
+        "filters": {
+          "type": "case_study"
+        }
+      },
+      "chosen_tool": "search_evidence",
+      "arguments": {
+        "requirement": "PostgreSQL",
+        "k": 5,
+        "filters": {
+          "type": "case_study",
+          "outcome": "success"
+        }
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "message_not_email",
+      "config": "coarse",
+      "prompt": "Send this reply to the client in conversation `conv_555`: I can start on Monday.",
+      "expected_action": "send_message",
+      "error": null,
+      "tokens": 803,
+      "prompt_tokens": 762,
+      "completion_tokens": 41,
+      "seconds": 41.202939392998815,
+      "content": "{\n  \"tool\": \"send_message\",\n  \"arguments\": {\n    \"conversation_id\": \"conv_555\",\n    \"body\": \"I can start on Monday.\"\n  }\n}",
+      "expected_tool": "marketplace",
+      "expected_args": {
+        "action": "send_message",
+        "conversation_id": "conv_555",
+        "body": "I can start on Monday."
+      },
+      "chosen_tool": "send_message",
+      "arguments": {
+        "conversation_id": "conv_555",
+        "body": "I can start on Monday."
+      },
+      "selection_ok": false,
+      "arguments_ok_raw": false,
+      "arguments_ok": false
+    },
+    {
+      "task_id": "message_not_email",
+      "config": "rewritten",
+      "prompt": "Send this reply to the client in conversation `conv_555`: I can start on Monday.",
+      "expected_action": "send_message",
+      "error": null,
+      "tokens": 1496,
+      "prompt_tokens": 1455,
+      "completion_tokens": 41,
+      "seconds": 50.35163726199971,
+      "content": "{\n  \"tool\": \"send_message\",\n  \"arguments\": {\n    \"conversation_id\": \"conv_555\",\n    \"body\": \"I can start on Monday.\"\n  }\n}",
+      "expected_tool": "send_message",
+      "expected_args": {
+        "conversation_id": "conv_555",
+        "body": "I can start on Monday."
+      },
+      "chosen_tool": "send_message",
+      "arguments": {
+        "conversation_id": "conv_555",
+        "body": "I can start on Monday."
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "message_not_email",
+      "config": "fine",
+      "prompt": "Send this reply to the client in conversation `conv_555`: I can start on Monday.",
+      "expected_action": "send_message",
+      "error": null,
+      "tokens": 1385,
+      "prompt_tokens": 1321,
+      "completion_tokens": 64,
+      "seconds": 40.93847999100035,
+      "content": "{\n  \"tool\": \"send_message\",\n  \"arguments\": {\n    \"conversation_id\": \"conv_555\",\n    \"body\": \"I can start on Monday.\",\n    \"idempotency_key\": \"idempotency_key_value\",\n    \"dry_run\": false\n  }\n}",
+      "expected_tool": "send_message",
+      "expected_args": {
+        "conversation_id": "conv_555",
+        "body": "I can start on Monday."
+      },
+      "chosen_tool": "send_message",
+      "arguments": {
+        "conversation_id": "conv_555",
+        "body": "I can start on Monday.",
+        "idempotency_key": "idempotency_key_value",
+        "dry_run": false
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "job_not_client",
+      "config": "rewritten",
+      "prompt": "For job `job_900`, what are its public requirements? Do not look up the client.",
+      "expected_action": "get_job",
+      "error": null,
+      "tokens": 1486,
+      "prompt_tokens": 1456,
+      "completion_tokens": 30,
+      "seconds": 37.195090198998514,
+      "content": "{\n  \"tool\": \"get_job\",\n  \"arguments\": {\n    \"job_id\": \"job_900\"\n  }\n}",
+      "expected_tool": "get_job",
+      "expected_args": {
+        "job_id": "job_900"
+      },
+      "chosen_tool": "get_job",
+      "arguments": {
+        "job_id": "job_900"
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "job_not_client",
+      "config": "fine",
+      "prompt": "For job `job_900`, what are its public requirements? Do not look up the client.",
+      "expected_action": "get_job",
+      "error": null,
+      "tokens": 1352,
+      "prompt_tokens": 1322,
+      "completion_tokens": 30,
+      "seconds": 35.407888350000576,
+      "content": "{\n  \"tool\": \"get_job\",\n  \"arguments\": {\n    \"job_id\": \"job_900\"\n  }\n}",
+      "expected_tool": "get_job",
+      "expected_args": {
+        "job_id": "job_900"
+      },
+      "chosen_tool": "get_job",
+      "arguments": {
+        "job_id": "job_900"
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    },
+    {
+      "task_id": "job_not_client",
+      "config": "coarse",
+      "prompt": "For job `job_900`, what are its public requirements? Do not look up the client.",
+      "expected_action": "get_job",
+      "error": null,
+      "tokens": 801,
+      "prompt_tokens": 763,
+      "completion_tokens": 38,
+      "seconds": 41.71591800600072,
+      "content": "{\n  \"tool\": \"marketplace\",\n  \"arguments\": {\n    \"action\": \"get_job\",\n    \"job_id\": \"job_900\"\n  }\n}",
+      "expected_tool": "marketplace",
+      "expected_args": {
+        "action": "get_job",
+        "job_id": "job_900"
+      },
+      "chosen_tool": "marketplace",
+      "arguments": {
+        "action": "get_job",
+        "job_id": "job_900"
+      },
+      "selection_ok": true,
+      "arguments_ok_raw": true,
+      "arguments_ok": true
+    }
+  ]
+}

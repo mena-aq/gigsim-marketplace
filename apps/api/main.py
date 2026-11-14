@@ -14,6 +14,8 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from apps.api.config import Settings
 from apps.api.db import build_engine
+from apps.api.orchestration import router as orchestration_router
+from mcp_servers.common.security import install_log_redaction
 
 
 class HealthResponse(BaseModel):
@@ -32,6 +34,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
+        install_log_redaction()
+        app.state.settings = settings
         app.state.engine = build_engine(settings.database_url)
         app.state.redis = Redis.from_url(
             settings.redis_url, socket_connect_timeout=2, socket_timeout=2
@@ -43,6 +47,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             await app.state.engine.dispose()
 
     app = FastAPI(title="GigBid API", version="0.1.0", lifespan=lifespan)
+    app.include_router(orchestration_router)
 
     @app.get("/health", response_model=HealthResponse)
     async def health() -> HealthResponse:

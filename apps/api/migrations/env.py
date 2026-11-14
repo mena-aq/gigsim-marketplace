@@ -9,9 +9,29 @@ from sqlalchemy.ext.asyncio import create_async_engine
 from apps.api.config import Settings
 from apps.api.models import Base
 
+LANGGRAPH_TABLES = {
+    "checkpoint_migrations",
+    "checkpoints",
+    "checkpoint_blobs",
+    "checkpoint_writes",
+    "store_migrations",
+    "store",
+    "store_vectors",
+    "vector_migrations",
+}
+
+
+def include_object(obj, name, type_, reflected, compare_to):
+    """LangGraph's setup command, rather than Alembic, owns these tables."""
+    return not (type_ == "table" and name in LANGGRAPH_TABLES)
+
 
 def migrate(connection: Connection) -> None:
-    context.configure(connection=connection, target_metadata=Base.metadata)
+    context.configure(
+        connection=connection,
+        target_metadata=Base.metadata,
+        include_object=include_object,
+    )
     with context.begin_transaction():
         context.run_migrations()
 

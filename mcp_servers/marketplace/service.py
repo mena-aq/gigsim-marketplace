@@ -65,6 +65,21 @@ class MarketplaceService:
                 await session.flush()
                 result["draft_id"] = proposal.id
             else:
+                from agent.config import load_graph_config
+
+                reserve = load_graph_config()["orchestration"][
+                    "minimum_connects_reserve"
+                ]
+                # Runtime holds the tenant write lock here. Recheck the reserve
+                # after other approved runs may have spent Connects. An upstream
+                # replay has already committed and must recover its old receipt.
+                if (
+                    quote["status"] == "dry_run"
+                    and quote["connects_remaining"] < reserve
+                ):
+                    raise ToolFailure(
+                        "connects_reserve", "Sending would exceed the Connects reserve"
+                    )
                 if request.expected_connects_cost != cost:
                     raise ToolFailure(
                         "preview_changed",

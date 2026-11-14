@@ -1,5 +1,10 @@
 # Local foundation runbook
 
+Part C execution, approval, recovery and checkpoint replay instructions are in
+[ORCHESTRATION.md](ORCHESTRATION.md). Run `make migrate` after updating dependencies
+to initialize the graph outbox and LangGraph-owned checkpoint/memory tables.
+The minimal authenticated operator workspace is at `/review`.
+
 ## First run
 
 Prerequisites: Docker Engine with Compose, uv, and Node 22 with npm for local web
@@ -168,54 +173,101 @@ IDs. It can exclude supported-looking sentences when numerical formats differ;
 review the per-claim reason. A needs_attention report must not be treated as passed
 verification. Approval grants/UI enforcement remains separate and unchanged.
 
-## Reading and reproducing the RAG comparison
+## One RAG evaluation for Part B
 
-The checked-in development labels are agent-authored and await human review:
-`evals/datasets/rag_dev.json` and `claim_dev.json`. They are not an instructor gold
-set, hidden test set, or human judge calibration. Review/relabel them before making
-strong quality claims. See docs/RAG_EXPERIMENT.md for the comparison protocol.
-
-`make rag-eval` runs real local models sequentially, flushing each observation to a
-new timestamped JSONL file. It writes rag_comparison.json plus generated CSV and
-Markdown only after the complete run. To resume an interrupted matching run:
+Start the existing data services if needed:
 
 ```bash
-uv run python -m evals.runners.rag_eval --resume evals/results/<run>.jsonl
+docker compose --env-file .env -f infra/docker-compose.yml up -d postgres redis vector-store
 ```
 
-Resume refuses changed retrieval/prompt code, configuration, indexes, datasets,
-and recorded model/runtime versions. Derived quality metrics are recomputed from
-the stored rankings; completed model calls are not repeated. Quality aggregates
-count retrieval failures as failures, not successful no-evidence refusals. The
-comparison includes positive-query Recall@5, MRR, nDCG@10, negative-query correct
-abstention, per-persona/query-type breakdowns, p50/p95 latency, and reported model
-usage. V8 grades five candidates and may return fewer than ten supported items.
-Each run also has an environment sidecar recording actual Ollama model digests,
-server/library versions, and the dependency-lock hash. Verification metrics use
-one-sentence examples with supplied evidence; they do not measure full proposal
-claim accuracy. Local hardware cost is unknown; no paid API is called. Proposal outcomes and
-calibrated-judge metrics remain deferred. The user selects the variant explicitly.
+Host Ollama needs the configured embedding/Qwen models. Provision MCP users and
+matching indexes on a fresh installation with `make mcp-bootstrap` and
+`make rag-ingest`. No running GigSim or MCP HTTP server is required for outcome
+writes: the benchmark uses disposable in-process databases and real MCP sessions.
 
-CI correctness tests use declared deterministic model substitutes and isolated
-indexes; they do not download weights or publish fake benchmark scores. Actual
-model smoke checks and comparisons are separate from the test suite.
+```bash
+make rag-table       # offline: regenerate B5 CSV, report, and README
+make rag-calibrate   # offline: import 30 human scores and regenerate reports
+make rag-eval        # expensive: all five variants, verification, outcomes, ablation
+make rag-smoke       # one-query/job, V0 check; never publishes as the full benchmark
+```
 
-## Quick R&D B commands (run manually)
+For the corrected fixture, first run `make rag-repair-data` (already generated in
+this workspace). It needs no models, raw-data download, or database writes. It
+preserves original processed files, writes separate seed data under
+`data/processed/repaired_clients/`, and creates `evals/datasets/rag_jobs_v2.json`.
+Identical reruns are allowed; different existing output is not overwritten.
+Future `make rag-eval` uses that v2 snapshot by default. Existing 200-token RAG
+chunks remain compatible; no re-index is needed solely for the query-limit fix.
 
-Analyze a completed comparison without model/service calls:
+Each run performs embedding/context and positive/negative simulator preflight
+checks before model inference. The runtime accepts 256 tokens, so query content
+is capped at 254 plus two special tokens. Failed preflight stops the run rather
+than burning hours on an incompatible benchmark. Preflight controls do not count
+as measured replies. Full inference still takes hours on CPU; start it yourself.
+
+`make eval` calls the same RAG evaluation. The exact eight-column B5 export is
+`evals/results/rag_comparison.csv`. Its JSON also contains B3 before/after rates,
+claim counts, MRR, retention, tokens, per-persona/category breakdowns, simulated
+reply/hire rates, and ablation. The report includes all denominators and source
+hashes. `make rag-table` neither reruns inference nor the completed R&D study.
+
+New model runs create `evals/results/runs/<timestamp>/` and publish the active
+CSV/JSON/Markdown to `evals/results/` only when the full benchmark completes.
+Each stage flushes observations. Resume an interrupted run with:
+
+```bash
+uv run python -m evals.runners.rag_eval --resume evals/results/runs/<timestamp>
+```
+
+Resume rejects changed code/configuration/fixtures, models/runtime, and stage
+index fingerprints. Completed stages and observations, including failed
+observations, are retained. Controlled one-sentence claims are regression
+fixtures; B3 and B5 claim rates come from generated drafts per variant. Smoke
+runs require the same --limit/--variants options when resuming.
+
+The active folder is recorded in `rag_comparison.json` as artifact_directory.
+Fill only human_score in that folder's `rag_human_review.csv`, one integer 1–5
+per row. `make rag-calibrate` validates all 30 items and reports exact agreement
+and Cohen's kappa alongside judge means; low agreement does not hide scores.
+The seeded review pack samples six scored outputs per variant, aiming for two
+per persona and filling sparse cells within the same variant. Missing packs are
+created offline when enough scored outputs exist; shortages are reported.
+New runs receive new review packs; completed historical labels are not overwritten.
+
+The original query and job measurements and human labels were imported once.
+`evals/results/proposal/` and timestamped historical JSONL files remain source
+evidence, not another active evaluation. Gold query labels remain provisional;
+the human judge scores are a separate reviewed artifact. No shipped variant is
+selected automatically. Hardware cost remains unknown, while paid API spend is zero.
+
+## Separate R&D hypothesis analysis
+
+The completed V2–V3 hypothesis study is retained. To analyze a historical run
+explicitly, without model calls:
 
 ```bash
 uv run python -m evals.runners.rag_rd_b --run evals/results/rag_20261113_155449.jsonl
 ```
 
-Then run the fresh three-configuration ablation (embeddings and CPU reranking only):
+Component ablation runs automatically at the end of `make rag-eval`; the existing
+standalone ablation command remains available for focused research. It measures
+full V3, without reranking, and without BM25, using embeddings and CPU reranking
+only. It makes no Qwen calls and does not select a production variant.
+
+## Using repaired seed files for later agent work
+
+The evaluation uses disposable fixtures and does not update your live GigSim DB.
+Fresh data generation (`make process`) now performs compatible client assignment
+at the source. To seed a development simulator from the separately repaired files,
+use explicit paths:
 
 ```bash
-uv run python -m evals.runners.rag_ablation
+uv run python -m gigsim.seed --jobs data/processed/repaired_clients/jobs.json --stream data/processed/repaired_clients/stream_jobs.json --clients data/processed/repaired_clients/clients.json
 ```
 
-The ablation needs the existing Postgres user mappings, Chroma/indexes, Ollama
-embeddings, and installed reranker. It makes no generative Qwen calls. Both commands
-write their JSON, CSV, Markdown, and supporting evidence into evals/results and do
-not select a production variant. See docs/RAG_EXPERIMENT.md for the hypothesis,
-confidence-interval interpretation, input checks, and output-file names.
+This command merges repaired jobs/clients into the selected development database,
+including revised client associations. It was not run during this repair.
+No GigSim source or reply-rule changes were needed. The model smoke check was
+kept under /tmp and did not replace the published historical comparison.

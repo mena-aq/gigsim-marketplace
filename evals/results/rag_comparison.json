@@ -550,6 +550,517 @@
     }
   },
   "verification": {
+    "all": {
+      "v0": {
+        "assessed_proposals": 13,
+        "before_experience_claims": 4,
+        "after_experience_claims": 4,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 3,
+        "supported_retention_rate": 0.5,
+        "empty_drafts": 6,
+        "needs_attention": 5
+      },
+      "v1": {
+        "assessed_proposals": 8,
+        "before_experience_claims": 0,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": null,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": null,
+        "empty_drafts": 11,
+        "needs_attention": 7
+      },
+      "v2": {
+        "assessed_proposals": 7,
+        "before_experience_claims": 3,
+        "after_experience_claims": 2,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 1.0,
+        "empty_drafts": 11,
+        "needs_attention": 8
+      },
+      "v3": {
+        "assessed_proposals": 10,
+        "before_experience_claims": 3,
+        "after_experience_claims": 1,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 0.5,
+        "empty_drafts": 12,
+        "needs_attention": 11
+      },
+      "v8": {
+        "assessed_proposals": 8,
+        "before_experience_claims": 6,
+        "after_experience_claims": 2,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 0.3333333333333333,
+        "empty_drafts": 10,
+        "needs_attention": 8
+      }
+    },
+    "persona:data_analyst": {
+      "v0": {
+        "assessed_proposals": 5,
+        "before_experience_claims": 1,
+        "after_experience_claims": 1,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 1,
+        "supported_retention_rate": 0.0,
+        "empty_drafts": 3,
+        "needs_attention": 3
+      },
+      "v1": {
+        "assessed_proposals": 4,
+        "before_experience_claims": 0,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": null,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": null,
+        "empty_drafts": 4,
+        "needs_attention": 2
+      },
+      "v2": {
+        "assessed_proposals": 3,
+        "before_experience_claims": 1,
+        "after_experience_claims": 1,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 1.0,
+        "empty_drafts": 5,
+        "needs_attention": 3
+      },
+      "v3": {
+        "assessed_proposals": 4,
+        "before_experience_claims": 1,
+        "after_experience_claims": 1,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 1.0,
+        "empty_drafts": 4,
+        "needs_attention": 4
+      },
+      "v8": {
+        "assessed_proposals": 2,
+        "before_experience_claims": 1,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 0.0,
+        "empty_drafts": 5,
+        "needs_attention": 4
+      }
+    },
+    "persona:fullstack_dev": {
+      "v0": {
+        "assessed_proposals": 4,
+        "before_experience_claims": 3,
+        "after_experience_claims": 3,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 2,
+        "supported_retention_rate": 1.0,
+        "empty_drafts": 0,
+        "needs_attention": 0
+      },
+      "v1": {
+        "assessed_proposals": 1,
+        "before_experience_claims": 0,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": null,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": null,
+        "empty_drafts": 2,
+        "needs_attention": 2
+      },
+      "v2": {
+        "assessed_proposals": 1,
+        "before_experience_claims": 1,
+        "after_experience_claims": 1,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 1.0,
+        "empty_drafts": 3,
+        "needs_attention": 3
+      },
+      "v3": {
+        "assessed_proposals": 4,
+        "before_experience_claims": 2,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 0.0,
+        "empty_drafts": 3,
+        "needs_attention": 3
+      },
+      "v8": {
+        "assessed_proposals": 2,
+        "before_experience_claims": 1,
+        "after_experience_claims": 1,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 1.0,
+        "empty_drafts": 2,
+        "needs_attention": 1
+      }
+    },
+    "persona:ml_engineer": {
+      "v0": {
+        "assessed_proposals": 4,
+        "before_experience_claims": 0,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": null,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": null,
+        "empty_drafts": 3,
+        "needs_attention": 2
+      },
+      "v1": {
+        "assessed_proposals": 3,
+        "before_experience_claims": 0,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": null,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": null,
+        "empty_drafts": 5,
+        "needs_attention": 3
+      },
+      "v2": {
+        "assessed_proposals": 3,
+        "before_experience_claims": 1,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": null,
+        "empty_drafts": 3,
+        "needs_attention": 2
+      },
+      "v3": {
+        "assessed_proposals": 2,
+        "before_experience_claims": 0,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": null,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": null,
+        "empty_drafts": 5,
+        "needs_attention": 4
+      },
+      "v8": {
+        "assessed_proposals": 4,
+        "before_experience_claims": 4,
+        "after_experience_claims": 1,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 0.25,
+        "empty_drafts": 3,
+        "needs_attention": 3
+      }
+    },
+    "category:AI & Machine Learning": {
+      "v0": {
+        "assessed_proposals": 4,
+        "before_experience_claims": 0,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": null,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": null,
+        "empty_drafts": 3,
+        "needs_attention": 2
+      },
+      "v1": {
+        "assessed_proposals": 3,
+        "before_experience_claims": 0,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": null,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": null,
+        "empty_drafts": 5,
+        "needs_attention": 3
+      },
+      "v2": {
+        "assessed_proposals": 3,
+        "before_experience_claims": 1,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": null,
+        "empty_drafts": 3,
+        "needs_attention": 2
+      },
+      "v3": {
+        "assessed_proposals": 2,
+        "before_experience_claims": 0,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": null,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": null,
+        "empty_drafts": 5,
+        "needs_attention": 4
+      },
+      "v8": {
+        "assessed_proposals": 4,
+        "before_experience_claims": 4,
+        "after_experience_claims": 1,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 0.25,
+        "empty_drafts": 3,
+        "needs_attention": 3
+      }
+    },
+    "category:Data Science": {
+      "v0": {
+        "assessed_proposals": 5,
+        "before_experience_claims": 1,
+        "after_experience_claims": 1,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 1,
+        "supported_retention_rate": 0.0,
+        "empty_drafts": 3,
+        "needs_attention": 3
+      },
+      "v1": {
+        "assessed_proposals": 4,
+        "before_experience_claims": 0,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": null,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": null,
+        "empty_drafts": 4,
+        "needs_attention": 2
+      },
+      "v2": {
+        "assessed_proposals": 3,
+        "before_experience_claims": 1,
+        "after_experience_claims": 1,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 1.0,
+        "empty_drafts": 5,
+        "needs_attention": 3
+      },
+      "v3": {
+        "assessed_proposals": 4,
+        "before_experience_claims": 1,
+        "after_experience_claims": 1,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 1.0,
+        "empty_drafts": 4,
+        "needs_attention": 4
+      },
+      "v8": {
+        "assessed_proposals": 2,
+        "before_experience_claims": 1,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 0.0,
+        "empty_drafts": 5,
+        "needs_attention": 4
+      }
+    },
+    "category:Web Development": {
+      "v0": {
+        "assessed_proposals": 4,
+        "before_experience_claims": 3,
+        "after_experience_claims": 3,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 2,
+        "supported_retention_rate": 1.0,
+        "empty_drafts": 0,
+        "needs_attention": 0
+      },
+      "v1": {
+        "assessed_proposals": 1,
+        "before_experience_claims": 0,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": null,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": null,
+        "empty_drafts": 2,
+        "needs_attention": 2
+      },
+      "v2": {
+        "assessed_proposals": 1,
+        "before_experience_claims": 1,
+        "after_experience_claims": 1,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 1.0,
+        "empty_drafts": 3,
+        "needs_attention": 3
+      },
+      "v3": {
+        "assessed_proposals": 4,
+        "before_experience_claims": 2,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 0.0,
+        "empty_drafts": 3,
+        "needs_attention": 3
+      },
+      "v8": {
+        "assessed_proposals": 2,
+        "before_experience_claims": 1,
+        "after_experience_claims": 1,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 1.0,
+        "empty_drafts": 2,
+        "needs_attention": 1
+      }
+    }
+  },
+  "selection": "Pending the user's decision; V0 remains the development baseline",
+  "schema_version": 2,
+  "artifact_directory": "/home/menahil/GigBid_Student_Starter_Kit_v0.1/gigbid-starter-kit/evals/results",
+  "complete": true,
+  "full_benchmark": true,
+  "claim_regressions": {
     "unit": "one_sentence_example_with_supplied_gold_source_evidence",
     "supported_retention_rate": 0.6666666666666666,
     "unsafe_removal_rate": 0.4444444444444444,
@@ -562,5 +1073,2615 @@
     "correct_keep_decisions": 6,
     "needs_attention": 5
   },
-  "selection": "Pending the user's decision; V0 remains the development baseline"
+  "workflow": {
+    "all": {
+      "v0": {
+        "attempted": 30,
+        "completed": 19,
+        "failures": 11,
+        "assessed_proposals": 13,
+        "before_experience_claims": 4,
+        "after_experience_claims": 4,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 3,
+        "supported_retention_rate": 0.5,
+        "empty_drafts": 6,
+        "needs_attention": 5,
+        "outcome_observations": 19,
+        "submitted": 13,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 82.88400350200027,
+        "p95_proposal_seconds": 119.26257556500059,
+        "proposal_prompt_tokens": 47536,
+        "proposal_completion_tokens": 6610,
+        "evaluation_prompt_tokens": 78483,
+        "evaluation_completion_tokens": 8980,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 3.6923076923076925,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 13,
+        "failure_codes": {
+          "embedding_failed": 11
+        },
+        "failure_categories": {
+          "embedding": 11
+        },
+        "verification_failure_count": 5,
+        "verification_failure_reasons": {
+          "Verifier invented a claim or citation": 1,
+          "Verifier left text unchecked": 4
+        },
+        "assessment_failures": 6,
+        "reply_gate_counts": {
+          "skill_mismatch": 13
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 13
+        }
+      },
+      "v1": {
+        "attempted": 30,
+        "completed": 18,
+        "failures": 12,
+        "assessed_proposals": 8,
+        "before_experience_claims": 0,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": null,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": null,
+        "empty_drafts": 11,
+        "needs_attention": 7,
+        "outcome_observations": 18,
+        "submitted": 7,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 108.98407043999941,
+        "p95_proposal_seconds": 151.70762090399876,
+        "proposal_prompt_tokens": 57203,
+        "proposal_completion_tokens": 8390,
+        "evaluation_prompt_tokens": 83278,
+        "evaluation_completion_tokens": 11469,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 3.857142857142857,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 7,
+        "failure_codes": {
+          "model_response_invalid": 12
+        },
+        "failure_categories": {
+          "decomposition": 12
+        },
+        "verification_failure_count": 7,
+        "verification_failure_reasons": {
+          "Verifier left text unchecked": 7
+        },
+        "assessment_failures": 10,
+        "reply_gate_counts": {
+          "skill_mismatch": 7
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 7
+        }
+      },
+      "v2": {
+        "attempted": 30,
+        "completed": 19,
+        "failures": 11,
+        "assessed_proposals": 7,
+        "before_experience_claims": 3,
+        "after_experience_claims": 2,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 1.0,
+        "empty_drafts": 11,
+        "needs_attention": 8,
+        "outcome_observations": 19,
+        "submitted": 8,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 88.84146660200076,
+        "p95_proposal_seconds": 118.41303946699918,
+        "proposal_prompt_tokens": 47285,
+        "proposal_completion_tokens": 6302,
+        "evaluation_prompt_tokens": 77722,
+        "evaluation_completion_tokens": 8975,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 3.375,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 8,
+        "failure_codes": {
+          "embedding_failed": 11
+        },
+        "failure_categories": {
+          "embedding": 11
+        },
+        "verification_failure_count": 8,
+        "verification_failure_reasons": {
+          "Verifier left text unchecked": 8
+        },
+        "assessment_failures": 12,
+        "reply_gate_counts": {
+          "skill_mismatch": 8
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 8
+        }
+      },
+      "v3": {
+        "attempted": 30,
+        "completed": 19,
+        "failures": 11,
+        "assessed_proposals": 10,
+        "before_experience_claims": 3,
+        "after_experience_claims": 1,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 0.5,
+        "empty_drafts": 12,
+        "needs_attention": 11,
+        "outcome_observations": 19,
+        "submitted": 7,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 89.70544855400112,
+        "p95_proposal_seconds": 125.37072310199983,
+        "proposal_prompt_tokens": 46439,
+        "proposal_completion_tokens": 6511,
+        "evaluation_prompt_tokens": 69375,
+        "evaluation_completion_tokens": 8418,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 3.5714285714285716,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 7,
+        "failure_codes": {
+          "embedding_failed": 11
+        },
+        "failure_categories": {
+          "embedding": 11
+        },
+        "verification_failure_count": 11,
+        "verification_failure_reasons": {
+          "Verifier invented a claim or citation": 3,
+          "Verifier left text unchecked": 7,
+          "Verifier omitted or repeated a sentence": 1
+        },
+        "assessment_failures": 9,
+        "reply_gate_counts": {
+          "skill_mismatch": 7
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 7
+        }
+      },
+      "v8": {
+        "attempted": 30,
+        "completed": 17,
+        "failures": 13,
+        "assessed_proposals": 8,
+        "before_experience_claims": 6,
+        "after_experience_claims": 2,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 0.3333333333333333,
+        "empty_drafts": 10,
+        "needs_attention": 8,
+        "outcome_observations": 17,
+        "submitted": 7,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 102.4970120880007,
+        "p95_proposal_seconds": 245.82986575599898,
+        "proposal_prompt_tokens": 58673,
+        "proposal_completion_tokens": 13145,
+        "evaluation_prompt_tokens": 71306,
+        "evaluation_completion_tokens": 15038,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 3.7142857142857144,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 7,
+        "failure_codes": {
+          "embedding_failed": 11,
+          "model_response_invalid": 2
+        },
+        "failure_categories": {
+          "embedding": 11,
+          "structured_model": 2
+        },
+        "verification_failure_count": 8,
+        "verification_failure_reasons": {
+          "Verifier invented a claim or citation": 3,
+          "Verifier omitted or repeated a sentence": 2,
+          "Verifier left text unchecked": 3
+        },
+        "assessment_failures": 9,
+        "reply_gate_counts": {
+          "skill_mismatch": 7
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 7
+        }
+      }
+    },
+    "persona:data_analyst": {
+      "v0": {
+        "attempted": 10,
+        "completed": 8,
+        "failures": 2,
+        "assessed_proposals": 5,
+        "before_experience_claims": 1,
+        "after_experience_claims": 1,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 1,
+        "supported_retention_rate": 0.0,
+        "empty_drafts": 3,
+        "needs_attention": 3,
+        "outcome_observations": 8,
+        "submitted": 5,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 79.60808552799972,
+        "p95_proposal_seconds": 95.18937993700001,
+        "proposal_prompt_tokens": 19831,
+        "proposal_completion_tokens": 2633,
+        "evaluation_prompt_tokens": 31364,
+        "evaluation_completion_tokens": 3508,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 3.4,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 5,
+        "failure_codes": {
+          "embedding_failed": 2
+        },
+        "failure_categories": {
+          "embedding": 2
+        },
+        "verification_failure_count": 3,
+        "verification_failure_reasons": {
+          "Verifier left text unchecked": 3
+        },
+        "assessment_failures": 3,
+        "reply_gate_counts": {
+          "skill_mismatch": 5
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 5
+        }
+      },
+      "v1": {
+        "attempted": 10,
+        "completed": 7,
+        "failures": 3,
+        "assessed_proposals": 4,
+        "before_experience_claims": 0,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": null,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": null,
+        "empty_drafts": 4,
+        "needs_attention": 2,
+        "outcome_observations": 7,
+        "submitted": 3,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 91.7100982410002,
+        "p95_proposal_seconds": 123.00782032100051,
+        "proposal_prompt_tokens": 19900,
+        "proposal_completion_tokens": 2817,
+        "evaluation_prompt_tokens": 26808,
+        "evaluation_completion_tokens": 3162,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 3.6666666666666665,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 3,
+        "failure_codes": {
+          "model_response_invalid": 3
+        },
+        "failure_categories": {
+          "decomposition": 3
+        },
+        "verification_failure_count": 2,
+        "verification_failure_reasons": {
+          "Verifier left text unchecked": 2
+        },
+        "assessment_failures": 3,
+        "reply_gate_counts": {
+          "skill_mismatch": 3
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 3
+        }
+      },
+      "v2": {
+        "attempted": 10,
+        "completed": 8,
+        "failures": 2,
+        "assessed_proposals": 3,
+        "before_experience_claims": 1,
+        "after_experience_claims": 1,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 1.0,
+        "empty_drafts": 5,
+        "needs_attention": 3,
+        "outcome_observations": 8,
+        "submitted": 3,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 84.44786430699969,
+        "p95_proposal_seconds": 112.11539717999949,
+        "proposal_prompt_tokens": 20002,
+        "proposal_completion_tokens": 2747,
+        "evaluation_prompt_tokens": 32623,
+        "evaluation_completion_tokens": 3985,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 3.6666666666666665,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 3,
+        "failure_codes": {
+          "embedding_failed": 2
+        },
+        "failure_categories": {
+          "embedding": 2
+        },
+        "verification_failure_count": 3,
+        "verification_failure_reasons": {
+          "Verifier left text unchecked": 3
+        },
+        "assessment_failures": 5,
+        "reply_gate_counts": {
+          "skill_mismatch": 3
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 3
+        }
+      },
+      "v3": {
+        "attempted": 10,
+        "completed": 8,
+        "failures": 2,
+        "assessed_proposals": 4,
+        "before_experience_claims": 1,
+        "after_experience_claims": 1,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 1.0,
+        "empty_drafts": 4,
+        "needs_attention": 4,
+        "outcome_observations": 8,
+        "submitted": 4,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 96.0517258179998,
+        "p95_proposal_seconds": 102.16310389699993,
+        "proposal_prompt_tokens": 20017,
+        "proposal_completion_tokens": 2690,
+        "evaluation_prompt_tokens": 32060,
+        "evaluation_completion_tokens": 3681,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 3.25,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 4,
+        "failure_codes": {
+          "embedding_failed": 2
+        },
+        "failure_categories": {
+          "embedding": 2
+        },
+        "verification_failure_count": 4,
+        "verification_failure_reasons": {
+          "Verifier left text unchecked": 3,
+          "Verifier invented a claim or citation": 1
+        },
+        "assessment_failures": 4,
+        "reply_gate_counts": {
+          "skill_mismatch": 4
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 4
+        }
+      },
+      "v8": {
+        "attempted": 10,
+        "completed": 8,
+        "failures": 2,
+        "assessed_proposals": 2,
+        "before_experience_claims": 1,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 0.0,
+        "empty_drafts": 5,
+        "needs_attention": 4,
+        "outcome_observations": 8,
+        "submitted": 3,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 100.57062118300018,
+        "p95_proposal_seconds": 181.23527964799996,
+        "proposal_prompt_tokens": 27057,
+        "proposal_completion_tokens": 5098,
+        "evaluation_prompt_tokens": 32165,
+        "evaluation_completion_tokens": 5833,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 3.6666666666666665,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 3,
+        "failure_codes": {
+          "embedding_failed": 2
+        },
+        "failure_categories": {
+          "embedding": 2
+        },
+        "verification_failure_count": 4,
+        "verification_failure_reasons": {
+          "Verifier left text unchecked": 3,
+          "Verifier invented a claim or citation": 1
+        },
+        "assessment_failures": 6,
+        "reply_gate_counts": {
+          "skill_mismatch": 3
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 3
+        }
+      }
+    },
+    "persona:fullstack_dev": {
+      "v0": {
+        "attempted": 10,
+        "completed": 5,
+        "failures": 5,
+        "assessed_proposals": 4,
+        "before_experience_claims": 3,
+        "after_experience_claims": 3,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 2,
+        "supported_retention_rate": 1.0,
+        "empty_drafts": 0,
+        "needs_attention": 0,
+        "outcome_observations": 5,
+        "submitted": 5,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 77.05042855100055,
+        "p95_proposal_seconds": 100.65549631899967,
+        "proposal_prompt_tokens": 12019,
+        "proposal_completion_tokens": 1884,
+        "evaluation_prompt_tokens": 25308,
+        "evaluation_completion_tokens": 2875,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 3.8,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 5,
+        "failure_codes": {
+          "embedding_failed": 5
+        },
+        "failure_categories": {
+          "embedding": 5
+        },
+        "verification_failure_count": 0,
+        "verification_failure_reasons": {},
+        "assessment_failures": 1,
+        "reply_gate_counts": {
+          "skill_mismatch": 5
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 5
+        }
+      },
+      "v1": {
+        "attempted": 10,
+        "completed": 5,
+        "failures": 5,
+        "assessed_proposals": 1,
+        "before_experience_claims": 0,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": null,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": null,
+        "empty_drafts": 2,
+        "needs_attention": 2,
+        "outcome_observations": 5,
+        "submitted": 3,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 118.159531345,
+        "p95_proposal_seconds": 129.05145393700013,
+        "proposal_prompt_tokens": 17617,
+        "proposal_completion_tokens": 2710,
+        "evaluation_prompt_tokens": 30843,
+        "evaluation_completion_tokens": 5012,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 4,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 3,
+        "failure_codes": {
+          "model_response_invalid": 5
+        },
+        "failure_categories": {
+          "decomposition": 5
+        },
+        "verification_failure_count": 2,
+        "verification_failure_reasons": {
+          "Verifier left text unchecked": 2
+        },
+        "assessment_failures": 4,
+        "reply_gate_counts": {
+          "skill_mismatch": 3
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 3
+        }
+      },
+      "v2": {
+        "attempted": 10,
+        "completed": 5,
+        "failures": 5,
+        "assessed_proposals": 1,
+        "before_experience_claims": 1,
+        "after_experience_claims": 1,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 1.0,
+        "empty_drafts": 3,
+        "needs_attention": 3,
+        "outcome_observations": 5,
+        "submitted": 2,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 86.99134013399998,
+        "p95_proposal_seconds": 104.62525151199998,
+        "proposal_prompt_tokens": 12228,
+        "proposal_completion_tokens": 1753,
+        "evaluation_prompt_tokens": 21935,
+        "evaluation_completion_tokens": 2740,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 3,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 2,
+        "failure_codes": {
+          "embedding_failed": 5
+        },
+        "failure_categories": {
+          "embedding": 5
+        },
+        "verification_failure_count": 3,
+        "verification_failure_reasons": {
+          "Verifier left text unchecked": 3
+        },
+        "assessment_failures": 4,
+        "reply_gate_counts": {
+          "skill_mismatch": 2
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 2
+        }
+      },
+      "v3": {
+        "attempted": 10,
+        "completed": 5,
+        "failures": 5,
+        "assessed_proposals": 4,
+        "before_experience_claims": 2,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 0.0,
+        "empty_drafts": 3,
+        "needs_attention": 3,
+        "outcome_observations": 5,
+        "submitted": 2,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 89.14752656099972,
+        "p95_proposal_seconds": 89.30506818599997,
+        "proposal_prompt_tokens": 11762,
+        "proposal_completion_tokens": 1723,
+        "evaluation_prompt_tokens": 17155,
+        "evaluation_completion_tokens": 2145,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 4,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 2,
+        "failure_codes": {
+          "embedding_failed": 5
+        },
+        "failure_categories": {
+          "embedding": 5
+        },
+        "verification_failure_count": 3,
+        "verification_failure_reasons": {
+          "Verifier omitted or repeated a sentence": 1,
+          "Verifier left text unchecked": 1,
+          "Verifier invented a claim or citation": 1
+        },
+        "assessment_failures": 1,
+        "reply_gate_counts": {
+          "skill_mismatch": 2
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 2
+        }
+      },
+      "v8": {
+        "attempted": 10,
+        "completed": 4,
+        "failures": 6,
+        "assessed_proposals": 2,
+        "before_experience_claims": 1,
+        "after_experience_claims": 1,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 1.0,
+        "empty_drafts": 2,
+        "needs_attention": 1,
+        "outcome_observations": 4,
+        "submitted": 2,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 100.23666555499995,
+        "p95_proposal_seconds": 108.88904952699977,
+        "proposal_prompt_tokens": 14113,
+        "proposal_completion_tokens": 3230,
+        "evaluation_prompt_tokens": 17556,
+        "evaluation_completion_tokens": 3655,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 3.5,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 2,
+        "failure_codes": {
+          "embedding_failed": 5,
+          "model_response_invalid": 1
+        },
+        "failure_categories": {
+          "embedding": 5,
+          "structured_model": 1
+        },
+        "verification_failure_count": 1,
+        "verification_failure_reasons": {
+          "Verifier omitted or repeated a sentence": 1
+        },
+        "assessment_failures": 2,
+        "reply_gate_counts": {
+          "skill_mismatch": 2
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 2
+        }
+      }
+    },
+    "persona:ml_engineer": {
+      "v0": {
+        "attempted": 10,
+        "completed": 6,
+        "failures": 4,
+        "assessed_proposals": 4,
+        "before_experience_claims": 0,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": null,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": null,
+        "empty_drafts": 3,
+        "needs_attention": 2,
+        "outcome_observations": 6,
+        "submitted": 3,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 91.26139935599986,
+        "p95_proposal_seconds": 119.26257556500059,
+        "proposal_prompt_tokens": 15686,
+        "proposal_completion_tokens": 2093,
+        "evaluation_prompt_tokens": 21811,
+        "evaluation_completion_tokens": 2597,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 4,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 3,
+        "failure_codes": {
+          "embedding_failed": 4
+        },
+        "failure_categories": {
+          "embedding": 4
+        },
+        "verification_failure_count": 2,
+        "verification_failure_reasons": {
+          "Verifier invented a claim or citation": 1,
+          "Verifier left text unchecked": 1
+        },
+        "assessment_failures": 2,
+        "reply_gate_counts": {
+          "skill_mismatch": 3
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 3
+        }
+      },
+      "v1": {
+        "attempted": 10,
+        "completed": 6,
+        "failures": 4,
+        "assessed_proposals": 3,
+        "before_experience_claims": 0,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": null,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": null,
+        "empty_drafts": 5,
+        "needs_attention": 3,
+        "outcome_observations": 6,
+        "submitted": 1,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 110.33157776900043,
+        "p95_proposal_seconds": 151.70762090399876,
+        "proposal_prompt_tokens": 19686,
+        "proposal_completion_tokens": 2863,
+        "evaluation_prompt_tokens": 25627,
+        "evaluation_completion_tokens": 3295,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 4,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 1,
+        "failure_codes": {
+          "model_response_invalid": 4
+        },
+        "failure_categories": {
+          "decomposition": 4
+        },
+        "verification_failure_count": 3,
+        "verification_failure_reasons": {
+          "Verifier left text unchecked": 3
+        },
+        "assessment_failures": 3,
+        "reply_gate_counts": {
+          "skill_mismatch": 1
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 1
+        }
+      },
+      "v2": {
+        "attempted": 10,
+        "completed": 6,
+        "failures": 4,
+        "assessed_proposals": 3,
+        "before_experience_claims": 1,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": null,
+        "empty_drafts": 3,
+        "needs_attention": 2,
+        "outcome_observations": 6,
+        "submitted": 3,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 91.7937160929996,
+        "p95_proposal_seconds": 118.41303946699918,
+        "proposal_prompt_tokens": 15055,
+        "proposal_completion_tokens": 1802,
+        "evaluation_prompt_tokens": 23164,
+        "evaluation_completion_tokens": 2250,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 3.3333333333333335,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 3,
+        "failure_codes": {
+          "embedding_failed": 4
+        },
+        "failure_categories": {
+          "embedding": 4
+        },
+        "verification_failure_count": 2,
+        "verification_failure_reasons": {
+          "Verifier left text unchecked": 2
+        },
+        "assessment_failures": 3,
+        "reply_gate_counts": {
+          "skill_mismatch": 3
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 3
+        }
+      },
+      "v3": {
+        "attempted": 10,
+        "completed": 6,
+        "failures": 4,
+        "assessed_proposals": 2,
+        "before_experience_claims": 0,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": null,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": null,
+        "empty_drafts": 5,
+        "needs_attention": 4,
+        "outcome_observations": 6,
+        "submitted": 1,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 91.52798853199965,
+        "p95_proposal_seconds": 125.37072310199983,
+        "proposal_prompt_tokens": 14660,
+        "proposal_completion_tokens": 2098,
+        "evaluation_prompt_tokens": 20160,
+        "evaluation_completion_tokens": 2592,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 4,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 1,
+        "failure_codes": {
+          "embedding_failed": 4
+        },
+        "failure_categories": {
+          "embedding": 4
+        },
+        "verification_failure_count": 4,
+        "verification_failure_reasons": {
+          "Verifier invented a claim or citation": 1,
+          "Verifier left text unchecked": 3
+        },
+        "assessment_failures": 4,
+        "reply_gate_counts": {
+          "skill_mismatch": 1
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 1
+        }
+      },
+      "v8": {
+        "attempted": 10,
+        "completed": 5,
+        "failures": 5,
+        "assessed_proposals": 4,
+        "before_experience_claims": 4,
+        "after_experience_claims": 1,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 0.25,
+        "empty_drafts": 3,
+        "needs_attention": 3,
+        "outcome_observations": 5,
+        "submitted": 2,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 111.81757945500067,
+        "p95_proposal_seconds": 245.82986575599898,
+        "proposal_prompt_tokens": 17503,
+        "proposal_completion_tokens": 4817,
+        "evaluation_prompt_tokens": 21585,
+        "evaluation_completion_tokens": 5550,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 4,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 2,
+        "failure_codes": {
+          "embedding_failed": 4,
+          "model_response_invalid": 1
+        },
+        "failure_categories": {
+          "embedding": 4,
+          "structured_model": 1
+        },
+        "verification_failure_count": 3,
+        "verification_failure_reasons": {
+          "Verifier invented a claim or citation": 2,
+          "Verifier omitted or repeated a sentence": 1
+        },
+        "assessment_failures": 1,
+        "reply_gate_counts": {
+          "skill_mismatch": 2
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 2
+        }
+      }
+    },
+    "category:AI & Machine Learning": {
+      "v0": {
+        "attempted": 10,
+        "completed": 6,
+        "failures": 4,
+        "assessed_proposals": 4,
+        "before_experience_claims": 0,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": null,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": null,
+        "empty_drafts": 3,
+        "needs_attention": 2,
+        "outcome_observations": 6,
+        "submitted": 3,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 91.26139935599986,
+        "p95_proposal_seconds": 119.26257556500059,
+        "proposal_prompt_tokens": 15686,
+        "proposal_completion_tokens": 2093,
+        "evaluation_prompt_tokens": 21811,
+        "evaluation_completion_tokens": 2597,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 4,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 3,
+        "failure_codes": {
+          "embedding_failed": 4
+        },
+        "failure_categories": {
+          "embedding": 4
+        },
+        "verification_failure_count": 2,
+        "verification_failure_reasons": {
+          "Verifier invented a claim or citation": 1,
+          "Verifier left text unchecked": 1
+        },
+        "assessment_failures": 2,
+        "reply_gate_counts": {
+          "skill_mismatch": 3
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 3
+        }
+      },
+      "v1": {
+        "attempted": 10,
+        "completed": 6,
+        "failures": 4,
+        "assessed_proposals": 3,
+        "before_experience_claims": 0,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": null,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": null,
+        "empty_drafts": 5,
+        "needs_attention": 3,
+        "outcome_observations": 6,
+        "submitted": 1,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 110.33157776900043,
+        "p95_proposal_seconds": 151.70762090399876,
+        "proposal_prompt_tokens": 19686,
+        "proposal_completion_tokens": 2863,
+        "evaluation_prompt_tokens": 25627,
+        "evaluation_completion_tokens": 3295,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 4,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 1,
+        "failure_codes": {
+          "model_response_invalid": 4
+        },
+        "failure_categories": {
+          "decomposition": 4
+        },
+        "verification_failure_count": 3,
+        "verification_failure_reasons": {
+          "Verifier left text unchecked": 3
+        },
+        "assessment_failures": 3,
+        "reply_gate_counts": {
+          "skill_mismatch": 1
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 1
+        }
+      },
+      "v2": {
+        "attempted": 10,
+        "completed": 6,
+        "failures": 4,
+        "assessed_proposals": 3,
+        "before_experience_claims": 1,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": null,
+        "empty_drafts": 3,
+        "needs_attention": 2,
+        "outcome_observations": 6,
+        "submitted": 3,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 91.7937160929996,
+        "p95_proposal_seconds": 118.41303946699918,
+        "proposal_prompt_tokens": 15055,
+        "proposal_completion_tokens": 1802,
+        "evaluation_prompt_tokens": 23164,
+        "evaluation_completion_tokens": 2250,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 3.3333333333333335,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 3,
+        "failure_codes": {
+          "embedding_failed": 4
+        },
+        "failure_categories": {
+          "embedding": 4
+        },
+        "verification_failure_count": 2,
+        "verification_failure_reasons": {
+          "Verifier left text unchecked": 2
+        },
+        "assessment_failures": 3,
+        "reply_gate_counts": {
+          "skill_mismatch": 3
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 3
+        }
+      },
+      "v3": {
+        "attempted": 10,
+        "completed": 6,
+        "failures": 4,
+        "assessed_proposals": 2,
+        "before_experience_claims": 0,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": null,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": null,
+        "empty_drafts": 5,
+        "needs_attention": 4,
+        "outcome_observations": 6,
+        "submitted": 1,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 91.52798853199965,
+        "p95_proposal_seconds": 125.37072310199983,
+        "proposal_prompt_tokens": 14660,
+        "proposal_completion_tokens": 2098,
+        "evaluation_prompt_tokens": 20160,
+        "evaluation_completion_tokens": 2592,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 4,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 1,
+        "failure_codes": {
+          "embedding_failed": 4
+        },
+        "failure_categories": {
+          "embedding": 4
+        },
+        "verification_failure_count": 4,
+        "verification_failure_reasons": {
+          "Verifier invented a claim or citation": 1,
+          "Verifier left text unchecked": 3
+        },
+        "assessment_failures": 4,
+        "reply_gate_counts": {
+          "skill_mismatch": 1
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 1
+        }
+      },
+      "v8": {
+        "attempted": 10,
+        "completed": 5,
+        "failures": 5,
+        "assessed_proposals": 4,
+        "before_experience_claims": 4,
+        "after_experience_claims": 1,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 0.25,
+        "empty_drafts": 3,
+        "needs_attention": 3,
+        "outcome_observations": 5,
+        "submitted": 2,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 111.81757945500067,
+        "p95_proposal_seconds": 245.82986575599898,
+        "proposal_prompt_tokens": 17503,
+        "proposal_completion_tokens": 4817,
+        "evaluation_prompt_tokens": 21585,
+        "evaluation_completion_tokens": 5550,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 4,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 2,
+        "failure_codes": {
+          "embedding_failed": 4,
+          "model_response_invalid": 1
+        },
+        "failure_categories": {
+          "embedding": 4,
+          "structured_model": 1
+        },
+        "verification_failure_count": 3,
+        "verification_failure_reasons": {
+          "Verifier invented a claim or citation": 2,
+          "Verifier omitted or repeated a sentence": 1
+        },
+        "assessment_failures": 1,
+        "reply_gate_counts": {
+          "skill_mismatch": 2
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 2
+        }
+      }
+    },
+    "category:Data Science": {
+      "v0": {
+        "attempted": 10,
+        "completed": 8,
+        "failures": 2,
+        "assessed_proposals": 5,
+        "before_experience_claims": 1,
+        "after_experience_claims": 1,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 1,
+        "supported_retention_rate": 0.0,
+        "empty_drafts": 3,
+        "needs_attention": 3,
+        "outcome_observations": 8,
+        "submitted": 5,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 79.60808552799972,
+        "p95_proposal_seconds": 95.18937993700001,
+        "proposal_prompt_tokens": 19831,
+        "proposal_completion_tokens": 2633,
+        "evaluation_prompt_tokens": 31364,
+        "evaluation_completion_tokens": 3508,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 3.4,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 5,
+        "failure_codes": {
+          "embedding_failed": 2
+        },
+        "failure_categories": {
+          "embedding": 2
+        },
+        "verification_failure_count": 3,
+        "verification_failure_reasons": {
+          "Verifier left text unchecked": 3
+        },
+        "assessment_failures": 3,
+        "reply_gate_counts": {
+          "skill_mismatch": 5
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 5
+        }
+      },
+      "v1": {
+        "attempted": 10,
+        "completed": 7,
+        "failures": 3,
+        "assessed_proposals": 4,
+        "before_experience_claims": 0,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": null,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": null,
+        "empty_drafts": 4,
+        "needs_attention": 2,
+        "outcome_observations": 7,
+        "submitted": 3,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 91.7100982410002,
+        "p95_proposal_seconds": 123.00782032100051,
+        "proposal_prompt_tokens": 19900,
+        "proposal_completion_tokens": 2817,
+        "evaluation_prompt_tokens": 26808,
+        "evaluation_completion_tokens": 3162,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 3.6666666666666665,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 3,
+        "failure_codes": {
+          "model_response_invalid": 3
+        },
+        "failure_categories": {
+          "decomposition": 3
+        },
+        "verification_failure_count": 2,
+        "verification_failure_reasons": {
+          "Verifier left text unchecked": 2
+        },
+        "assessment_failures": 3,
+        "reply_gate_counts": {
+          "skill_mismatch": 3
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 3
+        }
+      },
+      "v2": {
+        "attempted": 10,
+        "completed": 8,
+        "failures": 2,
+        "assessed_proposals": 3,
+        "before_experience_claims": 1,
+        "after_experience_claims": 1,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 1.0,
+        "empty_drafts": 5,
+        "needs_attention": 3,
+        "outcome_observations": 8,
+        "submitted": 3,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 84.44786430699969,
+        "p95_proposal_seconds": 112.11539717999949,
+        "proposal_prompt_tokens": 20002,
+        "proposal_completion_tokens": 2747,
+        "evaluation_prompt_tokens": 32623,
+        "evaluation_completion_tokens": 3985,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 3.6666666666666665,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 3,
+        "failure_codes": {
+          "embedding_failed": 2
+        },
+        "failure_categories": {
+          "embedding": 2
+        },
+        "verification_failure_count": 3,
+        "verification_failure_reasons": {
+          "Verifier left text unchecked": 3
+        },
+        "assessment_failures": 5,
+        "reply_gate_counts": {
+          "skill_mismatch": 3
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 3
+        }
+      },
+      "v3": {
+        "attempted": 10,
+        "completed": 8,
+        "failures": 2,
+        "assessed_proposals": 4,
+        "before_experience_claims": 1,
+        "after_experience_claims": 1,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 1.0,
+        "empty_drafts": 4,
+        "needs_attention": 4,
+        "outcome_observations": 8,
+        "submitted": 4,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 96.0517258179998,
+        "p95_proposal_seconds": 102.16310389699993,
+        "proposal_prompt_tokens": 20017,
+        "proposal_completion_tokens": 2690,
+        "evaluation_prompt_tokens": 32060,
+        "evaluation_completion_tokens": 3681,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 3.25,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 4,
+        "failure_codes": {
+          "embedding_failed": 2
+        },
+        "failure_categories": {
+          "embedding": 2
+        },
+        "verification_failure_count": 4,
+        "verification_failure_reasons": {
+          "Verifier left text unchecked": 3,
+          "Verifier invented a claim or citation": 1
+        },
+        "assessment_failures": 4,
+        "reply_gate_counts": {
+          "skill_mismatch": 4
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 4
+        }
+      },
+      "v8": {
+        "attempted": 10,
+        "completed": 8,
+        "failures": 2,
+        "assessed_proposals": 2,
+        "before_experience_claims": 1,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 0.0,
+        "empty_drafts": 5,
+        "needs_attention": 4,
+        "outcome_observations": 8,
+        "submitted": 3,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 100.57062118300018,
+        "p95_proposal_seconds": 181.23527964799996,
+        "proposal_prompt_tokens": 27057,
+        "proposal_completion_tokens": 5098,
+        "evaluation_prompt_tokens": 32165,
+        "evaluation_completion_tokens": 5833,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 3.6666666666666665,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 3,
+        "failure_codes": {
+          "embedding_failed": 2
+        },
+        "failure_categories": {
+          "embedding": 2
+        },
+        "verification_failure_count": 4,
+        "verification_failure_reasons": {
+          "Verifier left text unchecked": 3,
+          "Verifier invented a claim or citation": 1
+        },
+        "assessment_failures": 6,
+        "reply_gate_counts": {
+          "skill_mismatch": 3
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 3
+        }
+      }
+    },
+    "category:Web Development": {
+      "v0": {
+        "attempted": 10,
+        "completed": 5,
+        "failures": 5,
+        "assessed_proposals": 4,
+        "before_experience_claims": 3,
+        "after_experience_claims": 3,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 2,
+        "supported_retention_rate": 1.0,
+        "empty_drafts": 0,
+        "needs_attention": 0,
+        "outcome_observations": 5,
+        "submitted": 5,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 77.05042855100055,
+        "p95_proposal_seconds": 100.65549631899967,
+        "proposal_prompt_tokens": 12019,
+        "proposal_completion_tokens": 1884,
+        "evaluation_prompt_tokens": 25308,
+        "evaluation_completion_tokens": 2875,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 3.8,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 5,
+        "failure_codes": {
+          "embedding_failed": 5
+        },
+        "failure_categories": {
+          "embedding": 5
+        },
+        "verification_failure_count": 0,
+        "verification_failure_reasons": {},
+        "assessment_failures": 1,
+        "reply_gate_counts": {
+          "skill_mismatch": 5
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 5
+        }
+      },
+      "v1": {
+        "attempted": 10,
+        "completed": 5,
+        "failures": 5,
+        "assessed_proposals": 1,
+        "before_experience_claims": 0,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": null,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": null,
+        "empty_drafts": 2,
+        "needs_attention": 2,
+        "outcome_observations": 5,
+        "submitted": 3,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 118.159531345,
+        "p95_proposal_seconds": 129.05145393700013,
+        "proposal_prompt_tokens": 17617,
+        "proposal_completion_tokens": 2710,
+        "evaluation_prompt_tokens": 30843,
+        "evaluation_completion_tokens": 5012,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 4,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 3,
+        "failure_codes": {
+          "model_response_invalid": 5
+        },
+        "failure_categories": {
+          "decomposition": 5
+        },
+        "verification_failure_count": 2,
+        "verification_failure_reasons": {
+          "Verifier left text unchecked": 2
+        },
+        "assessment_failures": 4,
+        "reply_gate_counts": {
+          "skill_mismatch": 3
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 3
+        }
+      },
+      "v2": {
+        "attempted": 10,
+        "completed": 5,
+        "failures": 5,
+        "assessed_proposals": 1,
+        "before_experience_claims": 1,
+        "after_experience_claims": 1,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 1.0,
+        "empty_drafts": 3,
+        "needs_attention": 3,
+        "outcome_observations": 5,
+        "submitted": 2,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 86.99134013399998,
+        "p95_proposal_seconds": 104.62525151199998,
+        "proposal_prompt_tokens": 12228,
+        "proposal_completion_tokens": 1753,
+        "evaluation_prompt_tokens": 21935,
+        "evaluation_completion_tokens": 2740,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 3,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 2,
+        "failure_codes": {
+          "embedding_failed": 5
+        },
+        "failure_categories": {
+          "embedding": 5
+        },
+        "verification_failure_count": 3,
+        "verification_failure_reasons": {
+          "Verifier left text unchecked": 3
+        },
+        "assessment_failures": 4,
+        "reply_gate_counts": {
+          "skill_mismatch": 2
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 2
+        }
+      },
+      "v3": {
+        "attempted": 10,
+        "completed": 5,
+        "failures": 5,
+        "assessed_proposals": 4,
+        "before_experience_claims": 2,
+        "after_experience_claims": 0,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": null,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 0.0,
+        "empty_drafts": 3,
+        "needs_attention": 3,
+        "outcome_observations": 5,
+        "submitted": 2,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 89.14752656099972,
+        "p95_proposal_seconds": 89.30506818599997,
+        "proposal_prompt_tokens": 11762,
+        "proposal_completion_tokens": 1723,
+        "evaluation_prompt_tokens": 17155,
+        "evaluation_completion_tokens": 2145,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 4,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 2,
+        "failure_codes": {
+          "embedding_failed": 5
+        },
+        "failure_categories": {
+          "embedding": 5
+        },
+        "verification_failure_count": 3,
+        "verification_failure_reasons": {
+          "Verifier omitted or repeated a sentence": 1,
+          "Verifier left text unchecked": 1,
+          "Verifier invented a claim or citation": 1
+        },
+        "assessment_failures": 1,
+        "reply_gate_counts": {
+          "skill_mismatch": 2
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 2
+        }
+      },
+      "v8": {
+        "attempted": 10,
+        "completed": 4,
+        "failures": 6,
+        "assessed_proposals": 2,
+        "before_experience_claims": 1,
+        "after_experience_claims": 1,
+        "before_unsupported_claims": 0,
+        "after_unsupported_claims": 0,
+        "before_unsupported_rate": 0.0,
+        "after_unsupported_rate": 0.0,
+        "unsupported_claims_per_proposal": 0.0,
+        "partly_supported_claims_after": 0,
+        "supported_retention_rate": 1.0,
+        "empty_drafts": 2,
+        "needs_attention": 1,
+        "outcome_observations": 4,
+        "submitted": 2,
+        "replies": 0,
+        "hires": 0,
+        "reply_rate": 0,
+        "hire_rate": 0,
+        "reply_yield_per_attempt": 0.0,
+        "outcome_failures": 0,
+        "p50_proposal_seconds": 100.23666555499995,
+        "p95_proposal_seconds": 108.88904952699977,
+        "proposal_prompt_tokens": 14113,
+        "proposal_completion_tokens": 3230,
+        "evaluation_prompt_tokens": 17556,
+        "evaluation_completion_tokens": 3655,
+        "paid_api_cost_per_completed_proposal_usd": 0,
+        "total_cost_per_proposal_usd": null,
+        "judge_score": 3.5,
+        "judge_status": "insufficient_agreement",
+        "judge_scored_proposals": 2,
+        "failure_codes": {
+          "embedding_failed": 5,
+          "model_response_invalid": 1
+        },
+        "failure_categories": {
+          "embedding": 5,
+          "structured_model": 1
+        },
+        "verification_failure_count": 1,
+        "verification_failure_reasons": {
+          "Verifier omitted or repeated a sentence": 1
+        },
+        "assessment_failures": 2,
+        "reply_gate_counts": {
+          "skill_mismatch": 2
+        },
+        "reply_reason_counts": {
+          "skill_mismatch": 2
+        }
+      }
+    }
+  },
+  "calibration": {
+    "items": 30,
+    "exact_agreement": 0.1,
+    "cohens_kappa": 0.031100478468899528,
+    "minimum_kappa": 0.4,
+    "status": "insufficient_agreement",
+    "pairs": [
+      {
+        "review_id": "P01",
+        "id": "job_83307a6592ca",
+        "variant": "v8",
+        "judge_score": 4,
+        "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+        "human_score": 1
+      },
+      {
+        "review_id": "P02",
+        "id": "job_bf2deb6b7cf6",
+        "variant": "v3",
+        "judge_score": 3,
+        "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+        "human_score": 2
+      },
+      {
+        "review_id": "P03",
+        "id": "job_8e5ef503df44",
+        "variant": "v0",
+        "judge_score": 4,
+        "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+        "human_score": 3
+      },
+      {
+        "review_id": "P04",
+        "id": "job_f2604ab8d941",
+        "variant": "v3",
+        "judge_score": 4,
+        "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+        "human_score": 2
+      },
+      {
+        "review_id": "P05",
+        "id": "job_4a33907c28e0",
+        "variant": "v1",
+        "judge_score": 4,
+        "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+        "human_score": 3
+      },
+      {
+        "review_id": "P06",
+        "id": "job_83307a6592ca",
+        "variant": "v1",
+        "judge_score": 4,
+        "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+        "human_score": 2
+      },
+      {
+        "review_id": "P07",
+        "id": "job_bf2deb6b7cf6",
+        "variant": "v1",
+        "judge_score": 3,
+        "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+        "human_score": 3
+      },
+      {
+        "review_id": "P08",
+        "id": "job_38baba300945",
+        "variant": "v8",
+        "judge_score": 4,
+        "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+        "human_score": 2
+      },
+      {
+        "review_id": "P09",
+        "id": "job_9b8853e7b3b9",
+        "variant": "v0",
+        "judge_score": 4,
+        "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+        "human_score": 5
+      },
+      {
+        "review_id": "P10",
+        "id": "job_ad7c814ce45e",
+        "variant": "v2",
+        "judge_score": 4,
+        "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+        "human_score": 1
+      },
+      {
+        "review_id": "P11",
+        "id": "job_03b0d82b94a9",
+        "variant": "v0",
+        "judge_score": 3,
+        "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+        "human_score": 2
+      },
+      {
+        "review_id": "P12",
+        "id": "job_a9200d05f8fc",
+        "variant": "v8",
+        "judge_score": 4,
+        "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+        "human_score": 1
+      },
+      {
+        "review_id": "P13",
+        "id": "job_697c99cd0e9b",
+        "variant": "v2",
+        "judge_score": 4,
+        "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+        "human_score": 2
+      },
+      {
+        "review_id": "P14",
+        "id": "job_38baba300945",
+        "variant": "v3",
+        "judge_score": 4,
+        "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+        "human_score": 2
+      },
+      {
+        "review_id": "P15",
+        "id": "job_4a37bff66f15",
+        "variant": "v2",
+        "judge_score": 3,
+        "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+        "human_score": 2
+      },
+      {
+        "review_id": "P16",
+        "id": "job_4a33907c28e0",
+        "variant": "v8",
+        "judge_score": 4,
+        "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+        "human_score": 2
+      },
+      {
+        "review_id": "P17",
+        "id": "job_8412ae937e40",
+        "variant": "v1",
+        "judge_score": 4,
+        "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+        "human_score": 1
+      },
+      {
+        "review_id": "P18",
+        "id": "job_079baa9c6d72",
+        "variant": "v3",
+        "judge_score": 4,
+        "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+        "human_score": 2
+      },
+      {
+        "review_id": "P19",
+        "id": "job_38baba300945",
+        "variant": "v0",
+        "judge_score": 4,
+        "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+        "human_score": 1
+      },
+      {
+        "review_id": "P20",
+        "id": "job_33828a90e9c6",
+        "variant": "v2",
+        "judge_score": 3,
+        "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+        "human_score": 2
+      },
+      {
+        "review_id": "P21",
+        "id": "job_079baa9c6d72",
+        "variant": "v0",
+        "judge_score": 3,
+        "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+        "human_score": 2
+      },
+      {
+        "review_id": "P22",
+        "id": "job_f2604ab8d941",
+        "variant": "v2",
+        "judge_score": 4,
+        "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+        "human_score": 2
+      },
+      {
+        "review_id": "P23",
+        "id": "job_079baa9c6d72",
+        "variant": "v2",
+        "judge_score": 2,
+        "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+        "human_score": 2
+      },
+      {
+        "review_id": "P24",
+        "id": "job_33828a90e9c6",
+        "variant": "v3",
+        "judge_score": 3,
+        "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+        "human_score": 2
+      },
+      {
+        "review_id": "P25",
+        "id": "job_33828a90e9c6",
+        "variant": "v0",
+        "judge_score": 3,
+        "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+        "human_score": 2
+      },
+      {
+        "review_id": "P26",
+        "id": "job_184d724ce3ee",
+        "variant": "v1",
+        "judge_score": 4,
+        "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+        "human_score": 1
+      },
+      {
+        "review_id": "P27",
+        "id": "job_83307a6592ca",
+        "variant": "v3",
+        "judge_score": 4,
+        "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+        "human_score": 4
+      },
+      {
+        "review_id": "P28",
+        "id": "job_9b8853e7b3b9",
+        "variant": "v8",
+        "judge_score": 4,
+        "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+        "human_score": 5
+      },
+      {
+        "review_id": "P29",
+        "id": "job_3e37f4c2ad21",
+        "variant": "v8",
+        "judge_score": 3,
+        "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+        "human_score": 2
+      },
+      {
+        "review_id": "P30",
+        "id": "job_a9200d05f8fc",
+        "variant": "v1",
+        "judge_score": 4,
+        "fingerprint": "19e2e359fc162658ebe88a61ac77b42b9cfc26ca3dc65904a17b28bf63b92cdf",
+        "human_score": 1
+      }
+    ],
+    "observations_sha256": "1945b5fa1aace5e0f7411ab382afab91f2647b8230dfa610afcb70ea7bca6b2b",
+    "human_review_sha256": "a3d55ea2bb23f00c8a23bde83ad9aac4752bc853ce5e8a6e4c85d382bdce7323",
+    "limitation": "Same local model for generation and judging; shared bias remains possible"
+  },
+  "calibration_current": true,
+  "ablation": {
+    "primary_metric": "nDCG@10 on positive queries",
+    "component_effects": {
+      "without_reranker": {
+        "pairs": 27,
+        "mean_delta": 0.044855888725606564,
+        "ci95": [
+          0.00509537794236128,
+          0.09167322659866547
+        ],
+        "bootstrap_samples": 10000,
+        "seed": 42,
+        "resampling": "paired differences, stratified by persona",
+        "wins": 5,
+        "ties": 21,
+        "losses": 1,
+        "outcome": "observed_improvement"
+      },
+      "without_bm25": {
+        "pairs": 27,
+        "mean_delta": 0.009780300836021886,
+        "ci95": [
+          0.0,
+          0.02934090250806566
+        ],
+        "bootstrap_samples": 10000,
+        "seed": 42,
+        "resampling": "paired differences, stratified by persona",
+        "wins": 1,
+        "ties": 26,
+        "losses": 0,
+        "outcome": "inconclusive"
+      }
+    },
+    "delta_direction": "Full V3 minus ablated configuration; positive means the removed component helped",
+    "breakdowns": {
+      "all": {
+        "full_v3": {
+          "queries": 30,
+          "positive_queries": 27,
+          "failures": 0,
+          "p50_seconds": 0.7491558359979535,
+          "p95_seconds": 0.9872624589988845,
+          "recall_at_5": 0.9444444444444444,
+          "mrr": 0.9074074074074074,
+          "ndcg_at_10": 0.9142727975552687,
+          "correct_abstention": 0
+        },
+        "without_reranker": {
+          "queries": 30,
+          "positive_queries": 27,
+          "failures": 0,
+          "p50_seconds": 0.11524271399684949,
+          "p95_seconds": 0.19377738299954217,
+          "recall_at_5": 0.9074074074074074,
+          "mrr": 0.8555555555555555,
+          "ndcg_at_10": 0.8694169088296622,
+          "correct_abstention": 0
+        },
+        "without_bm25": {
+          "queries": 30,
+          "positive_queries": 27,
+          "failures": 0,
+          "p50_seconds": 0.7955871599988313,
+          "p95_seconds": 1.1115156480009318,
+          "recall_at_5": 0.9259259259259259,
+          "mrr": 0.9074074074074074,
+          "ndcg_at_10": 0.9044924967192468,
+          "correct_abstention": 0
+        }
+      },
+      "persona:data_analyst": {
+        "full_v3": {
+          "queries": 10,
+          "positive_queries": 9,
+          "failures": 0,
+          "p50_seconds": 0.8899308450017998,
+          "p95_seconds": 0.9872624589988845,
+          "recall_at_5": 0.9444444444444444,
+          "mrr": 0.8611111111111112,
+          "ndcg_at_10": 0.8635792434980109,
+          "correct_abstention": 0
+        },
+        "without_reranker": {
+          "queries": 10,
+          "positive_queries": 9,
+          "failures": 0,
+          "p50_seconds": 0.12473323500307743,
+          "p95_seconds": 0.21064964400284225,
+          "recall_at_5": 0.8333333333333334,
+          "mrr": 0.8444444444444444,
+          "ndcg_at_10": 0.824590692568996,
+          "correct_abstention": 0
+        },
+        "without_bm25": {
+          "queries": 10,
+          "positive_queries": 9,
+          "failures": 0,
+          "p50_seconds": 0.9280860879989632,
+          "p95_seconds": 1.129376630000479,
+          "recall_at_5": 0.8888888888888888,
+          "mrr": 0.8611111111111112,
+          "ndcg_at_10": 0.8342383409899452,
+          "correct_abstention": 0
+        }
+      },
+      "persona:fullstack_dev": {
+        "full_v3": {
+          "queries": 10,
+          "positive_queries": 9,
+          "failures": 0,
+          "p50_seconds": 0.7943633149989182,
+          "p95_seconds": 1.0176573839999037,
+          "recall_at_5": 0.8888888888888888,
+          "mrr": 0.9166666666666666,
+          "ndcg_at_10": 0.9133028820992097,
+          "correct_abstention": 0
+        },
+        "without_reranker": {
+          "queries": 10,
+          "positive_queries": 9,
+          "failures": 0,
+          "p50_seconds": 0.1123062159967958,
+          "p95_seconds": 0.18618030300058308,
+          "recall_at_5": 0.8888888888888888,
+          "mrr": 0.7777777777777778,
+          "ndcg_at_10": 0.8177237668514049,
+          "correct_abstention": 0
+        },
+        "without_bm25": {
+          "queries": 10,
+          "positive_queries": 9,
+          "failures": 0,
+          "p50_seconds": 0.8349526800011517,
+          "p95_seconds": 1.0040570620003564,
+          "recall_at_5": 0.8888888888888888,
+          "mrr": 0.9166666666666666,
+          "ndcg_at_10": 0.9133028820992097,
+          "correct_abstention": 0
+        }
+      },
+      "persona:ml_engineer": {
+        "full_v3": {
+          "queries": 10,
+          "positive_queries": 9,
+          "failures": 0,
+          "p50_seconds": 0.6949348489979457,
+          "p95_seconds": 0.9261016870004823,
+          "recall_at_5": 1.0,
+          "mrr": 0.9444444444444444,
+          "ndcg_at_10": 0.9659362670685856,
+          "correct_abstention": 0
+        },
+        "without_reranker": {
+          "queries": 10,
+          "positive_queries": 9,
+          "failures": 0,
+          "p50_seconds": 0.10959873699903255,
+          "p95_seconds": 0.13212825099981274,
+          "recall_at_5": 1.0,
+          "mrr": 0.9444444444444444,
+          "ndcg_at_10": 0.9659362670685856,
+          "correct_abstention": 0
+        },
+        "without_bm25": {
+          "queries": 10,
+          "positive_queries": 9,
+          "failures": 0,
+          "p50_seconds": 0.7149445000031847,
+          "p95_seconds": 0.7752631099974678,
+          "recall_at_5": 1.0,
+          "mrr": 0.9444444444444444,
+          "ndcg_at_10": 0.9659362670685856,
+          "correct_abstention": 0
+        }
+      },
+      "type:direct": {
+        "full_v3": {
+          "queries": 12,
+          "positive_queries": 12,
+          "failures": 0,
+          "p50_seconds": 0.7421444249994238,
+          "p95_seconds": 0.9824257039981603,
+          "recall_at_5": 1.0,
+          "mrr": 0.9583333333333334,
+          "ndcg_at_10": 0.9692441461309548,
+          "correct_abstention": null
+        },
+        "without_reranker": {
+          "queries": 12,
+          "positive_queries": 12,
+          "failures": 0,
+          "p50_seconds": 0.11530871699869749,
+          "p95_seconds": 0.18551085999934003,
+          "recall_at_5": 1.0,
+          "mrr": 0.9027777777777778,
+          "ndcg_at_10": 0.9275774794642881,
+          "correct_abstention": null
+        },
+        "without_bm25": {
+          "queries": 12,
+          "positive_queries": 12,
+          "failures": 0,
+          "p50_seconds": 0.7402785230005975,
+          "p95_seconds": 0.9473861019978358,
+          "recall_at_5": 1.0,
+          "mrr": 0.9583333333333334,
+          "ndcg_at_10": 0.9692441461309548,
+          "correct_abstention": null
+        }
+      },
+      "type:multi": {
+        "full_v3": {
+          "queries": 9,
+          "positive_queries": 9,
+          "failures": 0,
+          "p50_seconds": 0.7943633149989182,
+          "p95_seconds": 0.9373988190018281,
+          "recall_at_5": 0.8333333333333334,
+          "mrr": 0.7777777777777778,
+          "ndcg_at_10": 0.7838261978245331,
+          "correct_abstention": null
+        },
+        "without_reranker": {
+          "queries": 9,
+          "positive_queries": 9,
+          "failures": 0,
+          "p50_seconds": 0.1123168150006677,
+          "p95_seconds": 0.21064964400284225,
+          "recall_at_5": 0.7222222222222222,
+          "mrr": 0.6962962962962963,
+          "ndcg_at_10": 0.704814087203269,
+          "correct_abstention": null
+        },
+        "without_bm25": {
+          "queries": 9,
+          "positive_queries": 9,
+          "failures": 0,
+          "p50_seconds": 0.8654788679996273,
+          "p95_seconds": 1.129376630000479,
+          "recall_at_5": 0.7777777777777778,
+          "mrr": 0.7777777777777778,
+          "ndcg_at_10": 0.7544852953164675,
+          "correct_abstention": null
+        }
+      },
+      "type:none": {
+        "full_v3": {
+          "queries": 3,
+          "positive_queries": 0,
+          "failures": 0,
+          "p50_seconds": 0.8899308450017998,
+          "p95_seconds": 1.0176573839999037,
+          "recall_at_5": null,
+          "mrr": null,
+          "ndcg_at_10": null,
+          "correct_abstention": 0
+        },
+        "without_reranker": {
+          "queries": 3,
+          "positive_queries": 0,
+          "failures": 0,
+          "p50_seconds": 0.11377428000196232,
+          "p95_seconds": 0.17143270499946084,
+          "recall_at_5": null,
+          "mrr": null,
+          "ndcg_at_10": null,
+          "correct_abstention": 0
+        },
+        "without_bm25": {
+          "queries": 3,
+          "positive_queries": 0,
+          "failures": 0,
+          "p50_seconds": 0.9047471570011112,
+          "p95_seconds": 1.0040570620003564,
+          "recall_at_5": null,
+          "mrr": null,
+          "ndcg_at_10": null,
+          "correct_abstention": 0
+        }
+      },
+      "type:paraphrase": {
+        "full_v3": {
+          "queries": 6,
+          "positive_queries": 6,
+          "failures": 0,
+          "p50_seconds": 0.7980292840002221,
+          "p95_seconds": 0.9872624589988845,
+          "recall_at_5": 1.0,
+          "mrr": 1.0,
+          "ndcg_at_10": 1.0,
+          "correct_abstention": null
+        },
+        "without_reranker": {
+          "queries": 6,
+          "positive_queries": 6,
+          "failures": 0,
+          "p50_seconds": 0.12132522899992182,
+          "p95_seconds": 0.19377738299954217,
+          "recall_at_5": 1.0,
+          "mrr": 1.0,
+          "ndcg_at_10": 1.0,
+          "correct_abstention": null
+        },
+        "without_bm25": {
+          "queries": 6,
+          "positive_queries": 6,
+          "failures": 0,
+          "p50_seconds": 0.7892945559979125,
+          "p95_seconds": 1.1115156480009318,
+          "recall_at_5": 1.0,
+          "mrr": 1.0,
+          "ndcg_at_10": 1.0,
+          "correct_abstention": null
+        }
+      }
+    },
+    "labels_reviewed": false,
+    "selection": "Candidate V3 ablation only; production selection remains with the user",
+    "generative_model_calls": 0,
+    "timing_protocol": "Fresh context per query/configuration, no explicit warmup, configuration order rotated by query; model loading is included",
+    "fingerprint": "75e55ef771171038bc6a2e285589cf4bcc05cffd034d08c58698da4ea61248e7",
+    "retrieval_fingerprint": "b0d646bda5775265304d7e5110c27f1a1b25aff7492ba38bc566a2f546de53aa",
+    "experiment_code_sha256": "001432c89013f2f730f5accaf0ef0697ae9d65b7f22e1a78ddb3dd70bcb926da",
+    "dataset_sha256": "9e310da763d3a974de435375c0b5366577f4a5ea717dc0dd6f40398947acb1ae",
+    "observations": "evals/results/rag_ablation_20261113_165153_435242.jsonl",
+    "config": {
+      "active_variant": "v0",
+      "chunk_tokens": 200,
+      "overlap_tokens": 40,
+      "candidate_k": 20,
+      "rrf_constant": 60,
+      "embedding_dimensions": 384,
+      "embedding_context_tokens": 512,
+      "tokenizer_model": "sentence-transformers/all-MiniLM-L6-v2",
+      "tokenizer_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+      "reranker_revision": "233902d25c440f23af6f7d6e94d2946bac0bee0a",
+      "reranker_file": "onnx/model.onnx",
+      "llm_model": "qwen2.5:3b",
+      "llm_context_tokens": 8192,
+      "llm_output_tokens": 768,
+      "llm_timeout_seconds": 180.0,
+      "llm_budget_seconds": 240.0,
+      "max_requirements": 6,
+      "grade_candidates": 5,
+      "cpu_threads": 6,
+      "embeddings_model": "all-minilm:22m",
+      "reranker_model": "cross-encoder/ms-marco-MiniLM-L6-v2",
+      "ollama_url": "http://localhost:11434",
+      "chroma_url": "http://localhost:8001",
+      "data_dir": "/home/menahil/GigBid_Student_Starter_Kit_v0.1/gigbid-starter-kit/data/processed/rag"
+    },
+    "models": {
+      "embedding_model": "all-minilm:22m",
+      "embedding_digest": "1b226e2802dbb772b5fc32a58f103ca1804ef7501331012de126ab22f67475ef",
+      "tokenizer_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+      "reranker_model": "cross-encoder/ms-marco-MiniLM-L6-v2",
+      "reranker_revision": "233902d25c440f23af6f7d6e94d2946bac0bee0a",
+      "files": {
+        "models/embedding/tokenizer.json": "be50c3628f2bf5bb5e3a7f17b1f74611b2561a3a27eeab05e5aa30f411572037",
+        "models/reranker/tokenizer.json": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+        "models/reranker/model.onnx": "5d3e70fd0c9ff14b9b5169a51e957b7a9c74897afd0a35ce4bd318150c1d4d4a"
+      }
+    },
+    "created_at_utc": "2026-11-13T16:52:47.856172+00:00",
+    "evidence": {
+      "queries": "evals/results/rag_ablation_queries.jsonl",
+      "dataset": "evals/results/rag_ablation_dataset.json"
+    }
+  },
+  "table": [
+    {
+      "Variant": "v0",
+      "Evidence Recall@5": 0.8148148148148148,
+      "nDCG@10": 0.7377100049998273,
+      "Unsupported claims per proposal": 0.0,
+      "Judge score": 3.6923076923076925,
+      "GigSim reply rate": 0,
+      "p95 latency (s)": 119.26257556500059,
+      "Cost per proposal (USD)": null
+    },
+    {
+      "Variant": "v1",
+      "Evidence Recall@5": 0.7037037037037037,
+      "nDCG@10": 0.625224690566527,
+      "Unsupported claims per proposal": 0.0,
+      "Judge score": 3.857142857142857,
+      "GigSim reply rate": 0,
+      "p95 latency (s)": 151.70762090399876,
+      "Cost per proposal (USD)": null
+    },
+    {
+      "Variant": "v2",
+      "Evidence Recall@5": 0.9074074074074074,
+      "nDCG@10": 0.8694169088296622,
+      "Unsupported claims per proposal": 0.0,
+      "Judge score": 3.375,
+      "GigSim reply rate": 0,
+      "p95 latency (s)": 118.41303946699918,
+      "Cost per proposal (USD)": null
+    },
+    {
+      "Variant": "v3",
+      "Evidence Recall@5": 0.9444444444444444,
+      "nDCG@10": 0.9142727975552687,
+      "Unsupported claims per proposal": 0.0,
+      "Judge score": 3.5714285714285716,
+      "GigSim reply rate": 0,
+      "p95 latency (s)": 125.37072310199983,
+      "Cost per proposal (USD)": null
+    },
+    {
+      "Variant": "v8",
+      "Evidence Recall@5": 0.8148148148148148,
+      "nDCG@10": 0.786817664679145,
+      "Unsupported claims per proposal": 0.0,
+      "Judge score": 3.7142857142857144,
+      "GigSim reply rate": 0,
+      "p95 latency (s)": 245.82986575599898,
+      "Cost per proposal (USD)": null
+    }
+  ],
+  "sources": {
+    "rag_retrieval.json": {
+      "path": "/home/menahil/GigBid_Student_Starter_Kit_v0.1/gigbid-starter-kit/evals/results/rag_retrieval.json",
+      "sha256": "77404536232584d8437df4c950687ab9a56908a556138c26a0faa2e839a24720"
+    },
+    "rag_retrieval_observations.jsonl": {
+      "path": "/home/menahil/GigBid_Student_Starter_Kit_v0.1/gigbid-starter-kit/evals/results/rag_retrieval_observations.jsonl",
+      "sha256": "38b75399ebe8b201e0628c8712f09dae4e193e2412256726b55966709ad8a8f1"
+    },
+    "rag_workflow.json": {
+      "path": "/home/menahil/GigBid_Student_Starter_Kit_v0.1/gigbid-starter-kit/evals/results/rag_workflow.json",
+      "sha256": "961f9d660083cf530494a85f51efd91ab909a566655eeee30c84fb34c0d1ffcf"
+    },
+    "rag_workflow_observations.jsonl": {
+      "path": "/home/menahil/GigBid_Student_Starter_Kit_v0.1/gigbid-starter-kit/evals/results/rag_workflow_observations.jsonl",
+      "sha256": "1945b5fa1aace5e0f7411ab382afab91f2647b8230dfa610afcb70ea7bca6b2b"
+    },
+    "rag_jobs.json": {
+      "path": "/home/menahil/GigBid_Student_Starter_Kit_v0.1/gigbid-starter-kit/evals/results/rag_jobs.json",
+      "sha256": "aeadea73531de89853101ccdb706ae65ebd372421c5e86afe8bd5d5a5962c29e"
+    },
+    "rag_judge_calibration.json": {
+      "path": "/home/menahil/GigBid_Student_Starter_Kit_v0.1/gigbid-starter-kit/evals/results/rag_judge_calibration.json",
+      "sha256": "93eca0dbeb767724cd863140bb095d9e63f719e85197dda6da59733f18f7f9cb"
+    },
+    "rag_human_review.csv": {
+      "path": "/home/menahil/GigBid_Student_Starter_Kit_v0.1/gigbid-starter-kit/evals/results/rag_human_review.csv",
+      "sha256": "a3d55ea2bb23f00c8a23bde83ad9aac4752bc853ce5e8a6e4c85d382bdce7323"
+    },
+    "rag_ablation.json": {
+      "path": "/home/menahil/GigBid_Student_Starter_Kit_v0.1/gigbid-starter-kit/evals/results/rag_ablation.json",
+      "sha256": "f65dbe1fb05f8e2046f660325a8d8aff3fa4fe39a7577342f3c8feb494a1fa14"
+    },
+    "rag_import.json": {
+      "path": "/home/menahil/GigBid_Student_Starter_Kit_v0.1/gigbid-starter-kit/evals/results/rag_import.json",
+      "sha256": "26cf52a4a4481e64f3f67810f54f9c6b6957a81087e888a1fc6e92200806c7f6"
+    }
+  },
+  "workflow_profile": "rag_benchmark",
+  "fixture_note": "One RAG benchmark with labelled retrieval queries, controlled claim regressions, and fixed GigSim jobs; historical fixture populations differ."
 }

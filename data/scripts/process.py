@@ -29,6 +29,13 @@ from statistics import median
 
 import pandas as pd
 
+try:
+    from data.client_matching import assign_clients, ensure_client_coverage
+except ModuleNotFoundError:
+    # Support the documented `python data/scripts/process.py` launch too.
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+    from data.client_matching import assign_clients, ensure_client_coverage
+
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 JOB_DATASET_DIRS = [
@@ -969,11 +976,10 @@ def main() -> int:
     if clients is None:
         clients = synthesize_clients(category_skills, global_skills, rng)
 
+    added = ensure_client_coverage(jobs, clients, args.seed)
     bad_actors = mark_bad_actors(clients, rng)
-    client_ids = [c["id"] for c in clients]
-    client_weights = [max(1, c.get("hires", 1)) for c in clients]
-    for job in jobs:
-        job["client_id"] = rng.choices(client_ids, weights=client_weights)[0]
+    assign_clients(jobs, clients, args.seed)
+    print(f"[clients] added {len(added)} coverage profiles; assigned by compatible skills")
 
     label_jobs(jobs, rng)
     synthesize_job_details(jobs, rng)

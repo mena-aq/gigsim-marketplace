@@ -47,6 +47,10 @@ class Requirements(BaseModel):
     items: list[str] = Field(min_length=1, max_length=6)
 
 
+class RequirementSelection(BaseModel):
+    ids: list[str] = Field(min_length=1, max_length=6)
+
+
 class Grade(BaseModel):
     grade: Literal["adequate", "weak", "none"]
     evidence_ids: list[str]

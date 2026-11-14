@@ -50,6 +50,7 @@ def analyze(
             Path(__file__).read_bytes()
             + (ROOT / "evals/runners/rag_study.py").read_bytes()
             + (ROOT / "evals/runners/rag_eval.py").read_bytes()
+            + (ROOT / "evals/runners/rag_metrics.py").read_bytes()
         ).hexdigest(),
         "source_environment": display_path(run.with_suffix(".environment.json"))
         if run.with_suffix(".environment.json").is_file()

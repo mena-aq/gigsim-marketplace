@@ -11,11 +11,11 @@ from mcp.shared.exceptions import McpError
 from mcp_servers.common.errors import ToolFailure
 
 AGENT_TOOLS = {
-    "scout": {"search_jobs", "get_connects_balance"},
+    "scout": {"search_jobs", "get_job", "get_connects_balance"},
     "analyst": set(),
     "risk": {"get_client_history", "get_job"},
     "matcher": {"search_evidence", "get_case_study", "list_skills"},
-    "pricing": {"get_connects_balance", "get_client_history"},
+    "pricing": {"search_jobs", "get_connects_balance", "get_client_history"},
     "writer": {"search_evidence", "get_case_study"},
     "critic": {"search_evidence", "get_case_study", "verify_claims"},
     "verifier": {"verify_claims"},

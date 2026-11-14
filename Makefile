@@ -38,10 +38,11 @@ test:
 
 lint:
 	uv run ruff check .
-	uv run ruff format --check --line-length 88 rag tests/unit/test_rag.py tests/unit/rag_fakes.py evals/runners/rag_eval.py evals/runners/rag_table.py evals/runners/rag_environment.py evals/runners/rag_study.py evals/runners/rag_rd_b.py evals/runners/rag_ablation.py tests/unit/test_rag_studies.py mcp_servers agent/mcp_client.py agent/marketplace_port.py tests/unit/test_mcp_layer.py tests/contract/test_mcp_schemas.py tests/integration/test_mcp_postgres.py scripts/mcp_smoke.py scripts/mcp_snapshot.py infra/ollama_bridge.py apps/api worker scripts/export_openapi.py tests/unit/test_api_health.py tests/integration/test_foundation_postgres.py
+	uv run ruff format --check --line-length 88 agent apps/api/orchestration.py scripts/render_graphs.py tests/unit/test_graphs.py tests/unit/test_node_model.py tests/unit/test_graph_connects.py tests/unit/test_graph_runtime_failures.py tests/integration/test_graph_postgres.py
+	uv run ruff format --check --line-length 88 rag tests/unit/test_rag.py tests/unit/rag_fakes.py evals/runners/rag_eval.py evals/runners/rag_table.py evals/runners/rag_environment.py evals/runners/rag_study.py evals/runners/rag_rd_b.py evals/runners/rag_ablation.py evals/runners/tool_eval.py tests/unit/test_rag_studies.py evals/runners/rag_metrics.py evals/runners/rag_retrieval.py evals/runners/rag_workflow.py evals/runners/rag_outcomes.py evals/runners/rag_calibration.py evals/runners/rag_preflight.py evals/runners/rag_diagnostics.py tests/unit/test_rag_evaluation.py tests/unit/test_rag_unified.py tests/unit/test_rag_repairs.py data/client_matching.py data/scripts/repair_client_assignments.py mcp_servers agent/mcp_client.py agent/marketplace_port.py tests/unit/test_mcp_layer.py tests/contract/test_mcp_schemas.py tests/integration/test_mcp_postgres.py scripts/mcp_smoke.py scripts/mcp_snapshot.py infra/ollama_bridge.py apps/api worker scripts/export_openapi.py tests/unit/test_api_health.py tests/integration/test_foundation_postgres.py
 
 eval:
-	uv run python -m evals.runners.run_demo_eval
+	$(MAKE) rag-eval
 
 smoke:
 	./scripts/smoke_gigsim.sh
@@ -59,6 +60,7 @@ down:
 
 migrate:
 	uv run alembic upgrade head
+	uv run python -m agent.persistence
 
 worker:
 	uv run arq worker.settings.WorkerSettings
@@ -99,4 +101,29 @@ rag-eval:
 	uv run python -m evals.runners.rag_eval
 
 rag-table:
-	uv run python -m evals.runners.rag_table
+	uv run python -m evals.runners.rag_table --update-readme
+
+
+.PHONY: rag-calibrate rag-smoke rag-repair-data
+
+rag-calibrate:
+	uv run python -m evals.runners.rag_table --calibrate --update-readme
+
+rag-smoke:
+	uv run python -m evals.runners.rag_eval --limit 1 --variants v0
+
+rag-repair-data:
+	uv run python -m data.scripts.repair_client_assignments
+
+.PHONY: tool-eval
+
+tool-eval:
+	uv run python -m evals.runners.tool_eval
+
+.PHONY: graph-diagrams graph-test
+
+graph-diagrams:
+	uv run python -m scripts.render_graphs
+
+graph-test:
+	uv run pytest -q tests/unit/test_graphs.py tests/integration/test_graph_postgres.py

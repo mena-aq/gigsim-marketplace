@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "pairs": {
+    "jobs": 30,
+    "compatible_pairs": 30,
+    "low_hire_rate_clients": 0
+  },
+  "runtime_embedding_context": 256,
+  "configured_embedding_context": 256,
+  "embedding_input_tokens": 254,
+  "controls": {
+    "seed": 42,
+    "matching": "replied",
+    "mismatched": "no_reply"
+  },
+  "note": "Controls are diagnostic only; excluded from benchmark reply-rate observations"
+}

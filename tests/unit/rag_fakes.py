@@ -107,7 +107,7 @@ class FakeLLM:
                 raise answer
             return schema.model_validate(answer)
         if prompt == "rag_decompose":
-            return schema.model_validate({"items": [payload["query"]]})
+            return schema.model_validate({"ids": [payload["segments"][0]["id"]]})
         if prompt == "rag_grade":
             return schema.model_validate(
                 {

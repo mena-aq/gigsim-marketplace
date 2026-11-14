@@ -464,7 +464,57 @@ Upwork is excluded; GitHub integration and OCR remain deferred.
 - Compare all five. The user will choose the shipped variant; keep V0 as the
   development baseline and do not auto-select a winner from provisional labels.
 
+#### Corrected runtime and client fixtures
+
+All-minilm's effective Ollama context is 256, even though architecture metadata
+says 512. Keep embedding query content <=254 tokens; current 200-token chunks
+remain compatible. V1 selects source IDs rather than asking Qwen to copy quotes.
+The verifier grades one factual sentence at a time with constrained source/index
+and citation IDs, preserving validated plain intentions/questions. Failed factual
+judgments remain excluded; do not weaken source, numeric or citation checks.
+
+`make rag-repair-data` writes separate repaired processed files and a v2 snapshot
+of the same 30 jobs. It changes client assignment at the generator level, adds
+coverage profiles where absent, preserves bad actors, and uses no observed reply
+feedback. Future rag-eval defaults to rag_jobs_v2.json. Preflight must validate
+embedding limits and real MCP reply controls before expensive model calls.
+Do not count controls as measured replies or overwrite old results/human scores.
+No GigSim source or production DB changes are authorized by these data repairs.
+
+#### One RAG evaluation for Part B
+
+`make rag-eval` runs retrieval, drafting, B3 verification/independent assessment,
+judging, fixed-job GigSim outcomes, and component ablation for V0/V1/V2/V3/V8.
+These are stages of one evaluation, not separate proposal and retrieval products.
+The exact B5 CSV and the B3/ablation report are regenerated offline by
+`make rag-table`; `make rag-calibrate` imports the single human score per item.
+
+Reuse imported historical measurements and completed human scores. Originals in
+`evals/results/proposal/` are retained only as historical evidence. The canonical
+summary is `evals/results/rag_comparison.json`, with a source hash for each input.
+Historical query and job fixtures differ; never describe them as matched jobs.
+Future model runs live in separate run directories and resume with `--resume DIR`.
+Do not rerun expensive evaluations without the user's instruction.
+
+Reply rate counts replied/interview/hired outcomes among successfully submitted
+proposals with completed outcomes. Record failures, empty drafts, and reply yield
+per attempted job too. Fixture approval grants cannot authorize production sends.
+Human agreement is reported even when low; publish judge means as provisional
+rather than suppressing them. Total hardware cost remains unmeasured. The existing
+V2–V3 hypothesis study stays separate; ablation runs inside the main evaluation.
+Production Critic integration, the pairwise panel, and shipped-variant selection
+remain later work.
+
 ### 4 — Agent Graphs
+
+Agreed session scope: implement C1–C7 and a minimal authenticated approval UI.
+The 50-job ReAct/supervisor/hand-built comparison is deferred. The implementation
+uses `Command(resume=...)` with the installed LangGraph version, rather than the
+illustrative update-state resume snippet below. Keep existing RAG measurements
+and V0 default; do not rerun the expensive benchmark for this milestone.
+
+See `docs/ORCHESTRATION.md` for the implemented contracts, conservative memory
+promotion rules, crash recovery, replay, configuration and current limitations.
 
 **State** (`agent/state.py`) — keep it simple:
 

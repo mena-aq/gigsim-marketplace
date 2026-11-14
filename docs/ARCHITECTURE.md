@@ -1,5 +1,9 @@
 # Architecture
 
+Part C is implemented; see [the orchestration guide](ORCHESTRATION.md) and the
+code-generated [bid](graphs/bid.mmd) / [conversation](graphs/conversation.mmd)
+diagrams. The original foundation design below remains useful for service layout.
+
 ## Running foundation
 
 ```mermaid
@@ -19,7 +23,8 @@ at startup. The web renders on every request and uses the generated OpenAPI
 contract to check `/ready`. `/health` checks process liveness only; `/ready`
 checks GigBid Postgres and Redis with bounded timeouts and returns 503 on failure.
 
-Arq consumes a harmless smoke task; no scouting, graph, or external sends run yet.
+Arq consumes queued graph runs and reconciles its Postgres outbox every ten seconds.
+External sends require the authenticated review workspace and a durable interrupt.
 Alembic runs once before API/worker startup. Tables are users, jobs, proposals,
 messages, pipeline_cards, and audit_log. UUID strings identify app records;
 marketplace/external identifiers identify imported records. Monetary prices use
@@ -40,9 +45,9 @@ MCP integration is deferred. Step 2 adds the
 three owned MCP containers. No agent may access simulator tables directly.
 
 Postgres-backed graph checkpoints, execution traces, and promoted long-term
-style/outcome memories remain distinct. Future authentication scopes every
-business query by user; OAuth tokens must be encrypted per user. No business
-records are exposed by Step 1 endpoints.
+style/outcome memories remain distinct. The orchestration API scopes each run,
+approval and memory request to its authenticated owner. Infrastructure endpoints
+remain public; the minimal persona-key login precedes full product onboarding.
 
 ## Simulator boundary
 

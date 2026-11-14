@@ -22,7 +22,7 @@ class RagConfig(BaseModel):
     candidate_k: int = Field(default=20, ge=10, le=100)
     rrf_constant: int = Field(default=60, ge=1)
     embedding_dimensions: int = 384
-    embedding_context_tokens: int = 512
+    embedding_context_tokens: int = 256
     tokenizer_model: str
     tokenizer_revision: str
     reranker_revision: str
@@ -34,6 +34,7 @@ class RagConfig(BaseModel):
     llm_budget_seconds: float = Field(default=240, gt=0)
     max_requirements: int = 6
     grade_candidates: int = 5
+    proposal_words: int = Field(default=80, ge=40, le=200)
     cpu_threads: int = 2
     embeddings_model: str
     reranker_model: str

@@ -121,7 +121,7 @@ class ToolReceipt(OwnedRecord, Base):
 
 
 class ApprovalGrant(OwnedRecord, Base):
-    """Only a future trusted approval UI/graph may issue these, never MCP tools."""
+    """Only the trusted authenticated approval coordinator issues these."""
 
     __tablename__ = "approval_grants"
     tool: Mapped[str] = mapped_column(String(64))
@@ -143,3 +143,23 @@ class EmailDraft(OwnedRecord, Base):
     recipient: Mapped[str] = mapped_column(String(320))
     subject: Mapped[str] = mapped_column(String(200))
     body: Mapped[str] = mapped_column(Text)
+
+
+class GraphRun(OwnedRecord, Base):
+    """Durable work/outbox record; secrets never enter checkpoints or this table."""
+
+    __tablename__ = "graph_runs"
+    __table_args__ = (UniqueConstraint("user_id", "kind", "target", "turn"),)
+    kind: Mapped[str] = mapped_column(String(24))
+    target: Mapped[str] = mapped_column(String(160))
+    turn: Mapped[str] = mapped_column(String(128), default="initial")
+    status: Mapped[str] = mapped_column(String(32), default="queued", index=True)
+    trace_id: Mapped[str] = mapped_column(String(128))
+    attempts: Mapped[int] = mapped_column(Integer, default=0)
+    retry_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    resume: Mapped[dict | None] = mapped_column(
+        JSON().with_variant(JSONB(), "postgresql")
+    )
+    error: Mapped[dict | None] = mapped_column(
+        JSON().with_variant(JSONB(), "postgresql")
+    )

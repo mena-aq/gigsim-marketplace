@@ -10,7 +10,7 @@ from statistics import mean
 
 import numpy as np
 
-from evals.runners.rag_eval import metrics, percentile
+from evals.runners.rag_metrics import metrics, percentile
 from rag.config import ROOT
 
 
