@@ -1,10 +1,29 @@
 """Assess untrusted job content and public client history."""
 
+import re
+
 from agent.execution import NodeContext
 from agent.handoffs import RiskAssessment, RiskReport
 from agent.nodes.compliance import policy
 from agent.state import GigBidState
-from mcp_servers.common.errors import ToolFailure
+
+
+def squash(text: str) -> str:
+    """Compare quotes ignoring whitespace and case: job posts often glue sentences
+    together ("system.This") and the model tends to repair the spacing."""
+    return re.sub(r"\s+", "", text).casefold()
+
+
+def strings(value):
+    """Every string inside a nested value, as plain text without JSON escaping."""
+    if isinstance(value, str):
+        yield value
+    elif isinstance(value, dict):
+        for item in value.values():
+            yield from strings(item)
+    elif isinstance(value, list):
+        for item in value:
+            yield from strings(item)
 
 
 async def risk(state: GigBidState, ctx: NodeContext) -> dict:
@@ -28,22 +47,26 @@ async def risk(state: GigBidState, ctx: NodeContext) -> dict:
         },
         RiskAssessment,
     )
-    import json
-
     settings = ctx.config["orchestration"]
     score = settings["risk_levels"]["none"]
     flags = []
+    ignored = []
+    sources = {
+        "job": squash("\n".join(strings(state["job"]))),
+        "history": squash("\n".join(strings(history))) if history else "",
+    }
     for finding in assessment["findings"]:
-        source = (
-            state["job"]["title"] + "\n" + state["job"]["description"]
-            if finding["source"] == "job"
-            else json.dumps(history, ensure_ascii=False)
-        )
-        if finding["quote"] not in source:
-            raise ToolFailure(
-                "invalid_risk_evidence",
-                "Risk assessment quoted text absent from the job or client history",
+        # A finding only counts when its quote is really in the job or client history.
+        # An ungrounded one is discarded and recorded, rather than failing the run.
+        if squash(finding["quote"]) not in sources[finding["source"]]:
+            ignored.append(
+                {
+                    "level": finding["level"],
+                    "quote": finding["quote"],
+                    "reason": "Quote not found in the " + finding["source"],
+                }
             )
+            continue
         flags.append(finding["reason"])
         score = max(score, settings["risk_levels"][finding["level"]])
     if history is None:
@@ -64,9 +87,12 @@ async def risk(state: GigBidState, ctx: NodeContext) -> dict:
         if flags
         else "No source-backed marketplace risk indicators found",
     ).model_dump()
-    report["findings"] = assessment["findings"]
-    import re
-
+    report["findings"] = [
+        finding
+        for finding in assessment["findings"]
+        if finding["quote"] not in {item["quote"] for item in ignored}
+    ]
+    report["ignored_findings"] = ignored
     _, checks, _ = policy(ctx.config)
     job = state["job"]
     job_text = "\n".join(
