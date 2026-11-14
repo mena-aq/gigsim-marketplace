@@ -4,8 +4,8 @@ Usage:  python -m scripts.match_jobs [--per-persona N] [--database-url URL]
 
 Reads the processed job pool and each persona's skills file, ranks jobs with
 agent.job_match, and replaces that persona's rows in persona_job_matches. Scams,
-injected posts and bad-actor or near-zero-hire-rate clients are left out of the
-recommendations only; the full job inbox still shows every job. Re-running is safe.
+injected posts, bad-actor or near-zero-hire-rate clients, and jobs paying less than
+the configured minimum price are left out of the recommendations only; the full job inbox still shows every job. Re-running is safe.
 """
 
 import argparse
@@ -17,7 +17,8 @@ from pathlib import Path
 from sqlalchemy import delete
 from sqlalchemy.ext.asyncio import async_sessionmaker
 
-from agent.job_match import rank_jobs
+from agent.config import load_graph_config
+from agent.job_match import below_floor, rank_jobs
 from apps.api.config import Settings
 from apps.api.db import build_engine
 from apps.api.models import PersonaJobMatch
@@ -43,7 +44,7 @@ def persona_skills(personas_dir: Path) -> dict[str, list[str]]:
     return skills
 
 
-def excluder(clients: list[dict]):
+def excluder(clients: list[dict], floor: float = 0.0):
     unsafe = {
         client["id"]
         for client in clients
@@ -55,15 +56,20 @@ def excluder(clients: list[dict]):
             bool(job.get("is_scam"))
             or bool(job.get("has_injection"))
             or job.get("client_id") in unsafe
+            or below_floor(job, floor)
         )
 
     return exclude
 
 
 def compute(
-    jobs: list[dict], clients: list[dict], skills: dict[str, list[str]], limit: int
+    jobs: list[dict],
+    clients: list[dict],
+    skills: dict[str, list[str]],
+    limit: int,
+    floor: float = 0.0,
 ) -> dict[str, list[dict]]:
-    exclude = excluder(clients)
+    exclude = excluder(clients, floor)
     return {
         persona: rank_jobs(persona_skills_list, jobs, exclude=exclude, limit=limit)
         for persona, persona_skills_list in skills.items()
@@ -105,7 +111,8 @@ def main() -> int:
     jobs = json.loads(Path(args.jobs).read_text())
     clients = json.loads(Path(args.clients).read_text())
     skills = persona_skills(Path(args.personas))
-    matches = compute(jobs, clients, skills, args.per_persona)
+    floor = load_graph_config()["orchestration"]["minimum_price"]
+    matches = compute(jobs, clients, skills, args.per_persona, floor)
     settings = (
         Settings(database_url=args.database_url, _env_file=None)
         if args.database_url

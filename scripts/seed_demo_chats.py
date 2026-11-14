@@ -23,7 +23,8 @@ from pathlib import Path
 
 from sqlalchemy import delete, select
 
-from agent.job_match import rank_jobs
+from agent.config import load_graph_config
+from agent.job_match import below_floor, rank_jobs
 from gigsim import reply_sim
 from gigsim.config import Settings
 from gigsim.db import build_engine, build_sessionmaker, init_db
@@ -114,6 +115,7 @@ async def seed_demo_chats(
             "description": job.description,
             "skills": list(job.skills or []),
             "category": job.category,
+            "budget_max": job.budget_max,
             "client_id": job.client_id,
             "is_scam": job.is_scam,
             "has_injection": job.has_injection,
@@ -121,8 +123,12 @@ async def seed_demo_chats(
         for job in jobs
     ]
 
+    floor = load_graph_config()["orchestration"]["minimum_price"]
+
     def exclude(record: dict) -> bool:
         return (
+            below_floor(record, floor)
+            or
             record["is_scam"]
             or record["has_injection"]
             or record["client_id"] not in clients

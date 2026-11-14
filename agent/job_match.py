@@ -16,6 +16,13 @@ CATEGORY_BONUS = 20.0
 MIN_CATEGORY_JOBS = 10
 
 
+def below_floor(job: dict, floor: float) -> bool:
+    """True when the job's stated maximum budget is under the minimum price the
+    freelancer will bid. Jobs with no stated budget are not ruled out."""
+    budget = job.get("budget_max")
+    return budget is not None and budget < floor
+
+
 def _mentions(skill: str, text: str) -> bool:
     return bool(re.search(r"(?<![\w.])" + re.escape(skill) + r"(?![\w])", text))
 

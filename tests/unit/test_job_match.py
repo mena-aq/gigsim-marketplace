@@ -132,3 +132,22 @@ async def test_script_replaces_a_personas_rows_instead_of_duplicating(tmp_path):
         ("a", "j3"),
         ("b", "j1"),
     ]
+
+
+def test_jobs_paying_under_the_floor_are_left_out_but_unstated_budgets_stay():
+    from agent.job_match import below_floor
+    from scripts.match_jobs import compute
+
+    assert below_floor({"budget_max": 20}, 100)
+    assert not below_floor({"budget_max": 100}, 100)
+    assert not below_floor({}, 100)
+    jobs = [
+        {**job("cheap", "React app", ["react"], description="react"), "budget_max": 20},
+        {**job("fair", "React app", ["react"], description="react"), "budget_max": 500},
+        job("open", "React app", ["react"], description="react"),
+    ] + [job(f"x{i}", "Web task", ["javascript"]) for i in range(12)]
+    ids = {
+        item["job"]["id"]
+        for item in compute(jobs, [], {"p": ["react"]}, limit=50, floor=100)["p"]
+    }
+    assert "cheap" not in ids and {"fair", "open"} <= ids
