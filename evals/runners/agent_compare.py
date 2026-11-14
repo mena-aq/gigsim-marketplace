@@ -18,6 +18,7 @@ import time
 from datetime import datetime
 from pathlib import Path
 
+from dotenv import dotenv_values
 from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.store.memory import InMemoryStore
 
@@ -46,7 +47,9 @@ def load_cases(seed: int) -> list[dict]:
 
 
 def services_for(persona: str, config: dict) -> GraphServices:
-    token = os.environ.get("MCP_TOKEN_" + persona.upper(), "")
+    # Same rule as rag.config: .env values, overridden by the real environment.
+    env = {**dotenv_values(ROOT / ".env"), **os.environ}
+    token = env.get("MCP_TOKEN_" + persona.upper(), "")
     if not token:
         raise SystemExit(f"MCP_TOKEN_{persona.upper()} is not set (see .env)")
     return GraphServices(token=token, config=config, store=InMemoryStore())
