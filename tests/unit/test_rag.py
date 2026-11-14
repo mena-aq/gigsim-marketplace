@@ -541,3 +541,24 @@ async def test_untrusted_model_input_is_json_user_data(tmp_path, monkeypatch):
     assert (
         await llm.ask("rag_decompose", {"query": injection}, Requirements)
     ).items == ["python"]
+
+
+@pytest.mark.parametrize("variant", ["v0", "v1", "v2", "v3", "v8"])
+async def test_retired_evidence_is_never_retrieved_or_cited(indexed, variant):
+    before = await pipeline(indexed).retrieve("python forecasting", 5, {}, variant)
+    retired = before.hits[0].chunk
+
+    hidden = pipeline(indexed)
+    hidden.retired = frozenset({retired.id})
+    after = await hidden.retrieve("python forecasting", 5, {}, variant)
+    assert all(hit.chunk.id != retired.id for hit in after.hits)
+
+    # A claim that cited the deleted item can no longer be verified against it.
+    with pytest.raises(RagFailure, match="stale"):
+        await hidden.evidence([retired.chunk_id])
+
+    # Restoring the item makes it available again.
+    restored = pipeline(indexed)
+    restored.retired = frozenset()
+    again = await restored.retrieve("python forecasting", 5, {}, variant)
+    assert any(hit.chunk.id == retired.id for hit in again.hits)

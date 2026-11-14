@@ -163,3 +163,11 @@ class GraphRun(OwnedRecord, Base):
     error: Mapped[dict | None] = mapped_column(
         JSON().with_variant(JSONB(), "postgresql")
     )
+
+
+class RetiredEvidence(OwnedRecord, Base):
+    """Evidence items the user removed; retrieval and verification must ignore them."""
+
+    __tablename__ = "retired_evidence"
+    __table_args__ = (UniqueConstraint("user_id", "item_id"),)
+    item_id: Mapped[str] = mapped_column(String(250))

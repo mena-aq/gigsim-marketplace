@@ -55,6 +55,8 @@ class Pipeline:
         self.diagnostics = {}
         self.filtered_chunks = []
         self.filters = {}
+        self.retired: frozenset[str] = frozenset()
+        self.retired_chunk_ids: set[str] = set()
 
     async def prepare(self, filters: dict | None = None) -> None:
         self.manifest = read_manifest(self.config, self.user_id)
@@ -76,9 +78,19 @@ class Pipeline:
         self.filters = {
             key: value for key, value in (filters or {}).items() if value is not None
         }
-        self.chunks = {
+        everything = {
             record["chunk"]["chunk_id"]: Chunk.model_validate(record["chunk"])
             for record in self.manifest["records"]
+        }
+        # Retired (user-deleted) evidence is invisible: it cannot be retrieved, and any
+        # stale reference to it fails verification instead of silently supporting a claim.
+        self.retired_chunk_ids = {
+            key for key, chunk in everything.items() if chunk.id in self.retired
+        }
+        self.chunks = {
+            key: chunk
+            for key, chunk in everything.items()
+            if key not in self.retired_chunk_ids
         }
         self.filtered_chunks = [
             chunk
@@ -100,9 +112,14 @@ class Pipeline:
             self.manifest["collection"],
             self.user_id,
             vector,
-            min(k, len(self.filtered_chunks)),
+            min(k, len(self.filtered_chunks)) + len(self.retired_chunk_ids),
             self.filters,
         )
+        results = [
+            (key, score)
+            for key, score in results
+            if key not in self.retired_chunk_ids
+        ][:k]
         allowed = {chunk.chunk_id for chunk in self.filtered_chunks}
         if any(key not in allowed for key, _ in results):
             raise RagFailure(

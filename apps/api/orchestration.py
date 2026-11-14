@@ -21,7 +21,7 @@ from agent.mcp_client import MCPGateway
 from agent.memory.store import promote_outcome
 from agent.persistence import graph_storage
 from agent.runs import RunCoordinator, new_run, thread_config
-from apps.api.models import AuditLog, GraphRun, User
+from apps.api.models import AuditLog, GraphRun, RetiredEvidence, User
 from mcp_servers.common.schemas import SearchJobs
 from mcp_servers.common.security import DatabaseTokenVerifier, mask
 
@@ -457,6 +457,79 @@ async def forget(
             (user.subject, "style_observations"), filter={"pattern": key}, limit=1000
         ):
             await service.store.adelete(item.namespace, item.key)
+
+
+def checked_evidence_id(item_id: str, user) -> str:
+    persona = user.claims["persona"]
+    if (
+        not item_id.startswith(persona + ":")
+        or ".." in item_id
+        or "\\" in item_id
+        or len(item_id) > 250
+    ):
+        raise HTTPException(404, "Evidence item not found")
+    return item_id
+
+
+@router.get("/evidence/retired")
+async def retired_evidence(request: Request, user=Depends(authenticated)) -> list[str]:
+    async with async_sessionmaker(request.app.state.engine)() as session:
+        return list(
+            await session.scalars(
+                select(RetiredEvidence.item_id).where(
+                    RetiredEvidence.user_id == user.subject
+                )
+            )
+        )
+
+
+@router.delete("/evidence/{item_id:path}", status_code=204)
+async def retire_evidence(
+    item_id: str, request: Request, user=Depends(authenticated)
+):
+    """Remove an evidence item from retrieval and verification for this user."""
+    item_id = checked_evidence_id(item_id, user)
+    async with async_sessionmaker(request.app.state.engine)() as session, session.begin():
+        exists = await session.scalar(
+            select(RetiredEvidence.id).where(
+                RetiredEvidence.user_id == user.subject,
+                RetiredEvidence.item_id == item_id,
+            )
+        )
+        if exists is None:
+            session.add(RetiredEvidence(user_id=user.subject, item_id=item_id))
+        session.add(
+            AuditLog(
+                user_id=user.subject,
+                trace_id="evidence:" + uuid.uuid4().hex,
+                action="human.retire_evidence",
+                payload={"item_id": item_id},
+            )
+        )
+
+
+@router.post("/evidence/restore/{item_id:path}", status_code=204)
+async def restore_evidence(
+    item_id: str, request: Request, user=Depends(authenticated)
+):
+    item_id = checked_evidence_id(item_id, user)
+    async with async_sessionmaker(request.app.state.engine)() as session, session.begin():
+        row = await session.scalar(
+            select(RetiredEvidence).where(
+                RetiredEvidence.user_id == user.subject,
+                RetiredEvidence.item_id == item_id,
+            )
+        )
+        if row is not None:
+            await session.delete(row)
+        session.add(
+            AuditLog(
+                user_id=user.subject,
+                trace_id="evidence:" + uuid.uuid4().hex,
+                action="human.restore_evidence",
+                payload={"item_id": item_id},
+            )
+        )
 
 
 @router.post("/runs/{run_id}/outcome")

@@ -26,11 +26,27 @@ READ = ToolAnnotations(
 )
 
 
+async def retired_items(runtime: Runtime, who) -> list[str]:
+    from sqlalchemy import select
+
+    from apps.api.models import RetiredEvidence
+
+    async with runtime.sessions() as session:
+        return list(
+            await session.scalars(
+                select(RetiredEvidence.item_id).where(
+                    RetiredEvidence.user_id == who.user_id
+                )
+            )
+        )
+
+
 def create_server(runtime: Runtime):
     server = make_server("GigBid Portfolio", runtime)
     service = PortfolioService(
         runtime.settings.mcp_persona_dir,
         pipeline_factory=getattr(runtime, "rag_factory", None),
+        retired_loader=lambda who: retired_items(runtime, who),
     )
 
     @server.tool(annotations=READ)

@@ -27,6 +27,7 @@ export default function Review() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [jobQuery, setJobQuery] = useState("");
   const [why, setWhy] = useState<Json | null>(null);
+  const [retired, setRetired] = useState<string[]>([]);
   useEffect(() => {
     const run = new URLSearchParams(window.location.search).get("run");
     if (run) setSelected(run);
@@ -78,6 +79,25 @@ export default function Review() {
     if (!selected || !signedIn || !decisionKey) return;
     fetch(`/api/agent/runs/${encodeURIComponent(selected)}/decision`).then(r => r.ok ? r.json() : null).then(setWhy).catch(() => setWhy(null));
   }, [selected, signedIn, decisionKey]);
+  const loadRetired = useCallback(async () => {
+    const r = await fetch("/api/agent/evidence/retired");
+    if (r.ok) setRetired(await r.json());
+  }, []);
+  useEffect(() => { if (signedIn) void loadRetired(); }, [signedIn, loadRetired]);
+  async function changeEvidence(itemId: string, restore: boolean) {
+    const path = itemId.split("/").map(encodeURIComponent).join("/");
+    const r = await fetch(restore ? `/api/agent/evidence/restore/${path}` : `/api/agent/evidence/${path}`, { method: restore ? "POST" : "DELETE" });
+    if (!r.ok) throw new Error("Could not change this evidence item");
+    await loadRetired();
+  }
+  async function regenerate() {
+    const historyResult = await client.GET("/agent/runs/{run_id}/history", { params: { path: { run_id: selected } } });
+    const checkpoint = historyResult.data?.[0] as Json | undefined;
+    if (!checkpoint?.checkpoint_id) throw new Error("No checkpoint is available to regenerate from");
+    const result = await client.POST("/agent/runs/{run_id}/replay", { params: { path: { run_id: selected } }, body: { checkpoint_id: checkpoint.checkpoint_id, node: "scout" } });
+    if (result.error || !result.data) throw new Error("Could not queue a regeneration");
+    setSelected(result.data.id); setDetail(null);
+  }
   async function act(work: () => Promise<void>) {
     setBusy(true); setError("");
     try { await work(); await refresh(); } catch (e) { setError(e instanceof Error ? e.message : "Request failed"); } finally { setBusy(false); }
@@ -135,6 +155,24 @@ export default function Review() {
             <h3>Proposal or reply</h3><label>Draft<textarea rows={10} value={body} onChange={e => setBody(e.target.value)} /></label>
             {answers.map((answer, index) => <label key={index}>{answer.question}<textarea value={answer.answer} onChange={e => setAnswers(old => old.map((item, i) => i === index ? { ...item, answer: e.target.value } : item))} /></label>)}
             <h3>Price and Connects</h3><p>{review.price?.amount ? `Recommended price: $${review.price.amount}. ` : ""}{review.price?.rationale}</p><p>Connects cost: {review.preview?.connects_cost ?? 0}</p>
+            <section className="claims"><h3>Claims and the evidence behind them</h3>
+              {Object.entries((review.verification ?? {}) as Json).map(([field, report]: [string, Json]) => <div key={field}>
+                <h4>{field === "cover_letter" ? "Cover letter" : `Screening answer ${Number(field) + 1}`}</h4>
+                {(report.sentences ?? []).map((sentence: Json, i: number) => <div key={i} className={sentence.kept ? "claim kept" : "claim removed"}>
+                  <p>{sentence.kept ? "✔" : "✘ removed from draft"} {sentence.text}</p>
+                  {sentence.claims.map((claim: Json, j: number) => <div key={j} className="claim-row">
+                    <small>{claim.kind} · <strong>{claim.status.replaceAll("_", " ")}</strong> — {claim.reason}</small>
+                    {claim.evidence_ids.map((id: string) => { const ev = (review.evidence ?? []).find((e: Json) => e.chunk_id === id); return <details key={id}><summary>Evidence: {ev?.source ?? "unavailable (deleted)"}</summary>
+                      {ev && <><blockquote>{ev.text}</blockquote><button disabled={busy} onClick={() => void act(() => changeEvidence(ev.id, false))}>Delete this evidence</button></>}
+                    </details>; })}
+                    {claim.kind === "experience" && claim.evidence_ids.length === 0 && <small> — no evidence cited</small>}
+                  </div>)}
+                </div>)}
+              </div>)}
+              {retired.length > 0 && <div><h4>Deleted evidence</h4><ul>{retired.map(id => <li key={id}>{id} <button disabled={busy} onClick={() => void act(() => changeEvidence(id, true))}>Restore</button></li>)}</ul></div>}
+              <button disabled={busy} onClick={() => void act(regenerate)}>Regenerate with current evidence</button>
+              <p><small>Deleted evidence is excluded from retrieval and verification. Regenerating re-runs the analysis, so claims that depended on it are dropped or rewritten, and this draft can no longer be approved against it.</small></p>
+            </section>
             <details><summary>Risk report and evidence</summary><pre>{JSON.stringify({ risk: review.risk, evidence: review.evidence, verification: review.verification, critique: review.critique }, null, 2)}</pre></details>
             <details><summary>Exact marketplace preview</summary><pre>{JSON.stringify(review.preview, null, 2)}</pre></details>
             <label>Reason or edit note<input value={reason} onChange={e => setReason(e.target.value)} /></label>

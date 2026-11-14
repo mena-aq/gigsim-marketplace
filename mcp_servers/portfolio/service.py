@@ -6,9 +6,16 @@ from mcp_servers.common.security import ToolFailure
 
 
 class PortfolioService:
-    def __init__(self, root: Path, *, pipeline_factory=None):
+    def __init__(self, root: Path, *, pipeline_factory=None, retired_loader=None):
         self.root = root.resolve()
         self.pipeline_factory = pipeline_factory
+        self.retired_loader = retired_loader
+
+    async def scoped_pipeline(self, who):
+        pipeline = self.pipeline(who)
+        if self.retired_loader is not None:
+            pipeline.retired = frozenset(await self.retired_loader(who))
+        return pipeline
 
     def pipeline(self, who):
         if self.pipeline_factory is not None:
@@ -36,7 +43,7 @@ class PortfolioService:
         ]
 
     async def search(self, who, request):
-        result = await self.pipeline(who).retrieve(
+        result = await (await self.scoped_pipeline(who)).retrieve(
             request.requirement, request.k, request.filters.model_dump()
         )
         return {
@@ -52,7 +59,7 @@ class PortfolioService:
     async def verify(self, who, request):
         from rag.verify import verify_claims
 
-        pipeline = self.pipeline(who)
+        pipeline = await self.scoped_pipeline(who)
         evidence = await pipeline.evidence(request.chunk_ids)
         return (await verify_claims(request.draft, evidence, pipeline.llm)).model_dump()
 
