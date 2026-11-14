@@ -62,6 +62,20 @@ class PriceQuote(BaseModel):
     connects_cost: int = Field(default=0, ge=0)
 
 
+class AgentStep(BaseModel):
+    """One ReAct step of the single-agent baseline: call a tool, or stop looking."""
+
+    action: Literal["get_client_history", "search_evidence", "finish"]
+    query: str = Field(default="", max_length=300)
+
+
+class SingleAgentResult(BaseModel):
+    action: Literal["bid", "watch", "skip"]
+    reason: str = Field(max_length=500)
+    cover_letter: str = Field(default="", max_length=2500)
+    price: float = Field(default=0, ge=0)
+
+
 class ProposalDraft(BaseModel):
     job_id: str
     cover_letter: str

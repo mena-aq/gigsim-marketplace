@@ -43,7 +43,11 @@ async def decision(state: GigBidState, ctx: NodeContext) -> dict:
 
 
 def build_bid_graph(
-    services: GraphServices | None = None, *, checkpointer=None, store=None
+    services: GraphServices | None = None,
+    *,
+    checkpointer=None,
+    store=None,
+    interrupt_before=None,
 ):
     services = services or GraphServices(store=store)
     graph = StateGraph(GigBidState)
@@ -195,4 +199,9 @@ def build_bid_graph(
     )
     for name in ("stop", "exhausted", "compliance_block", "learn"):
         graph.add_edge(name, END)
-    return graph.compile(checkpointer=checkpointer, store=store, name="gigbid_bid")
+    return graph.compile(
+        checkpointer=checkpointer,
+        store=store,
+        name="gigbid_bid",
+        interrupt_before=interrupt_before,
+    )

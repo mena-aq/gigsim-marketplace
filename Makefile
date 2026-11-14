@@ -45,7 +45,7 @@ test:
 lint:
 	uv run ruff check .
 	uv run ruff format --check --line-length 88 agent apps/api/orchestration.py scripts/render_graphs.py tests/unit/test_graphs.py tests/unit/test_node_model.py tests/unit/test_graph_connects.py tests/unit/test_graph_runtime_failures.py tests/integration/test_graph_postgres.py
-	uv run ruff format --check --line-length 88 rag tests/unit/test_rag.py tests/unit/rag_fakes.py evals/runners/rag_eval.py evals/runners/rag_table.py evals/runners/rag_environment.py evals/runners/rag_study.py evals/runners/rag_rd_b.py evals/runners/rag_ablation.py evals/runners/tool_eval.py tests/unit/test_rag_studies.py evals/runners/rag_metrics.py evals/runners/rag_retrieval.py evals/runners/rag_workflow.py evals/runners/rag_outcomes.py evals/runners/rag_calibration.py evals/runners/rag_preflight.py evals/runners/rag_diagnostics.py tests/unit/test_rag_evaluation.py tests/unit/test_rag_unified.py tests/unit/test_rag_repairs.py data/client_matching.py data/scripts/repair_client_assignments.py mcp_servers agent/mcp_client.py agent/marketplace_port.py tests/unit/test_mcp_layer.py tests/contract/test_mcp_schemas.py tests/integration/test_mcp_postgres.py scripts/mcp_smoke.py scripts/mcp_snapshot.py infra/ollama_bridge.py apps/api worker scripts/export_openapi.py tests/unit/test_api_health.py tests/integration/test_foundation_postgres.py
+	uv run ruff format --check --line-length 88 rag tests/unit/test_rag.py tests/unit/rag_fakes.py evals/runners/rag_eval.py evals/runners/rag_table.py evals/runners/rag_environment.py evals/runners/rag_study.py evals/runners/rag_rd_b.py evals/runners/rag_ablation.py evals/runners/tool_eval.py tests/unit/test_rag_studies.py evals/runners/rag_metrics.py evals/runners/rag_retrieval.py evals/runners/rag_workflow.py evals/runners/rag_outcomes.py evals/runners/rag_calibration.py evals/runners/rag_preflight.py evals/runners/rag_diagnostics.py tests/unit/test_rag_evaluation.py tests/unit/test_agent_compare.py evals/runners/agent_compare.py evals/runners/agent_compare_metrics.py agent/baselines tests/unit/test_rag_unified.py tests/unit/test_rag_repairs.py data/client_matching.py data/scripts/repair_client_assignments.py mcp_servers agent/mcp_client.py agent/marketplace_port.py tests/unit/test_mcp_layer.py tests/contract/test_mcp_schemas.py tests/integration/test_mcp_postgres.py scripts/mcp_smoke.py scripts/mcp_snapshot.py infra/ollama_bridge.py apps/api worker scripts/export_openapi.py tests/unit/test_api_health.py tests/integration/test_foundation_postgres.py
 
 eval:
 	$(MAKE) rag-eval
@@ -95,7 +95,7 @@ mcp-smoke:
 mcp-snapshot:
 	uv run python -m scripts.mcp_snapshot
 
-.PHONY: rag-models rag-ingest rag-eval rag-table
+.PHONY: rag-models rag-ingest rag-eval rag-table agent-compare
 
 rag-models:
 	uv run python -m rag.models
@@ -105,6 +105,11 @@ rag-ingest:
 
 rag-eval:
 	uv run python -m evals.runners.rag_eval
+
+# R&D question C (reduced): single agent vs graph. ARGS="--limit 2" for a smoke run,
+# ARGS="--resume evals/results/agent_compare/<run>" to continue.
+agent-compare:
+	uv run python -m evals.runners.agent_compare $(ARGS)
 
 rag-table:
 	uv run python -m evals.runners.rag_table --update-readme

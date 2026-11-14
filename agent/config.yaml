@@ -26,6 +26,7 @@ profiles:
     compliance: qwen2.5:3b
     intent: qwen2.5:3b
     liaison: qwen2.5:3b
+    single_agent: qwen2.5:3b
     fallback: qwen2.5:3b
 
 orchestration:
@@ -33,7 +34,7 @@ orchestration:
   model_timeout_seconds: 300
   context_tokens: 8192
   output_tokens: 768
-  output_tokens_by_role: {matcher: 1536, writer: 1024}
+  output_tokens_by_role: {matcher: 1536, writer: 1024, single_agent: 1024}
   max_input_characters: 24000
   node_attempts: 2
   max_run_attempts: 5

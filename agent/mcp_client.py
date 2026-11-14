@@ -19,6 +19,14 @@ AGENT_TOOLS = {
     "writer": {"search_evidence", "get_case_study"},
     "critic": {"search_evidence", "get_case_study", "verify_claims"},
     "verifier": {"verify_claims"},
+    # R&D question C baseline: one agent holding every read-only tool, no write tools.
+    "single_agent": {
+        "get_job",
+        "get_client_history",
+        "search_evidence",
+        "get_case_study",
+        "list_skills",
+    },
     "compliance": set(),
     "liaison": {
         "list_conversations",
