@@ -498,6 +498,42 @@ async def events(
     )
 
 
+@router.get("/memory/style/recent")
+async def recent_style_edits(
+    user=Depends(authenticated), service=Depends(coordinator)
+) -> dict:
+    """The last five deletions style memory observed and why each was or was not promoted."""
+    from agent.memory.promotion_rules import PROMOTION_RULE, PROMOTION_THRESHOLD
+
+    observations = await service.store.asearch(
+        (user.subject, "style_observations"), limit=1000
+    )
+    promoted = {
+        item.key
+        for item in await service.store.asearch((user.subject, "style"), limit=1000)
+    }
+    threads: dict[str, set[str]] = {}
+    for item in observations:
+        threads.setdefault(item.value["pattern"], set()).add(item.value["thread_id"])
+    latest = sorted(observations, key=lambda item: item.updated_at, reverse=True)[:5]
+    return {
+        "rule": PROMOTION_RULE,
+        "threshold": PROMOTION_THRESHOLD,
+        "edits": [
+            {
+                "removed_sentence": item.value["removed_sentence"],
+                "run_id": item.value["thread_id"],
+                "key": item.value["pattern"],
+                "seen_in_proposals": len(threads[item.value["pattern"]]),
+                "promoted": item.value["pattern"] in promoted,
+            }
+            for item in latest
+        ],
+        "note": "Only whole sentences you deleted from the cover letter are observed. "
+        "Rewording, additions and sentences containing personal data are not learned.",
+    }
+
+
 @router.get("/memory/{kind}")
 async def memories(
     kind: Literal["style", "outcome"],

@@ -454,3 +454,35 @@ async def test_missing_verified_text_and_token_budget_stop_before_send(setup):
     services.config["budgets"]["max_tokens_per_job"] = 1
     state = await graph.ainvoke(initial(), {"configurable": {"thread_id": "tokens"}})
     assert state["status"] == "needs_attention" and not grants and not tools.receipts
+
+
+async def test_recent_style_edits_show_pending_then_promoted():
+    from types import SimpleNamespace
+
+    from langgraph.store.memory import InMemoryStore
+
+    from apps.api.orchestration import recent_style_edits
+
+    store = InMemoryStore()
+    state = {
+        "status": "sent",
+        "user_id": "alice",
+        "edits": [
+            {
+                "before": {"cover_letter": "I am passionate. Can we discuss?"},
+                "after": {"cover_letter": "Can we discuss?"},
+            }
+        ],
+    }
+    user, service = SimpleNamespace(subject="alice"), SimpleNamespace(store=store)
+    for index in range(2):
+        await promote_edits(store, {**state, "thread_id": f"t{index}"})
+    report = await recent_style_edits(user=user, service=service)
+    assert report["threshold"] == 3
+    assert {e["removed_sentence"] for e in report["edits"]} == {"I am passionate."}
+    assert all(not e["promoted"] and e["seen_in_proposals"] == 2 for e in report["edits"])
+
+    await promote_edits(store, {**state, "thread_id": "t2"})
+    report = await recent_style_edits(user=user, service=service)
+    assert report["edits"] and all(e["promoted"] for e in report["edits"])
+    assert len(report["edits"]) <= 5

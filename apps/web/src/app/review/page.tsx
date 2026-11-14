@@ -29,6 +29,7 @@ export default function Review() {
   const [why, setWhy] = useState<Json | null>(null);
   const [retired, setRetired] = useState<string[]>([]);
   const [submission, setSubmission] = useState<Json | null>(null);
+  const [recentEdits, setRecentEdits] = useState<Json | null>(null);
   useEffect(() => {
     const run = new URLSearchParams(window.location.search).get("run");
     if (run) setSelected(run);
@@ -214,7 +215,17 @@ export default function Review() {
         const result = await client.GET("/agent/memory/{kind}", { params: { path: { kind: "style" } } });
         const outcomes = await client.GET("/agent/memory/{kind}", { params: { path: { kind: "outcome" } } });
         setMemory([...(result.data ?? []).map(item => ({ ...item, kind: "style" })), ...(outcomes.data ?? []).map(item => ({ ...item, kind: "outcome" }))]);
-      })}>Load memory</button>{memory.map(item => <div key={item.kind + item.key}><pre>{JSON.stringify(item.value, null, 2)}</pre><button onClick={() => void act(async () => { await client.DELETE("/agent/memory/{kind}/{key}", { params: { path: { kind: item.kind, key: item.key } } }); setMemory(old => old.filter(value => value !== item)); })}>Delete memory</button></div>)}</section>
+        const recent = await fetch("/api/agent/memory/style/recent");
+        setRecentEdits(recent.ok ? await recent.json() : null);
+      })}>Load memory</button>
+      {recentEdits && <div className="recent-edits"><h3>Last five edits it observed</h3><p><small>{recentEdits.rule} {recentEdits.note}</small></p>
+        {recentEdits.edits.length === 0 ? <p>No deleted sentences observed yet.</p> : <ol>{recentEdits.edits.map((edit: Json) => <li key={edit.key + edit.run_id}>
+          <q>{edit.removed_sentence}</q><br />
+          <small>{edit.promoted ? "Promoted to a style rule" : `Not promoted yet — seen in ${edit.seen_in_proposals} of ${recentEdits.threshold} proposals`}</small>
+        </li>)}</ol>}</div>}
+      {memory.map(item => <div key={item.kind + item.key} className="memory-item">
+        {item.kind === "style" ? <p><strong>Style rule:</strong> avoid “{item.value.avoid_sentence}”<br /><small>{item.value.rule} · seen {item.value.count} times</small></p> : <pre>{JSON.stringify(item.value, null, 2)}</pre>}
+        <button onClick={() => void act(async () => { await client.DELETE("/agent/memory/{kind}/{key}", { params: { path: { kind: item.kind, key: item.key } } }); setMemory(old => old.filter(value => value !== item)); setRecentEdits(null); })}>Delete memory</button></div>)}</section>
     </>}
   </main>;
 }
