@@ -1,0 +1,15 @@
+{
+  "fingerprint": "5760d1994a50102eaa8e8f5f3116c062f1cd6c773a9a84a44969d326b88bbccf",
+  "stages": [
+    "retrieval_and_claim_regressions"
+  ],
+  "limit": 0,
+  "variants": [
+    "v0",
+    "v1",
+    "v2",
+    "v3",
+    "v8"
+  ],
+  "workflow": "rag_benchmark"
+}

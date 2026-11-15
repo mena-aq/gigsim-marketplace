@@ -1,0 +1,46 @@
+{
+  "mode": "imported_existing_measurements",
+  "sources": {
+    "rag_retrieval.json": {
+      "original": "/home/menahil/GigBid_Student_Starter_Kit_v0.1/gigbid-starter-kit/evals/results/proposal/retrieval_snapshot.json",
+      "sha256": "77404536232584d8437df4c950687ab9a56908a556138c26a0faa2e839a24720"
+    },
+    "rag_workflow.json": {
+      "original": "/home/menahil/GigBid_Student_Starter_Kit_v0.1/gigbid-starter-kit/evals/results/proposal/proposal_summary.json",
+      "sha256": "961f9d660083cf530494a85f51efd91ab909a566655eeee30c84fb34c0d1ffcf"
+    },
+    "rag_workflow_observations.jsonl": {
+      "original": "/home/menahil/GigBid_Student_Starter_Kit_v0.1/gigbid-starter-kit/evals/results/proposal/proposal_observations.jsonl",
+      "sha256": "1945b5fa1aace5e0f7411ab382afab91f2647b8230dfa610afcb70ea7bca6b2b"
+    },
+    "rag_jobs.json": {
+      "original": "/home/menahil/GigBid_Student_Starter_Kit_v0.1/gigbid-starter-kit/evals/results/proposal/proposal_dataset.json",
+      "sha256": "aeadea73531de89853101ccdb706ae65ebd372421c5e86afe8bd5d5a5962c29e"
+    },
+    "rag_workflow.environment.json": {
+      "original": "/home/menahil/GigBid_Student_Starter_Kit_v0.1/gigbid-starter-kit/evals/results/proposal/proposal_environment.json",
+      "sha256": "c979315ba21f2954f8fdeff458e9275fd0e5e42dfb2c9a34b32f6f7ca5268e9a"
+    },
+    "rag_human_review.csv": {
+      "original": "/home/menahil/GigBid_Student_Starter_Kit_v0.1/gigbid-starter-kit/evals/results/proposal/human_review.csv",
+      "sha256": "a3d55ea2bb23f00c8a23bde83ad9aac4752bc853ce5e8a6e4c85d382bdce7323"
+    },
+    "rag_human_review.md": {
+      "original": "/home/menahil/GigBid_Student_Starter_Kit_v0.1/gigbid-starter-kit/evals/results/proposal/human_review.md",
+      "sha256": "d2896519bd8504f0e9d5c198b6cd41bcf77167a996720c31564267467c95b7ea"
+    },
+    "rag_calibration_key.json": {
+      "original": "/home/menahil/GigBid_Student_Starter_Kit_v0.1/gigbid-starter-kit/evals/results/proposal/calibration_key.json",
+      "sha256": "9c1eead667d1868035396458acca5407bc82ac928f90bfba568c341679afb8ac"
+    },
+    "rag_judge_calibration.json": {
+      "original": "/home/menahil/GigBid_Student_Starter_Kit_v0.1/gigbid-starter-kit/evals/results/proposal/judge_calibration.json",
+      "sha256": "93eca0dbeb767724cd863140bb095d9e63f719e85197dda6da59733f18f7f9cb"
+    },
+    "rag_retrieval_observations.jsonl": {
+      "original": "/home/menahil/GigBid_Student_Starter_Kit_v0.1/gigbid-starter-kit/evals/results/rag_20261113_155449.jsonl",
+      "sha256": "38b75399ebe8b201e0628c8712f09dae4e193e2412256726b55966709ad8a8f1"
+    }
+  },
+  "note": "Original fingerprints and human labels preserved; no inference rerun"
+}

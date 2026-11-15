@@ -1,0 +1,3294 @@
+{
+  "marketplace": [
+    {
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Search open GigSim jobs with query, category, budget filters, and pagination.",
+      "inputSchema": {
+        "$defs": {
+          "SearchJobs": {
+            "additionalProperties": false,
+            "properties": {
+              "budget_max": {
+                "anyOf": [
+                  {
+                    "minimum": 0,
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Budget Max"
+              },
+              "budget_min": {
+                "anyOf": [
+                  {
+                    "minimum": 0,
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Budget Min"
+              },
+              "category": {
+                "anyOf": [
+                  {
+                    "maxLength": 120,
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Category"
+              },
+              "page": {
+                "default": 1,
+                "minimum": 1,
+                "title": "Page",
+                "type": "integer"
+              },
+              "q": {
+                "default": "",
+                "maxLength": 500,
+                "title": "Q",
+                "type": "string"
+              }
+            },
+            "title": "SearchJobs",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "request": {
+            "$ref": "#/$defs/SearchJobs"
+          }
+        },
+        "required": [
+          "request"
+        ],
+        "title": "search_jobsArguments",
+        "type": "object"
+      },
+      "name": "search_jobs",
+      "outputSchema": {
+        "$defs": {
+          "Failure": {
+            "properties": {
+              "code": {
+                "title": "Code",
+                "type": "string"
+              },
+              "message": {
+                "title": "Message",
+                "type": "string"
+              },
+              "retry_after": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Retry After"
+              },
+              "retryable": {
+                "default": false,
+                "title": "Retryable",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "title": "Failure",
+            "type": "object"
+          },
+          "JobOut": {
+            "properties": {
+              "budget_max": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Budget Max"
+              },
+              "budget_min": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Budget Min"
+              },
+              "category": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Category"
+              },
+              "client_id": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Client Id"
+              },
+              "description": {
+                "title": "Description",
+                "type": "string"
+              },
+              "id": {
+                "title": "Id",
+                "type": "string"
+              },
+              "posted_at": {
+                "anyOf": [
+                  {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Posted At"
+              },
+              "screening_questions": {
+                "items": {
+                  "type": "string"
+                },
+                "title": "Screening Questions",
+                "type": "array"
+              },
+              "skills": {
+                "items": {
+                  "type": "string"
+                },
+                "title": "Skills",
+                "type": "array"
+              },
+              "status": {
+                "title": "Status",
+                "type": "string"
+              },
+              "timeline_days": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Timeline Days"
+              },
+              "title": {
+                "title": "Title",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "title",
+              "description",
+              "skills",
+              "status"
+            ],
+            "title": "JobOut",
+            "type": "object"
+          },
+          "JobPage": {
+            "properties": {
+              "items": {
+                "items": {
+                  "$ref": "#/$defs/JobOut"
+                },
+                "title": "Items",
+                "type": "array"
+              },
+              "page": {
+                "title": "Page",
+                "type": "integer"
+              },
+              "page_size": {
+                "title": "Page Size",
+                "type": "integer"
+              },
+              "total": {
+                "title": "Total",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "items",
+              "total",
+              "page",
+              "page_size"
+            ],
+            "title": "JobPage",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/JobPage"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/Failure"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "ok": {
+            "title": "Ok",
+            "type": "boolean"
+          },
+          "trace_id": {
+            "title": "Trace Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ok",
+          "trace_id"
+        ],
+        "title": "Result[JobPage]",
+        "type": "object"
+      }
+    },
+    {
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Read one job's public requirements; no hidden evaluator labels are returned.",
+      "inputSchema": {
+        "properties": {
+          "job_id": {
+            "maxLength": 140,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_:.-]+$",
+            "title": "Job Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "job_id"
+        ],
+        "title": "get_jobArguments",
+        "type": "object"
+      },
+      "name": "get_job",
+      "outputSchema": {
+        "$defs": {
+          "Failure": {
+            "properties": {
+              "code": {
+                "title": "Code",
+                "type": "string"
+              },
+              "message": {
+                "title": "Message",
+                "type": "string"
+              },
+              "retry_after": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Retry After"
+              },
+              "retryable": {
+                "default": false,
+                "title": "Retryable",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "title": "Failure",
+            "type": "object"
+          },
+          "JobOut": {
+            "properties": {
+              "budget_max": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Budget Max"
+              },
+              "budget_min": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Budget Min"
+              },
+              "category": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Category"
+              },
+              "client_id": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Client Id"
+              },
+              "description": {
+                "title": "Description",
+                "type": "string"
+              },
+              "id": {
+                "title": "Id",
+                "type": "string"
+              },
+              "posted_at": {
+                "anyOf": [
+                  {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Posted At"
+              },
+              "screening_questions": {
+                "items": {
+                  "type": "string"
+                },
+                "title": "Screening Questions",
+                "type": "array"
+              },
+              "skills": {
+                "items": {
+                  "type": "string"
+                },
+                "title": "Skills",
+                "type": "array"
+              },
+              "status": {
+                "title": "Status",
+                "type": "string"
+              },
+              "timeline_days": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Timeline Days"
+              },
+              "title": {
+                "title": "Title",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "title",
+              "description",
+              "skills",
+              "status"
+            ],
+            "title": "JobOut",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/JobOut"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/Failure"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "ok": {
+            "title": "Ok",
+            "type": "boolean"
+          },
+          "trace_id": {
+            "title": "Trace Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ok",
+          "trace_id"
+        ],
+        "title": "Result[JobOut]",
+        "type": "object"
+      }
+    },
+    {
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Read a client's public spend, hiring history, and reviews.",
+      "inputSchema": {
+        "properties": {
+          "client_id": {
+            "maxLength": 140,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_:.-]+$",
+            "title": "Client Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "client_id"
+        ],
+        "title": "get_client_historyArguments",
+        "type": "object"
+      },
+      "name": "get_client_history",
+      "outputSchema": {
+        "$defs": {
+          "ClientHistory": {
+            "properties": {
+              "client": {
+                "$ref": "#/$defs/ClientOut"
+              },
+              "past_proposals": {
+                "items": {
+                  "$ref": "#/$defs/PastProposal"
+                },
+                "title": "Past Proposals",
+                "type": "array"
+              },
+              "proposals_received": {
+                "title": "Proposals Received",
+                "type": "integer"
+              },
+              "reviews": {
+                "items": {
+                  "type": "string"
+                },
+                "title": "Reviews",
+                "type": "array"
+              }
+            },
+            "required": [
+              "client",
+              "proposals_received",
+              "past_proposals",
+              "reviews"
+            ],
+            "title": "ClientHistory",
+            "type": "object"
+          },
+          "ClientOut": {
+            "properties": {
+              "avg_rating": {
+                "title": "Avg Rating",
+                "type": "number"
+              },
+              "hire_rate": {
+                "title": "Hire Rate",
+                "type": "number"
+              },
+              "id": {
+                "title": "Id",
+                "type": "string"
+              },
+              "name": {
+                "title": "Name",
+                "type": "string"
+              },
+              "payment_verified": {
+                "title": "Payment Verified",
+                "type": "boolean"
+              },
+              "total_spend": {
+                "title": "Total Spend",
+                "type": "number"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "total_spend",
+              "hire_rate",
+              "avg_rating",
+              "payment_verified"
+            ],
+            "title": "ClientOut",
+            "type": "object"
+          },
+          "Failure": {
+            "properties": {
+              "code": {
+                "title": "Code",
+                "type": "string"
+              },
+              "message": {
+                "title": "Message",
+                "type": "string"
+              },
+              "retry_after": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Retry After"
+              },
+              "retryable": {
+                "default": false,
+                "title": "Retryable",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "title": "Failure",
+            "type": "object"
+          },
+          "PastProposal": {
+            "properties": {
+              "connects_spent": {
+                "title": "Connects Spent",
+                "type": "integer"
+              },
+              "freelancer_id": {
+                "title": "Freelancer Id",
+                "type": "string"
+              },
+              "job_id": {
+                "title": "Job Id",
+                "type": "string"
+              },
+              "job_title": {
+                "title": "Job Title",
+                "type": "string"
+              },
+              "status": {
+                "title": "Status",
+                "type": "string"
+              },
+              "submitted_at": {
+                "format": "date-time",
+                "title": "Submitted At",
+                "type": "string"
+              }
+            },
+            "required": [
+              "job_id",
+              "job_title",
+              "freelancer_id",
+              "status",
+              "connects_spent",
+              "submitted_at"
+            ],
+            "title": "PastProposal",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ClientHistory"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/Failure"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "ok": {
+            "title": "Ok",
+            "type": "boolean"
+          },
+          "trace_id": {
+            "title": "Trace Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ok",
+          "trace_id"
+        ],
+        "title": "Result[ClientHistory]",
+        "type": "object"
+      }
+    },
+    {
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Read the authenticated freelancer's remaining Connects without spending.",
+      "inputSchema": {
+        "properties": {},
+        "title": "get_connects_balanceArguments",
+        "type": "object"
+      },
+      "name": "get_connects_balance",
+      "outputSchema": {
+        "$defs": {
+          "ConnectsOut": {
+            "properties": {
+              "balance": {
+                "title": "Balance",
+                "type": "integer"
+              },
+              "freelancer_id": {
+                "title": "Freelancer Id",
+                "type": "string"
+              }
+            },
+            "required": [
+              "freelancer_id",
+              "balance"
+            ],
+            "title": "ConnectsOut",
+            "type": "object"
+          },
+          "Failure": {
+            "properties": {
+              "code": {
+                "title": "Code",
+                "type": "string"
+              },
+              "message": {
+                "title": "Message",
+                "type": "string"
+              },
+              "retry_after": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Retry After"
+              },
+              "retryable": {
+                "default": false,
+                "title": "Retryable",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "title": "Failure",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ConnectsOut"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/Failure"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "ok": {
+            "title": "Ok",
+            "type": "boolean"
+          },
+          "trace_id": {
+            "title": "Trace Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ok",
+          "trace_id"
+        ],
+        "title": "Result[ConnectsOut]",
+        "type": "object"
+      }
+    },
+    {
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "List the authenticated freelancer's conversations about submitted proposals.",
+      "inputSchema": {
+        "properties": {},
+        "title": "list_conversationsArguments",
+        "type": "object"
+      },
+      "name": "list_conversations",
+      "outputSchema": {
+        "$defs": {
+          "ConversationOut": {
+            "properties": {
+              "conversation_id": {
+                "title": "Conversation Id",
+                "type": "string"
+              },
+              "job_id": {
+                "title": "Job Id",
+                "type": "string"
+              },
+              "last_message": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Last Message"
+              },
+              "last_message_at": {
+                "anyOf": [
+                  {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Last Message At"
+              },
+              "message_count": {
+                "title": "Message Count",
+                "type": "integer"
+              },
+              "proposal_status": {
+                "title": "Proposal Status",
+                "type": "string"
+              }
+            },
+            "required": [
+              "conversation_id",
+              "job_id",
+              "proposal_status",
+              "message_count"
+            ],
+            "title": "ConversationOut",
+            "type": "object"
+          },
+          "Failure": {
+            "properties": {
+              "code": {
+                "title": "Code",
+                "type": "string"
+              },
+              "message": {
+                "title": "Message",
+                "type": "string"
+              },
+              "retry_after": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Retry After"
+              },
+              "retryable": {
+                "default": false,
+                "title": "Retryable",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "title": "Failure",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "data": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/$defs/ConversationOut"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Data"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/Failure"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "ok": {
+            "title": "Ok",
+            "type": "boolean"
+          },
+          "trace_id": {
+            "title": "Trace Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ok",
+          "trace_id"
+        ],
+        "title": "Result[list[ConversationOut]]",
+        "type": "object"
+      }
+    },
+    {
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true,
+        "readOnlyHint": true
+      },
+      "description": "Read messages in a conversation owned by the authenticated freelancer.",
+      "inputSchema": {
+        "properties": {
+          "conversation_id": {
+            "maxLength": 140,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_:.-]+$",
+            "title": "Conversation Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "conversation_id"
+        ],
+        "title": "list_messagesArguments",
+        "type": "object"
+      },
+      "name": "list_messages",
+      "outputSchema": {
+        "$defs": {
+          "Failure": {
+            "properties": {
+              "code": {
+                "title": "Code",
+                "type": "string"
+              },
+              "message": {
+                "title": "Message",
+                "type": "string"
+              },
+              "retry_after": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Retry After"
+              },
+              "retryable": {
+                "default": false,
+                "title": "Retryable",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "title": "Failure",
+            "type": "object"
+          },
+          "MessageOut": {
+            "properties": {
+              "body": {
+                "title": "Body",
+                "type": "string"
+              },
+              "conversation_id": {
+                "title": "Conversation Id",
+                "type": "string"
+              },
+              "id": {
+                "title": "Id",
+                "type": "integer"
+              },
+              "sender": {
+                "title": "Sender",
+                "type": "string"
+              },
+              "sent_at": {
+                "format": "date-time",
+                "title": "Sent At",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "conversation_id",
+              "sender",
+              "body",
+              "sent_at"
+            ],
+            "title": "MessageOut",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "data": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/$defs/MessageOut"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Data"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/Failure"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "ok": {
+            "title": "Ok",
+            "type": "boolean"
+          },
+          "trace_id": {
+            "title": "Trace Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ok",
+          "trace_id"
+        ],
+        "title": "Result[list[MessageOut]]",
+        "type": "object"
+      }
+    },
+    {
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true,
+        "readOnlyHint": false
+      },
+      "description": "Save a local proposal draft, or preview it with dry_run; never submits or spends.",
+      "inputSchema": {
+        "$defs": {
+          "ProposalRequest": {
+            "additionalProperties": false,
+            "properties": {
+              "cover_letter": {
+                "maxLength": 20000,
+                "minLength": 1,
+                "title": "Cover Letter",
+                "type": "string"
+              },
+              "dry_run": {
+                "default": false,
+                "title": "Dry Run",
+                "type": "boolean"
+              },
+              "expected_connects_cost": {
+                "anyOf": [
+                  {
+                    "maximum": 1000,
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Expected Connects Cost"
+              },
+              "idempotency_key": {
+                "maxLength": 128,
+                "minLength": 1,
+                "title": "Idempotency Key",
+                "type": "string"
+              },
+              "job_id": {
+                "maxLength": 64,
+                "minLength": 1,
+                "title": "Job Id",
+                "type": "string"
+              },
+              "screening_answers": {
+                "items": {
+                  "$ref": "#/$defs/ScreeningAnswer"
+                },
+                "maxItems": 50,
+                "title": "Screening Answers",
+                "type": "array"
+              },
+              "skills_mentioned": {
+                "items": {
+                  "type": "string"
+                },
+                "maxItems": 100,
+                "title": "Skills Mentioned",
+                "type": "array"
+              }
+            },
+            "required": [
+              "idempotency_key",
+              "job_id",
+              "cover_letter"
+            ],
+            "title": "ProposalRequest",
+            "type": "object"
+          },
+          "ScreeningAnswer": {
+            "additionalProperties": false,
+            "properties": {
+              "answer": {
+                "maxLength": 10000,
+                "minLength": 1,
+                "title": "Answer",
+                "type": "string"
+              },
+              "question": {
+                "maxLength": 2000,
+                "minLength": 1,
+                "title": "Question",
+                "type": "string"
+              }
+            },
+            "required": [
+              "question",
+              "answer"
+            ],
+            "title": "ScreeningAnswer",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "request": {
+            "$ref": "#/$defs/ProposalRequest"
+          }
+        },
+        "required": [
+          "request"
+        ],
+        "title": "create_proposal_draftArguments",
+        "type": "object"
+      },
+      "name": "create_proposal_draft",
+      "outputSchema": {
+        "$defs": {
+          "Failure": {
+            "properties": {
+              "code": {
+                "title": "Code",
+                "type": "string"
+              },
+              "message": {
+                "title": "Message",
+                "type": "string"
+              },
+              "retry_after": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Retry After"
+              },
+              "retryable": {
+                "default": false,
+                "title": "Retryable",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "title": "Failure",
+            "type": "object"
+          },
+          "WriteResult": {
+            "properties": {
+              "connects_cost": {
+                "default": 0,
+                "title": "Connects Cost",
+                "type": "integer"
+              },
+              "draft_id": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Draft Id"
+              },
+              "external_id": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "External Id"
+              },
+              "payload": {
+                "additionalProperties": true,
+                "title": "Payload",
+                "type": "object"
+              },
+              "status": {
+                "title": "Status",
+                "type": "string"
+              }
+            },
+            "required": [
+              "status",
+              "payload"
+            ],
+            "title": "WriteResult",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/WriteResult"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/Failure"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "ok": {
+            "title": "Ok",
+            "type": "boolean"
+          },
+          "trace_id": {
+            "title": "Trace Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ok",
+          "trace_id"
+        ],
+        "title": "Result[WriteResult]",
+        "type": "object"
+      }
+    },
+    {
+      "annotations": {
+        "destructiveHint": true,
+        "idempotentHint": true,
+        "openWorldHint": true,
+        "readOnlyHint": false
+      },
+      "description": "Submit only an exactly approved proposal. Preview first; approval grant and expected Connects cost are required for execution.",
+      "inputSchema": {
+        "$defs": {
+          "ProposalRequest": {
+            "additionalProperties": false,
+            "properties": {
+              "cover_letter": {
+                "maxLength": 20000,
+                "minLength": 1,
+                "title": "Cover Letter",
+                "type": "string"
+              },
+              "dry_run": {
+                "default": false,
+                "title": "Dry Run",
+                "type": "boolean"
+              },
+              "expected_connects_cost": {
+                "anyOf": [
+                  {
+                    "maximum": 1000,
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Expected Connects Cost"
+              },
+              "idempotency_key": {
+                "maxLength": 128,
+                "minLength": 1,
+                "title": "Idempotency Key",
+                "type": "string"
+              },
+              "job_id": {
+                "maxLength": 64,
+                "minLength": 1,
+                "title": "Job Id",
+                "type": "string"
+              },
+              "screening_answers": {
+                "items": {
+                  "$ref": "#/$defs/ScreeningAnswer"
+                },
+                "maxItems": 50,
+                "title": "Screening Answers",
+                "type": "array"
+              },
+              "skills_mentioned": {
+                "items": {
+                  "type": "string"
+                },
+                "maxItems": 100,
+                "title": "Skills Mentioned",
+                "type": "array"
+              }
+            },
+            "required": [
+              "idempotency_key",
+              "job_id",
+              "cover_letter"
+            ],
+            "title": "ProposalRequest",
+            "type": "object"
+          },
+          "ScreeningAnswer": {
+            "additionalProperties": false,
+            "properties": {
+              "answer": {
+                "maxLength": 10000,
+                "minLength": 1,
+                "title": "Answer",
+                "type": "string"
+              },
+              "question": {
+                "maxLength": 2000,
+                "minLength": 1,
+                "title": "Question",
+                "type": "string"
+              }
+            },
+            "required": [
+              "question",
+              "answer"
+            ],
+            "title": "ScreeningAnswer",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "request": {
+            "$ref": "#/$defs/ProposalRequest"
+          }
+        },
+        "required": [
+          "request"
+        ],
+        "title": "submit_proposalArguments",
+        "type": "object"
+      },
+      "name": "submit_proposal",
+      "outputSchema": {
+        "$defs": {
+          "Failure": {
+            "properties": {
+              "code": {
+                "title": "Code",
+                "type": "string"
+              },
+              "message": {
+                "title": "Message",
+                "type": "string"
+              },
+              "retry_after": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Retry After"
+              },
+              "retryable": {
+                "default": false,
+                "title": "Retryable",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "title": "Failure",
+            "type": "object"
+          },
+          "WriteResult": {
+            "properties": {
+              "connects_cost": {
+                "default": 0,
+                "title": "Connects Cost",
+                "type": "integer"
+              },
+              "draft_id": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Draft Id"
+              },
+              "external_id": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "External Id"
+              },
+              "payload": {
+                "additionalProperties": true,
+                "title": "Payload",
+                "type": "object"
+              },
+              "status": {
+                "title": "Status",
+                "type": "string"
+              }
+            },
+            "required": [
+              "status",
+              "payload"
+            ],
+            "title": "WriteResult",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/WriteResult"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/Failure"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "ok": {
+            "title": "Ok",
+            "type": "boolean"
+          },
+          "trace_id": {
+            "title": "Trace Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ok",
+          "trace_id"
+        ],
+        "title": "Result[WriteResult]",
+        "type": "object"
+      }
+    },
+    {
+      "annotations": {
+        "destructiveHint": true,
+        "idempotentHint": true,
+        "openWorldHint": true,
+        "readOnlyHint": false
+      },
+      "description": "Preview or send an exactly approved reply in your own conversation; retries use the same idempotency key.",
+      "inputSchema": {
+        "$defs": {
+          "MessageRequest": {
+            "additionalProperties": false,
+            "properties": {
+              "body": {
+                "maxLength": 20000,
+                "minLength": 1,
+                "title": "Body",
+                "type": "string"
+              },
+              "conversation_id": {
+                "maxLength": 140,
+                "minLength": 1,
+                "title": "Conversation Id",
+                "type": "string"
+              },
+              "dry_run": {
+                "default": false,
+                "title": "Dry Run",
+                "type": "boolean"
+              },
+              "idempotency_key": {
+                "maxLength": 128,
+                "minLength": 1,
+                "title": "Idempotency Key",
+                "type": "string"
+              }
+            },
+            "required": [
+              "idempotency_key",
+              "conversation_id",
+              "body"
+            ],
+            "title": "MessageRequest",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "request": {
+            "$ref": "#/$defs/MessageRequest"
+          }
+        },
+        "required": [
+          "request"
+        ],
+        "title": "send_messageArguments",
+        "type": "object"
+      },
+      "name": "send_message",
+      "outputSchema": {
+        "$defs": {
+          "Failure": {
+            "properties": {
+              "code": {
+                "title": "Code",
+                "type": "string"
+              },
+              "message": {
+                "title": "Message",
+                "type": "string"
+              },
+              "retry_after": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Retry After"
+              },
+              "retryable": {
+                "default": false,
+                "title": "Retryable",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "title": "Failure",
+            "type": "object"
+          },
+          "WriteResult": {
+            "properties": {
+              "connects_cost": {
+                "default": 0,
+                "title": "Connects Cost",
+                "type": "integer"
+              },
+              "draft_id": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Draft Id"
+              },
+              "external_id": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "External Id"
+              },
+              "payload": {
+                "additionalProperties": true,
+                "title": "Payload",
+                "type": "object"
+              },
+              "status": {
+                "title": "Status",
+                "type": "string"
+              }
+            },
+            "required": [
+              "status",
+              "payload"
+            ],
+            "title": "WriteResult",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/WriteResult"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/Failure"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "ok": {
+            "title": "Ok",
+            "type": "boolean"
+          },
+          "trace_id": {
+            "title": "Trace Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ok",
+          "trace_id"
+        ],
+        "title": "Result[WriteResult]",
+        "type": "object"
+      }
+    }
+  ],
+  "portfolio": [
+    {
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true
+      },
+      "description": "Retrieve owned portfolio evidence using the configured RAG variant; use returned chunk IDs for claim verification.",
+      "inputSchema": {
+        "$defs": {
+          "EvidenceFilters": {
+            "additionalProperties": false,
+            "properties": {
+              "outcome": {
+                "anyOf": [
+                  {
+                    "enum": [
+                      "won",
+                      "replied",
+                      "ignored"
+                    ],
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Outcome"
+              },
+              "type": {
+                "anyOf": [
+                  {
+                    "enum": [
+                      "cv",
+                      "case_study",
+                      "proposal",
+                      "review",
+                      "readme",
+                      "code",
+                      "document"
+                    ],
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Type"
+              }
+            },
+            "title": "EvidenceFilters",
+            "type": "object"
+          },
+          "EvidenceQuery": {
+            "additionalProperties": false,
+            "properties": {
+              "filters": {
+                "$ref": "#/$defs/EvidenceFilters"
+              },
+              "k": {
+                "default": 5,
+                "maximum": 20,
+                "minimum": 1,
+                "title": "K",
+                "type": "integer"
+              },
+              "requirement": {
+                "maxLength": 20000,
+                "minLength": 1,
+                "title": "Requirement",
+                "type": "string"
+              }
+            },
+            "required": [
+              "requirement"
+            ],
+            "title": "EvidenceQuery",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "request": {
+            "$ref": "#/$defs/EvidenceQuery"
+          }
+        },
+        "required": [
+          "request"
+        ],
+        "title": "search_evidenceArguments",
+        "type": "object"
+      },
+      "name": "search_evidence",
+      "outputSchema": {
+        "$defs": {
+          "Evidence": {
+            "properties": {
+              "chunk_id": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Chunk Id"
+              },
+              "date": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Date"
+              },
+              "end": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "End"
+              },
+              "id": {
+                "title": "Id",
+                "type": "string"
+              },
+              "industry": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Industry"
+              },
+              "outcome": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Outcome"
+              },
+              "persona": {
+                "title": "Persona",
+                "type": "string"
+              },
+              "project": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Project"
+              },
+              "score": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Score"
+              },
+              "skills": {
+                "items": {
+                  "type": "string"
+                },
+                "title": "Skills",
+                "type": "array"
+              },
+              "source": {
+                "title": "Source",
+                "type": "string"
+              },
+              "start": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Start"
+              },
+              "text": {
+                "title": "Text",
+                "type": "string"
+              },
+              "type": {
+                "title": "Type",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "persona",
+              "type",
+              "source",
+              "text"
+            ],
+            "title": "Evidence",
+            "type": "object"
+          },
+          "EvidencePage": {
+            "properties": {
+              "backend": {
+                "enum": [
+                  "v0",
+                  "v1",
+                  "v2",
+                  "v3",
+                  "v8"
+                ],
+                "title": "Backend",
+                "type": "string"
+              },
+              "diagnostics": {
+                "additionalProperties": true,
+                "title": "Diagnostics",
+                "type": "object"
+              },
+              "items": {
+                "items": {
+                  "$ref": "#/$defs/Evidence"
+                },
+                "title": "Items",
+                "type": "array"
+              },
+              "retrieval_status": {
+                "default": "complete",
+                "enum": [
+                  "complete",
+                  "partial",
+                  "empty"
+                ],
+                "title": "Retrieval Status",
+                "type": "string"
+              }
+            },
+            "required": [
+              "items",
+              "backend"
+            ],
+            "title": "EvidencePage",
+            "type": "object"
+          },
+          "Failure": {
+            "properties": {
+              "code": {
+                "title": "Code",
+                "type": "string"
+              },
+              "message": {
+                "title": "Message",
+                "type": "string"
+              },
+              "retry_after": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Retry After"
+              },
+              "retryable": {
+                "default": false,
+                "title": "Retryable",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "title": "Failure",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/EvidencePage"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/Failure"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "ok": {
+            "title": "Ok",
+            "type": "boolean"
+          },
+          "trace_id": {
+            "title": "Trace Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ok",
+          "trace_id"
+        ],
+        "title": "Result[EvidencePage]",
+        "type": "object"
+      }
+    },
+    {
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true
+      },
+      "description": "Check draft claims against owned retrieved chunks and exclude unsupported or unverified experience sentences. Never sends anything.",
+      "inputSchema": {
+        "$defs": {
+          "VerificationRequest": {
+            "additionalProperties": false,
+            "properties": {
+              "chunk_ids": {
+                "items": {
+                  "type": "string"
+                },
+                "maxItems": 20,
+                "title": "Chunk Ids",
+                "type": "array"
+              },
+              "draft": {
+                "maxLength": 20000,
+                "minLength": 1,
+                "title": "Draft",
+                "type": "string"
+              },
+              "mode": {
+                "default": "proposal",
+                "enum": [
+                  "proposal",
+                  "reply"
+                ],
+                "title": "Mode",
+                "type": "string"
+              }
+            },
+            "required": [
+              "draft"
+            ],
+            "title": "VerificationRequest",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "request": {
+            "$ref": "#/$defs/VerificationRequest"
+          }
+        },
+        "required": [
+          "request"
+        ],
+        "title": "verify_claimsArguments",
+        "type": "object"
+      },
+      "name": "verify_claims",
+      "outputSchema": {
+        "$defs": {
+          "AtomicClaim": {
+            "properties": {
+              "evidence_ids": {
+                "items": {
+                  "type": "string"
+                },
+                "title": "Evidence Ids",
+                "type": "array"
+              },
+              "kind": {
+                "enum": [
+                  "experience",
+                  "intent",
+                  "nonfactual"
+                ],
+                "title": "Kind",
+                "type": "string"
+              },
+              "reason": {
+                "title": "Reason",
+                "type": "string"
+              },
+              "status": {
+                "enum": [
+                  "supported",
+                  "partly_supported",
+                  "unsupported"
+                ],
+                "title": "Status",
+                "type": "string"
+              },
+              "text": {
+                "title": "Text",
+                "type": "string"
+              }
+            },
+            "required": [
+              "text",
+              "kind",
+              "status",
+              "evidence_ids",
+              "reason"
+            ],
+            "title": "AtomicClaim",
+            "type": "object"
+          },
+          "Failure": {
+            "properties": {
+              "code": {
+                "title": "Code",
+                "type": "string"
+              },
+              "message": {
+                "title": "Message",
+                "type": "string"
+              },
+              "retry_after": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Retry After"
+              },
+              "retryable": {
+                "default": false,
+                "title": "Retryable",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "title": "Failure",
+            "type": "object"
+          },
+          "VerificationReport": {
+            "properties": {
+              "cleaned_draft": {
+                "title": "Cleaned Draft",
+                "type": "string"
+              },
+              "diagnostics": {
+                "additionalProperties": true,
+                "title": "Diagnostics",
+                "type": "object"
+              },
+              "sentences": {
+                "items": {
+                  "$ref": "#/$defs/VerifiedSentence"
+                },
+                "title": "Sentences",
+                "type": "array"
+              },
+              "status": {
+                "enum": [
+                  "verified",
+                  "needs_attention"
+                ],
+                "title": "Status",
+                "type": "string"
+              }
+            },
+            "required": [
+              "cleaned_draft",
+              "sentences",
+              "status"
+            ],
+            "title": "VerificationReport",
+            "type": "object"
+          },
+          "VerifiedSentence": {
+            "properties": {
+              "claims": {
+                "items": {
+                  "$ref": "#/$defs/AtomicClaim"
+                },
+                "title": "Claims",
+                "type": "array"
+              },
+              "end": {
+                "title": "End",
+                "type": "integer"
+              },
+              "kept": {
+                "title": "Kept",
+                "type": "boolean"
+              },
+              "start": {
+                "title": "Start",
+                "type": "integer"
+              },
+              "text": {
+                "title": "Text",
+                "type": "string"
+              },
+              "verified": {
+                "default": true,
+                "title": "Verified",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "text",
+              "start",
+              "end",
+              "claims",
+              "kept"
+            ],
+            "title": "VerifiedSentence",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/VerificationReport"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/Failure"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "ok": {
+            "title": "Ok",
+            "type": "boolean"
+          },
+          "trace_id": {
+            "title": "Trace Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ok",
+          "trace_id"
+        ],
+        "title": "Result[VerificationReport]",
+        "type": "object"
+      }
+    },
+    {
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true
+      },
+      "description": "Load a full case study by an evidence ID returned by search_evidence.",
+      "inputSchema": {
+        "properties": {
+          "id": {
+            "maxLength": 250,
+            "minLength": 1,
+            "title": "Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "title": "get_case_studyArguments",
+        "type": "object"
+      },
+      "name": "get_case_study",
+      "outputSchema": {
+        "$defs": {
+          "Evidence": {
+            "properties": {
+              "chunk_id": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Chunk Id"
+              },
+              "date": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Date"
+              },
+              "end": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "End"
+              },
+              "id": {
+                "title": "Id",
+                "type": "string"
+              },
+              "industry": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Industry"
+              },
+              "outcome": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Outcome"
+              },
+              "persona": {
+                "title": "Persona",
+                "type": "string"
+              },
+              "project": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Project"
+              },
+              "score": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Score"
+              },
+              "skills": {
+                "items": {
+                  "type": "string"
+                },
+                "title": "Skills",
+                "type": "array"
+              },
+              "source": {
+                "title": "Source",
+                "type": "string"
+              },
+              "start": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Start"
+              },
+              "text": {
+                "title": "Text",
+                "type": "string"
+              },
+              "type": {
+                "title": "Type",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "persona",
+              "type",
+              "source",
+              "text"
+            ],
+            "title": "Evidence",
+            "type": "object"
+          },
+          "Failure": {
+            "properties": {
+              "code": {
+                "title": "Code",
+                "type": "string"
+              },
+              "message": {
+                "title": "Message",
+                "type": "string"
+              },
+              "retry_after": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Retry After"
+              },
+              "retryable": {
+                "default": false,
+                "title": "Retryable",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "title": "Failure",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/Evidence"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/Failure"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "ok": {
+            "title": "Ok",
+            "type": "boolean"
+          },
+          "trace_id": {
+            "title": "Trace Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ok",
+          "trace_id"
+        ],
+        "title": "Result[Evidence]",
+        "type": "object"
+      }
+    },
+    {
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true
+      },
+      "description": "Read the explicit skills list for your assigned persona.",
+      "inputSchema": {
+        "properties": {},
+        "title": "list_skillsArguments",
+        "type": "object"
+      },
+      "name": "list_skills",
+      "outputSchema": {
+        "$defs": {
+          "Failure": {
+            "properties": {
+              "code": {
+                "title": "Code",
+                "type": "string"
+              },
+              "message": {
+                "title": "Message",
+                "type": "string"
+              },
+              "retry_after": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Retry After"
+              },
+              "retryable": {
+                "default": false,
+                "title": "Retryable",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "title": "Failure",
+            "type": "object"
+          },
+          "SkillList": {
+            "properties": {
+              "skills": {
+                "items": {
+                  "type": "string"
+                },
+                "title": "Skills",
+                "type": "array"
+              }
+            },
+            "required": [
+              "skills"
+            ],
+            "title": "SkillList",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/SkillList"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/Failure"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "ok": {
+            "title": "Ok",
+            "type": "boolean"
+          },
+          "trace_id": {
+            "title": "Trace Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ok",
+          "trace_id"
+        ],
+        "title": "Result[SkillList]",
+        "type": "object"
+      }
+    }
+  ],
+  "workspace": [
+    {
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true
+      },
+      "description": "List available one-hour weekday slots, 09:00\u201317:00 Asia/Karachi, excluding your local holds.",
+      "inputSchema": {
+        "properties": {
+          "days_ahead": {
+            "default": 7,
+            "maximum": 30,
+            "minimum": 1,
+            "title": "Days Ahead",
+            "type": "integer"
+          }
+        },
+        "title": "get_free_slotsArguments",
+        "type": "object"
+      },
+      "name": "get_free_slots",
+      "outputSchema": {
+        "$defs": {
+          "Failure": {
+            "properties": {
+              "code": {
+                "title": "Code",
+                "type": "string"
+              },
+              "message": {
+                "title": "Message",
+                "type": "string"
+              },
+              "retry_after": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Retry After"
+              },
+              "retryable": {
+                "default": false,
+                "title": "Retryable",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "title": "Failure",
+            "type": "object"
+          },
+          "FreeSlots": {
+            "properties": {
+              "slots": {
+                "items": {
+                  "$ref": "#/$defs/Slot"
+                },
+                "title": "Slots",
+                "type": "array"
+              },
+              "timezone": {
+                "const": "Asia/Karachi",
+                "default": "Asia/Karachi",
+                "title": "Timezone",
+                "type": "string"
+              }
+            },
+            "required": [
+              "slots"
+            ],
+            "title": "FreeSlots",
+            "type": "object"
+          },
+          "Slot": {
+            "additionalProperties": false,
+            "properties": {
+              "ends_at": {
+                "format": "date-time",
+                "title": "Ends At",
+                "type": "string"
+              },
+              "starts_at": {
+                "format": "date-time",
+                "title": "Starts At",
+                "type": "string"
+              }
+            },
+            "required": [
+              "starts_at",
+              "ends_at"
+            ],
+            "title": "Slot",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/FreeSlots"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/Failure"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "ok": {
+            "title": "Ok",
+            "type": "boolean"
+          },
+          "trace_id": {
+            "title": "Trace Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ok",
+          "trace_id"
+        ],
+        "title": "Result[FreeSlots]",
+        "type": "object"
+      }
+    },
+    {
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": false
+      },
+      "description": "Preview or save a tentative local interview hold. Never creates an external calendar event.",
+      "inputSchema": {
+        "$defs": {
+          "HoldRequest": {
+            "additionalProperties": false,
+            "properties": {
+              "dry_run": {
+                "default": false,
+                "title": "Dry Run",
+                "type": "boolean"
+              },
+              "idempotency_key": {
+                "maxLength": 128,
+                "minLength": 1,
+                "title": "Idempotency Key",
+                "type": "string"
+              },
+              "slot": {
+                "$ref": "#/$defs/Slot"
+              },
+              "title": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Title",
+                "type": "string"
+              }
+            },
+            "required": [
+              "idempotency_key",
+              "slot",
+              "title"
+            ],
+            "title": "HoldRequest",
+            "type": "object"
+          },
+          "Slot": {
+            "additionalProperties": false,
+            "properties": {
+              "ends_at": {
+                "format": "date-time",
+                "title": "Ends At",
+                "type": "string"
+              },
+              "starts_at": {
+                "format": "date-time",
+                "title": "Starts At",
+                "type": "string"
+              }
+            },
+            "required": [
+              "starts_at",
+              "ends_at"
+            ],
+            "title": "Slot",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "request": {
+            "$ref": "#/$defs/HoldRequest"
+          }
+        },
+        "required": [
+          "request"
+        ],
+        "title": "create_holdArguments",
+        "type": "object"
+      },
+      "name": "create_hold",
+      "outputSchema": {
+        "$defs": {
+          "Failure": {
+            "properties": {
+              "code": {
+                "title": "Code",
+                "type": "string"
+              },
+              "message": {
+                "title": "Message",
+                "type": "string"
+              },
+              "retry_after": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Retry After"
+              },
+              "retryable": {
+                "default": false,
+                "title": "Retryable",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "title": "Failure",
+            "type": "object"
+          },
+          "WriteResult": {
+            "properties": {
+              "connects_cost": {
+                "default": 0,
+                "title": "Connects Cost",
+                "type": "integer"
+              },
+              "draft_id": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Draft Id"
+              },
+              "external_id": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "External Id"
+              },
+              "payload": {
+                "additionalProperties": true,
+                "title": "Payload",
+                "type": "object"
+              },
+              "status": {
+                "title": "Status",
+                "type": "string"
+              }
+            },
+            "required": [
+              "status",
+              "payload"
+            ],
+            "title": "WriteResult",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/WriteResult"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/Failure"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "ok": {
+            "title": "Ok",
+            "type": "boolean"
+          },
+          "trace_id": {
+            "title": "Trace Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ok",
+          "trace_id"
+        ],
+        "title": "Result[WriteResult]",
+        "type": "object"
+      }
+    },
+    {
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": false
+      },
+      "description": "Preview or save a local email draft. Never sends email or contacts a provider.",
+      "inputSchema": {
+        "$defs": {
+          "EmailRequest": {
+            "additionalProperties": false,
+            "properties": {
+              "body": {
+                "maxLength": 20000,
+                "minLength": 1,
+                "title": "Body",
+                "type": "string"
+              },
+              "dry_run": {
+                "default": false,
+                "title": "Dry Run",
+                "type": "boolean"
+              },
+              "idempotency_key": {
+                "maxLength": 128,
+                "minLength": 1,
+                "title": "Idempotency Key",
+                "type": "string"
+              },
+              "subject": {
+                "maxLength": 200,
+                "minLength": 1,
+                "title": "Subject",
+                "type": "string"
+              },
+              "to": {
+                "maxLength": 320,
+                "minLength": 3,
+                "pattern": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$",
+                "title": "To",
+                "type": "string"
+              }
+            },
+            "required": [
+              "idempotency_key",
+              "to",
+              "subject",
+              "body"
+            ],
+            "title": "EmailRequest",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "request": {
+            "$ref": "#/$defs/EmailRequest"
+          }
+        },
+        "required": [
+          "request"
+        ],
+        "title": "create_email_draftArguments",
+        "type": "object"
+      },
+      "name": "create_email_draft",
+      "outputSchema": {
+        "$defs": {
+          "Failure": {
+            "properties": {
+              "code": {
+                "title": "Code",
+                "type": "string"
+              },
+              "message": {
+                "title": "Message",
+                "type": "string"
+              },
+              "retry_after": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Retry After"
+              },
+              "retryable": {
+                "default": false,
+                "title": "Retryable",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "title": "Failure",
+            "type": "object"
+          },
+          "WriteResult": {
+            "properties": {
+              "connects_cost": {
+                "default": 0,
+                "title": "Connects Cost",
+                "type": "integer"
+              },
+              "draft_id": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Draft Id"
+              },
+              "external_id": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "External Id"
+              },
+              "payload": {
+                "additionalProperties": true,
+                "title": "Payload",
+                "type": "object"
+              },
+              "status": {
+                "title": "Status",
+                "type": "string"
+              }
+            },
+            "required": [
+              "status",
+              "payload"
+            ],
+            "title": "WriteResult",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/WriteResult"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/Failure"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "ok": {
+            "title": "Ok",
+            "type": "boolean"
+          },
+          "trace_id": {
+            "title": "Trace Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ok",
+          "trace_id"
+        ],
+        "title": "Result[WriteResult]",
+        "type": "object"
+      }
+    }
+  ]
+}

@@ -1,4 +1,10 @@
+PROMOTION_THRESHOLD = 3
+PROMOTION_RULE = (
+    "An exact sentence you deleted is promoted to a style rule only after the same "
+    f"deletion appears in {PROMOTION_THRESHOLD} distinct approved proposals."
+)
+
+
 def should_promote_style_edit(edit_count: int, consistent_pattern: bool) -> bool:
-    # TODO: Define and document a conservative rule for promoting repeated user edits.
-    # Raw tool output must never be written directly to long-term memory.
-    return edit_count >= 3 and consistent_pattern
+    """Require one exact deletion in at least three distinct approved threads."""
+    return edit_count >= PROMOTION_THRESHOLD and consistent_pattern

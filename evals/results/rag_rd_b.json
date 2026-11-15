@@ -1,0 +1,327 @@
+{
+  "hypothesis": "Adding cross-encoder reranking to hybrid retrieval improves mean nDCG@10.",
+  "primary_metric": "mean paired nDCG@10 difference, V3 minus V2",
+  "source_run": "evals/results/rag_20261113_155449.jsonl",
+  "source_sha256": "38b75399ebe8b201e0628c8712f09dae4e193e2412256726b55966709ad8a8f1",
+  "source_fingerprint": "b0d646bda5775265304d7e5110c27f1a1b25aff7492ba38bc566a2f546de53aa",
+  "analysis_code_sha256": "b28493c3bf63c1bed75bfccddcd8d4c8349c3d56b666bb4ad6422255141440b7",
+  "source_environment": "evals/results/rag_20261113_155449.environment.json",
+  "dataset_sha256": "9e310da763d3a974de435375c0b5366577f4a5ea717dc0dd6f40398947acb1ae",
+  "labels_reviewed": false,
+  "primary_result": {
+    "pairs": 27,
+    "mean_delta": 0.044855888725606564,
+    "ci95": [
+      0.00509537794236128,
+      0.09167322659866547
+    ],
+    "bootstrap_samples": 10000,
+    "seed": 42,
+    "resampling": "paired differences, stratified by persona",
+    "wins": 5,
+    "ties": 21,
+    "losses": 1,
+    "outcome": "observed_improvement"
+  },
+  "finding": "The interval is above zero: this development set favors reranking on nDCG@10.",
+  "paired_breakdowns": {
+    "persona:data_analyst": {
+      "pairs": 9,
+      "mean_delta": 0.038988550929014903,
+      "ci95": [
+        0.0,
+        0.09767035594514623
+      ],
+      "bootstrap_samples": 10000,
+      "seed": 42,
+      "resampling": "paired differences, stratified by persona",
+      "wins": 2,
+      "ties": 7,
+      "losses": 0,
+      "outcome": "inconclusive"
+    },
+    "persona:fullstack_dev": {
+      "pairs": 9,
+      "mean_delta": 0.09557911524780478,
+      "ci95": [
+        -0.0009637481968380324,
+        0.22650996943636995
+      ],
+      "bootstrap_samples": 10000,
+      "seed": 42,
+      "resampling": "paired differences, stratified by persona",
+      "wins": 3,
+      "ties": 5,
+      "losses": 1,
+      "outcome": "inconclusive"
+    },
+    "persona:ml_engineer": {
+      "pairs": 9,
+      "mean_delta": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_samples": 10000,
+      "seed": 42,
+      "resampling": "paired differences, stratified by persona",
+      "wins": 0,
+      "ties": 9,
+      "losses": 0,
+      "outcome": "no_observed_difference"
+    },
+    "query_type:direct": {
+      "pairs": 12,
+      "mean_delta": 0.041666666666666664,
+      "ci95": [
+        0.0,
+        0.125
+      ],
+      "bootstrap_samples": 10000,
+      "seed": 42,
+      "resampling": "paired differences, stratified by persona",
+      "wins": 1,
+      "ties": 11,
+      "losses": 0,
+      "outcome": "inconclusive"
+    },
+    "query_type:multi": {
+      "pairs": 9,
+      "mean_delta": 0.07901211062126413,
+      "ci95": [
+        0.009920896561597389,
+        0.15534824099330405
+      ],
+      "bootstrap_samples": 10000,
+      "seed": 42,
+      "resampling": "paired differences, stratified by persona",
+      "wins": 4,
+      "ties": 4,
+      "losses": 1,
+      "outcome": "observed_improvement"
+    },
+    "query_type:none": {
+      "pairs": 0,
+      "mean_delta": null,
+      "ci95": null,
+      "outcome": "no_positive_queries"
+    },
+    "query_type:paraphrase": {
+      "pairs": 6,
+      "mean_delta": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_samples": 10000,
+      "seed": 42,
+      "resampling": "paired differences, stratified by persona",
+      "wins": 0,
+      "ties": 6,
+      "losses": 0,
+      "outcome": "no_observed_difference"
+    }
+  },
+  "breakdowns": {
+    "all": {
+      "v2": {
+        "queries": 30,
+        "positive_queries": 27,
+        "failures": 0,
+        "p50_seconds": 0.15222009900026023,
+        "p95_seconds": 0.2343459410003561,
+        "recall_at_5": 0.9074074074074074,
+        "mrr": 0.8555555555555555,
+        "ndcg_at_10": 0.8694169088296622,
+        "correct_abstention": 0
+      },
+      "v3": {
+        "queries": 30,
+        "positive_queries": 27,
+        "failures": 0,
+        "p50_seconds": 0.9089025489993219,
+        "p95_seconds": 1.330552257000818,
+        "recall_at_5": 0.9444444444444444,
+        "mrr": 0.9074074074074074,
+        "ndcg_at_10": 0.9142727975552687,
+        "correct_abstention": 0
+      }
+    },
+    "persona:data_analyst": {
+      "v2": {
+        "queries": 10,
+        "positive_queries": 9,
+        "failures": 0,
+        "p50_seconds": 0.1882302419980988,
+        "p95_seconds": 0.24079022799924132,
+        "recall_at_5": 0.8333333333333334,
+        "mrr": 0.8444444444444444,
+        "ndcg_at_10": 0.824590692568996,
+        "correct_abstention": 0
+      },
+      "v3": {
+        "queries": 10,
+        "positive_queries": 9,
+        "failures": 0,
+        "p50_seconds": 1.0367258959995524,
+        "p95_seconds": 1.330552257000818,
+        "recall_at_5": 0.9444444444444444,
+        "mrr": 0.8611111111111112,
+        "ndcg_at_10": 0.8635792434980109,
+        "correct_abstention": 0
+      }
+    },
+    "persona:fullstack_dev": {
+      "v2": {
+        "queries": 10,
+        "positive_queries": 9,
+        "failures": 0,
+        "p50_seconds": 0.15222009900026023,
+        "p95_seconds": 0.2017256359977182,
+        "recall_at_5": 0.8888888888888888,
+        "mrr": 0.7777777777777778,
+        "ndcg_at_10": 0.8177237668514049,
+        "correct_abstention": 0
+      },
+      "v3": {
+        "queries": 10,
+        "positive_queries": 9,
+        "failures": 0,
+        "p50_seconds": 0.8611410230005276,
+        "p95_seconds": 1.3467657250002958,
+        "recall_at_5": 0.8888888888888888,
+        "mrr": 0.9166666666666666,
+        "ndcg_at_10": 0.9133028820992097,
+        "correct_abstention": 0
+      }
+    },
+    "persona:ml_engineer": {
+      "v2": {
+        "queries": 10,
+        "positive_queries": 9,
+        "failures": 0,
+        "p50_seconds": 0.14210609599831514,
+        "p95_seconds": 0.15769135000300594,
+        "recall_at_5": 1.0,
+        "mrr": 0.9444444444444444,
+        "ndcg_at_10": 0.9659362670685856,
+        "correct_abstention": 0
+      },
+      "v3": {
+        "queries": 10,
+        "positive_queries": 9,
+        "failures": 0,
+        "p50_seconds": 0.8010173219990975,
+        "p95_seconds": 0.9726396419973753,
+        "recall_at_5": 1.0,
+        "mrr": 0.9444444444444444,
+        "ndcg_at_10": 0.9659362670685856,
+        "correct_abstention": 0
+      }
+    },
+    "type:direct": {
+      "v2": {
+        "queries": 12,
+        "positive_queries": 12,
+        "failures": 0,
+        "p50_seconds": 0.15247397500206716,
+        "p95_seconds": 0.24079022799924132,
+        "recall_at_5": 1.0,
+        "mrr": 0.9027777777777778,
+        "ndcg_at_10": 0.9275774794642881,
+        "correct_abstention": null
+      },
+      "v3": {
+        "queries": 12,
+        "positive_queries": 12,
+        "failures": 0,
+        "p50_seconds": 0.8466211230006593,
+        "p95_seconds": 1.330552257000818,
+        "recall_at_5": 1.0,
+        "mrr": 0.9583333333333334,
+        "ndcg_at_10": 0.9692441461309548,
+        "correct_abstention": null
+      }
+    },
+    "type:multi": {
+      "v2": {
+        "queries": 9,
+        "positive_queries": 9,
+        "failures": 0,
+        "p50_seconds": 0.15769135000300594,
+        "p95_seconds": 0.2017256359977182,
+        "recall_at_5": 0.7222222222222222,
+        "mrr": 0.6962962962962963,
+        "ndcg_at_10": 0.704814087203269,
+        "correct_abstention": null
+      },
+      "v3": {
+        "queries": 9,
+        "positive_queries": 9,
+        "failures": 0,
+        "p50_seconds": 0.909392059998936,
+        "p95_seconds": 1.1004066610003065,
+        "recall_at_5": 0.8333333333333334,
+        "mrr": 0.7777777777777778,
+        "ndcg_at_10": 0.7838261978245331,
+        "correct_abstention": null
+      }
+    },
+    "type:none": {
+      "v2": {
+        "queries": 3,
+        "positive_queries": 0,
+        "failures": 0,
+        "p50_seconds": 0.16039685999930953,
+        "p95_seconds": 0.1978804919999675,
+        "recall_at_5": null,
+        "mrr": null,
+        "ndcg_at_10": null,
+        "correct_abstention": 0
+      },
+      "v3": {
+        "queries": 3,
+        "positive_queries": 0,
+        "failures": 0,
+        "p50_seconds": 1.042164745998889,
+        "p95_seconds": 1.3467657250002958,
+        "recall_at_5": null,
+        "mrr": null,
+        "ndcg_at_10": null,
+        "correct_abstention": 0
+      }
+    },
+    "type:paraphrase": {
+      "v2": {
+        "queries": 6,
+        "positive_queries": 6,
+        "failures": 0,
+        "p50_seconds": 0.13804373200036935,
+        "p95_seconds": 0.21978580900031375,
+        "recall_at_5": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_10": 1.0,
+        "correct_abstention": null
+      },
+      "v3": {
+        "queries": 6,
+        "positive_queries": 6,
+        "failures": 0,
+        "p50_seconds": 0.8824212510007783,
+        "p95_seconds": 1.2392028720023518,
+        "recall_at_5": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_10": 1.0,
+        "correct_abstention": null
+      }
+    }
+  },
+  "interpretation": "Exploratory paired comparison; provisional labels and small samples do not establish production or reply-rate superiority.",
+  "label_policy": "Re-score saved rankings with the supplied labels; preserve query text for existing IDs. Historical runs do not store query text, so the original query text cannot be independently checked offline.",
+  "selection": "The user chooses the production variant; no configuration is modified",
+  "created_at_utc": "2026-11-13T16:50:01.643278+00:00",
+  "evidence": {
+    "queries": "evals/results/rag_rd_b_queries.jsonl",
+    "dataset": "evals/results/rag_rd_b_dataset.json"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "seed": 0,
+  "jobs": 20,
+  "mix": "12 clean, 5 scam, 3 injection",
+  "ids": [
+    "job_ad7c814ce45e",
+    "job_cc8b72a75b53",
+    "job_a642b24dccd6",
+    "job_b547d7826d41",
+    "job_4325c21d4ea8",
+    "job_4161b3b62f6c",
+    "job_2d46044f5fc8",
+    "job_7d686d8826db",
+    "job_9e093e933700",
+    "job_855322d73760",
+    "job_58f14831b913",
+    "job_9ec59f54173b",
+    "job_8c738a05f4d5",
+    "job_38baba300945",
+    "job_9e4b7c3b6d05",
+    "job_697c99cd0e9b",
+    "job_acd724be3b9e",
+    "job_1051844d8fd3",
+    "job_f75eebe1b3d5",
+    "job_4a33907c28e0"
+  ]
+}

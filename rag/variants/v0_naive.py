@@ -1,3 +1,5 @@
-def retrieve(query: str, index, k: int = 5):
-    # TODO: Implement the mandatory baseline: dense top-k cosine retrieval.
-    raise NotImplementedError
+"""V0: fixed chunks, whole-query dense cosine ranking."""
+
+
+async def retrieve(query: str, context, k: int):
+    return await context.dense(query, k)

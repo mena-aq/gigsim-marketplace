@@ -1,0 +1,4 @@
+# Preserve the original infra Compose project/volume names.
+name: infra
+include:
+  - path: infra/docker-compose.yml

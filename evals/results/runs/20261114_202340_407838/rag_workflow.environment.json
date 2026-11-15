@@ -1,0 +1,51 @@
+{
+  "captured_at_utc": "2026-11-14T20:44:18.290586+00:00",
+  "observation_fingerprint": "069387e7c837160d84f4b0ca16de69442ce5d669400de25636c317b0049febe2",
+  "ollama_version": "0.40.14",
+  "models": {
+    "all-minilm:22m": {
+      "digest": "1b226e2802dbb772b5fc32a58f103ca1804ef7501331012de126ab22f67475ef",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "bert",
+        "families": [
+          "bert"
+        ],
+        "parameter_size": "23M",
+        "quantization_level": "F16",
+        "context_length": 512,
+        "embedding_length": 384,
+        "runner": "ggml"
+      }
+    },
+    "qwen2.5:3b": {
+      "digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen2",
+        "families": [
+          "qwen2"
+        ],
+        "parameter_size": "3.1B",
+        "quantization_level": "Q4_K_M",
+        "context_length": 32768,
+        "embedding_length": 2048,
+        "runner": "ggml"
+      }
+    }
+  },
+  "python": "3.12.3",
+  "platform": "Linux-6.8.0-147-generic-x86_64-with-glibc2.39",
+  "packages": {
+    "onnxruntime": "1.32.0",
+    "tokenizers": "0.23.3",
+    "numpy": "2.5.4",
+    "pypdf": "7.1.0",
+    "langgraph": "1.2.21",
+    "httpx": "0.28.1"
+  },
+  "uv_lock_sha256": "8bc69a7c20708d4041a2cbef1bb3b961183387360789559d1e52692e0a1802b4",
+  "measurement_environment": "Shared development CPU; no dedicated-hardware isolation"
+}

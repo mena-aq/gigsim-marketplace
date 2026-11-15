@@ -1,6 +1,6 @@
-def main():
-    print("TODO: Implement reproducible evaluation on your development data.")
-    print("Do not report invented metrics. Save measured outputs under evals/results/.")
+"""Compatibility entry point for the unified RAG evaluation."""
+
+from evals.runners.rag_eval import main
 
 if __name__ == "__main__":
     main()

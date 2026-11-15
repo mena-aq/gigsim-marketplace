@@ -9,6 +9,11 @@ node_modules/
 .next/
 dist/
 build/
+*.egg-info/
+data/raw/
 data/processed/
-evals/results/*
-!evals/results/.gitkeep
+data/personas/
+
+AGENT.md
+GigBid_Assignment.md
+*.tsbuildinfo
