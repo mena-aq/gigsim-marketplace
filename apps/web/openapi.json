@@ -927,6 +927,45 @@
       }
     },
     "/agent/runs/{run_id}": {
+      "delete": {
+        "description": "Remove a run and its checkpoints. Audit log and tool receipts are kept.",
+        "operationId": "delete_run_agent_runs__run_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Delete Run",
+        "tags": [
+          "orchestration"
+        ]
+      },
       "get": {
         "operationId": "detail_agent_runs__run_id__get",
         "parameters": [
