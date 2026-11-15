@@ -391,6 +391,55 @@ def render(summary: dict, folder: Path) -> str:
     return "\n".join(lines)
 
 
+def render_readme(summary: dict, folder: Path) -> str:
+    """Render the compact published RAG summary used by the root README."""
+    lines = [
+        "## Evaluation",
+        "",
+        (
+            "Run the complete benchmark with `make rag-eval`. Use `make rag-table` "
+            "to regenerate committed summaries offline and `make rag-calibrate` "
+            "to import human scores."
+        ),
+        "",
+        (
+            "The committed comparison below is the published `rag-eval` summary. "
+            "Judge scores are provisional and hardware cost is not measured."
+        ),
+        "",
+        "| " + " | ".join(FIELDS) + " |",
+        "| " + " | ".join(["---"] * len(FIELDS)) + " |",
+    ]
+    for row in summary["table"]:
+        lines.append(
+            "| "
+            + " | ".join([row["Variant"]] + [fmt(row[f]) for f in FIELDS[1:]])
+            + " |"
+        )
+    lines += [
+        "",
+        (
+            "Regenerate the committed table offline with `make rag-table`; this "
+            "does not call models. Run `make rag-calibrate` to import human scores."
+        ),
+        "",
+        (
+            "The full report, additional breakdowns, raw measurements, calibration "
+            "labels, and artifact provenance are committed in "
+            "[evals/results](evals/results/README.md), especially the "
+            "[full RAG report](evals/results/rag_comparison.md), "
+            "[CSV](evals/results/rag_comparison.csv), and "
+            "[JSON summary](evals/results/rag_comparison.json)."
+        ),
+        "",
+        (
+            "The separate V2–V3 R&D hypothesis study is in "
+            "[evals/results/rag_rd_b.md](evals/results/rag_rd_b.md)."
+        ),
+    ]
+    return "\n".join(lines)
+
+
 def write_report(
     folder: Path, *, publish: bool = False, update_readme: bool = False
 ) -> dict:
@@ -419,7 +468,7 @@ def write_report(
             path = ROOT / "README.md"
             original = path.read_text()
             begin, end = "<!-- B3_B5_START -->", "<!-- B3_B5_END -->"
-            block = begin + "\n" + render(summary, ROOT) + end
+            block = begin + "\n" + render_readme(summary, ROOT) + "\n" + end
             if begin in original and end in original:
                 original = (
                     original[: original.index(begin)]

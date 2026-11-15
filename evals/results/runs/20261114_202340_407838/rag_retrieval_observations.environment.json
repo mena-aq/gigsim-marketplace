@@ -1,6 +1,6 @@
 {
-  "captured_at_utc": "2026-11-14T15:49:20.071579+00:00",
-  "observation_fingerprint": "216430732042dfa56b68c856c45639f7bfccffc49ccb665cf48c0a8662545640",
+  "captured_at_utc": "2026-11-14T20:23:41.056859+00:00",
+  "observation_fingerprint": "970594439fb7df7e37a03339c27a94e96548e923d8b4f7a028d1a2b5ddcff7ae",
   "ollama_version": "0.40.14",
   "models": {
     "all-minilm:22m": {

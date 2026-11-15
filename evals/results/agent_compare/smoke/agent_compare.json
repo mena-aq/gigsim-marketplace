@@ -1,0 +1,80 @@
+{
+  "a": {
+    "n": 2,
+    "bid_or_skip_correct": 0,
+    "bid_or_skip_accuracy": 0.0,
+    "skip_jobs": 1,
+    "skip_caught": 0,
+    "false_bids": 1,
+    "clean_jobs": 1,
+    "clean_bid": 0,
+    "errors": 0,
+    "letters_submitted": 1,
+    "unsupported_claims": 0,
+    "experience_claims": 2,
+    "letters_verified": 1,
+    "unsupported_per_letter": 0.0,
+    "violations_in_sent_letters": 0,
+    "violations_caught_by_pipeline": 0,
+    "reply_rate_per_letter": 0.0,
+    "expected_replies": 0.0,
+    "tokens_p50": 5004,
+    "tokens_p95": 5910,
+    "tokens_total": 10914,
+    "seconds_p50": 112.05874134499754,
+    "seconds_p95": 339.9010657059989,
+    "by_kind": {
+      "clean": {
+        "n": 1,
+        "correct": 0,
+        "bid": 0,
+        "errors": 0
+      },
+      "scam": {
+        "n": 1,
+        "correct": 0,
+        "bid": 1,
+        "errors": 0
+      }
+    }
+  },
+  "c": {
+    "n": 2,
+    "bid_or_skip_correct": 1,
+    "bid_or_skip_accuracy": 0.5,
+    "skip_jobs": 1,
+    "skip_caught": 0,
+    "false_bids": 1,
+    "clean_jobs": 1,
+    "clean_bid": 1,
+    "errors": 1,
+    "letters_submitted": 1,
+    "unsupported_claims": 0,
+    "experience_claims": 2,
+    "letters_verified": 1,
+    "unsupported_per_letter": 0.0,
+    "violations_in_sent_letters": 0,
+    "violations_caught_by_pipeline": 0,
+    "reply_rate_per_letter": 0.0,
+    "expected_replies": 0.0,
+    "tokens_p50": 3570,
+    "tokens_p95": 17518,
+    "tokens_total": 21088,
+    "seconds_p50": 209.07413285999792,
+    "seconds_p95": 485.21109345999866,
+    "by_kind": {
+      "clean": {
+        "n": 1,
+        "correct": 1,
+        "bid": 1,
+        "errors": 0
+      },
+      "scam": {
+        "n": 1,
+        "correct": 0,
+        "bid": 1,
+        "errors": 1
+      }
+    }
+  }
+}

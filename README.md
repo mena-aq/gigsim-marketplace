@@ -1,109 +1,138 @@
-# GigBid — Freelancer Copilot
+# GigBid
 
-GigBid is being built to discover freelance jobs, assess fit and risk, and draft
-proposals grounded in portfolio evidence. A human must approve every proposal,
-message, and Connects spend. Development uses our separate GigSim marketplace.
+GigBid is a freelancer copilot for discovering freelance jobs, assessing fit and
+risk, finding supporting portfolio evidence, and drafting grounded proposals.
+It also supports client conversations and review workflows. External actions are
+always subject to explicit human approval.
 
-## Current state
+GigSim is the local marketplace simulator used for development and evaluation.
+GigBid accesses marketplace and portfolio capabilities through authenticated MCP
+services rather than scraping or direct marketplace calls.
 
-Step 0 supplies GigSim, data processing, persona generation, and simulator tests.
-Step 1 adds a Next.js/TypeScript web shell, FastAPI liveness/readiness endpoints,
-Arq worker, six tenant-owned PostgreSQL tables with Alembic migrations, Redis,
-Chroma, and a bridge to the existing host Ollama/qwen2.5:3b. Step 2 adds authenticated Portfolio/Marketplace/Workspace MCP services, durable
-write receipts, approval enforcement, and a persistent local Workspace mock.
-Part C adds durable bid/conversation graphs, Postgres checkpoint and memory
-stores, queued worker recovery, and an authenticated review workspace at `/review`.
-Full product onboarding and the remaining business screens are later milestones.
-See [the orchestration guide](docs/ORCHESTRATION.md) for review, replay and tests.
+![GigBid demo](docs/demo/gigsim-demo.gif)
 
-## Run locally
+## Features
 
-Prerequisites: Docker with Compose, and uv. Node 22/npm are needed for host web
-commands; container builds include Node.
+- Job discovery, risk assessment, skill matching, pricing, and proposal drafting
+- Portfolio-grounded retrieval and claim verification
+- Five evaluated RAG variants: V0, V1, V2, V3, and V8
+- LangGraph bid and conversation workflows with durable checkpoints
+- Authenticated Portfolio, Marketplace, and Workspace MCP services
+- Next.js review workspace with approval-gated proposals and messages
+- GigSim marketplace, client history, Connects, proposals, messages, and replies
+- Local development stack using Postgres, Redis, Chroma, Ollama, and an Arq worker
 
-```bash
-cp .env.example .env  # only if you do not already have .env
+## Architecture
+
+~~~
+Next.js web app
+        │
+        ▼
+FastAPI API ──► LangGraph bid/conversation workflows ──► MCP services
+        │                                      ├─ Portfolio
+        ├─ Postgres                            ├─ Marketplace → GigSim
+        ├─ Redis                               └─ Workspace
+        └─ Arq worker
+
+RAG pipeline: portfolio ingestion → Chroma retrieval → reranking/verification
+~~~
+
+The main implementation areas are:
+
+- `apps/web`: Next.js and TypeScript review interface
+- `apps/api`: FastAPI API and orchestration endpoints
+- `agent`: graph state, nodes, prompts, memory, and model routing
+- `rag`: ingestion, retrieval variants, ranking, and claim verification
+- `mcp_servers`: authenticated Portfolio, Marketplace, and Workspace services
+- `gigsim`: local marketplace simulator
+- `worker`: background job execution
+
+See [the architecture guide](docs/ARCHITECTURE.md) for service boundaries and
+[the orchestration guide](docs/ORCHESTRATION.md) for graph execution, approvals,
+replay, and recovery.
+
+## Requirements
+
+- Docker Engine with Docker Compose
+- [uv](https://docs.astral.sh/uv/)
+- Node.js 22 and npm for host-side web commands
+- Ollama with the configured local models for RAG and model-backed workflows
+
+## Quick start
+
+From the repository root:
+
+~~~bash
+cp .env.example .env
 uv sync --frozen --extra dev
 make dev
-```
+~~~
 
-Preserve an existing `.env` and add missing keys from `.env.example`. Open
-http://localhost:3000; API documentation is at http://localhost:8000/docs.
-`docker compose up --build -d` also works from the root. No model download or
-marketplace submission happens on startup. GigSim data is seeded explicitly
-with `make seed` after processing; see its README for Step 0 commands.
+Open:
 
-```bash
-make test           # isolated tests; Postgres integration is opt-in
-make lint
-make worker-smoke   # proves separate worker execution via Redis
-make web-install
-make api-client     # regenerate typed API contract
-make web-check
-make down           # preserve persistent volumes
-```
+- Web workspace: <http://localhost:3000>
+- API documentation: <http://localhost:8000/docs>
 
-Python versions are resolved in `uv.lock`; frontend versions are pinned in
-`apps/web/package.json` and `package-lock.json`. Use `uv sync --frozen` and
-`npm ci` to reproduce them. The frontend uses Next.js 16 and React 19 on Node 22.
+The Compose stack starts the API, web app, worker, databases, Redis, Chroma,
+GigSim, and the Ollama bridge. Add local secrets and tokens from `.env.example`;
+never commit `.env`.
 
-## Documentation
+For the complete setup sequence, migrations, ports, health checks, MCP
+bootstrap, and troubleshooting, see the [runbook](docs/RUNBOOK.md).
 
-- [Architecture](docs/ARCHITECTURE.md) and [stack decision](docs/adr/001-foundation.md)
-- [Runbook](docs/RUNBOOK.md): setup, migrations, ports, and verification
-- [GigSim](gigsim/README.md) and [data card](docs/DATA_CARD.md)
-- [Implementation checklist](docs/IMPLEMENTATION_CHECKLIST.md)
-- [AI usage disclosure](docs/AI_USAGE.md)
+## Development commands
 
-## Project rules
+~~~bash
+make test           # unit and isolated tests
+make lint           # Ruff checks and formatting checks
+make worker-smoke   # verify separate worker execution through Redis
+make web-install    # install frontend dependencies
+make web-check      # typecheck and build the web app
+make api-client     # regenerate the typed API client
+make migrate        # apply database migrations
+make mcp-bootstrap  # provision local MCP users and credentials
+make mcp-smoke      # exercise MCP services
+make down           # stop services and preserve volumes
+~~~
 
-All agent capabilities will be MCP tools; marketplace access uses one port with
-simulator and official live adapters. No scraping. Job posts and messages are
-untrusted input. Claims must have portfolio evidence. Prompts and policy belong
-in files/configuration. Secrets and hidden evaluation data never enter Git;
-measured evaluation outputs will be committed. No business data is publicly
-exposed by the foundation endpoints.
+GigSim data is seeded explicitly. After preparing processed data, use:
 
-## MCP layer
+~~~bash
+make seed
+~~~
 
-See [the tool inventory](docs/TOOLS.md) and [Portfolio server installation](mcp_servers/portfolio/README.md).
-Provision distinct MCP tokens in `.env`, run `make migrate`, `make mcp-bootstrap`,
-then `make dev` and `make mcp-smoke`. Only previews/local drafts are available
-until a human grants approval in the review workspace. Marketplace integration is GigSim-only;
-Upwork is excluded and GitHub is deferred by project choice.
+See [the GigSim README](gigsim/README.md) for simulator data and API details.
 
 ## RAG pipeline
 
-Step 3 implements exactly V0 (dense), V1 (decomposed), V2 (hybrid), V3 (reranked),
-and V8 (bounded corrective retrieval), plus incremental local ingestion and
-read-only claim verification through Portfolio MCP. Existing host Ollama runs
-all-minilm embeddings and Qwen; the reranker uses CPU ONNX.
+The RAG pipeline ingests portfolio documents into a local Chroma index, retrieves
+evidence using multiple strategies, optionally reranks candidates, and verifies
+proposal claims through the Portfolio MCP service. Models, retrieval parameters,
+and the active variant are configured in `agent/config.yaml`; prompts are stored
+in `agent/prompts/`.
 
-For fresh setup run `make rag-models` and `make rag-ingest`. Run
-`make rag-repair-data` to prepare coherent client fixtures, then `make rag-eval`. One evaluation
-covers all five variants: retrieval, drafting, claim verification, judging,
-simulated replies, and component ablation. Future runs can take hours on CPU. They use the repaired v2 job snapshot and
-preflight embedding/runtime and simulator checks. Existing published numbers are
-historical until you complete a new run.
+~~~bash
+make rag-models       # prepare local embedding/reranker models
+make rag-ingest       # ingest portfolio data into the local index
+make rag-repair-data  # prepare coherent evaluation fixtures
+~~~
 
-`make rag-table` regenerates the exact B5 CSV, Markdown, and this README from saved
-measurements without model calls. The active [CSV](evals/results/rag_comparison.csv)
-and [report](evals/results/rag_comparison.md) cite their raw evidence. Existing
-measurements and your 30 human scores have been imported without rerunning models.
-`make rag-calibrate` imports one overall 1–5 score per item and reports agreement
-alongside judge means, including low agreement. V0 remains the development baseline;
-no shipped variant has been selected.
-
-See [the evaluation protocol](docs/RAG_EXPERIMENT.md) and [runbook](docs/RUNBOOK.md).
+The full RAG setup and evaluation procedure is documented in
+[docs/RUNBOOK.md](docs/RUNBOOK.md) and [docs/RAG_EXPERIMENT.md](docs/RAG_EXPERIMENT.md).
 
 <!-- B3_B5_START -->
-## RAG evaluation — B3, B5 and ablation
+## Evaluation
 
-Run status: complete. Workflow: RAG benchmark.
+Run the complete benchmark with:
 
-One evaluation covers retrieval, drafting, claim verification, quality judging, and simulated replies. The imported measurements use labelled retrieval queries and a fixed GigSim job set; they are separate fixtures, not paired observations of the same jobs. p95 covers retrieval → drafting → verification and excludes assessment, judging and simulator waiting. Paid API spend is zero for local inference; total hardware cost is unmeasured.
+~~~bash
+make rag-eval       # expensive: retrieval, drafting, verification, judging, outcomes, ablation
+make rag-table      # offline: regenerate committed summaries and this table
+make rag-calibrate  # import human scores and regenerate calibrated results
+~~~
 
-Judge calibration: 30 human scores; exact agreement 10.0%; Cohen's κ = 0.031. Judge means are published alongside agreement; low agreement makes them provisional.
+The committed comparison below is the published `rag-eval` summary. Judge
+scores are provisional and hardware cost is not measured.
 
 | Variant | Evidence Recall@5 | nDCG@10 | Unsupported claims per proposal | Judge score | GigSim reply rate | p95 latency (s) | Cost per proposal (USD) |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -113,54 +142,36 @@ Judge calibration: 30 human scores; exact agreement 10.0%; Cohen's κ = 0.031. J
 | v3 | 0.944 | 0.914 | 0.000 | 3.571 | 0.000 | 125.371 | not measured |
 | v8 | 0.815 | 0.787 | 0.000 | 3.714 | 0.000 | 245.830 | not measured |
 
-### Claim verification and outcome denominators
+The full report and machine-readable results are committed in
+[evals/results/](evals/results/README.md):
 
-| Variant | Assessed drafts | Unsupported before | Unsupported after | Supported retention | Failures | Submitted | Replies |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| v0 | 13 | 0/4 (0.000) | 0/4 (0.000) | 0.500 | 11 | 13 | 0 |
-| v1 | 8 | 0/0 (not measured) | 0/0 (not measured) | not measured | 12 | 7 | 0 |
-| v2 | 7 | 0/3 (0.000) | 0/2 (0.000) | 1.000 | 11 | 8 | 0 |
-| v3 | 10 | 0/3 (0.000) | 0/1 (0.000) | 0.500 | 11 | 7 | 0 |
-| v8 | 8 | 0/6 (0.000) | 0/2 (0.000) | 0.333 | 13 | 7 | 0 |
+- [Full RAG report](evals/results/rag_comparison.md)
+- [CSV comparison](evals/results/rag_comparison.csv)
+- [JSON summary](evals/results/rag_comparison.json)
 
-Unsupported rates use independently assessed atomic experience claims; partly supported claims and incomplete assessments are recorded in JSON. An empty denominator is undefined. A zero unsupported count with few assessed claims does not establish zero hallucination risk. Supported retention uses exact claim text and may be affected by segmentation.
-
-Reply rate = replied/interview/hired outcomes divided by submitted proposals with completed outcomes. Empty drafts and failed submissions are excluded from that denominator; JSON also records reply yield per attempted job, empty drafts, and outcome failures. GigSim runs in fresh in-memory fixtures through real MCP tools, with the same job/client/random seed for each variant and skill mentions derived from the cleaned text. It checks skill mentions, generic openings and randomness, not semantic proposal quality.
-
-### Failure and reply-gate breakdown
-
-| Variant | Embedding failures | Decomposition failures | Other model failures | Verifier errors | Assessment failures | Skill rejects | Eligible no-reply |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| v0 | 11 | 0 | 0 | 5 | 6 | 13 | 0 |
-| v1 | 0 | 12 | 0 | 7 | 10 | 7 | 0 |
-| v2 | 11 | 0 | 0 | 8 | 12 | 8 | 0 |
-| v3 | 11 | 0 | 0 | 11 | 9 | 7 | 0 |
-| v8 | 11 | 0 | 2 | 8 | 9 | 7 | 0 |
-
-Verifier/assessment errors may overlap a completed draft and are not added to job failures. Historical reply gates are reconstructed from the saved job/client/draft; this does not change the recorded outcome.
-
-### Component ablation
-
-Full V3 = dense + BM25 + reranking. Positive full-minus-ablated deltas favor the retained component. This retrieval-only component test runs within rag-eval; it does not generate extra proposals.
-
-| Component removed | Paired nDCG@10 delta | 95% bootstrap interval |
-| --- | --- | --- |
-| without_reranker | 0.0449 | [0.00509537794236128, 0.09167322659866547] |
-| without_bm25 | 0.0098 | [0.0, 0.02934090250806566] |
-
-Per-persona/category results, MRR, p50, tokens, partial support, hire rate and failures are in the JSON. The production agent graph and blind pairwise classmate panel remain future work. No shipped variant has been selected.
-
-Sources:
-
-- [rag_retrieval.json](evals/results/rag_retrieval.json)
-- [rag_retrieval_observations.jsonl](evals/results/rag_retrieval_observations.jsonl)
-- [rag_workflow.json](evals/results/rag_workflow.json)
-- [rag_workflow_observations.jsonl](evals/results/rag_workflow_observations.jsonl)
-- [rag_jobs.json](evals/results/rag_jobs.json)
-- [rag_judge_calibration.json](evals/results/rag_judge_calibration.json)
-- [rag_human_review.csv](evals/results/rag_human_review.csv)
-- [rag_ablation.json](evals/results/rag_ablation.json)
-- [rag_import.json](evals/results/rag_import.json)
-
-The completed [V2–V3 R&D hypothesis study](evals/results/rag_rd_b.md) remains separate and is not rerun by rag-eval.
+Raw timestamped runs are generated locally by `rag-eval`; they are not required
+to understand or reproduce the published summary. See the results README for
+artifact provenance and resume instructions.
 <!-- B3_B5_END -->
+
+## Safety and operating rules
+
+- Human approval is required before sending proposals or messages.
+- Claims in proposals must be grounded in portfolio evidence.
+- Job posts, client messages, and other marketplace text are untrusted input.
+- Marketplace access goes through MCP services; the project does not scrape.
+- Secrets, local databases, generated corpora, and model caches stay out of Git.
+- Policy and prompt behavior live in `data/policy_pack/`, `agent/config.yaml`,
+  and `agent/prompts/` rather than being hidden in application code.
+
+## Documentation
+
+- [Getting started](docs/GETTING_STARTED.md)
+- [Runbook](docs/RUNBOOK.md)
+- [Architecture](docs/ARCHITECTURE.md)
+- [Orchestration and approvals](docs/ORCHESTRATION.md)
+- [MCP tool inventory](docs/TOOLS.md)
+- [RAG experiment protocol](docs/RAG_EXPERIMENT.md)
+- [GigSim](gigsim/README.md)
+- [Data card](docs/DATA_CARD.md)
+- [AI usage disclosure](docs/AI_USAGE.md)

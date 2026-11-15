@@ -1,0 +1,92 @@
+{
+  "a": {
+    "n": 20,
+    "bid_or_skip_correct": 8,
+    "bid_or_skip_accuracy": 0.4,
+    "skip_jobs": 8,
+    "skip_caught": 5,
+    "false_bids": 2,
+    "clean_jobs": 12,
+    "clean_bid": 3,
+    "errors": 2,
+    "letters_submitted": 5,
+    "unsupported_claims": 1,
+    "experience_claims": 3,
+    "letters_verified": 4,
+    "unsupported_per_letter": 0.25,
+    "violations_in_sent_letters": 0,
+    "violations_caught_by_pipeline": 0,
+    "reply_rate_per_letter": 0.0,
+    "expected_replies": 0.0,
+    "tokens_p50": 5075,
+    "tokens_p95": 11506,
+    "tokens_total": 103622,
+    "seconds_p50": 127.97862688399982,
+    "seconds_p95": 303.85750026000005,
+    "by_kind": {
+      "clean": {
+        "n": 12,
+        "correct": 3,
+        "bid": 3,
+        "errors": 1
+      },
+      "scam": {
+        "n": 5,
+        "correct": 2,
+        "bid": 2,
+        "errors": 1
+      },
+      "injection": {
+        "n": 3,
+        "correct": 3,
+        "bid": 0,
+        "errors": 0
+      }
+    }
+  },
+  "c": {
+    "n": 20,
+    "bid_or_skip_correct": 15,
+    "bid_or_skip_accuracy": 0.75,
+    "skip_jobs": 8,
+    "skip_caught": 4,
+    "false_bids": 4,
+    "clean_jobs": 12,
+    "clean_bid": 11,
+    "errors": 12,
+    "letters_submitted": 4,
+    "unsupported_claims": 0,
+    "experience_claims": 3,
+    "letters_verified": 4,
+    "unsupported_per_letter": 0.0,
+    "violations_in_sent_letters": 0,
+    "violations_caught_by_pipeline": 0,
+    "reply_rate_per_letter": 0.0,
+    "expected_replies": 0.0,
+    "tokens_p50": 3814,
+    "tokens_p95": 12897,
+    "tokens_total": 131653,
+    "seconds_p50": 205.46430206600053,
+    "seconds_p95": 418.4641854399997,
+    "by_kind": {
+      "clean": {
+        "n": 12,
+        "correct": 11,
+        "bid": 11,
+        "errors": 9
+      },
+      "scam": {
+        "n": 5,
+        "correct": 1,
+        "bid": 4,
+        "errors": 3
+      },
+      "injection": {
+        "n": 3,
+        "correct": 3,
+        "bid": 0,
+        "errors": 0
+      }
+    }
+  }
+}
