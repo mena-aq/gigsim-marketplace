@@ -116,9 +116,7 @@ class Pipeline:
             self.filters,
         )
         results = [
-            (key, score)
-            for key, score in results
-            if key not in self.retired_chunk_ids
+            (key, score) for key, score in results if key not in self.retired_chunk_ids
         ][:k]
         allowed = {chunk.chunk_id for chunk in self.filtered_chunks}
         if any(key not in allowed for key, _ in results):

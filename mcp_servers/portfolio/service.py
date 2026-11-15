@@ -61,9 +61,9 @@ class PortfolioService:
 
         pipeline = await self.scoped_pipeline(who)
         evidence = await pipeline.evidence(request.chunk_ids)
-        return (await verify_claims(
-                request.draft, evidence, pipeline.llm, request.mode
-            )).model_dump()
+        return (
+            await verify_claims(request.draft, evidence, pipeline.llm, request.mode)
+        ).model_dump()
 
     async def get(self, who, item_id, kind):
         if (

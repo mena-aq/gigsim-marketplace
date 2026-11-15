@@ -141,7 +141,9 @@ def validate_claims(
             or claim.text not in text
             or any(key not in aliases for key in claim.evidence_ids)
         ):
-            raise RagFailure("model_response_invalid", "Verifier invented a claim or citation")
+            raise RagFailure(
+                "model_response_invalid", "Verifier invented a claim or citation"
+            )
         location = text.find(claim.text)
         covered[location : location + len(claim.text)] = [True] * len(claim.text)
         if mode == "reply" and claim.kind != "experience":
@@ -160,8 +162,14 @@ def validate_claims(
             or not plain_nonexperience(claim.text, claim.kind)
         ):
             claim.status = "unsupported"
-            claim.reason = "Nonexperience classification is inconsistent or needs evidence review"
-        if claim.kind == "experience" and claim.status != "unsupported" and not claim.evidence_ids:
+            claim.reason = (
+                "Nonexperience classification is inconsistent or needs evidence review"
+            )
+        if (
+            claim.kind == "experience"
+            and claim.status != "unsupported"
+            and not claim.evidence_ids
+        ):
             raise RagFailure(
                 "model_response_invalid", "A supported experience claim needs evidence"
             )
@@ -180,7 +188,11 @@ def validate_claims(
 
 def sentence_schema(index: int, evidence_count: int, exact_text: str | None = None):
     """Constrain decoder output to one source index and available citation IDs."""
-    citation = Literal[tuple(f"E{i + 1}" for i in range(evidence_count))] if evidence_count else str
+    citation = (
+        Literal[tuple(f"E{i + 1}" for i in range(evidence_count))]
+        if evidence_count
+        else str
+    )
     constraints = {"text": (Literal[exact_text], ...)} if exact_text is not None else {}
     claim = create_model(
         "GroundedClaim",
@@ -215,7 +227,9 @@ async def verify_claims(
     failures = []
     coverage_retries = []
     before = len(llm.usage)
-    excerpts = [{"id": f"E{i + 1}", "text": chunk.text} for i, chunk in enumerate(evidence)]
+    excerpts = [
+        {"id": f"E{i + 1}", "text": chunk.text} for i, chunk in enumerate(evidence)
+    ]
     for index, (start, end) in enumerate(sentence_spans(draft)):
         text = draft[start:end]
         if mode == "reply" and PLACEHOLDER.search(text):
@@ -259,7 +273,11 @@ async def verify_claims(
             )
             continue
         plain_kind = next(
-            (kind for kind in ("intent", "nonfactual") if plain_nonexperience(text, kind)),
+            (
+                kind
+                for kind in ("intent", "nonfactual")
+                if plain_nonexperience(text, kind)
+            ),
             None,
         )
         if plain_kind:
@@ -288,7 +306,9 @@ async def verify_claims(
                         "Verifier omitted or repeated a sentence",
                     )
                 try:
-                    claims = validate_claims(text, response.sentences[0].claims, evidence, mode)
+                    claims = validate_claims(
+                        text, response.sentences[0].claims, evidence, mode
+                    )
                 except RagFailure as exc:
                     if not evidence or exc.message != "Verifier left text unchecked":
                         raise
@@ -303,7 +323,9 @@ async def verify_claims(
                         },
                         sentence_schema(index, len(evidence), exact_text=text),
                     )
-                    claims = validate_claims(text, response.sentences[0].claims, evidence, mode)
+                    claims = validate_claims(
+                        text, response.sentences[0].claims, evidence, mode
+                    )
             except (RagFailure, ValidationError) as exc:
                 if isinstance(exc, ValidationError):
                     exc = RagFailure(

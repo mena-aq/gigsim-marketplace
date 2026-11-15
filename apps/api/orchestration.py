@@ -184,7 +184,9 @@ async def conversations(request: Request, user=Depends(authenticated)) -> list[d
         rows = (
             await session.scalars(
                 select(GraphRun)
-                .where(GraphRun.user_id == user.subject, GraphRun.kind == "conversation")
+                .where(
+                    GraphRun.user_id == user.subject, GraphRun.kind == "conversation"
+                )
                 .order_by(GraphRun.created_at)
             )
         ).all()
@@ -194,7 +196,10 @@ async def conversations(request: Request, user=Depends(authenticated)) -> list[d
             **item.model_dump(mode="json"),
             "job_title": name,
             "run": (
-                {"id": latest[item.conversation_id].id, "status": latest[item.conversation_id].status}
+                {
+                    "id": latest[item.conversation_id].id,
+                    "status": latest[item.conversation_id].status,
+                }
                 if item.conversation_id in latest
                 else None
             ),
@@ -719,12 +724,13 @@ async def retired_evidence(request: Request, user=Depends(authenticated)) -> lis
 
 
 @router.delete("/evidence/{item_id:path}", status_code=204)
-async def retire_evidence(
-    item_id: str, request: Request, user=Depends(authenticated)
-):
+async def retire_evidence(item_id: str, request: Request, user=Depends(authenticated)):
     """Remove an evidence item from retrieval and verification for this user."""
     item_id = checked_evidence_id(item_id, user)
-    async with async_sessionmaker(request.app.state.engine)() as session, session.begin():
+    async with (
+        async_sessionmaker(request.app.state.engine)() as session,
+        session.begin(),
+    ):
         exists = await session.scalar(
             select(RetiredEvidence.id).where(
                 RetiredEvidence.user_id == user.subject,
@@ -744,11 +750,12 @@ async def retire_evidence(
 
 
 @router.post("/evidence/restore/{item_id:path}", status_code=204)
-async def restore_evidence(
-    item_id: str, request: Request, user=Depends(authenticated)
-):
+async def restore_evidence(item_id: str, request: Request, user=Depends(authenticated)):
     item_id = checked_evidence_id(item_id, user)
-    async with async_sessionmaker(request.app.state.engine)() as session, session.begin():
+    async with (
+        async_sessionmaker(request.app.state.engine)() as session,
+        session.begin(),
+    ):
         row = await session.scalar(
             select(RetiredEvidence).where(
                 RetiredEvidence.user_id == user.subject,

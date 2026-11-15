@@ -22,7 +22,8 @@ async def verify(state: GigBidState, ctx: NodeContext) -> dict:
         for index, answer in enumerate(draft.get("screening_answers", []))
     ]:
         report = await ctx.tool(
-            "verifier", "verify_claims",
+            "verifier",
+            "verify_claims",
             {"request": {"draft": text, "chunk_ids": ids, "mode": mode}},
         )
         reports[key] = report
@@ -64,7 +65,10 @@ async def verify(state: GigBidState, ctx: NodeContext) -> dict:
     if (
         hollow
         or not draft["cover_letter"].strip()
-        or any(not answer["answer"].strip() for answer in draft.get("screening_answers", []))
+        or any(
+            not answer["answer"].strip()
+            for answer in draft.get("screening_answers", [])
+        )
     ):
         return {
             "draft": draft,

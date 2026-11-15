@@ -480,7 +480,9 @@ async def test_recent_style_edits_show_pending_then_promoted():
     report = await recent_style_edits(user=user, service=service)
     assert report["threshold"] == 3
     assert {e["removed_sentence"] for e in report["edits"]} == {"I am passionate."}
-    assert all(not e["promoted"] and e["seen_in_proposals"] == 2 for e in report["edits"])
+    assert all(
+        not e["promoted"] and e["seen_in_proposals"] == 2 for e in report["edits"]
+    )
 
     await promote_edits(store, {**state, "thread_id": "t2"})
     report = await recent_style_edits(user=user, service=service)
